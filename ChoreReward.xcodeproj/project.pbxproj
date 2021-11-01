@@ -14,13 +14,12 @@
 		45ACB4AC2724AD1A000E04A0 /* ChoreRewardApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45ACB4AB2724AD1A000E04A0 /* ChoreRewardApp.swift */; };
 		45ACB4AE2724AD1A000E04A0 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45ACB4AD2724AD1A000E04A0 /* ContentView.swift */; };
 		45ACB4B32724AD1D000E04A0 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 45ACB4B22724AD1D000E04A0 /* Preview Assets.xcassets */; };
-		45ACB4B52724AD1D000E04A0 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45ACB4B42724AD1D000E04A0 /* Persistence.swift */; };
-		45ACB4B82724AD1D000E04A0 /* ChoreReward.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 45ACB4B62724AD1D000E04A0 /* ChoreReward.xcdatamodeld */; };
 		45ACB4C22724AD1D000E04A0 /* ChoreRewardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45ACB4C12724AD1D000E04A0 /* ChoreRewardTests.swift */; };
 		45ACB4CC2724AD1D000E04A0 /* ChoreRewardUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45ACB4CB2724AD1D000E04A0 /* ChoreRewardUITests.swift */; };
 		45ACB4CE2724AD1D000E04A0 /* ChoreRewardUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45ACB4CD2724AD1D000E04A0 /* ChoreRewardUITestsLaunchTests.swift */; };
 		45ACB4DC2724AE00000E04A0 /* Chore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45ACB4DB2724AE00000E04A0 /* Chore.swift */; };
 		45ACB4DE2724AEBE000E04A0 /* Reward.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45ACB4DD2724AEBE000E04A0 /* Reward.swift */; };
+		45B6BB39272FC72100F89D74 /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B6BB38272FC72100F89D74 /* AppView.swift */; };
 		4EFF78C8BA0E8DB586580254 /* Pods_ChoreReward_ChoreRewardUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 87A3E51C149323A68834F770 /* Pods_ChoreReward_ChoreRewardUITests.framework */; };
 		52D8163BEC131FF341A9A23D /* Pods_ChoreRewardTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DD2A7EA8D6D5710484183F2 /* Pods_ChoreRewardTests.framework */; };
 		64A5D0F510F66A040E459071 /* Pods_ChoreReward.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E09A29C7CA82D16E51175ECE /* Pods_ChoreReward.framework */; };
@@ -56,8 +55,6 @@
 		45ACB4AB2724AD1A000E04A0 /* ChoreRewardApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoreRewardApp.swift; sourceTree = "<group>"; };
 		45ACB4AD2724AD1A000E04A0 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		45ACB4B22724AD1D000E04A0 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		45ACB4B42724AD1D000E04A0 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
-		45ACB4B72724AD1D000E04A0 /* ChoreReward.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ChoreReward.xcdatamodel; sourceTree = "<group>"; };
 		45ACB4BD2724AD1D000E04A0 /* ChoreRewardTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ChoreRewardTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		45ACB4C12724AD1D000E04A0 /* ChoreRewardTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoreRewardTests.swift; sourceTree = "<group>"; };
 		45ACB4C72724AD1D000E04A0 /* ChoreRewardUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ChoreRewardUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -65,6 +62,7 @@
 		45ACB4CD2724AD1D000E04A0 /* ChoreRewardUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoreRewardUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		45ACB4DB2724AE00000E04A0 /* Chore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chore.swift; sourceTree = "<group>"; };
 		45ACB4DD2724AEBE000E04A0 /* Reward.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reward.swift; sourceTree = "<group>"; };
+		45B6BB38272FC72100F89D74 /* AppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
 		7F7AAF3B20D03D75EF142E08 /* Pods-ChoreReward-ChoreRewardUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChoreReward-ChoreRewardUITests.release.xcconfig"; path = "Target Support Files/Pods-ChoreReward-ChoreRewardUITests/Pods-ChoreReward-ChoreRewardUITests.release.xcconfig"; sourceTree = "<group>"; };
 		87A3E51C149323A68834F770 /* Pods_ChoreReward_ChoreRewardUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ChoreReward_ChoreRewardUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A03A7BABE1CE9D676021617F /* Pods-ChoreRewardTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChoreRewardTests.debug.xcconfig"; path = "Target Support Files/Pods-ChoreRewardTests/Pods-ChoreRewardTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -110,7 +108,6 @@
 				A03A7BABE1CE9D676021617F /* Pods-ChoreRewardTests.debug.xcconfig */,
 				0EBA70687B84DC6DDE8CF9E0 /* Pods-ChoreRewardTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -126,6 +123,7 @@
 			isa = PBXGroup;
 			children = (
 				45395C57272A258600F50B70 /* ChoreCard.swift */,
+				45B6BB38272FC72100F89D74 /* AppView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -169,8 +167,6 @@
 				45ACB4DA2724ADC9000E04A0 /* Model */,
 				45ACB4AB2724AD1A000E04A0 /* ChoreRewardApp.swift */,
 				45ACB4AD2724AD1A000E04A0 /* ContentView.swift */,
-				45ACB4B42724AD1D000E04A0 /* Persistence.swift */,
-				45ACB4B62724AD1D000E04A0 /* ChoreReward.xcdatamodeld */,
 				45ACB4B12724AD1D000E04A0 /* Preview Content */,
 				45395C5C272B2A6B00F50B70 /* Assets.xcassets */,
 			);
@@ -460,12 +456,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				45ACB4B52724AD1D000E04A0 /* Persistence.swift in Sources */,
 				45ACB4AE2724AD1A000E04A0 /* ContentView.swift in Sources */,
 				45395C5B272B20F600F50B70 /* Dependency.swift in Sources */,
 				45ACB4DC2724AE00000E04A0 /* Chore.swift in Sources */,
+				45B6BB39272FC72100F89D74 /* AppView.swift in Sources */,
 				45395C58272A258600F50B70 /* ChoreCard.swift in Sources */,
-				45ACB4B82724AD1D000E04A0 /* ChoreReward.xcdatamodeld in Sources */,
 				45ACB4DE2724AEBE000E04A0 /* Reward.swift in Sources */,
 				45ACB4AC2724AD1A000E04A0 /* ChoreRewardApp.swift in Sources */,
 			);
@@ -822,19 +817,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		45ACB4B62724AD1D000E04A0 /* ChoreReward.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				45ACB4B72724AD1D000E04A0 /* ChoreReward.xcdatamodel */,
-			);
-			currentVersion = 45ACB4B72724AD1D000E04A0 /* ChoreReward.xcdatamodel */;
-			path = ChoreReward.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = 45ACB4A02724AD1A000E04A0 /* Project object */;
 }
