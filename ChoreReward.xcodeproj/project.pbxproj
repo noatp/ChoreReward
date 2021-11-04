@@ -20,6 +20,10 @@
 		45ACB4DC2724AE00000E04A0 /* Chore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45ACB4DB2724AE00000E04A0 /* Chore.swift */; };
 		45ACB4DE2724AEBE000E04A0 /* Reward.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45ACB4DD2724AEBE000E04A0 /* Reward.swift */; };
 		45B6BB39272FC72100F89D74 /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B6BB38272FC72100F89D74 /* AppView.swift */; };
+		45D7AE872733572700A53812 /* NewChoreFormView.swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D7AE862733572700A53812 /* NewChoreFormView.swift.swift */; };
+		45D7AE8C27346E9900A53812 /* TextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D7AE8B27346E9900A53812 /* TextFieldView.swift */; };
+		45D7AE8F273476AF00A53812 /* TextFieldViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D7AE8E273476AF00A53812 /* TextFieldViewModel.swift */; };
+		45D7AE91273479C000A53812 /* NewChoreFormViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D7AE90273479C000A53812 /* NewChoreFormViewModel.swift */; };
 		4EFF78C8BA0E8DB586580254 /* Pods_ChoreReward_ChoreRewardUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 87A3E51C149323A68834F770 /* Pods_ChoreReward_ChoreRewardUITests.framework */; };
 		52D8163BEC131FF341A9A23D /* Pods_ChoreRewardTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DD2A7EA8D6D5710484183F2 /* Pods_ChoreRewardTests.framework */; };
 		64A5D0F510F66A040E459071 /* Pods_ChoreReward.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E09A29C7CA82D16E51175ECE /* Pods_ChoreReward.framework */; };
@@ -63,6 +67,10 @@
 		45ACB4DB2724AE00000E04A0 /* Chore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chore.swift; sourceTree = "<group>"; };
 		45ACB4DD2724AEBE000E04A0 /* Reward.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reward.swift; sourceTree = "<group>"; };
 		45B6BB38272FC72100F89D74 /* AppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
+		45D7AE862733572700A53812 /* NewChoreFormView.swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewChoreFormView.swift.swift; sourceTree = "<group>"; };
+		45D7AE8B27346E9900A53812 /* TextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldView.swift; sourceTree = "<group>"; };
+		45D7AE8E273476AF00A53812 /* TextFieldViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldViewModel.swift; sourceTree = "<group>"; };
+		45D7AE90273479C000A53812 /* NewChoreFormViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewChoreFormViewModel.swift; sourceTree = "<group>"; };
 		7F7AAF3B20D03D75EF142E08 /* Pods-ChoreReward-ChoreRewardUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChoreReward-ChoreRewardUITests.release.xcconfig"; path = "Target Support Files/Pods-ChoreReward-ChoreRewardUITests/Pods-ChoreReward-ChoreRewardUITests.release.xcconfig"; sourceTree = "<group>"; };
 		87A3E51C149323A68834F770 /* Pods_ChoreReward_ChoreRewardUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ChoreReward_ChoreRewardUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A03A7BABE1CE9D676021617F /* Pods-ChoreRewardTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChoreRewardTests.debug.xcconfig"; path = "Target Support Files/Pods-ChoreRewardTests/Pods-ChoreRewardTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -122,6 +130,8 @@
 		45395C54272A253E00F50B70 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				45D7AE8A27346E7600A53812 /* ComponentViews */,
+				45D7AE8827346E5100A53812 /* NewChoreFormView */,
 				45395C57272A258600F50B70 /* ChoreCard.swift */,
 				45B6BB38272FC72100F89D74 /* AppView.swift */,
 			);
@@ -205,6 +215,32 @@
 				45ACB4DD2724AEBE000E04A0 /* Reward.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		45D7AE8827346E5100A53812 /* NewChoreFormView */ = {
+			isa = PBXGroup;
+			children = (
+				45D7AE862733572700A53812 /* NewChoreFormView.swift.swift */,
+				45D7AE90273479C000A53812 /* NewChoreFormViewModel.swift */,
+			);
+			path = NewChoreFormView;
+			sourceTree = "<group>";
+		};
+		45D7AE8A27346E7600A53812 /* ComponentViews */ = {
+			isa = PBXGroup;
+			children = (
+				45D7AE8D2734769100A53812 /* TextFieldView */,
+			);
+			path = ComponentViews;
+			sourceTree = "<group>";
+		};
+		45D7AE8D2734769100A53812 /* TextFieldView */ = {
+			isa = PBXGroup;
+			children = (
+				45D7AE8B27346E9900A53812 /* TextFieldView.swift */,
+				45D7AE8E273476AF00A53812 /* TextFieldViewModel.swift */,
+			);
+			path = TextFieldView;
 			sourceTree = "<group>";
 		};
 		F99724511296E5E0E1A70E07 /* Frameworks */ = {
@@ -456,13 +492,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				45D7AE8F273476AF00A53812 /* TextFieldViewModel.swift in Sources */,
 				45ACB4AE2724AD1A000E04A0 /* ContentView.swift in Sources */,
 				45395C5B272B20F600F50B70 /* Dependency.swift in Sources */,
 				45ACB4DC2724AE00000E04A0 /* Chore.swift in Sources */,
 				45B6BB39272FC72100F89D74 /* AppView.swift in Sources */,
+				45D7AE872733572700A53812 /* NewChoreFormView.swift.swift in Sources */,
 				45395C58272A258600F50B70 /* ChoreCard.swift in Sources */,
 				45ACB4DE2724AEBE000E04A0 /* Reward.swift in Sources */,
 				45ACB4AC2724AD1A000E04A0 /* ChoreRewardApp.swift in Sources */,
+				45D7AE8C27346E9900A53812 /* TextFieldView.swift in Sources */,
+				45D7AE91273479C000A53812 /* NewChoreFormViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
