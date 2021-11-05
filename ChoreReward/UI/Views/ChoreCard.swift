@@ -15,6 +15,7 @@ struct ChoreCard: View {
     }
     
     var body: some View {
+        
         VStack(alignment: .leading){
             Image(chore.finished ? chore.choreAfter : chore.choreBefore)
                 .resizable()
@@ -23,15 +24,34 @@ struct ChoreCard: View {
                 .clipped()
             Text(chore.title)
                 .font(.title)
-            Text(chore.finished ?
-                 "Finished by \(chore.whoTookThis)"
-                 : "\(chore.whoCanTakeThis) can take this task")
-                .font(.body)
+            
+            whoIsOnTheTask
+            
             Text("Reward: \(chore.reward.amount) \(chore.reward.unit)")
                 .font(.body)
         }
         .padding()
     }
+    
+    var whoIsOnTheTask: some View{
+        var whoCanTakeThisTaskString = ""
+        if (chore.finished){
+            return Text(chore.whoTookThis!.nickname + " finished this chore")
+        }
+        else{
+            for (index, person) in chore.whoCanTakeThis.enumerated(){
+                if (index == chore.whoCanTakeThis.count - 1){
+                    whoCanTakeThisTaskString = whoCanTakeThisTaskString + person.nickname + " can take this chore"
+                }
+                else{
+                    whoCanTakeThisTaskString = whoCanTakeThisTaskString + person.nickname + ", "
+                }
+            }
+            return Text(whoCanTakeThisTaskString)
+        }
+    }
+    
+    
 }
 
 struct ChoreCard_Previews: PreviewProvider {

@@ -14,8 +14,8 @@ struct Chore: Identifiable{
     var finished: Bool
     var choreBefore: String
     var choreAfter: String
-    var whoCanTakeThis: String
-    var whoTookThis: String
+    var whoCanTakeThis: [Person]
+    var whoTookThis: Person?
     var reward: Reward
     
     static let previewUnfinished = Chore(
@@ -24,8 +24,8 @@ struct Chore: Identifiable{
         finished: false,
         choreBefore: "unfinishedDishes",
         choreAfter: "finishedDishes",
-        whoCanTakeThis: "Timothy, Benjamin",
-        whoTookThis: "",
+        whoCanTakeThis: [Person.previewBen, Person.previewTim],
+        whoTookThis: nil,
         reward: Reward(unit: "Dollar", amount: 100))
     
     static let previewFinished = Chore(
@@ -34,8 +34,8 @@ struct Chore: Identifiable{
         finished: true,
         choreBefore: "unfinishedDishes",
         choreAfter: "finishedDishes",
-        whoCanTakeThis: "Timothy, Benjamin",
-        whoTookThis: "Timothy",
+        whoCanTakeThis: [Person.previewBen, Person.previewTim],
+        whoTookThis: Person.previewTim,
         reward: Reward(unit: "Dollar", amount: 100))
 }
 
