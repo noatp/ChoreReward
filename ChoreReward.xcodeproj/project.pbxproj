@@ -24,8 +24,11 @@
 		45D7AE8C27346E9900A53812 /* TextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D7AE8B27346E9900A53812 /* TextFieldView.swift */; };
 		45D7AE8F273476AF00A53812 /* TextFieldViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D7AE8E273476AF00A53812 /* TextFieldViewModel.swift */; };
 		45D7AE91273479C000A53812 /* NewChoreFormViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D7AE90273479C000A53812 /* NewChoreFormViewModel.swift */; };
-		45D7AE9327347D2900A53812 /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D7AE9227347D2900A53812 /* Person.swift */; };
+		45D7AE9327347D2900A53812 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D7AE9227347D2900A53812 /* User.swift */; };
 		45D7AE952735B4A100A53812 /* Family.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D7AE942735B4A100A53812 /* Family.swift */; };
+		45D7AE992735BBCF00A53812 /* MockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D7AE982735BBCF00A53812 /* MockData.swift */; };
+		45D7AE9C2735FE4200A53812 /* PickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D7AE9B2735FE4200A53812 /* PickerView.swift */; };
+		45D7AE9E2735FE6C00A53812 /* PickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D7AE9D2735FE6C00A53812 /* PickerViewModel.swift */; };
 		4EFF78C8BA0E8DB586580254 /* Pods_ChoreReward_ChoreRewardUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 87A3E51C149323A68834F770 /* Pods_ChoreReward_ChoreRewardUITests.framework */; };
 		52D8163BEC131FF341A9A23D /* Pods_ChoreRewardTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DD2A7EA8D6D5710484183F2 /* Pods_ChoreRewardTests.framework */; };
 		64A5D0F510F66A040E459071 /* Pods_ChoreReward.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E09A29C7CA82D16E51175ECE /* Pods_ChoreReward.framework */; };
@@ -73,8 +76,11 @@
 		45D7AE8B27346E9900A53812 /* TextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldView.swift; sourceTree = "<group>"; };
 		45D7AE8E273476AF00A53812 /* TextFieldViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldViewModel.swift; sourceTree = "<group>"; };
 		45D7AE90273479C000A53812 /* NewChoreFormViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewChoreFormViewModel.swift; sourceTree = "<group>"; };
-		45D7AE9227347D2900A53812 /* Person.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
+		45D7AE9227347D2900A53812 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		45D7AE942735B4A100A53812 /* Family.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Family.swift; sourceTree = "<group>"; };
+		45D7AE982735BBCF00A53812 /* MockData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockData.swift; sourceTree = "<group>"; };
+		45D7AE9B2735FE4200A53812 /* PickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerView.swift; sourceTree = "<group>"; };
+		45D7AE9D2735FE6C00A53812 /* PickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerViewModel.swift; sourceTree = "<group>"; };
 		7F7AAF3B20D03D75EF142E08 /* Pods-ChoreReward-ChoreRewardUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChoreReward-ChoreRewardUITests.release.xcconfig"; path = "Target Support Files/Pods-ChoreReward-ChoreRewardUITests/Pods-ChoreReward-ChoreRewardUITests.release.xcconfig"; sourceTree = "<group>"; };
 		87A3E51C149323A68834F770 /* Pods_ChoreReward_ChoreRewardUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ChoreReward_ChoreRewardUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A03A7BABE1CE9D676021617F /* Pods-ChoreRewardTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChoreRewardTests.debug.xcconfig"; path = "Target Support Files/Pods-ChoreRewardTests/Pods-ChoreRewardTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -175,6 +181,7 @@
 		45ACB4AA2724AD1A000E04A0 /* ChoreReward */ = {
 			isa = PBXGroup;
 			children = (
+				45D7AE962735BBB100A53812 /* Data */,
 				45395C5E272B2E2700F50B70 /* GoogleService-Info.plist */,
 				45395C59272B20E900F50B70 /* Dependency */,
 				45395C53272A252900F50B70 /* UI */,
@@ -217,7 +224,7 @@
 			children = (
 				45ACB4DB2724AE00000E04A0 /* Chore.swift */,
 				45ACB4DD2724AEBE000E04A0 /* Reward.swift */,
-				45D7AE9227347D2900A53812 /* Person.swift */,
+				45D7AE9227347D2900A53812 /* User.swift */,
 				45D7AE942735B4A100A53812 /* Family.swift */,
 			);
 			path = Model;
@@ -235,6 +242,7 @@
 		45D7AE8A27346E7600A53812 /* ComponentViews */ = {
 			isa = PBXGroup;
 			children = (
+				45D7AE9A2735E77700A53812 /* PickerView */,
 				45D7AE8D2734769100A53812 /* TextFieldView */,
 			);
 			path = ComponentViews;
@@ -247,6 +255,31 @@
 				45D7AE8E273476AF00A53812 /* TextFieldViewModel.swift */,
 			);
 			path = TextFieldView;
+			sourceTree = "<group>";
+		};
+		45D7AE962735BBB100A53812 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				45D7AE972735BBBD00A53812 /* MockData */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		45D7AE972735BBBD00A53812 /* MockData */ = {
+			isa = PBXGroup;
+			children = (
+				45D7AE982735BBCF00A53812 /* MockData.swift */,
+			);
+			path = MockData;
+			sourceTree = "<group>";
+		};
+		45D7AE9A2735E77700A53812 /* PickerView */ = {
+			isa = PBXGroup;
+			children = (
+				45D7AE9B2735FE4200A53812 /* PickerView.swift */,
+				45D7AE9D2735FE6C00A53812 /* PickerViewModel.swift */,
+			);
+			path = PickerView;
 			sourceTree = "<group>";
 		};
 		F99724511296E5E0E1A70E07 /* Frameworks */ = {
@@ -503,9 +536,12 @@
 				45395C5B272B20F600F50B70 /* Dependency.swift in Sources */,
 				45ACB4DC2724AE00000E04A0 /* Chore.swift in Sources */,
 				45B6BB39272FC72100F89D74 /* AppView.swift in Sources */,
+				45D7AE992735BBCF00A53812 /* MockData.swift in Sources */,
 				45D7AE872733572700A53812 /* NewChoreFormView.swift.swift in Sources */,
-				45D7AE9327347D2900A53812 /* Person.swift in Sources */,
+				45D7AE9327347D2900A53812 /* User.swift in Sources */,
+				45D7AE9C2735FE4200A53812 /* PickerView.swift in Sources */,
 				45395C58272A258600F50B70 /* ChoreCard.swift in Sources */,
+				45D7AE9E2735FE6C00A53812 /* PickerViewModel.swift in Sources */,
 				45ACB4DE2724AEBE000E04A0 /* Reward.swift in Sources */,
 				45D7AE952735B4A100A53812 /* Family.swift in Sources */,
 				45ACB4AC2724AD1A000E04A0 /* ChoreRewardApp.swift in Sources */,

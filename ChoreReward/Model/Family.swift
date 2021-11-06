@@ -9,17 +9,19 @@ import Foundation
 
 struct Family: Identifiable{
     var id: String
-    var member: [Person]
-    var admin: [Person]
-    var parents: [Person]
-    var children: [Person]
+    var member: [User]
+    var admin: [User]
+    var parents: [User]
+    var children: [User]
+    var chores: [Chore]
     
     static let preview = Family(
         id: "tranfam",
-        member: [Person.previewDavid, Person.previewTim, Person.previewBen],
-        admin: [Person.previewDavid],
-        parents: [Person.previewDavid],
-        children: [Person.previewBen, Person.previewTim]
+        member: [User.previewDavid, User.previewTim, User.previewBen],
+        admin: [User.previewDavid],
+        parents: [User.previewDavid],
+        children: [User.previewBen, User.previewTim],
+        chores: [Chore.previewUnfinished, Chore.previewFinished]
     )
 }
 

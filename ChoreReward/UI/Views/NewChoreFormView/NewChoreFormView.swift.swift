@@ -14,25 +14,27 @@ struct NewChoreFormView: View {
         newChoreFormViewModel = NewChoreFormViewModel()
     }
     
+    @State private var selectedRewardUnit = rewardUnit.percentOfCurrentGoal
     
-    /*id: UUID().uuidString,
-     title: "Wash the dishes",
-     finished: false,
-     choreBefore: "unfinishedDishes",
-     choreAfter: "finishedDishes",
-     whoCanTakeThis: "Timothy, Benjamin",
-     whoTookThis: "",
-     reward: Reward(unit: "Dollar", amount: 100))*/
     var body: some View {
         Form {
             Section(header: Text("Chore Information")) {
                 TextFieldView(textFieldViewModel: self.newChoreFormViewModel.choreTitleTextVM)
-//                Picker("Notify Me About", selection: $notifyMeAbout) {
-//                    Text("Direct Messages").tag(0)
-//                    Text("Mentions").tag(1)
-//                    Text("Anything").tag(2)
-//                }
-//                Toggle("Send read receipts", isOn: $sendReadReceipts)
+                HStack{
+                    TextFieldView(textFieldViewModel: self.newChoreFormViewModel.choreRewardCountTextVM)
+                    Picker("Unit", selection: $selectedRewardUnit) {
+                        Text("percent of current goal").tag(rewardUnit.percentOfCurrentGoal)
+                        Text("dollar").tag(rewardUnit.dollar)
+                    }
+                    .pickerStyle(.menu)
+                }
+                
+                //                Picker("Notify Me About", selection: $notifyMeAbout) {
+                //                    Text("Direct Messages").tag(0)
+                //                    Text("Mentions").tag(1)
+                //                    Text("Anything").tag(2)
+                //                }
+                //                Toggle("Send read receipts", isOn: $sendReadReceipts)
             }
         }
     }

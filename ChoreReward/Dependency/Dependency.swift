@@ -8,24 +8,23 @@
 import Foundation
 import UIKit
 
-//class Dependency{
-//    
-//    static let shared = Dependency()
-//    static let preview = Dependency(recipeService: MockRecipeService(), database: MockDatabase())
-//    
+class Dependency{
+    
+    static let shared = Dependency()
+    static let preview = Dependency(mockData: MockData())
+    
 //    var recipeService: RecipeService
 //    var database: Database
-//    
-//    init(
-//        recipeService: RecipeService = RecipeService(),
-//        database: Database = Database()
-//    ){
-//        self.recipeService = recipeService
-//        self.database = database
-//    }
-//    
-//}
-//
+    var mockData: MockData
+    
+    init(
+        mockData: MockData = MockData()
+    ){
+        self.mockData = mockData
+    }
+    
+}
+
 //class MockRecipeService: RecipeService{
 //    init(
 //        isLoading: Bool = false,
@@ -42,7 +41,7 @@ import UIKit
 //}
 //
 //class MockDatabase: Database{
-//    
-//}
 //
+//}
+
 

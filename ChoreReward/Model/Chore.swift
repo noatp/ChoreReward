@@ -14,8 +14,8 @@ struct Chore: Identifiable{
     var finished: Bool
     var choreBefore: String
     var choreAfter: String
-    var whoCanTakeThis: [Person]
-    var whoTookThis: Person?
+    var whoCanTakeThis: [User]
+    var whoTookThis: User?
     var reward: Reward
     
     static let previewUnfinished = Chore(
@@ -24,9 +24,10 @@ struct Chore: Identifiable{
         finished: false,
         choreBefore: "unfinishedDishes",
         choreAfter: "finishedDishes",
-        whoCanTakeThis: [Person.previewBen, Person.previewTim],
+        whoCanTakeThis: [User.previewBen, User.previewTim],
         whoTookThis: nil,
-        reward: Reward(unit: "Dollar", amount: 100))
+        reward: Reward.previewReward
+        )
     
     static let previewFinished = Chore(
         id: UUID().uuidString,
@@ -34,9 +35,10 @@ struct Chore: Identifiable{
         finished: true,
         choreBefore: "unfinishedDishes",
         choreAfter: "finishedDishes",
-        whoCanTakeThis: [Person.previewBen, Person.previewTim],
-        whoTookThis: Person.previewTim,
-        reward: Reward(unit: "Dollar", amount: 100))
+        whoCanTakeThis: [User.previewBen, User.previewTim],
+        whoTookThis: User.previewTim,
+        reward: Reward.previewReward
+        )
 }
 
 

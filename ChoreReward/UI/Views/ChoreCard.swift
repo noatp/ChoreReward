@@ -27,8 +27,9 @@ struct ChoreCard: View {
             
             whoIsOnTheTask
             
-            Text("Reward: \(chore.reward.amount) \(chore.reward.unit)")
+            Text("Reward: \(chore.reward.amount)") + rewardUnitText
                 .font(.body)
+            
         }
         .padding()
     }
@@ -51,6 +52,14 @@ struct ChoreCard: View {
         }
     }
     
+    var rewardUnitText: Text{
+        switch(chore.reward.unit){
+            case rewardUnit.percentOfCurrentGoal:
+                return Text(" percent of current goal")
+            case rewardUnit.dollar:
+                return Text(" dollar")
+        }
+    }
     
 }
 
