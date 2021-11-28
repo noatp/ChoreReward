@@ -10,7 +10,7 @@ import CoreData
 
 struct ContentView: View {
     var body: some View {
-        AppView(dependency: Dependency.shared)
+        RootView(dependency: Dependency.shared)
     }
 }
 

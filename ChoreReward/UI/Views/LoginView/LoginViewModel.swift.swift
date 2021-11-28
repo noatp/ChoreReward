@@ -11,50 +11,46 @@ import SwiftUI
 import Combine
 
 class LoginViewModel: ObservableObject{
-    @Published var isSignedIn: Bool = false
+    @Published var errorMessage: String? = nil
+    
+    private var authService: AuthService
+    private var authSubscription: AnyCancellable?
     
     var emailInputRender = TextFieldViewModel(title: "Email", prompt: "Email")
     var passwordInputRender = TextFieldViewModel(title: "Password", prompt: "Password")
     
-    private var authenticationService: AuthService
-    private var authSubscription: AnyCancellable?
-    
-    init(authenticationService: AuthService) {
-        self.authenticationService = authenticationService
+    init(authService: AuthService) {
+        self.authService = authService
         addSubscription() 
     }
     
     func addSubscription(){
-        authSubscription = authenticationService.$authState
-            .sink(receiveValue: { [weak self] authState in
+        authSubscription = authService.$authState
+            .sink(receiveValue: { authState in
                 switch authState{
-                case .signedIn(_): self?.isSignedIn = true
-                case .signedOut(_) : self?.isSignedIn = false
+                case .signedIn(_): self.errorMessage = nil
+                case .signedOut(let error) : self.errorMessage = error?.localizedDescription
                 }
             })
     }
     
     func signIn(){
-        authenticationService.signIn(
+        authService.signIn(
             email: emailInputRender.textInput,
             password: passwordInputRender.textInput
         )
     }
     
     func signUp(){
-        authenticationService.signUp(
+        authService.signUp(
             email: emailInputRender.textInput,
             password: passwordInputRender.textInput
         )
-    }
-    
-    func signOut(){
-        authenticationService.signOut()
     }
 }
 
 extension Dependency{
     var loginViewModel: LoginViewModel{
-        return LoginViewModel(authenticationService: authenticationService)
+        return LoginViewModel(authService: authService)
     }
 }

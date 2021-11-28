@@ -35,6 +35,8 @@
 		45D7AE992735BBCF00A53812 /* MockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D7AE982735BBCF00A53812 /* MockData.swift */; };
 		45D7AE9C2735FE4200A53812 /* PickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D7AE9B2735FE4200A53812 /* PickerView.swift */; };
 		45D7AE9E2735FE6C00A53812 /* PickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D7AE9D2735FE6C00A53812 /* PickerViewModel.swift */; };
+		45E483CA275402F6009DA543 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E483C9275402F6009DA543 /* RootView.swift */; };
+		45E483CC27540305009DA543 /* RootViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E483CB27540305009DA543 /* RootViewModel.swift */; };
 		4EFF78C8BA0E8DB586580254 /* Pods_ChoreReward_ChoreRewardUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 87A3E51C149323A68834F770 /* Pods_ChoreReward_ChoreRewardUITests.framework */; };
 		52D8163BEC131FF341A9A23D /* Pods_ChoreRewardTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DD2A7EA8D6D5710484183F2 /* Pods_ChoreRewardTests.framework */; };
 		64A5D0F510F66A040E459071 /* Pods_ChoreReward.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E09A29C7CA82D16E51175ECE /* Pods_ChoreReward.framework */; };
@@ -93,6 +95,8 @@
 		45D7AE982735BBCF00A53812 /* MockData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockData.swift; sourceTree = "<group>"; };
 		45D7AE9B2735FE4200A53812 /* PickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerView.swift; sourceTree = "<group>"; };
 		45D7AE9D2735FE6C00A53812 /* PickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerViewModel.swift; sourceTree = "<group>"; };
+		45E483C9275402F6009DA543 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
+		45E483CB27540305009DA543 /* RootViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewModel.swift; sourceTree = "<group>"; };
 		7F7AAF3B20D03D75EF142E08 /* Pods-ChoreReward-ChoreRewardUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChoreReward-ChoreRewardUITests.release.xcconfig"; path = "Target Support Files/Pods-ChoreReward-ChoreRewardUITests/Pods-ChoreReward-ChoreRewardUITests.release.xcconfig"; sourceTree = "<group>"; };
 		87A3E51C149323A68834F770 /* Pods_ChoreReward_ChoreRewardUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ChoreReward_ChoreRewardUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A03A7BABE1CE9D676021617F /* Pods-ChoreRewardTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChoreRewardTests.debug.xcconfig"; path = "Target Support Files/Pods-ChoreRewardTests/Pods-ChoreRewardTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -187,6 +191,7 @@
 		45395C54272A253E00F50B70 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				45E483C8275402D9009DA543 /* RootView */,
 				4531476C2752FBE6000A85D7 /* AppView */,
 				453147642751C823000A85D7 /* LoginView */,
 				4531475F2751B27F000A85D7 /* ListChoreView */,
@@ -330,6 +335,15 @@
 				45D7AE9D2735FE6C00A53812 /* PickerViewModel.swift */,
 			);
 			path = PickerView;
+			sourceTree = "<group>";
+		};
+		45E483C8275402D9009DA543 /* RootView */ = {
+			isa = PBXGroup;
+			children = (
+				45E483C9275402F6009DA543 /* RootView.swift */,
+				45E483CB27540305009DA543 /* RootViewModel.swift */,
+			);
+			path = RootView;
 			sourceTree = "<group>";
 		};
 		F99724511296E5E0E1A70E07 /* Frameworks */ = {
@@ -582,6 +596,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				45D7AE8F273476AF00A53812 /* TextFieldViewModel.swift in Sources */,
+				45E483CA275402F6009DA543 /* RootView.swift in Sources */,
 				45ACB4AE2724AD1A000E04A0 /* ContentView.swift in Sources */,
 				45395C5B272B20F600F50B70 /* Dependency.swift in Sources */,
 				45ACB4DC2724AE00000E04A0 /* Chore.swift in Sources */,
@@ -602,6 +617,7 @@
 				453147662751C83E000A85D7 /* LoginView.swift in Sources */,
 				453147682751CC53000A85D7 /* LoginViewModel.swift.swift in Sources */,
 				45D7AE8C27346E9900A53812 /* TextFieldView.swift in Sources */,
+				45E483CC27540305009DA543 /* RootViewModel.swift in Sources */,
 				45D7AE91273479C000A53812 /* NewChoreFormViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

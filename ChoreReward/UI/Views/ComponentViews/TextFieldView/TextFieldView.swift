@@ -24,11 +24,14 @@ struct TextFieldView: View {
                 text: $textFieldViewModel.textInput,
                 prompt: Text(textFieldViewModel.prompt)
             )
+            .textInputAutocapitalization(TextInputAutocapitalization.never)
+
         } else {
             TextField(
                 textFieldViewModel.title,
                 text: $textFieldViewModel.textInput
             )
+            .autocapitalization(UITextAutocapitalizationType.none)
         }
     }
 }

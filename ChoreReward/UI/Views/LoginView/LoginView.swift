@@ -14,26 +14,14 @@ struct LoginView: View {
         self.loginViewModel = dependency.loginViewModel
     }
     
-    @State var email: String = ""
-    @State var password: String = ""
-    
     var body: some View {
         VStack{
-            if #available(iOS 15.0, *) {
-                TextFieldView(textFieldViewModel: loginViewModel.emailInputRender)
-                    .textInputAutocapitalization(TextInputAutocapitalization.never)
-            } else {
-                TextFieldView(textFieldViewModel: loginViewModel.emailInputRender)
-                    .autocapitalization(UITextAutocapitalizationType.none)
+            if (loginViewModel.errorMessage != nil){
+                Text(loginViewModel.errorMessage!)
             }
-
-            if #available(iOS 15.0, *) {
-                TextFieldView(textFieldViewModel: loginViewModel.passwordInputRender)
-                    .textInputAutocapitalization(TextInputAutocapitalization.never)
-            } else {
-                TextFieldView(textFieldViewModel: loginViewModel.passwordInputRender)
-                    .autocapitalization(UITextAutocapitalizationType.none)
-            }
+            
+            TextFieldView(textFieldViewModel: loginViewModel.emailInputRender)
+            TextFieldView(textFieldViewModel: loginViewModel.passwordInputRender)
             
             Button("Log in") {
                 loginViewModel.signIn()
@@ -42,13 +30,6 @@ struct LoginView: View {
             Button("Sign up") {
                 loginViewModel.signUp()
             }
-            
-            Button("Log out") {
-                loginViewModel.signOut()
-            }
-            
-            loginViewModel.isSignedIn ? Text("signed in") : Text("not signed in")
-            
         }
         .padding()
     }

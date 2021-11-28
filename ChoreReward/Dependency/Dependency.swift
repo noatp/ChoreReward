@@ -16,14 +16,14 @@ class Dependency{
 //    var recipeService: RecipeService
 //    var database: Database
     var mockData: MockData
-    var authenticationService: AuthService
+    var authService: AuthService
     
     init(
         mockData: MockData = MockData(),
-        authenticationService: AuthService = AuthService()
+        authService: AuthService = AuthService()
     ){
         self.mockData = mockData
-        self.authenticationService = authenticationService
+        self.authService = authService
     }
     
 }

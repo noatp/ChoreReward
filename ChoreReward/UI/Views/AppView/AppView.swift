@@ -15,8 +15,12 @@ struct AppView: View {
     }
     
     var body: some View {
-        NavigationView {
-            LoginView(dependency: Dependency.shared)
+        VStack{
+            Text("signed in with uid")
+            Text(appViewModel.getCurrentUserUUID())
+            Button("Sign out") {
+                appViewModel.signOut()
+            }
         }
     }
 }
