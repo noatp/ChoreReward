@@ -10,7 +10,7 @@ import CoreData
 
 struct ContentView: View {
     var body: some View {
-        NewChoreFormView()
+        AppView(dependency: Dependency.shared)
     }
 }
 

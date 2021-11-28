@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		453147612751B2A0000A85D7 /* ListChoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453147602751B2A0000A85D7 /* ListChoreView.swift */; };
+		453147632751B2AF000A85D7 /* ListChoreViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453147622751B2AF000A85D7 /* ListChoreViewModel.swift */; };
+		453147662751C83E000A85D7 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453147652751C83E000A85D7 /* LoginView.swift */; };
+		453147682751CC53000A85D7 /* LoginViewModel.swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453147672751CC53000A85D7 /* LoginViewModel.swift.swift */; };
+		4531476B2751FFBD000A85D7 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4531476A2751FFBD000A85D7 /* AuthService.swift */; };
+		4531476E2752FBFC000A85D7 /* AppViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4531476D2752FBFC000A85D7 /* AppViewModel.swift */; };
 		45395C58272A258600F50B70 /* ChoreCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45395C57272A258600F50B70 /* ChoreCard.swift */; };
 		45395C5B272B20F600F50B70 /* Dependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45395C5A272B20F600F50B70 /* Dependency.swift */; };
 		45395C5D272B2A6B00F50B70 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 45395C5C272B2A6B00F50B70 /* Assets.xcassets */; };
@@ -56,6 +62,12 @@
 		1F43C10D6F390305DE028827 /* Pods-ChoreReward-ChoreRewardUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChoreReward-ChoreRewardUITests.debug.xcconfig"; path = "Target Support Files/Pods-ChoreReward-ChoreRewardUITests/Pods-ChoreReward-ChoreRewardUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		2B928EFFEEF8228BBFD47E52 /* Pods-ChoreReward.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChoreReward.debug.xcconfig"; path = "Target Support Files/Pods-ChoreReward/Pods-ChoreReward.debug.xcconfig"; sourceTree = "<group>"; };
 		2DD2A7EA8D6D5710484183F2 /* Pods_ChoreRewardTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ChoreRewardTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		453147602751B2A0000A85D7 /* ListChoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListChoreView.swift; sourceTree = "<group>"; };
+		453147622751B2AF000A85D7 /* ListChoreViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListChoreViewModel.swift; sourceTree = "<group>"; };
+		453147652751C83E000A85D7 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		453147672751CC53000A85D7 /* LoginViewModel.swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift.swift; sourceTree = "<group>"; };
+		4531476A2751FFBD000A85D7 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
+		4531476D2752FBFC000A85D7 /* AppViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppViewModel.swift; sourceTree = "<group>"; };
 		45395C57272A258600F50B70 /* ChoreCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoreCard.swift; sourceTree = "<group>"; };
 		45395C5A272B20F600F50B70 /* Dependency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dependency.swift; sourceTree = "<group>"; };
 		45395C5C272B2A6B00F50B70 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -129,6 +141,41 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		4531475F2751B27F000A85D7 /* ListChoreView */ = {
+			isa = PBXGroup;
+			children = (
+				453147602751B2A0000A85D7 /* ListChoreView.swift */,
+				453147622751B2AF000A85D7 /* ListChoreViewModel.swift */,
+			);
+			path = ListChoreView;
+			sourceTree = "<group>";
+		};
+		453147642751C823000A85D7 /* LoginView */ = {
+			isa = PBXGroup;
+			children = (
+				453147652751C83E000A85D7 /* LoginView.swift */,
+				453147672751CC53000A85D7 /* LoginViewModel.swift.swift */,
+			);
+			path = LoginView;
+			sourceTree = "<group>";
+		};
+		453147692751FF91000A85D7 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				4531476A2751FFBD000A85D7 /* AuthService.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		4531476C2752FBE6000A85D7 /* AppView */ = {
+			isa = PBXGroup;
+			children = (
+				45B6BB38272FC72100F89D74 /* AppView.swift */,
+				4531476D2752FBFC000A85D7 /* AppViewModel.swift */,
+			);
+			path = AppView;
+			sourceTree = "<group>";
+		};
 		45395C53272A252900F50B70 /* UI */ = {
 			isa = PBXGroup;
 			children = (
@@ -140,10 +187,11 @@
 		45395C54272A253E00F50B70 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				4531476C2752FBE6000A85D7 /* AppView */,
+				453147642751C823000A85D7 /* LoginView */,
+				4531475F2751B27F000A85D7 /* ListChoreView */,
 				45D7AE8A27346E7600A53812 /* ComponentViews */,
 				45D7AE8827346E5100A53812 /* NewChoreFormView */,
-				45395C57272A258600F50B70 /* ChoreCard.swift */,
-				45B6BB38272FC72100F89D74 /* AppView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -181,8 +229,9 @@
 		45ACB4AA2724AD1A000E04A0 /* ChoreReward */ = {
 			isa = PBXGroup;
 			children = (
-				45D7AE962735BBB100A53812 /* Data */,
 				45395C5E272B2E2700F50B70 /* GoogleService-Info.plist */,
+				453147692751FF91000A85D7 /* Service */,
+				45D7AE962735BBB100A53812 /* Data */,
 				45395C59272B20E900F50B70 /* Dependency */,
 				45395C53272A252900F50B70 /* UI */,
 				45ACB4DA2724ADC9000E04A0 /* Model */,
@@ -242,6 +291,7 @@
 		45D7AE8A27346E7600A53812 /* ComponentViews */ = {
 			isa = PBXGroup;
 			children = (
+				45395C57272A258600F50B70 /* ChoreCard.swift */,
 				45D7AE9A2735E77700A53812 /* PickerView */,
 				45D7AE8D2734769100A53812 /* TextFieldView */,
 			);
@@ -537,6 +587,10 @@
 				45ACB4DC2724AE00000E04A0 /* Chore.swift in Sources */,
 				45B6BB39272FC72100F89D74 /* AppView.swift in Sources */,
 				45D7AE992735BBCF00A53812 /* MockData.swift in Sources */,
+				4531476B2751FFBD000A85D7 /* AuthService.swift in Sources */,
+				453147632751B2AF000A85D7 /* ListChoreViewModel.swift in Sources */,
+				4531476E2752FBFC000A85D7 /* AppViewModel.swift in Sources */,
+				453147612751B2A0000A85D7 /* ListChoreView.swift in Sources */,
 				45D7AE872733572700A53812 /* NewChoreFormView.swift.swift in Sources */,
 				45D7AE9327347D2900A53812 /* User.swift in Sources */,
 				45D7AE9C2735FE4200A53812 /* PickerView.swift in Sources */,
@@ -545,6 +599,8 @@
 				45ACB4DE2724AEBE000E04A0 /* Reward.swift in Sources */,
 				45D7AE952735B4A100A53812 /* Family.swift in Sources */,
 				45ACB4AC2724AD1A000E04A0 /* ChoreRewardApp.swift in Sources */,
+				453147662751C83E000A85D7 /* LoginView.swift in Sources */,
+				453147682751CC53000A85D7 /* LoginViewModel.swift.swift in Sources */,
 				45D7AE8C27346E9900A53812 /* TextFieldView.swift in Sources */,
 				45D7AE91273479C000A53812 /* NewChoreFormViewModel.swift in Sources */,
 			);

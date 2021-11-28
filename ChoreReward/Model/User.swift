@@ -9,37 +9,29 @@ import Foundation
 
 struct User: Identifiable{
     var id: String
+    var email: String
     var name: String
-    var nickname: String
-    var age: Int
     var familyId: String
-    var role: Role
     
     static let previewTim = User(
         id: "tim",
+        email: "test@gmail.com",
         name: "Timothy Tran",
-        nickname: "Tim",
-        age: 14,
-        familyId: "tranfam",
-        role: Role.child
+        familyId: "tranfam"
     )
     
     static let previewBen = User(
         id: "ben",
+        email: "test1@gmail.com",
         name: "Benjamin Tran",
-        nickname: "Ben",
-        age: 12,
-        familyId: "tranfam",
-        role: Role.child
+        familyId: "tranfam"
     )
     
     static let previewDavid = User(
         id: "david",
+        email: "test2@gmail.com",
         name: "David Tran",
-        nickname: "David",
-        age: 42,
-        familyId: "tranfam",
-        role: Role.parent
+        familyId: "tranfam"
     )
 }
 

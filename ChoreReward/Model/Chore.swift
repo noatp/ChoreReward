@@ -11,34 +11,22 @@ import SwiftUI
 struct Chore: Identifiable{
     var id: String
     var title: String
-    var finished: Bool
-    var choreBefore: String
-    var choreAfter: String
-    var whoCanTakeThis: [User]
-    var whoTookThis: User?
-    var reward: Reward
+    var assigner: User
+    var assignee: User
     
-    static let previewUnfinished = Chore(
+    static let preview = Chore(
         id: UUID().uuidString,
         title: "Wash the dishes",
-        finished: false,
-        choreBefore: "unfinishedDishes",
-        choreAfter: "finishedDishes",
-        whoCanTakeThis: [User.previewBen, User.previewTim],
-        whoTookThis: nil,
-        reward: Reward.previewReward
-        )
+        assigner: User.previewDavid,
+        assignee: User.previewTim
+    )
     
-    static let previewFinished = Chore(
-        id: UUID().uuidString,
-        title: "Wash the dishes",
-        finished: true,
-        choreBefore: "unfinishedDishes",
-        choreAfter: "finishedDishes",
-        whoCanTakeThis: [User.previewBen, User.previewTim],
-        whoTookThis: User.previewTim,
-        reward: Reward.previewReward
-        )
+    enum RewardType: String, CaseIterable, Identifiable{
+        case goal
+        case monetary
+        
+        var id: String {self.rawValue}
+    }
 }
 
 

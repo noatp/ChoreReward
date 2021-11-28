@@ -28,13 +28,6 @@ struct NewChoreFormView: View {
                     }
                     .pickerStyle(.menu)
                 }
-                
-                //                Picker("Notify Me About", selection: $notifyMeAbout) {
-                //                    Text("Direct Messages").tag(0)
-                //                    Text("Mentions").tag(1)
-                //                    Text("Anything").tag(2)
-                //                }
-                //                Toggle("Send read receipts", isOn: $sendReadReceipts)
             }
         }
     }

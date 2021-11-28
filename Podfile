@@ -6,6 +6,7 @@ target 'ChoreReward' do
   use_frameworks!
 
   # Pods for ChoreReward
+  pod 'Firebase/Core'
   pod 'Firebase/Auth'
   pod 'Firebase/Analytics'
 
