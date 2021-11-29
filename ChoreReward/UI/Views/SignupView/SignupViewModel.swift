@@ -1,27 +1,26 @@
 //
-//  LoginViewModel.swift.swift
+//  SignupViewModel.swift
 //  ChoreReward
 //
-//  Created by Toan Pham on 11/26/21.
+//  Created by Toan Pham on 11/28/21.
 //
 
 import Foundation
-import FirebaseAuth
-import SwiftUI
 import Combine
 
-class LoginViewModel: ObservableObject{
+class SignupViewModel: ObservableObject{
     @Published var errorMessage: String? = nil
-    
+
     private var authService: AuthService
     private var authSubscription: AnyCancellable?
     
-    var emailInputRender = TextFieldViewModel(title: "Email", prompt: "Email")
-    var passwordInputRender = TextFieldViewModel(title: "Password", prompt: "Password", secure: true)
+    let nameInputRender = TextFieldViewModel(title: "Full name", prompt: "Full name")
+    let emailInputRender = TextFieldViewModel(title: "Email", prompt: "Email")
+    let passwordInputRender = TextFieldViewModel(title: "Password", prompt: "Password", secure: true)
     
-    init(authService: AuthService) {
+    init(authService: AuthService){
         self.authService = authService
-        addSubscription() 
+        addSubscription()
     }
     
     func addSubscription(){
@@ -34,23 +33,17 @@ class LoginViewModel: ObservableObject{
             })
     }
     
-    func signIn(){
-        authService.signIn(
-            email: emailInputRender.textInput,
-            password: passwordInputRender.textInput
-        )
-    }
-    
     func signUp(){
         authService.signUp(
             email: emailInputRender.textInput,
             password: passwordInputRender.textInput
         )
     }
+    
 }
 
 extension Dependency{
-    var loginViewModel: LoginViewModel{
-        return LoginViewModel(authService: authService)
+    var signupViewModel: SignupViewModel{
+        SignupViewModel(authService: authService)
     }
 }

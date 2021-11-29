@@ -18,18 +18,23 @@ struct LoginView: View {
         VStack{
             if (loginViewModel.errorMessage != nil){
                 Text(loginViewModel.errorMessage!)
+                    .padding()
             }
             
             TextFieldView(textFieldViewModel: loginViewModel.emailInputRender)
+                .padding()
             TextFieldView(textFieldViewModel: loginViewModel.passwordInputRender)
+                .padding()
             
             Button("Log in") {
                 loginViewModel.signIn()
             }
-            
-            Button("Sign up") {
-                loginViewModel.signUp()
+            .padding()
+        
+            NavigationLink(destination: SignupView(dependency: Dependency.shared)) {
+                Text("Sign up with email")
             }
+            .padding()
         }
         .padding()
     }

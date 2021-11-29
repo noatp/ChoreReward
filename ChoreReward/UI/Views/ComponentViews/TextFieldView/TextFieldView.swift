@@ -18,13 +18,28 @@ struct TextFieldView: View {
     }
     
     var body: some View {
+        if (textFieldViewModel.secure){
+            if #available(iOS 15.0, *) {
+                SecureField(
+                    text: $textFieldViewModel.textInput,
+                    prompt: Text(textFieldViewModel.prompt)) {
+                        Text(textFieldViewModel.title)
+                    }
+            } else {
+                SecureField(
+                    textFieldViewModel.title,
+                    text: $textFieldViewModel.textInput
+                )
+            }
+        }
+        else
         if #available(iOS 15.0, *) {
             TextField(
-                textFieldViewModel.title,
                 text: $textFieldViewModel.textInput,
-                prompt: Text(textFieldViewModel.prompt)
-            )
-            .textInputAutocapitalization(TextInputAutocapitalization.never)
+                prompt: Text(textFieldViewModel.prompt)) {
+                    Text(textFieldViewModel.title)
+                }
+                .textInputAutocapitalization(TextInputAutocapitalization.never)
 
         } else {
             TextField(
@@ -35,6 +50,7 @@ struct TextFieldView: View {
         }
     }
 }
+
 
 struct TextFieldView_Previews: PreviewProvider {
     static var previews: some View {

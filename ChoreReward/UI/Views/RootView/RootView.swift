@@ -15,11 +15,13 @@ struct RootView: View {
     }
     
     var body: some View {
-        if (rootViewModel.shouldRenderLoginView){
-            LoginView(dependency: Dependency.shared)
-        }
-        else{
-            AppView(dependency: Dependency.shared)
+        NavigationView{
+            if (rootViewModel.shouldRenderLoginView){
+                LoginView(dependency: Dependency.shared)
+            }
+            else{
+                AppView(dependency: Dependency.shared)
+            }
         }
     }
 }

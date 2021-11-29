@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		452AFECE275443720060BD43 /* SignupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 452AFECD275443720060BD43 /* SignupView.swift */; };
+		452AFED0275444020060BD43 /* SignupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 452AFECF275444020060BD43 /* SignupViewModel.swift */; };
 		453147612751B2A0000A85D7 /* ListChoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453147602751B2A0000A85D7 /* ListChoreView.swift */; };
 		453147632751B2AF000A85D7 /* ListChoreViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453147622751B2AF000A85D7 /* ListChoreViewModel.swift */; };
 		453147662751C83E000A85D7 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453147652751C83E000A85D7 /* LoginView.swift */; };
@@ -64,6 +66,8 @@
 		1F43C10D6F390305DE028827 /* Pods-ChoreReward-ChoreRewardUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChoreReward-ChoreRewardUITests.debug.xcconfig"; path = "Target Support Files/Pods-ChoreReward-ChoreRewardUITests/Pods-ChoreReward-ChoreRewardUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		2B928EFFEEF8228BBFD47E52 /* Pods-ChoreReward.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChoreReward.debug.xcconfig"; path = "Target Support Files/Pods-ChoreReward/Pods-ChoreReward.debug.xcconfig"; sourceTree = "<group>"; };
 		2DD2A7EA8D6D5710484183F2 /* Pods_ChoreRewardTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ChoreRewardTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		452AFECD275443720060BD43 /* SignupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupView.swift; sourceTree = "<group>"; };
+		452AFECF275444020060BD43 /* SignupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewModel.swift; sourceTree = "<group>"; };
 		453147602751B2A0000A85D7 /* ListChoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListChoreView.swift; sourceTree = "<group>"; };
 		453147622751B2AF000A85D7 /* ListChoreViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListChoreViewModel.swift; sourceTree = "<group>"; };
 		453147652751C83E000A85D7 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
@@ -191,6 +195,7 @@
 		45395C54272A253E00F50B70 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				45E483CF2754359B009DA543 /* SignupView */,
 				45E483C8275402D9009DA543 /* RootView */,
 				4531476C2752FBE6000A85D7 /* AppView */,
 				453147642751C823000A85D7 /* LoginView */,
@@ -344,6 +349,15 @@
 				45E483CB27540305009DA543 /* RootViewModel.swift */,
 			);
 			path = RootView;
+			sourceTree = "<group>";
+		};
+		45E483CF2754359B009DA543 /* SignupView */ = {
+			isa = PBXGroup;
+			children = (
+				452AFECD275443720060BD43 /* SignupView.swift */,
+				452AFECF275444020060BD43 /* SignupViewModel.swift */,
+			);
+			path = SignupView;
 			sourceTree = "<group>";
 		};
 		F99724511296E5E0E1A70E07 /* Frameworks */ = {
@@ -604,6 +618,7 @@
 				45D7AE992735BBCF00A53812 /* MockData.swift in Sources */,
 				4531476B2751FFBD000A85D7 /* AuthService.swift in Sources */,
 				453147632751B2AF000A85D7 /* ListChoreViewModel.swift in Sources */,
+				452AFECE275443720060BD43 /* SignupView.swift in Sources */,
 				4531476E2752FBFC000A85D7 /* AppViewModel.swift in Sources */,
 				453147612751B2A0000A85D7 /* ListChoreView.swift in Sources */,
 				45D7AE872733572700A53812 /* NewChoreFormView.swift.swift in Sources */,
@@ -614,6 +629,7 @@
 				45ACB4DE2724AEBE000E04A0 /* Reward.swift in Sources */,
 				45D7AE952735B4A100A53812 /* Family.swift in Sources */,
 				45ACB4AC2724AD1A000E04A0 /* ChoreRewardApp.swift in Sources */,
+				452AFED0275444020060BD43 /* SignupViewModel.swift in Sources */,
 				453147662751C83E000A85D7 /* LoginView.swift in Sources */,
 				453147682751CC53000A85D7 /* LoginViewModel.swift.swift in Sources */,
 				45D7AE8C27346E9900A53812 /* TextFieldView.swift in Sources */,
