@@ -38,6 +38,7 @@ class SignUpViewModel: ObservableObject{
     
     func signUp(){
         signupUseCase.signUp(
+            name: nameInputRender.textInput,
             email: emailInputRender.textInput,
             password: passwordInputRender.textInput
         )

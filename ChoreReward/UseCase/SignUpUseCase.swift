@@ -39,12 +39,12 @@ class SignUpUseCase{
             })
     }
     
-    func signUp(email: String, password: String){
+    func signUp(name: String, email: String, password: String){
         authService.signUp(email: email, password: password)
     }
     
     func createUser(uid: String){
-        
+//        userRepository.createUser(userId: <#T##String#>, name: <#T##String#>, email: <#T##String#>)
     }
 }
 

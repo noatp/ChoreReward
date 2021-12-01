@@ -29,10 +29,10 @@ class LoginViewModel: ObservableObject{
         useCaseSubscription = loginUseCase.$result
             .sink(receiveValue: { useCaseResult in
                 switch useCaseResult{
-                case .success(let returnData):
+                case .success(_):
                     break
                 case .error(let error):
-                    break
+                    self.errorMessage = error.localizedDescription
                 }
             })
     }

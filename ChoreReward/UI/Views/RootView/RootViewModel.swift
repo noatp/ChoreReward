@@ -31,7 +31,7 @@ class RootViewModel: ObservableObject{
                     else{
                         self.shouldRenderLoginView = true
                     }
-                case .error(let error):
+                case .error(_):
                     self.shouldRenderLoginView = true
                 }
             })
