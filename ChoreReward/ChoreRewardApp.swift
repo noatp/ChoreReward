@@ -10,13 +10,15 @@ import Firebase
 
 @main
 struct ChoreRewardApp: App {
+    static let dependency: Dependency = Dependency()
+    
     init(){
         FirebaseApp.configure();
     }
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView(views: Dependency.preview.views())
         }
     }
 }

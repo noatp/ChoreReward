@@ -9,25 +9,20 @@ import Foundation
 import Combine
 
 class AppViewModel: ObservableObject{
-    private var authService: AuthService
-    private var authSubscription: AnyCancellable?
+    private var signOutUseCase: SignOutUseCase
     
-    init(authService: AuthService) {
-        self.authService = authService
+    init(signOutUseCase: SignOutUseCase){
+        self.signOutUseCase = signOutUseCase
     }
     
     func signOut(){
-        authService.signOut()
-    }
-    
-    func getCurrentUserUUID() -> String{
-        return authService.auth.currentUser!.uid
+        signOutUseCase.signOut()
     }
 }
 
-extension Dependency{
+extension Dependency.ViewModels{
     var appViewModel: AppViewModel{
-        AppViewModel(authService: authService)
+        AppViewModel(signOutUseCase: useCases.signOutUseCase)
     }
     
     

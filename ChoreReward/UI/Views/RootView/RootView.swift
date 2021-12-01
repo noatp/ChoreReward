@@ -10,17 +10,23 @@ import SwiftUI
 struct RootView: View {
     @ObservedObject var rootViewModel: RootViewModel
     
-    init(dependency: Dependency = .preview) {
-        self.rootViewModel = dependency.rootViewModel
+    private var views: Dependency.Views
+    
+    init(
+        views: Dependency.Views,
+        rootViewModel: RootViewModel
+    ) {
+        self.views = views
+        self.rootViewModel = rootViewModel
     }
     
     var body: some View {
         NavigationView{
             if (rootViewModel.shouldRenderLoginView){
-                LoginView(dependency: Dependency.shared)
+                views.loginView
             }
             else{
-                AppView(dependency: Dependency.shared)
+                views.appView
             }
         }
     }
@@ -28,6 +34,12 @@ struct RootView: View {
 
 struct RootView_Previews: PreviewProvider {
     static var previews: some View {
-        RootView()
+        Dependency.preview.views().rootView
+    }
+}
+
+extension Dependency.Views{
+    var rootView: RootView{
+        return RootView(views: self, rootViewModel: viewModels.rootViewModel)
     }
 }

@@ -9,9 +9,14 @@ import SwiftUI
 
 struct LoginView: View {
     @ObservedObject var loginViewModel: LoginViewModel
+    private var views: Dependency.Views
     
-    init(dependency: Dependency = .preview) {
-        self.loginViewModel = dependency.loginViewModel
+    init(
+        loginViewModel: LoginViewModel,
+        views: Dependency.Views
+    ) {
+        self.loginViewModel = loginViewModel
+        self.views = views
     }
     
     var body: some View {
@@ -31,7 +36,7 @@ struct LoginView: View {
             }
             .padding()
         
-            NavigationLink(destination: SignupView(dependency: Dependency.shared)) {
+            NavigationLink(destination: views.signUpView) {
                 Text("Sign up with email")
             }
             .padding()
@@ -42,6 +47,15 @@ struct LoginView: View {
 
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
-        LoginView()
+        Dependency.preview.views().loginView
+    }
+}
+
+extension Dependency.Views{
+    var loginView: LoginView{
+        return LoginView(
+            loginViewModel: viewModels.loginViewModel,
+            views: self
+        )
     }
 }

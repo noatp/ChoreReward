@@ -9,32 +9,37 @@ import Foundation
 import Combine
 
 class RootViewModel: ObservableObject{
-    @Published var shouldRenderLoginView: Bool = false
+    @Published var shouldRenderLoginView: Bool = true
     
-    private var authService: AuthService    
-    private var authSubscription: AnyCancellable?
+    private var loginUseCase: LoginUseCase
+    private var useCaseSubscription: AnyCancellable?
     
     
-    init(authService: AuthService) {
-        self.authService = authService
+    init(loginUseCase: LoginUseCase) {
+        self.loginUseCase = loginUseCase
         addSubscription()
     }
     
     func addSubscription(){
-        authSubscription = authService.$authState
-            .sink(receiveValue: { authState in
-                switch authState{
-                case .signedIn(_):
-                    self.shouldRenderLoginView = false
-                case.signedOut(_):
+        useCaseSubscription = loginUseCase.$result
+            .sink(receiveValue: { useCaseResult in
+                switch useCaseResult{
+                case .success(let uid):
+                    if (uid != nil){
+                        self.shouldRenderLoginView = false
+                    }
+                    else{
+                        self.shouldRenderLoginView = true
+                    }
+                case .error(let error):
                     self.shouldRenderLoginView = true
                 }
             })
     }
 }
 
-extension Dependency{
+extension Dependency.ViewModels{
     var rootViewModel: RootViewModel{
-        RootViewModel(authService: authService)
+        RootViewModel(loginUseCase: useCases.loginUseCase)
     }
 }

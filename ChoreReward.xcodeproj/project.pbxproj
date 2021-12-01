@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		452AFECE275443720060BD43 /* SignupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 452AFECD275443720060BD43 /* SignupView.swift */; };
-		452AFED0275444020060BD43 /* SignupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 452AFECF275444020060BD43 /* SignupViewModel.swift */; };
+		452AFECE275443720060BD43 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 452AFECD275443720060BD43 /* SignUpView.swift */; };
+		452AFED0275444020060BD43 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 452AFECF275444020060BD43 /* SignUpViewModel.swift */; };
 		453147612751B2A0000A85D7 /* ListChoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453147602751B2A0000A85D7 /* ListChoreView.swift */; };
 		453147632751B2AF000A85D7 /* ListChoreViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453147622751B2AF000A85D7 /* ListChoreViewModel.swift */; };
 		453147662751C83E000A85D7 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453147652751C83E000A85D7 /* LoginView.swift */; };
@@ -27,21 +27,26 @@
 		45ACB4CE2724AD1D000E04A0 /* ChoreRewardUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45ACB4CD2724AD1D000E04A0 /* ChoreRewardUITestsLaunchTests.swift */; };
 		45ACB4DC2724AE00000E04A0 /* Chore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45ACB4DB2724AE00000E04A0 /* Chore.swift */; };
 		45ACB4DE2724AEBE000E04A0 /* Reward.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45ACB4DD2724AEBE000E04A0 /* Reward.swift */; };
+		45B012CD275491ED002C7A06 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 45B012CC275491ED002C7A06 /* FirebaseAnalytics */; };
+		45B012CF275491ED002C7A06 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 45B012CE275491ED002C7A06 /* FirebaseAuth */; };
+		45B012D1275491ED002C7A06 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 45B012D0275491ED002C7A06 /* FirebaseFirestore */; };
+		45B012D3275491ED002C7A06 /* FirebaseFirestoreSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = 45B012D2275491ED002C7A06 /* FirebaseFirestoreSwift-Beta */; };
+		45B012D7275495CF002C7A06 /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B012D6275495CF002C7A06 /* UserRepository.swift */; };
 		45B6BB39272FC72100F89D74 /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B6BB38272FC72100F89D74 /* AppView.swift */; };
+		45D1E5C12756BD7B0008B628 /* LoginUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D1E5C02756BD7B0008B628 /* LoginUseCase.swift */; };
+		45D1E5C32756CDFA0008B628 /* UseCaseResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D1E5C22756CDFA0008B628 /* UseCaseResult.swift */; };
+		45D1E5C52756D2C20008B628 /* SignUpUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D1E5C42756D2C20008B628 /* SignUpUseCase.swift */; };
+		45D1E5C72756D8200008B628 /* SignOutUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D1E5C62756D8200008B628 /* SignOutUseCase.swift */; };
 		45D7AE872733572700A53812 /* NewChoreFormView.swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D7AE862733572700A53812 /* NewChoreFormView.swift.swift */; };
 		45D7AE8C27346E9900A53812 /* TextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D7AE8B27346E9900A53812 /* TextFieldView.swift */; };
 		45D7AE8F273476AF00A53812 /* TextFieldViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D7AE8E273476AF00A53812 /* TextFieldViewModel.swift */; };
 		45D7AE91273479C000A53812 /* NewChoreFormViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D7AE90273479C000A53812 /* NewChoreFormViewModel.swift */; };
 		45D7AE9327347D2900A53812 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D7AE9227347D2900A53812 /* User.swift */; };
 		45D7AE952735B4A100A53812 /* Family.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D7AE942735B4A100A53812 /* Family.swift */; };
-		45D7AE992735BBCF00A53812 /* MockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D7AE982735BBCF00A53812 /* MockData.swift */; };
 		45D7AE9C2735FE4200A53812 /* PickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D7AE9B2735FE4200A53812 /* PickerView.swift */; };
 		45D7AE9E2735FE6C00A53812 /* PickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D7AE9D2735FE6C00A53812 /* PickerViewModel.swift */; };
 		45E483CA275402F6009DA543 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E483C9275402F6009DA543 /* RootView.swift */; };
 		45E483CC27540305009DA543 /* RootViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E483CB27540305009DA543 /* RootViewModel.swift */; };
-		4EFF78C8BA0E8DB586580254 /* Pods_ChoreReward_ChoreRewardUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 87A3E51C149323A68834F770 /* Pods_ChoreReward_ChoreRewardUITests.framework */; };
-		52D8163BEC131FF341A9A23D /* Pods_ChoreRewardTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DD2A7EA8D6D5710484183F2 /* Pods_ChoreRewardTests.framework */; };
-		64A5D0F510F66A040E459071 /* Pods_ChoreReward.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E09A29C7CA82D16E51175ECE /* Pods_ChoreReward.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,12 +67,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0EBA70687B84DC6DDE8CF9E0 /* Pods-ChoreRewardTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChoreRewardTests.release.xcconfig"; path = "Target Support Files/Pods-ChoreRewardTests/Pods-ChoreRewardTests.release.xcconfig"; sourceTree = "<group>"; };
-		1F43C10D6F390305DE028827 /* Pods-ChoreReward-ChoreRewardUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChoreReward-ChoreRewardUITests.debug.xcconfig"; path = "Target Support Files/Pods-ChoreReward-ChoreRewardUITests/Pods-ChoreReward-ChoreRewardUITests.debug.xcconfig"; sourceTree = "<group>"; };
-		2B928EFFEEF8228BBFD47E52 /* Pods-ChoreReward.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChoreReward.debug.xcconfig"; path = "Target Support Files/Pods-ChoreReward/Pods-ChoreReward.debug.xcconfig"; sourceTree = "<group>"; };
-		2DD2A7EA8D6D5710484183F2 /* Pods_ChoreRewardTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ChoreRewardTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		452AFECD275443720060BD43 /* SignupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupView.swift; sourceTree = "<group>"; };
-		452AFECF275444020060BD43 /* SignupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewModel.swift; sourceTree = "<group>"; };
+		452AFECD275443720060BD43 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
+		452AFECF275444020060BD43 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		453147602751B2A0000A85D7 /* ListChoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListChoreView.swift; sourceTree = "<group>"; };
 		453147622751B2AF000A85D7 /* ListChoreViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListChoreViewModel.swift; sourceTree = "<group>"; };
 		453147652751C83E000A85D7 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
@@ -89,23 +90,22 @@
 		45ACB4CD2724AD1D000E04A0 /* ChoreRewardUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoreRewardUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		45ACB4DB2724AE00000E04A0 /* Chore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chore.swift; sourceTree = "<group>"; };
 		45ACB4DD2724AEBE000E04A0 /* Reward.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reward.swift; sourceTree = "<group>"; };
+		45B012D6275495CF002C7A06 /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
 		45B6BB38272FC72100F89D74 /* AppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
+		45D1E5C02756BD7B0008B628 /* LoginUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUseCase.swift; sourceTree = "<group>"; };
+		45D1E5C22756CDFA0008B628 /* UseCaseResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UseCaseResult.swift; sourceTree = "<group>"; };
+		45D1E5C42756D2C20008B628 /* SignUpUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpUseCase.swift; sourceTree = "<group>"; };
+		45D1E5C62756D8200008B628 /* SignOutUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignOutUseCase.swift; sourceTree = "<group>"; };
 		45D7AE862733572700A53812 /* NewChoreFormView.swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewChoreFormView.swift.swift; sourceTree = "<group>"; };
 		45D7AE8B27346E9900A53812 /* TextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldView.swift; sourceTree = "<group>"; };
 		45D7AE8E273476AF00A53812 /* TextFieldViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldViewModel.swift; sourceTree = "<group>"; };
 		45D7AE90273479C000A53812 /* NewChoreFormViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewChoreFormViewModel.swift; sourceTree = "<group>"; };
 		45D7AE9227347D2900A53812 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		45D7AE942735B4A100A53812 /* Family.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Family.swift; sourceTree = "<group>"; };
-		45D7AE982735BBCF00A53812 /* MockData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockData.swift; sourceTree = "<group>"; };
 		45D7AE9B2735FE4200A53812 /* PickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerView.swift; sourceTree = "<group>"; };
 		45D7AE9D2735FE6C00A53812 /* PickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerViewModel.swift; sourceTree = "<group>"; };
 		45E483C9275402F6009DA543 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		45E483CB27540305009DA543 /* RootViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewModel.swift; sourceTree = "<group>"; };
-		7F7AAF3B20D03D75EF142E08 /* Pods-ChoreReward-ChoreRewardUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChoreReward-ChoreRewardUITests.release.xcconfig"; path = "Target Support Files/Pods-ChoreReward-ChoreRewardUITests/Pods-ChoreReward-ChoreRewardUITests.release.xcconfig"; sourceTree = "<group>"; };
-		87A3E51C149323A68834F770 /* Pods_ChoreReward_ChoreRewardUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ChoreReward_ChoreRewardUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		A03A7BABE1CE9D676021617F /* Pods-ChoreRewardTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChoreRewardTests.debug.xcconfig"; path = "Target Support Files/Pods-ChoreRewardTests/Pods-ChoreRewardTests.debug.xcconfig"; sourceTree = "<group>"; };
-		C61ABDC85289052060C2D064 /* Pods-ChoreReward.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChoreReward.release.xcconfig"; path = "Target Support Files/Pods-ChoreReward/Pods-ChoreReward.release.xcconfig"; sourceTree = "<group>"; };
-		E09A29C7CA82D16E51175ECE /* Pods_ChoreReward.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ChoreReward.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,7 +113,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				64A5D0F510F66A040E459071 /* Pods_ChoreReward.framework in Frameworks */,
+				45B012CD275491ED002C7A06 /* FirebaseAnalytics in Frameworks */,
+				45B012D3275491ED002C7A06 /* FirebaseFirestoreSwift-Beta in Frameworks */,
+				45B012CF275491ED002C7A06 /* FirebaseAuth in Frameworks */,
+				45B012D1275491ED002C7A06 /* FirebaseFirestore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -121,7 +124,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				52D8163BEC131FF341A9A23D /* Pods_ChoreRewardTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -129,26 +131,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4EFF78C8BA0E8DB586580254 /* Pods_ChoreReward_ChoreRewardUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		052FFEF27F29EB9D133ED2B2 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				2B928EFFEEF8228BBFD47E52 /* Pods-ChoreReward.debug.xcconfig */,
-				C61ABDC85289052060C2D064 /* Pods-ChoreReward.release.xcconfig */,
-				1F43C10D6F390305DE028827 /* Pods-ChoreReward-ChoreRewardUITests.debug.xcconfig */,
-				7F7AAF3B20D03D75EF142E08 /* Pods-ChoreReward-ChoreRewardUITests.release.xcconfig */,
-				A03A7BABE1CE9D676021617F /* Pods-ChoreRewardTests.debug.xcconfig */,
-				0EBA70687B84DC6DDE8CF9E0 /* Pods-ChoreRewardTests.release.xcconfig */,
-			);
-			path = Pods;
-			sourceTree = "<group>";
-		};
 		4531475F2751B27F000A85D7 /* ListChoreView */ = {
 			isa = PBXGroup;
 			children = (
@@ -195,7 +183,7 @@
 		45395C54272A253E00F50B70 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				45E483CF2754359B009DA543 /* SignupView */,
+				45E483CF2754359B009DA543 /* SignUpView */,
 				45E483C8275402D9009DA543 /* RootView */,
 				4531476C2752FBE6000A85D7 /* AppView */,
 				453147642751C823000A85D7 /* LoginView */,
@@ -218,11 +206,10 @@
 			isa = PBXGroup;
 			children = (
 				45ACB4AA2724AD1A000E04A0 /* ChoreReward */,
+				45395C5E272B2E2700F50B70 /* GoogleService-Info.plist */,
 				45ACB4C02724AD1D000E04A0 /* ChoreRewardTests */,
 				45ACB4CA2724AD1D000E04A0 /* ChoreRewardUITests */,
 				45ACB4A92724AD1A000E04A0 /* Products */,
-				052FFEF27F29EB9D133ED2B2 /* Pods */,
-				F99724511296E5E0E1A70E07 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -239,15 +226,15 @@
 		45ACB4AA2724AD1A000E04A0 /* ChoreReward */ = {
 			isa = PBXGroup;
 			children = (
-				45395C5E272B2E2700F50B70 /* GoogleService-Info.plist */,
-				453147692751FF91000A85D7 /* Service */,
-				45D7AE962735BBB100A53812 /* Data */,
 				45395C59272B20E900F50B70 /* Dependency */,
+				45B012D427549394002C7A06 /* Repository */,
+				453147692751FF91000A85D7 /* Service */,
+				45D1E5BD2756BBA70008B628 /* UseCase */,
 				45395C53272A252900F50B70 /* UI */,
 				45ACB4DA2724ADC9000E04A0 /* Model */,
+				45ACB4B12724AD1D000E04A0 /* Preview Content */,
 				45ACB4AB2724AD1A000E04A0 /* ChoreRewardApp.swift */,
 				45ACB4AD2724AD1A000E04A0 /* ContentView.swift */,
-				45ACB4B12724AD1D000E04A0 /* Preview Content */,
 				45395C5C272B2A6B00F50B70 /* Assets.xcassets */,
 			);
 			path = ChoreReward;
@@ -289,6 +276,33 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		45B012D427549394002C7A06 /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				45B012D5275495B9002C7A06 /* UserRepository */,
+			);
+			path = Repository;
+			sourceTree = "<group>";
+		};
+		45B012D5275495B9002C7A06 /* UserRepository */ = {
+			isa = PBXGroup;
+			children = (
+				45B012D6275495CF002C7A06 /* UserRepository.swift */,
+			);
+			path = UserRepository;
+			sourceTree = "<group>";
+		};
+		45D1E5BD2756BBA70008B628 /* UseCase */ = {
+			isa = PBXGroup;
+			children = (
+				45D1E5C02756BD7B0008B628 /* LoginUseCase.swift */,
+				45D1E5C22756CDFA0008B628 /* UseCaseResult.swift */,
+				45D1E5C42756D2C20008B628 /* SignUpUseCase.swift */,
+				45D1E5C62756D8200008B628 /* SignOutUseCase.swift */,
+			);
+			path = UseCase;
+			sourceTree = "<group>";
+		};
 		45D7AE8827346E5100A53812 /* NewChoreFormView */ = {
 			isa = PBXGroup;
 			children = (
@@ -317,22 +331,6 @@
 			path = TextFieldView;
 			sourceTree = "<group>";
 		};
-		45D7AE962735BBB100A53812 /* Data */ = {
-			isa = PBXGroup;
-			children = (
-				45D7AE972735BBBD00A53812 /* MockData */,
-			);
-			path = Data;
-			sourceTree = "<group>";
-		};
-		45D7AE972735BBBD00A53812 /* MockData */ = {
-			isa = PBXGroup;
-			children = (
-				45D7AE982735BBCF00A53812 /* MockData.swift */,
-			);
-			path = MockData;
-			sourceTree = "<group>";
-		};
 		45D7AE9A2735E77700A53812 /* PickerView */ = {
 			isa = PBXGroup;
 			children = (
@@ -351,23 +349,13 @@
 			path = RootView;
 			sourceTree = "<group>";
 		};
-		45E483CF2754359B009DA543 /* SignupView */ = {
+		45E483CF2754359B009DA543 /* SignUpView */ = {
 			isa = PBXGroup;
 			children = (
-				452AFECD275443720060BD43 /* SignupView.swift */,
-				452AFECF275444020060BD43 /* SignupViewModel.swift */,
+				452AFECD275443720060BD43 /* SignUpView.swift */,
+				452AFECF275444020060BD43 /* SignUpViewModel.swift */,
 			);
-			path = SignupView;
-			sourceTree = "<group>";
-		};
-		F99724511296E5E0E1A70E07 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				E09A29C7CA82D16E51175ECE /* Pods_ChoreReward.framework */,
-				87A3E51C149323A68834F770 /* Pods_ChoreReward_ChoreRewardUITests.framework */,
-				2DD2A7EA8D6D5710484183F2 /* Pods_ChoreRewardTests.framework */,
-			);
-			name = Frameworks;
+			path = SignUpView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -377,17 +365,21 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 45ACB4D12724AD1D000E04A0 /* Build configuration list for PBXNativeTarget "ChoreReward" */;
 			buildPhases = (
-				E20267BD5944FB0A53473BFE /* [CP] Check Pods Manifest.lock */,
 				45ACB4A42724AD1A000E04A0 /* Sources */,
 				45ACB4A52724AD1A000E04A0 /* Frameworks */,
 				45ACB4A62724AD1A000E04A0 /* Resources */,
-				B2A9B3C5DD857C843FF454FD /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = ChoreReward;
+			packageProductDependencies = (
+				45B012CC275491ED002C7A06 /* FirebaseAnalytics */,
+				45B012CE275491ED002C7A06 /* FirebaseAuth */,
+				45B012D0275491ED002C7A06 /* FirebaseFirestore */,
+				45B012D2275491ED002C7A06 /* FirebaseFirestoreSwift-Beta */,
+			);
 			productName = ChoreReward;
 			productReference = 45ACB4A82724AD1A000E04A0 /* ChoreReward.app */;
 			productType = "com.apple.product-type.application";
@@ -396,7 +388,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 45ACB4D42724AD1D000E04A0 /* Build configuration list for PBXNativeTarget "ChoreRewardTests" */;
 			buildPhases = (
-				38DF94D3A2CC1AFE20AC17B7 /* [CP] Check Pods Manifest.lock */,
 				45ACB4B92724AD1D000E04A0 /* Sources */,
 				45ACB4BA2724AD1D000E04A0 /* Frameworks */,
 				45ACB4BB2724AD1D000E04A0 /* Resources */,
@@ -415,11 +406,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 45ACB4D72724AD1D000E04A0 /* Build configuration list for PBXNativeTarget "ChoreRewardUITests" */;
 			buildPhases = (
-				461DA6831E346DDECFB2E75D /* [CP] Check Pods Manifest.lock */,
 				45ACB4C32724AD1D000E04A0 /* Sources */,
 				45ACB4C42724AD1D000E04A0 /* Frameworks */,
 				45ACB4C52724AD1D000E04A0 /* Resources */,
-				CA5DF9F69D6A3F41F7120B1B /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -463,6 +452,9 @@
 				Base,
 			);
 			mainGroup = 45ACB49F2724AD1A000E04A0;
+			packageReferences = (
+				45B012CB275491ED002C7A06 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			productRefGroup = 45ACB4A92724AD1A000E04A0 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -501,109 +493,6 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		38DF94D3A2CC1AFE20AC17B7 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-ChoreRewardTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		461DA6831E346DDECFB2E75D /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-ChoreReward-ChoreRewardUITests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		B2A9B3C5DD857C843FF454FD /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-ChoreReward/Pods-ChoreReward-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-ChoreReward/Pods-ChoreReward-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ChoreReward/Pods-ChoreReward-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		CA5DF9F69D6A3F41F7120B1B /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-ChoreReward-ChoreRewardUITests/Pods-ChoreReward-ChoreRewardUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-ChoreReward-ChoreRewardUITests/Pods-ChoreReward-ChoreRewardUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ChoreReward-ChoreRewardUITests/Pods-ChoreReward-ChoreRewardUITests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		E20267BD5944FB0A53473BFE /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-ChoreReward-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
 		45ACB4A42724AD1A000E04A0 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -615,26 +504,30 @@
 				45395C5B272B20F600F50B70 /* Dependency.swift in Sources */,
 				45ACB4DC2724AE00000E04A0 /* Chore.swift in Sources */,
 				45B6BB39272FC72100F89D74 /* AppView.swift in Sources */,
-				45D7AE992735BBCF00A53812 /* MockData.swift in Sources */,
+				45D1E5C52756D2C20008B628 /* SignUpUseCase.swift in Sources */,
+				45D1E5C32756CDFA0008B628 /* UseCaseResult.swift in Sources */,
 				4531476B2751FFBD000A85D7 /* AuthService.swift in Sources */,
 				453147632751B2AF000A85D7 /* ListChoreViewModel.swift in Sources */,
-				452AFECE275443720060BD43 /* SignupView.swift in Sources */,
+				452AFECE275443720060BD43 /* SignUpView.swift in Sources */,
 				4531476E2752FBFC000A85D7 /* AppViewModel.swift in Sources */,
+				45B012D7275495CF002C7A06 /* UserRepository.swift in Sources */,
 				453147612751B2A0000A85D7 /* ListChoreView.swift in Sources */,
 				45D7AE872733572700A53812 /* NewChoreFormView.swift.swift in Sources */,
 				45D7AE9327347D2900A53812 /* User.swift in Sources */,
 				45D7AE9C2735FE4200A53812 /* PickerView.swift in Sources */,
+				45D1E5C72756D8200008B628 /* SignOutUseCase.swift in Sources */,
 				45395C58272A258600F50B70 /* ChoreCard.swift in Sources */,
 				45D7AE9E2735FE6C00A53812 /* PickerViewModel.swift in Sources */,
 				45ACB4DE2724AEBE000E04A0 /* Reward.swift in Sources */,
 				45D7AE952735B4A100A53812 /* Family.swift in Sources */,
 				45ACB4AC2724AD1A000E04A0 /* ChoreRewardApp.swift in Sources */,
-				452AFED0275444020060BD43 /* SignupViewModel.swift in Sources */,
+				452AFED0275444020060BD43 /* SignUpViewModel.swift in Sources */,
 				453147662751C83E000A85D7 /* LoginView.swift in Sources */,
 				453147682751CC53000A85D7 /* LoginViewModel.swift.swift in Sources */,
 				45D7AE8C27346E9900A53812 /* TextFieldView.swift in Sources */,
 				45E483CC27540305009DA543 /* RootViewModel.swift in Sources */,
 				45D7AE91273479C000A53812 /* NewChoreFormViewModel.swift in Sources */,
+				45D1E5C12756BD7B0008B628 /* LoginUseCase.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -789,7 +682,6 @@
 		};
 		45ACB4D22724AD1D000E04A0 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2B928EFFEEF8228BBFD47E52 /* Pods-ChoreReward.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -820,7 +712,6 @@
 		};
 		45ACB4D32724AD1D000E04A0 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C61ABDC85289052060C2D064 /* Pods-ChoreReward.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -851,7 +742,6 @@
 		};
 		45ACB4D52724AD1D000E04A0 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A03A7BABE1CE9D676021617F /* Pods-ChoreRewardTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -877,7 +767,6 @@
 		};
 		45ACB4D62724AD1D000E04A0 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0EBA70687B84DC6DDE8CF9E0 /* Pods-ChoreRewardTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -903,7 +792,6 @@
 		};
 		45ACB4D82724AD1D000E04A0 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1F43C10D6F390305DE028827 /* Pods-ChoreReward-ChoreRewardUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -927,7 +815,6 @@
 		};
 		45ACB4D92724AD1D000E04A0 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7F7AAF3B20D03D75EF142E08 /* Pods-ChoreReward-ChoreRewardUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -989,6 +876,40 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		45B012CB275491ED002C7A06 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.9.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		45B012CC275491ED002C7A06 /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 45B012CB275491ED002C7A06 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
+		45B012CE275491ED002C7A06 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 45B012CB275491ED002C7A06 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		45B012D0275491ED002C7A06 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 45B012CB275491ED002C7A06 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		45B012D2275491ED002C7A06 /* FirebaseFirestoreSwift-Beta */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 45B012CB275491ED002C7A06 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = "FirebaseFirestoreSwift-Beta";
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 45ACB4A02724AD1A000E04A0 /* Project object */;
 }

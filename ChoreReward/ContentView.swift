@@ -9,13 +9,19 @@ import SwiftUI
 import CoreData
 
 struct ContentView: View {
+    let views: Dependency.Views
+    
+    init(views: Dependency.Views){
+        self.views = views
+    }
+    
     var body: some View {
-        RootView(dependency: Dependency.shared)
+        views.rootView
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ContentView(views: Dependency.preview.views())
     }
 }

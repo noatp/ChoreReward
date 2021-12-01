@@ -10,6 +10,7 @@ import FirebaseAuth
 
 class AuthService: ObservableObject{
     let auth = Auth.auth()
+    let userRepository = UserRepository()
     
     @Published var authState = AuthState.signedOut(error: nil)
     
@@ -50,8 +51,16 @@ class AuthService: ObservableObject{
         }
     }
     
+    func silentAuth(){
+        guard let user = self.auth.currentUser else{
+            return
+        }
+        authState = .signedIn(currentUser: user)
+    }
+    
     enum AuthState{
         case signedIn(currentUser: FirebaseAuth.User)
         case signedOut(error: Error?)
     }
 }
+
