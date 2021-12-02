@@ -11,7 +11,7 @@ import Combine
 class SignUpViewModel: ObservableObject{
     @Published var errorMessage: String? = nil
 
-    private var signupUseCase: SignUpUseCase
+    private var authService: AuthService
     private var useCaseSubscription: AnyCancellable?
     
     
@@ -19,26 +19,25 @@ class SignUpViewModel: ObservableObject{
     let emailInputRender = TextFieldViewModel(title: "Email", prompt: "Email")
     let passwordInputRender = TextFieldViewModel(title: "Password", prompt: "Password", secure: true)
     
-    init(signUpUseCase: SignUpUseCase){
-        self.signupUseCase = signUpUseCase
+    init(authService: AuthService){
+        self.authService = authService
         addSubscription()
     }
     
     func addSubscription(){
-        useCaseSubscription = signupUseCase.$result
-            .sink(receiveValue: { useCaseResult in
-                switch useCaseResult{
-                case .success(_):
+        useCaseSubscription = authService.$authState
+            .sink(receiveValue: { authState in
+                switch authState{
+                case .signedIn(_, _):
                     break
-                case .error(_):
-                    break
+                case .signedOut(let error):
+                    self.errorMessage = error?.localizedDescription
                 }
             })
     }
     
     func signUp(){
-        signupUseCase.signUp(
-            name: nameInputRender.textInput,
+        authService.signUp(
             email: emailInputRender.textInput,
             password: passwordInputRender.textInput
         )
@@ -48,6 +47,6 @@ class SignUpViewModel: ObservableObject{
 
 extension Dependency.ViewModels{
     var signUpViewModel: SignUpViewModel{
-        SignUpViewModel(signUpUseCase: useCases.signUpUseCase)
+        SignUpViewModel(authService: services.authService)
     }
 }

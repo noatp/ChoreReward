@@ -42,36 +42,23 @@ class Dependency{
         return Repositories()
     }
     
-    class UseCases{
-        let repositories: Repositories
-        let services: Services
-        
-        init(
-            repositories: Repositories,
-            services: Services
-        ){
-            self.repositories = repositories
-            self.services = services
-        }
-    }
-    
-    private func useCases() -> UseCases{
-        return UseCases(
-            repositories: self.repositories(),
-            services: self.services()
-        )
-    }
-    
     class ViewModels{
-        let useCases: UseCases
-        
-        init(useCases: UseCases){
-            self.useCases = useCases
+        let services: Services
+        let repositories: Repositories
+        init(
+            services: Services,
+            repositories: Repositories
+        ){
+            self.services = services
+            self.repositories = repositories
         }
     }
     
     private func viewModels() -> ViewModels{
-        return ViewModels(useCases: self.useCases())
+        return ViewModels(
+            services: services(),
+            repositories: repositories()
+        )
     }
     
     class Views{
@@ -83,7 +70,7 @@ class Dependency{
     }
     
     func views() -> Views{
-        return Views(viewModels: self.viewModels())
+        return Views(viewModels: viewModels())
     }
     
 }

@@ -9,20 +9,20 @@ import Foundation
 import Combine
 
 class AppViewModel: ObservableObject{
-    private var signOutUseCase: SignOutUseCase
+    private var authService: AuthService
     
-    init(signOutUseCase: SignOutUseCase){
-        self.signOutUseCase = signOutUseCase
+    init(authService: AuthService){
+        self.authService = authService
     }
     
     func signOut(){
-        signOutUseCase.signOut()
+        authService.signOut()
     }
 }
 
 extension Dependency.ViewModels{
     var appViewModel: AppViewModel{
-        AppViewModel(signOutUseCase: useCases.signOutUseCase)
+        AppViewModel(authService: services.authService)
     }
     
     
