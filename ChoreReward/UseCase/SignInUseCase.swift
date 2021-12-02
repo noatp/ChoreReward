@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-class LoginUseCase{
+class SignInUseCase{
     @Published var result: UseCaseResult<String>
     
     private var authService: AuthService
@@ -29,8 +29,11 @@ class LoginUseCase{
         authSubscription = authService.$authState
             .sink(receiveValue: { authState in
                 switch authState{
-                case .signedIn(let currentUser):
+                case .signedIn(let currentUser, let newUser):
                     //successfully signed in
+                    if (!newUser){
+                        self.readUser(uid: currentUser.uid)
+                    }
                     self.result = UseCaseResult.success(returnData: currentUser.uid)
                 case .signedOut(let error):
                     if (error != nil){
@@ -49,7 +52,9 @@ class LoginUseCase{
         authService.signIn(email: email, password: password)
     }
     
-    func lookUpUser(uid: String){
+    func readUser(uid: String){
+        print("read user")
+        userRepository.readUser(userId: uid)
     }
     
     func silentLogin(){
@@ -58,8 +63,8 @@ class LoginUseCase{
 }
 
 extension Dependency.UseCases{
-    var loginUseCase: LoginUseCase{
-        return LoginUseCase(
+    var signInUseCase: SignInUseCase{
+        return SignInUseCase(
             authService: services.authService,
             userRepository: repositories.userRepository
         )

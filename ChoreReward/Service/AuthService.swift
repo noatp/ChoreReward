@@ -23,7 +23,10 @@ class AuthService: ObservableObject{
                 self.authState = AuthState.signedOut(error: error)
             }
             else if (result != nil){
-                self.authState = AuthState.signedIn(currentUser: self.auth.currentUser!)
+                self.authState = AuthState.signedIn(
+                    currentUser: self.auth.currentUser!,
+                    newUser: false
+                )
             }
         }
     }
@@ -37,7 +40,10 @@ class AuthService: ObservableObject{
                 self.authState = AuthState.signedOut(error: error)
             }
             else if (result != nil){
-                self.authState = AuthState.signedIn(currentUser: self.auth.currentUser!)
+                self.authState = AuthState.signedIn(
+                    currentUser: self.auth.currentUser!,
+                    newUser: true
+                )
             }
         }
     }
@@ -55,11 +61,14 @@ class AuthService: ObservableObject{
         guard let user = self.auth.currentUser else{
             return
         }
-        authState = .signedIn(currentUser: user)
+        authState = .signedIn(
+            currentUser: user,
+            newUser: false
+        )
     }
     
     enum AuthState{
-        case signedIn(currentUser: FirebaseAuth.User)
+        case signedIn(currentUser: FirebaseAuth.User, newUser: Bool)
         case signedOut(error: Error?)
     }
 }

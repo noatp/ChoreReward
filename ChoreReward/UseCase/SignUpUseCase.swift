@@ -15,6 +15,10 @@ class SignUpUseCase{
     private var userRepository: UserRepository
     private var authSubscription: AnyCancellable?
     
+    //expand later to store more data?
+    private var newUserEmail: String? = nil
+    private var newUserName: String? = nil
+    
     init(
         authService: AuthService,
         userRepository: UserRepository
@@ -29,8 +33,10 @@ class SignUpUseCase{
         authSubscription = authService.$authState
             .sink(receiveValue: { authState in
                 switch authState{
-                case .signedIn(let currentUser):
-                    self.createUser(uid: currentUser.uid)
+                case .signedIn(let currentUser, let newUser):
+                    if (newUser){
+                        self.createUser(uid: currentUser.uid)
+                    }
                 case .signedOut(let error):
                     if let error = error{
                         self.result = UseCaseResult.error(error: error)
@@ -41,10 +47,16 @@ class SignUpUseCase{
     
     func signUp(name: String, email: String, password: String){
         authService.signUp(email: email, password: password)
+        newUserEmail = email
+        print(email)
+        newUserName = name
+        print(name)
     }
     
     func createUser(uid: String){
-//        userRepository.createUser(userId: <#T##String#>, name: <#T##String#>, email: <#T##String#>)
+        print("create user")
+        print(newUserName)
+        userRepository.createUser(userId: uid, name: newUserName!, email: newUserEmail!)
     }
 }
 

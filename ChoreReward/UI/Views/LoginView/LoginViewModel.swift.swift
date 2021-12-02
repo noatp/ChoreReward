@@ -13,13 +13,13 @@ import Combine
 class LoginViewModel: ObservableObject{
     @Published var errorMessage: String? = nil
     
-    private var loginUseCase: LoginUseCase
+    private var loginUseCase: SignInUseCase
     private var useCaseSubscription: AnyCancellable?
     
     var emailInputRender = TextFieldViewModel(title: "Email", prompt: "Email")
     var passwordInputRender = TextFieldViewModel(title: "Password", prompt: "Password", secure: true)
     
-    init(loginUseCase: LoginUseCase) {
+    init(loginUseCase: SignInUseCase) {
         self.loginUseCase = loginUseCase
         addSubscription()
         self.loginUseCase.silentLogin()
@@ -47,6 +47,6 @@ class LoginViewModel: ObservableObject{
 
 extension Dependency.ViewModels{
     var loginViewModel: LoginViewModel{
-        return LoginViewModel(loginUseCase: useCases.loginUseCase)
+        return LoginViewModel(loginUseCase: useCases.signInUseCase)
     }
 }

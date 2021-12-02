@@ -11,11 +11,11 @@ import Combine
 class RootViewModel: ObservableObject{
     @Published var shouldRenderLoginView: Bool = true
     
-    private var loginUseCase: LoginUseCase
+    private var loginUseCase: SignInUseCase
     private var useCaseSubscription: AnyCancellable?
     
     
-    init(loginUseCase: LoginUseCase) {
+    init(loginUseCase: SignInUseCase) {
         self.loginUseCase = loginUseCase
         addSubscription()
     }
@@ -40,6 +40,6 @@ class RootViewModel: ObservableObject{
 
 extension Dependency.ViewModels{
     var rootViewModel: RootViewModel{
-        RootViewModel(loginUseCase: useCases.loginUseCase)
+        RootViewModel(loginUseCase: useCases.signInUseCase)
     }
 }
