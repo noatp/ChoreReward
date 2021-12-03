@@ -28,6 +28,7 @@ class AuthService: ObservableObject{
                     newUser: false
                 )
             }
+            //is there anyway to return the data directly in this completion???
         }
     }
     

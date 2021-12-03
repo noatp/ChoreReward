@@ -22,12 +22,14 @@ class RootViewModel: ObservableObject{
     
     func addSubscription(){
         useCaseSubscription = authService.$authState
-            .sink(receiveValue: { authState in
+            .sink(receiveValue: {[weak self] authState in
                 switch authState{
-                case .signedIn(_, _):
-                    self.shouldRenderLoginView = false
+                case .signedIn(_, let newUser):
+                    if (!newUser){
+                        self?.shouldRenderLoginView = false
+                    }
                 case .signedOut(_):
-                    self.shouldRenderLoginView = true
+                    self?.shouldRenderLoginView = true
                 }
             })
     }

@@ -12,27 +12,46 @@ class SignUpViewModel: ObservableObject{
     @Published var errorMessage: String? = nil
 
     private var authService: AuthService
-    private var useCaseSubscription: AnyCancellable?
+    private var userRepository: UserRepository
+    private var authServiceSubscription: AnyCancellable?
+    private var userRepoSubscription: AnyCancellable?
     
     
     let nameInputRender = TextFieldViewModel(title: "Full name", prompt: "Full name")
     let emailInputRender = TextFieldViewModel(title: "Email", prompt: "Email")
     let passwordInputRender = TextFieldViewModel(title: "Password", prompt: "Password", secure: true)
     
-    init(authService: AuthService){
+    init(
+        authService: AuthService,
+        userRepository: UserRepository
+    ){
+        print("creating a new signup viewmodel")
         self.authService = authService
+        self.userRepository = userRepository
         addSubscription()
     }
     
     func addSubscription(){
-        useCaseSubscription = authService.$authState
-            .sink(receiveValue: { authState in
+        authServiceSubscription = authService.$authState
+            .sink(receiveValue: {[weak self] authState in
                 switch authState{
-                case .signedIn(_, _):
+                case .signedIn(let currentUser, let newUser):
+                    if (newUser){
+                        self?.userRepository.createUser(
+                            userId: currentUser.uid,
+                            name: self?.nameInputRender.textInput ?? nil,
+                            email: self?.emailInputRender.textInput ?? nil
+                        )
+                    }
                     break
                 case .signedOut(let error):
-                    self.errorMessage = error?.localizedDescription
+                    self?.errorMessage = error?.localizedDescription ?? nil
                 }
+            })
+        userRepoSubscription = userRepository.$user
+            .sink(receiveValue: {[weak self] userDoc in
+                print("receive completion from user repo")
+                self?.authService.silentAuth()
             })
     }
     
@@ -47,6 +66,9 @@ class SignUpViewModel: ObservableObject{
 
 extension Dependency.ViewModels{
     var signUpViewModel: SignUpViewModel{
-        SignUpViewModel(authService: services.authService)
+        SignUpViewModel(
+            authService: services.authService,
+            userRepository: repositories.userRepository
+        )
     }
 }
