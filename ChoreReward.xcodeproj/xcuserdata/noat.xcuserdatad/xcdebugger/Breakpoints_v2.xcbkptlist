@@ -14,9 +14,9 @@
             filePath = "ChoreReward/Service/AuthService.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "26"
-            endingLineNumber = "26"
-            landmarkName = "signIn(email:password:)"
+            startingLineNumber = "30"
+            endingLineNumber = "30"
+            landmarkName = "signIn(email:password:closure:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -161,38 +161,6 @@
             startingLineNumber = "18"
             endingLineNumber = "18"
             landmarkName = "init(signUpViewModel:views:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "3EB3D7EC-2A40-41D1-8E0B-52EDD1D2932C"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ChoreReward/Service/AuthService.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "30"
-            endingLineNumber = "30"
-            landmarkName = "signIn(email:password:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "7C32E9D0-6EA3-46B5-8A88-1A0B6BD0E942"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ChoreReward/UI/Views/SignUpView/SignUpViewModel.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "54"
-            endingLineNumber = "54"
-            landmarkName = "addSubscription()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

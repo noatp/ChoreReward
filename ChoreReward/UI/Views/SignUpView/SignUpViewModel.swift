@@ -25,7 +25,6 @@ class SignUpViewModel: ObservableObject{
         authService: AuthService,
         userRepository: UserRepository
     ){
-        print("creating a new signup viewmodel")
         self.authService = authService
         self.userRepository = userRepository
         addSubscription()
@@ -50,8 +49,8 @@ class SignUpViewModel: ObservableObject{
             })
         userRepoSubscription = userRepository.$user
             .sink(receiveValue: {[weak self] userDoc in
-                print("receive completion from user repo")
                 self?.authService.silentAuth()
+                self?.userRepoSubscription?.cancel()
             })
     }
     
@@ -61,6 +60,11 @@ class SignUpViewModel: ObservableObject{
             password: passwordInputRender.textInput
         )
     }
+    
+    func getUserProfile(uid: String){
+        userRepository.readUser(userId: uid)
+    }
+    
     
 }
 

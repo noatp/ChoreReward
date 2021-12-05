@@ -21,9 +21,16 @@ struct AppView: View {
     
     var body: some View {
         VStack{
-            Text("signed in with uid")
+            Text("signed in with email")
+            Text(appViewModel.currentUserEmail)
+            Text("name:")
+            Text(appViewModel.currentUserName)
             Button("Sign out") {
                 appViewModel.signOut()
+            }
+            
+            Button("Get test1 account data"){
+                appViewModel.getUserProfile(uid: "iZ3Ui5jeCpMu6ih3XGFHOekd81o2")
             }
         }
     }

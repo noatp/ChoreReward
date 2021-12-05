@@ -12,9 +12,10 @@ import Combine
 import CoreMedia
 
 final class UserRepository: ObservableObject{
-    @Published var user: [String: Any]? = nil
+    @Published var user: User? = nil
     
     private let database = Firestore.firestore()
+    private var currentUserId: String? = nil
     
     func createUser(
         userId: String,
@@ -37,14 +38,24 @@ final class UserRepository: ObservableObject{
     func readUser(userId: String){
         let docRef = database.collection("users").document(userId)
         
-        docRef.getDocument { (document, error) in
-            if let document = document, document.exists {
-                let dataDescription = document.data().map(String.init(describing:)) ?? "nil"
-                self.user = document.data()
-            } else {
-                print("Document does not exist")
+        docRef.getDocument {[weak self] (document, error) in
+            let result = Result {
+                try document?.data(as: User.self)
+            }
+            switch result {
+            case .success(let user):
+                if let user = user {
+                    // A `user` value was successfully initialized from the DocumentSnapshot.
+                    self?.user = user
+                } else {
+                    // A nil value was successfully initialized from the DocumentSnapshot,
+                    // or the DocumentSnapshot was nil.
+                    print("Document does not exist")
+                }
+            case .failure(let error):
+                // A `user` value could not be initialized from the DocumentSnapshot.
+                print("Error decoding city: \(error)")
             }
         }
-
     }
 }

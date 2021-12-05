@@ -12,6 +12,10 @@ class AuthService: ObservableObject{
     let auth = Auth.auth()
     let userRepository = UserRepository()
     
+    var currentUid: String?{
+        auth.currentUser?.uid
+    }
+    
     @Published var authState = AuthState.signedOut(error: nil)
     
     func signIn(email: String, password: String){

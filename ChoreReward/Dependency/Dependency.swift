@@ -12,27 +12,6 @@ class Dependency{
     
     static let shared = Dependency()
     static let preview = Dependency()
-//
-////    var recipeService: RecipeService
-////    var database: Database
-//    var mockData: MockData
-//    var authService: AuthService
-//
-//    init(
-//        mockData: MockData = MockData(),
-//        authService: AuthService = AuthService()
-//    ){
-//        self.mockData = mockData
-//        self.authService = authService
-//    }
-    
-    class Services{
-        let authService = AuthService()
-    }
-    
-    private func services() -> Services{
-        return Services()
-    }
     
     class Repositories{
         let userRepository = UserRepository()
@@ -40,6 +19,19 @@ class Dependency{
     
     private func repositories() -> Repositories{
         return Repositories()
+    }
+    
+    class Services{
+        let authService = AuthService()
+        let repositories: Repositories
+        
+        init(repositories: Repositories){
+            self.repositories = repositories
+        }
+    }
+    
+    private func services() -> Services{
+        return Services(repositories: repositories())
     }
     
     class ViewModels{
