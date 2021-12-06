@@ -45,11 +45,13 @@ class AuthService: ObservableObject{
                 self.authState = AuthState.signedOut(error: error)
             }
             else if (result != nil){
-                self.userRepository.createUser(
-                    userId: self.currentUid ?? "",
+                let newUserWithId = User(
+                    id: self.currentUid!,
+                    email: newUser.email,
                     name: newUser.name,
-                    email: newUser.email
+                    role: newUser.role
                 )
+                self.userRepository.createUser(newUser: newUserWithId)
                 self.signInIfCurrentUserExist()
             }
         }

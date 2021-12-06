@@ -9,7 +9,7 @@ import Foundation
 import FirebaseFirestoreSwift
 
 struct User: Identifiable, Codable{
-    var id: String?
+    @DocumentID public var id: String?
     var email: String
     var name: String
     var role: Role
@@ -36,7 +36,7 @@ struct User: Identifiable, Codable{
     )
 }
 
-enum Role: Codable{
+enum Role: String, Codable{
     case parent
     case child
 }

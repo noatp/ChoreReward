@@ -17,20 +17,17 @@ final class UserRepository: ObservableObject{
     private let database = Firestore.firestore()
     private var currentUserId: String? = nil
     
-    func createUser(
-        userId: String,
-        name: String?,
-        email: String?
-    ){
-        database.collection("users").document(userId).setData([
-            "email": email ?? "",
-            "name": name ?? ""
+    func createUser(newUser: User){
+        database.collection("users").document(newUser.id ?? "").setData([
+            "email": newUser.email,
+            "name": newUser.name,
+            "role": newUser.role.rawValue
         ]) { err in
             if let err = err {
                 print("Error adding document: \(err)")
             } else {
-                self.readUser(userId: userId)
-                print("Document added with ID: \(userId)")
+                self.readUser(userId: newUser.id ?? "")
+                print("Document added with ID: \(newUser.id ?? "")")
             }
         }
     }
@@ -54,7 +51,7 @@ final class UserRepository: ObservableObject{
                 }
             case .failure(let error):
                 // A `user` value could not be initialized from the DocumentSnapshot.
-                print("Error decoding city: \(error)")
+                print("Error decoding user: \(error)")
             }
         }
     }

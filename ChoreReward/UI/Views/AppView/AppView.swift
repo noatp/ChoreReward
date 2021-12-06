@@ -21,10 +21,19 @@ struct AppView: View {
     
     var body: some View {
         VStack{
-            Text("signed in with email")
-            Text(appViewModel.currentUserEmail)
-            Text("name:")
-            Text(appViewModel.currentUserName)
+            HStack{
+                Text("signed in with email")
+                Text(appViewModel.currentUserEmail)
+            }
+            HStack{
+                Text("name:")
+                Text(appViewModel.currentUserName)
+            }
+            HStack{
+                Text("role")
+                Text(appViewModel.currentUserRole)
+            }
+            
             Button("Sign out") {
                 appViewModel.signOut()
             }

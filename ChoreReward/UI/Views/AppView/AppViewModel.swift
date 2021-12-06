@@ -16,6 +16,7 @@ class AppViewModel: ObservableObject{
     
     @Published var currentUserEmail: String = ""
     @Published var currentUserName: String = ""
+    @Published var currentUserRole: String = ""
 
     init(
         authService: AuthService,
@@ -32,6 +33,7 @@ class AppViewModel: ObservableObject{
             .sink(receiveValue: { [weak self] user in
                 self?.currentUserName = user?.name ?? ""
                 self?.currentUserEmail = user?.email ?? ""
+                self?.currentUserRole = user?.role.rawValue ?? ""
             })
     }
     

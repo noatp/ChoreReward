@@ -20,6 +20,7 @@ class SignUpViewModel: ObservableObject{
     let nameInputRender = TextFieldViewModel(title: "Full name", prompt: "Full name")
     let emailInputRender = TextFieldViewModel(title: "Email", prompt: "Email")
     let passwordInputRender = TextFieldViewModel(title: "Password", prompt: "Password", secure: true)
+    let rolePickerRender = RolePickerViewModel()
     
     init(
         authService: AuthService,
@@ -49,10 +50,10 @@ class SignUpViewModel: ObservableObject{
     
     func signUp(){
         let newUser = User(
-            id: nil,
+            id: "",
             email: emailInputRender.textInput,
             name: nameInputRender.textInput,
-            role: .parent
+            role: rolePickerRender.selection
         )
         authService.signUp(
             newUser: newUser,

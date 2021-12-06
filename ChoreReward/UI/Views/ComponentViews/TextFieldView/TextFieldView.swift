@@ -18,36 +18,41 @@ struct TextFieldView: View {
     }
     
     var body: some View {
-        if (textFieldViewModel.secure){
-            if #available(iOS 15.0, *) {
-                SecureField(
-                    text: $textFieldViewModel.textInput,
-                    prompt: Text(textFieldViewModel.prompt)) {
-                        Text(textFieldViewModel.title)
-                    }
-            } else {
-                SecureField(
-                    textFieldViewModel.title,
-                    text: $textFieldViewModel.textInput
-                )
-            }
-        }
-        else
-        if #available(iOS 15.0, *) {
-            TextField(
-                text: $textFieldViewModel.textInput,
-                prompt: Text(textFieldViewModel.prompt)) {
-                    Text(textFieldViewModel.title)
+        Group{
+            if (textFieldViewModel.secure){
+                if #available(iOS 15.0, *) {
+                    SecureField(
+                        text: $textFieldViewModel.textInput,
+                        prompt: Text(textFieldViewModel.prompt)) {
+                            Text(textFieldViewModel.title)
+                        }
+                } else {
+                    SecureField(
+                        textFieldViewModel.title,
+                        text: $textFieldViewModel.textInput
+                    )
                 }
-                .textInputAutocapitalization(TextInputAutocapitalization.never)
-
-        } else {
-            TextField(
-                textFieldViewModel.title,
-                text: $textFieldViewModel.textInput
-            )
-            .autocapitalization(UITextAutocapitalizationType.none)
+            }
+            else
+                if #available(iOS 15.0, *) {
+                    TextField(
+                        text: $textFieldViewModel.textInput,
+                        prompt: Text(textFieldViewModel.prompt)) {
+                            Text(textFieldViewModel.title)
+                        }
+                        .textInputAutocapitalization(TextInputAutocapitalization.never)
+                    
+                } else {
+                    TextField(
+                        textFieldViewModel.title,
+                        text: $textFieldViewModel.textInput
+                    )
+                        .autocapitalization(UITextAutocapitalizationType.none)
+                }
         }
+        .padding()
+        .textFieldStyle(RoundedBorderTextFieldStyle())
+
     }
 }
 

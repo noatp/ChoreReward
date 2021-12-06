@@ -27,26 +27,17 @@ struct SignUpView: View {
             }
             
             TextFieldView(textFieldViewModel: signUpViewModel.nameInputRender)
-                .padding()
             TextFieldView(textFieldViewModel: signUpViewModel.emailInputRender)
-                .padding()
             TextFieldView(textFieldViewModel: signUpViewModel.passwordInputRender)
-                .padding()
+            RolePickerView(rolePickerViewModel: signUpViewModel.rolePickerRender)
             Button("Sign up") {
                 signUpViewModel.signUp()
             }
             .padding()
-//            Picker("Flavor", selection: $selectedFlavor) {
-//                Text("Chocolate").tag(Flavor.chocolate)
-//                Text("Vanilla").tag(Flavor.vanilla)
-//                Text("Strawberry").tag(Flavor.strawberry)
-//            }
-//            Text("Selected flavor: \(selectedFlavor.rawValue)")
             Button("Get test1 account data"){
                 signUpViewModel.getUserProfile(uid: "iZ3Ui5jeCpMu6ih3XGFHOekd81o2")
             }
         }
-        .padding()
     }
 }
 
