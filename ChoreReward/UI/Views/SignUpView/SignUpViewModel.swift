@@ -34,14 +34,7 @@ class SignUpViewModel: ObservableObject{
         authServiceSubscription = authService.$authState
             .sink(receiveValue: {[weak self] authState in
                 switch authState{
-                case .signedIn(let currentUser, let newUser):
-                    if (newUser){
-                        self?.userRepository.createUser(
-                            userId: currentUser.uid,
-                            name: self?.nameInputRender.textInput ?? nil,
-                            email: self?.emailInputRender.textInput ?? nil
-                        )
-                    }
+                case .signedIn(_):
                     break
                 case .signedOut(let error):
                     self?.errorMessage = error?.localizedDescription ?? nil
@@ -49,14 +42,15 @@ class SignUpViewModel: ObservableObject{
             })
         userRepoSubscription = userRepository.$user
             .sink(receiveValue: {[weak self] userDoc in
-                self?.authService.silentAuth()
+                self?.authService.signInIfCurrentUserExist()
                 self?.userRepoSubscription?.cancel()
             })
     }
     
     func signUp(){
+        let newUser = User(id: nil, email: emailInputRender.textInput, name: nameInputRender.textInput)
         authService.signUp(
-            email: emailInputRender.textInput,
+            newUser: newUser,
             password: passwordInputRender.textInput
         )
     }

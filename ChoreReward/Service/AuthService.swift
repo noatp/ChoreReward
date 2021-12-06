@@ -10,10 +10,14 @@ import FirebaseAuth
 
 class AuthService: ObservableObject{
     let auth = Auth.auth()
-    let userRepository = UserRepository()
+    let userRepository: UserRepository
     
     var currentUid: String?{
         auth.currentUser?.uid
+    }
+    
+    init(userRepository: UserRepository){
+        self.userRepository = userRepository
     }
     
     @Published var authState = AuthState.signedOut(error: nil)
@@ -27,28 +31,26 @@ class AuthService: ObservableObject{
                 self.authState = AuthState.signedOut(error: error)
             }
             else if (result != nil){
-                self.authState = AuthState.signedIn(
-                    currentUser: self.auth.currentUser!,
-                    newUser: false
-                )
+                self.signInIfCurrentUserExist()
             }
-            //is there anyway to return the data directly in this completion???
         }
     }
     
-    func signUp(email: String, password: String){
+    func signUp(newUser: User, password: String){
         auth.createUser(
-            withEmail: email,
+            withEmail: newUser.email,
             password: password
         ) { result, error in
             if (error != nil){
                 self.authState = AuthState.signedOut(error: error)
             }
             else if (result != nil){
-                self.authState = AuthState.signedIn(
-                    currentUser: self.auth.currentUser!,
-                    newUser: true
+                self.userRepository.createUser(
+                    userId: self.currentUid ?? "",
+                    name: newUser.name,
+                    email: newUser.email
                 )
+                self.signInIfCurrentUserExist()
             }
         }
     }
@@ -62,18 +64,17 @@ class AuthService: ObservableObject{
         }
     }
     
-    func silentAuth(){
+    func signInIfCurrentUserExist(){
         guard let user = self.auth.currentUser else{
             return
         }
         authState = .signedIn(
-            currentUser: user,
-            newUser: false
+            currentUser: user
         )
     }
     
     enum AuthState{
-        case signedIn(currentUser: FirebaseAuth.User, newUser: Bool)
+        case signedIn(currentUser: FirebaseAuth.User)
         case signedOut(error: Error?)
     }
 }

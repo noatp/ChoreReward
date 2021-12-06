@@ -22,11 +22,12 @@ class Dependency{
     }
     
     class Services{
-        let authService = AuthService()
+        let authService: AuthService
         let repositories: Repositories
         
         init(repositories: Repositories){
             self.repositories = repositories
+            self.authService = AuthService(userRepository: self.repositories.userRepository)
         }
     }
     
