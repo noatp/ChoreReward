@@ -36,6 +36,12 @@ struct SignUpView: View {
                 signUpViewModel.signUp()
             }
             .padding()
+//            Picker("Flavor", selection: $selectedFlavor) {
+//                Text("Chocolate").tag(Flavor.chocolate)
+//                Text("Vanilla").tag(Flavor.vanilla)
+//                Text("Strawberry").tag(Flavor.strawberry)
+//            }
+//            Text("Selected flavor: \(selectedFlavor.rawValue)")
             Button("Get test1 account data"){
                 signUpViewModel.getUserProfile(uid: "iZ3Ui5jeCpMu6ih3XGFHOekd81o2")
             }

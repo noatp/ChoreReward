@@ -12,27 +12,31 @@ struct User: Identifiable, Codable{
     var id: String?
     var email: String
     var name: String
+    var role: Role
     
     static let previewTim = User(
         id: "tim",
         email: "test@gmail.com",
-        name: "Timothy Tran"
+        name: "Timothy Tran",
+        role: .child
     )
     
     static let previewBen = User(
         id: "ben",
         email: "test1@gmail.com",
-        name: "Benjamin Tran"
+        name: "Benjamin Tran",
+        role: .child
     )
     
     static let previewDavid = User(
         id: "david",
         email: "test2@gmail.com",
-        name: "David Tran"
+        name: "David Tran",
+        role: .parent
     )
 }
 
-enum Role{
+enum Role: Codable{
     case parent
     case child
 }

@@ -48,7 +48,12 @@ class SignUpViewModel: ObservableObject{
     }
     
     func signUp(){
-        let newUser = User(id: nil, email: emailInputRender.textInput, name: nameInputRender.textInput)
+        let newUser = User(
+            id: nil,
+            email: emailInputRender.textInput,
+            name: nameInputRender.textInput,
+            role: .parent
+        )
         authService.signUp(
             newUser: newUser,
             password: passwordInputRender.textInput
