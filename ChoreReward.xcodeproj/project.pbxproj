@@ -41,6 +41,10 @@
 		45D7AE91273479C000A53812 /* NewChoreFormViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D7AE90273479C000A53812 /* NewChoreFormViewModel.swift */; };
 		45D7AE9327347D2900A53812 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D7AE9227347D2900A53812 /* User.swift */; };
 		45D7AE952735B4A100A53812 /* Family.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D7AE942735B4A100A53812 /* Family.swift */; };
+		45D8D397275E77AD0026ABE3 /* ChoreTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D8D396275E77AD0026ABE3 /* ChoreTabView.swift */; };
+		45D8D399275E77CA0026ABE3 /* FamilyTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D8D398275E77CA0026ABE3 /* FamilyTabView.swift */; };
+		45D8D39B275E77E20026ABE3 /* UserTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D8D39A275E77E20026ABE3 /* UserTabView.swift */; };
+		45D8D39D275E784E0026ABE3 /* UserTabViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D8D39C275E784E0026ABE3 /* UserTabViewModel.swift */; };
 		45E483CA275402F6009DA543 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E483C9275402F6009DA543 /* RootView.swift */; };
 		45E483CC27540305009DA543 /* RootViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E483CB27540305009DA543 /* RootViewModel.swift */; };
 /* End PBXBuildFile section */
@@ -96,6 +100,10 @@
 		45D7AE90273479C000A53812 /* NewChoreFormViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewChoreFormViewModel.swift; sourceTree = "<group>"; };
 		45D7AE9227347D2900A53812 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		45D7AE942735B4A100A53812 /* Family.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Family.swift; sourceTree = "<group>"; };
+		45D8D396275E77AD0026ABE3 /* ChoreTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoreTabView.swift; sourceTree = "<group>"; };
+		45D8D398275E77CA0026ABE3 /* FamilyTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyTabView.swift; sourceTree = "<group>"; };
+		45D8D39A275E77E20026ABE3 /* UserTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTabView.swift; sourceTree = "<group>"; };
+		45D8D39C275E784E0026ABE3 /* UserTabViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTabViewModel.swift; sourceTree = "<group>"; };
 		45E483C9275402F6009DA543 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		45E483CB27540305009DA543 /* RootViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -175,6 +183,9 @@
 		45395C54272A253E00F50B70 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				45D8D395275E77670026ABE3 /* ChoreTabView */,
+				45D8D394275E77500026ABE3 /* FamilyTabView */,
+				45D8D393275E77250026ABE3 /* UserTabView */,
 				45E483CF2754359B009DA543 /* SignUpView */,
 				45E483C8275402D9009DA543 /* RootView */,
 				4531476C2752FBE6000A85D7 /* AppView */,
@@ -326,6 +337,31 @@
 				455ECC82275DA77C00438A43 /* RolePickerView */,
 			);
 			path = PickerView;
+			sourceTree = "<group>";
+		};
+		45D8D393275E77250026ABE3 /* UserTabView */ = {
+			isa = PBXGroup;
+			children = (
+				45D8D39A275E77E20026ABE3 /* UserTabView.swift */,
+				45D8D39C275E784E0026ABE3 /* UserTabViewModel.swift */,
+			);
+			path = UserTabView;
+			sourceTree = "<group>";
+		};
+		45D8D394275E77500026ABE3 /* FamilyTabView */ = {
+			isa = PBXGroup;
+			children = (
+				45D8D398275E77CA0026ABE3 /* FamilyTabView.swift */,
+			);
+			path = FamilyTabView;
+			sourceTree = "<group>";
+		};
+		45D8D395275E77670026ABE3 /* ChoreTabView */ = {
+			isa = PBXGroup;
+			children = (
+				45D8D396275E77AD0026ABE3 /* ChoreTabView.swift */,
+			);
+			path = ChoreTabView;
 			sourceTree = "<group>";
 		};
 		45E483C8275402D9009DA543 /* RootView */ = {
@@ -486,6 +522,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				45D8D397275E77AD0026ABE3 /* ChoreTabView.swift in Sources */,
 				45D7AE8F273476AF00A53812 /* TextFieldViewModel.swift in Sources */,
 				45E483CA275402F6009DA543 /* RootView.swift in Sources */,
 				45ACB4AE2724AD1A000E04A0 /* ContentView.swift in Sources */,
@@ -503,6 +540,8 @@
 				45D7AE872733572700A53812 /* NewChoreFormView.swift.swift in Sources */,
 				45D7AE9327347D2900A53812 /* User.swift in Sources */,
 				45395C58272A258600F50B70 /* ChoreCard.swift in Sources */,
+				45D8D399275E77CA0026ABE3 /* FamilyTabView.swift in Sources */,
+				45D8D39D275E784E0026ABE3 /* UserTabViewModel.swift in Sources */,
 				45ACB4DE2724AEBE000E04A0 /* Reward.swift in Sources */,
 				45D7AE952735B4A100A53812 /* Family.swift in Sources */,
 				45ACB4AC2724AD1A000E04A0 /* ChoreRewardApp.swift in Sources */,
@@ -512,6 +551,7 @@
 				45D7AE8C27346E9900A53812 /* TextFieldView.swift in Sources */,
 				45E483CC27540305009DA543 /* RootViewModel.swift in Sources */,
 				45D7AE91273479C000A53812 /* NewChoreFormViewModel.swift in Sources */,
+				45D8D39B275E77E20026ABE3 /* UserTabView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
