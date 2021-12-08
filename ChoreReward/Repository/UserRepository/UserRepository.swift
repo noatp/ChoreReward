@@ -11,11 +11,15 @@ import FirebaseFirestoreSwift
 import Combine
 import CoreMedia
 
-final class UserRepository: ObservableObject{
+class UserRepository: ObservableObject{
     @Published var user: User? = nil
     
     private let database = Firestore.firestore()
     private var currentUserId: String? = nil
+    
+    init(initUser: User? = nil){
+        self.user = initUser
+    }
     
     func createUser(newUser: User){
         database.collection("users").document(newUser.id ?? "").setData([

@@ -16,11 +16,15 @@ class AuthService: ObservableObject{
         auth.currentUser?.uid
     }
     
-    init(userRepository: UserRepository){
+    init(
+        userRepository: UserRepository,
+        initAuthState: AuthState = .signedOut(error: nil)
+    ){
         self.userRepository = userRepository
+        self.authState = initAuthState
     }
     
-    @Published var authState = AuthState.signedOut(error: nil)
+    @Published var authState: AuthState
     
     func signIn(email: String, password: String){
         auth.signIn(
@@ -70,13 +74,11 @@ class AuthService: ObservableObject{
         guard let user = self.auth.currentUser else{
             return
         }
-        authState = .signedIn(
-            currentUser: user
-        )
+        authState = .signedIn
     }
     
     enum AuthState{
-        case signedIn(currentUser: FirebaseAuth.User)
+        case signedIn
         case signedOut(error: Error?)
     }
 }

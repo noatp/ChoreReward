@@ -24,7 +24,7 @@ class RootViewModel: ObservableObject{
         useCaseSubscription = authService.$authState
             .sink(receiveValue: {[weak self] authState in
                 switch authState{
-                case .signedIn(_):
+                case .signedIn:
                     self?.shouldRenderLoginView = false
                 case .signedOut(_):
                     self?.shouldRenderLoginView = true

@@ -29,7 +29,7 @@ class LoginViewModel: ObservableObject{
         useCaseSubscription = authService.$authState
             .sink(receiveValue: {[weak self] authState in
                 switch authState{
-                case .signedIn(_):
+                case .signedIn:
                     break
                 case .signedOut(let error):
                     self?.errorMessage = error?.localizedDescription

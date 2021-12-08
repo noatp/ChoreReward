@@ -9,30 +9,47 @@ import Foundation
 import UIKit
 
 class Dependency{
+    let authService: AuthService
+    let userRepository: UserRepository
     
-    static let shared = Dependency()
+    init(
+        authService: AuthService = MockAuthService(),
+        userRepository: UserRepository = MockUserRepository()
+    ){
+        self.authService = authService
+        self.userRepository = userRepository
+    }
+    
     static let preview = Dependency()
     
     class Repositories{
-        let userRepository = UserRepository()
+        let dependency: Dependency
+        let userRepository: UserRepository
+        
+        init(dependency: Dependency){
+            self.dependency = dependency
+            self.userRepository = self.dependency.userRepository
+        }
     }
     
     private func repositories() -> Repositories{
-        return Repositories()
+        return Repositories(dependency: self)
     }
     
     class Services{
+        let dependency: Dependency
         let authService: AuthService
         let repositories: Repositories
         
-        init(repositories: Repositories){
-            self.repositories = repositories
-            self.authService = AuthService(userRepository: self.repositories.userRepository)
+        init(dependency: Dependency){
+            self.dependency = dependency
+            self.repositories = self.dependency.repositories()
+            self.authService = self.dependency.authService
         }
     }
     
     private func services() -> Services{
-        return Services(repositories: repositories())
+        return Services(dependency: self)
     }
     
     class ViewModels{
@@ -65,24 +82,35 @@ class Dependency{
     func views() -> Views{
         return Views(viewModels: viewModels())
     }
-    
 }
 
-//class MockRecipeService: RecipeService{
-//    init(
-//        isLoading: Bool = false,
-//        moreRecipeAvailable: Bool = false
-//    ) {
-//        super.init(
-//            initFetchRecipesState: FetchRecipesState(
-//                isLoading: isLoading,
-//                moreRecipeAvailable: moreRecipeAvailable,
-//                recipeList: Recipe.previewList
-//            )
-//        )
-//    }
-//}
-//
+class MockAuthService: AuthService{
+    override init(
+        userRepository: UserRepository = MockUserRepository(),
+        initAuthState: AuthState = AuthState.signedIn
+    ){
+        super.init(userRepository: userRepository)
+    }
+}
+
+class MockUserRepository: UserRepository{
+    override init(initUser: User? = User(
+        id: "something",
+        email: "preview email",
+        name: "preview name",
+        role: .child)
+    ){
+        super.init(initUser: initUser)
+    }
+    
+    override func readUser(userId: String) {
+        return
+    }
+    
+    override func createUser(newUser: User) {
+        return
+    }
+}
 
 
 

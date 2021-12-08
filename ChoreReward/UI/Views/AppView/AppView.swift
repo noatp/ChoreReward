@@ -21,20 +21,20 @@ struct AppView: View {
     
     var body: some View {
         TabView {
-            Text("The First Tab")
+            views.choreTabView
                 .tabItem {
                     Image(systemName: "1.square.fill")
-                    Text("First")
+                    Text("Chore")
                 }
-            Text("Another Tab")
+            views.familyTabView
                 .tabItem {
-                    Image(systemName: "2.square.fill")
-                    Text("Second")
+                    Image(systemName: "house")
+                    Text("Family")
                 }
             views.userTabView
                 .tabItem {
-                    Image(systemName: "3.square.fill")
-                    Text("User Profile")
+                    Image(systemName: "person.crop.circle")
+                    Text("Profile")
                 }
         }
         .font(.headline)
