@@ -26,7 +26,7 @@ struct ChoreRewardApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView(views: Dependency.preview.views())
+            ContentView(views: self.dependency.views())
         }
     }
 }

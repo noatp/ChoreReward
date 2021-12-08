@@ -23,7 +23,7 @@ struct AppView: View {
         TabView {
             views.choreTabView
                 .tabItem {
-                    Image(systemName: "1.square.fill")
+                    Image(systemName: "checkmark.seal.fill")
                     Text("Chore")
                 }
             views.familyTabView
