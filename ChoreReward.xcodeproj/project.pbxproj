@@ -42,11 +42,12 @@
 		45D7AE9327347D2900A53812 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D7AE9227347D2900A53812 /* User.swift */; };
 		45D7AE952735B4A100A53812 /* Family.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D7AE942735B4A100A53812 /* Family.swift */; };
 		45D8D397275E77AD0026ABE3 /* ChoreTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D8D396275E77AD0026ABE3 /* ChoreTabView.swift */; };
-		45D8D399275E77CA0026ABE3 /* FamilyTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D8D398275E77CA0026ABE3 /* FamilyTabView.swift */; };
+		45D8D399275E77CA0026ABE3 /* FamilyTabContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D8D398275E77CA0026ABE3 /* FamilyTabContainerView.swift */; };
 		45D8D39B275E77E20026ABE3 /* UserTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D8D39A275E77E20026ABE3 /* UserTabView.swift */; };
 		45D8D39D275E784E0026ABE3 /* UserTabViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D8D39C275E784E0026ABE3 /* UserTabViewModel.swift */; };
-		45D8D39F275ED2BE0026ABE3 /* FamilyTabViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D8D39E275ED2BE0026ABE3 /* FamilyTabViewModel.swift */; };
+		45D8D39F275ED2BE0026ABE3 /* FamilyTabContainerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D8D39E275ED2BE0026ABE3 /* FamilyTabContainerViewModel.swift */; };
 		45D8D3A1275ED3F10026ABE3 /* ChoreTabViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D8D3A0275ED3F10026ABE3 /* ChoreTabViewModel.swift */; };
+		45D8D3A327619EC80026ABE3 /* FamilyTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D8D3A227619EC70026ABE3 /* FamilyTabView.swift */; };
 		45E483CA275402F6009DA543 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E483C9275402F6009DA543 /* RootView.swift */; };
 		45E483CC27540305009DA543 /* RootViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E483CB27540305009DA543 /* RootViewModel.swift */; };
 /* End PBXBuildFile section */
@@ -103,11 +104,12 @@
 		45D7AE9227347D2900A53812 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		45D7AE942735B4A100A53812 /* Family.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Family.swift; sourceTree = "<group>"; };
 		45D8D396275E77AD0026ABE3 /* ChoreTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoreTabView.swift; sourceTree = "<group>"; };
-		45D8D398275E77CA0026ABE3 /* FamilyTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyTabView.swift; sourceTree = "<group>"; };
+		45D8D398275E77CA0026ABE3 /* FamilyTabContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyTabContainerView.swift; sourceTree = "<group>"; };
 		45D8D39A275E77E20026ABE3 /* UserTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTabView.swift; sourceTree = "<group>"; };
 		45D8D39C275E784E0026ABE3 /* UserTabViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTabViewModel.swift; sourceTree = "<group>"; };
-		45D8D39E275ED2BE0026ABE3 /* FamilyTabViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyTabViewModel.swift; sourceTree = "<group>"; };
+		45D8D39E275ED2BE0026ABE3 /* FamilyTabContainerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyTabContainerViewModel.swift; sourceTree = "<group>"; };
 		45D8D3A0275ED3F10026ABE3 /* ChoreTabViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoreTabViewModel.swift; sourceTree = "<group>"; };
+		45D8D3A227619EC70026ABE3 /* FamilyTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyTabView.swift; sourceTree = "<group>"; };
 		45E483C9275402F6009DA543 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		45E483CB27540305009DA543 /* RootViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -355,8 +357,9 @@
 		45D8D394275E77500026ABE3 /* FamilyTabView */ = {
 			isa = PBXGroup;
 			children = (
-				45D8D398275E77CA0026ABE3 /* FamilyTabView.swift */,
-				45D8D39E275ED2BE0026ABE3 /* FamilyTabViewModel.swift */,
+				45D8D398275E77CA0026ABE3 /* FamilyTabContainerView.swift */,
+				45D8D39E275ED2BE0026ABE3 /* FamilyTabContainerViewModel.swift */,
+				45D8D3A227619EC70026ABE3 /* FamilyTabView.swift */,
 			);
 			path = FamilyTabView;
 			sourceTree = "<group>";
@@ -535,7 +538,7 @@
 				455ECC84275DA79600438A43 /* RolePickerViewModel.swift in Sources */,
 				45395C5B272B20F600F50B70 /* Dependency.swift in Sources */,
 				45D8D3A1275ED3F10026ABE3 /* ChoreTabViewModel.swift in Sources */,
-				45D8D39F275ED2BE0026ABE3 /* FamilyTabViewModel.swift in Sources */,
+				45D8D39F275ED2BE0026ABE3 /* FamilyTabContainerViewModel.swift in Sources */,
 				45ACB4DC2724AE00000E04A0 /* Chore.swift in Sources */,
 				455ECC86275DA7A100438A43 /* RolePickerView.swift in Sources */,
 				45B6BB39272FC72100F89D74 /* AppView.swift in Sources */,
@@ -543,12 +546,13 @@
 				453147632751B2AF000A85D7 /* ListChoreViewModel.swift in Sources */,
 				452AFECE275443720060BD43 /* SignUpView.swift in Sources */,
 				4531476E2752FBFC000A85D7 /* AppViewModel.swift in Sources */,
+				45D8D3A327619EC80026ABE3 /* FamilyTabView.swift in Sources */,
 				45B012D7275495CF002C7A06 /* UserRepository.swift in Sources */,
 				453147612751B2A0000A85D7 /* ListChoreView.swift in Sources */,
 				45D7AE872733572700A53812 /* NewChoreFormView.swift.swift in Sources */,
 				45D7AE9327347D2900A53812 /* User.swift in Sources */,
 				45395C58272A258600F50B70 /* ChoreCard.swift in Sources */,
-				45D8D399275E77CA0026ABE3 /* FamilyTabView.swift in Sources */,
+				45D8D399275E77CA0026ABE3 /* FamilyTabContainerView.swift in Sources */,
 				45D8D39D275E784E0026ABE3 /* UserTabViewModel.swift in Sources */,
 				45ACB4DE2724AEBE000E04A0 /* Reward.swift in Sources */,
 				45D7AE952735B4A100A53812 /* Family.swift in Sources */,

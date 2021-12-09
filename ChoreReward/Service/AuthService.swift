@@ -53,7 +53,8 @@ class AuthService: ObservableObject{
                     id: self.currentUid!,
                     email: newUser.email,
                     name: newUser.name,
-                    role: newUser.role
+                    role: newUser.role,
+                    familyId: nil
                 )
                 self.userRepository.createUser(newUser: newUserWithId)
                 self.signInIfCurrentUserExist()
@@ -71,7 +72,7 @@ class AuthService: ObservableObject{
     }
     
     func signInIfCurrentUserExist(){
-        guard let user = self.auth.currentUser else{
+        guard self.auth.currentUser != nil else{
             return
         }
         authState = .signedIn

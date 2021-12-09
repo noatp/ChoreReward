@@ -15,7 +15,6 @@ class UserRepository: ObservableObject{
     @Published var user: User? = nil
     
     private let database = Firestore.firestore()
-    private var currentUserId: String? = nil
     
     init(initUser: User? = nil){
         self.user = initUser

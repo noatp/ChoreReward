@@ -26,7 +26,7 @@ struct AppView: View {
                     Image(systemName: "checkmark.seal.fill")
                     Text("Chore")
                 }
-            views.familyTabView
+            views.familyTabContainerView
                 .tabItem {
                     Image(systemName: "house")
                     Text("Family")

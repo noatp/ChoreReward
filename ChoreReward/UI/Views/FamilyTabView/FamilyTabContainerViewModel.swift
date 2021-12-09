@@ -1,5 +1,5 @@
 //
-//  UserTabViewModel.swift
+//  FamilyTabViewModel.swift
 //  ChoreReward
 //
 //  Created by Toan Pham on 12/6/21.
@@ -8,14 +8,12 @@
 import Foundation
 import Combine
 
-class UserTabViewModel: ObservableObject{
+class FamilyTabContainerViewModel: ObservableObject{
     private let authService: AuthService
     private let userRepository: UserRepository
     private var userRepoSubscription: AnyCancellable?
     
-    @Published var currentUserEmail: String = ""
-    @Published var currentUserName: String = ""
-    @Published var currentUserRole: String = ""
+    @Published var hasFamily: Bool = false
     
     init(
         authService: AuthService,
@@ -30,28 +28,22 @@ class UserTabViewModel: ObservableObject{
     func addSubscription(){
         userRepoSubscription = userRepository.$user
             .sink(receiveValue: { [weak self] user in
-                self?.currentUserName = user?.name ?? ""
-                self?.currentUserEmail = user?.email ?? ""
-                self?.currentUserRole = user?.role.rawValue ?? ""
+                guard user?.familyId != nil else{
+                    self?.hasFamily = false
+                    return
+                }
+                self?.hasFamily = true
             })
-    }
-    
-    func signOut(){
-        authService.signOut()
     }
     
     func getCurrentUserProfile(){
         userRepository.readUser(userId: authService.currentUid ?? "")
     }
-    
-    func getUserProfile(uid: String){
-        userRepository.readUser(userId: uid)
-    }
 }
 
 extension Dependency.ViewModels{
-    var userTabViewModel: UserTabViewModel{
-        UserTabViewModel(
+    var familyTabViewModel: FamilyTabContainerViewModel{
+        FamilyTabContainerViewModel(
             authService: services.authService,
             userRepository: repositories.userRepository
         )
