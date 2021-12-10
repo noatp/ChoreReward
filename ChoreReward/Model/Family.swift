@@ -6,9 +6,10 @@
 //
 
 import Foundation
+import FirebaseFirestoreSwift
 
-struct Family: Identifiable{
-    var id: String
+struct Family: Identifiable, Codable{
+    @DocumentID var id: String?
     var member: [User]
     var chores: [Chore]
     

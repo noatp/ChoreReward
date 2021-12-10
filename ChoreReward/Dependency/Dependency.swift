@@ -11,13 +11,16 @@ import UIKit
 class Dependency{
     let authService: AuthService
     let userRepository: UserRepository
+    let familyRepository: FamilyRepository
     
     init(
         authService: AuthService = MockAuthService(),
-        userRepository: UserRepository = MockUserRepository()
+        userRepository: UserRepository = MockUserRepository(),
+        familyRepository: FamilyRepository = MockFamilyRepository()
     ){
         self.authService = authService
         self.userRepository = userRepository
+        self.familyRepository = familyRepository
     }
     
     static let preview = Dependency()
@@ -25,10 +28,12 @@ class Dependency{
     class Repositories{
         let dependency: Dependency
         let userRepository: UserRepository
+        let familyRepository: FamilyRepository
         
         init(dependency: Dependency){
             self.dependency = dependency
             self.userRepository = self.dependency.userRepository
+            self.familyRepository = self.dependency.familyRepository
         }
     }
     
@@ -110,6 +115,10 @@ class MockUserRepository: UserRepository{
     override func createUser(newUser: User) {
         return
     }
+}
+
+class MockFamilyRepository: FamilyRepository{
+    
 }
 
 

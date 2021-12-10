@@ -35,6 +35,8 @@
 		45B012D3275491ED002C7A06 /* FirebaseFirestoreSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = 45B012D2275491ED002C7A06 /* FirebaseFirestoreSwift-Beta */; };
 		45B012D7275495CF002C7A06 /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B012D6275495CF002C7A06 /* UserRepository.swift */; };
 		45B6BB39272FC72100F89D74 /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B6BB38272FC72100F89D74 /* AppView.swift */; };
+		45C1FA5F2763B13E00BF11E3 /* FamilyCreateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C1FA5E2763B13E00BF11E3 /* FamilyCreateView.swift */; };
+		45C1FA612763B15600BF11E3 /* FamilyCreateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C1FA602763B15600BF11E3 /* FamilyCreateViewModel.swift */; };
 		45D7AE872733572700A53812 /* NewChoreFormView.swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D7AE862733572700A53812 /* NewChoreFormView.swift.swift */; };
 		45D7AE8C27346E9900A53812 /* TextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D7AE8B27346E9900A53812 /* TextFieldView.swift */; };
 		45D7AE8F273476AF00A53812 /* TextFieldViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D7AE8E273476AF00A53812 /* TextFieldViewModel.swift */; };
@@ -47,7 +49,9 @@
 		45D8D39D275E784E0026ABE3 /* UserTabViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D8D39C275E784E0026ABE3 /* UserTabViewModel.swift */; };
 		45D8D39F275ED2BE0026ABE3 /* FamilyTabContainerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D8D39E275ED2BE0026ABE3 /* FamilyTabContainerViewModel.swift */; };
 		45D8D3A1275ED3F10026ABE3 /* ChoreTabViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D8D3A0275ED3F10026ABE3 /* ChoreTabViewModel.swift */; };
-		45D8D3A327619EC80026ABE3 /* FamilyTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D8D3A227619EC70026ABE3 /* FamilyTabView.swift */; };
+		45D8D3A52762F6DE0026ABE3 /* FamilyTabViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D8D3A42762F6DE0026ABE3 /* FamilyTabViewModel.swift */; };
+		45D8D3A92762FDB30026ABE3 /* FamilyTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D8D3A82762FDB30026ABE3 /* FamilyTabView.swift */; };
+		45D8D3B4276345DB0026ABE3 /* FamilyRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D8D3B3276345DB0026ABE3 /* FamilyRepository.swift */; };
 		45E483CA275402F6009DA543 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E483C9275402F6009DA543 /* RootView.swift */; };
 		45E483CC27540305009DA543 /* RootViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E483CB27540305009DA543 /* RootViewModel.swift */; };
 /* End PBXBuildFile section */
@@ -97,6 +101,8 @@
 		45ACB4DD2724AEBE000E04A0 /* Reward.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reward.swift; sourceTree = "<group>"; };
 		45B012D6275495CF002C7A06 /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
 		45B6BB38272FC72100F89D74 /* AppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
+		45C1FA5E2763B13E00BF11E3 /* FamilyCreateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyCreateView.swift; sourceTree = "<group>"; };
+		45C1FA602763B15600BF11E3 /* FamilyCreateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyCreateViewModel.swift; sourceTree = "<group>"; };
 		45D7AE862733572700A53812 /* NewChoreFormView.swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewChoreFormView.swift.swift; sourceTree = "<group>"; };
 		45D7AE8B27346E9900A53812 /* TextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldView.swift; sourceTree = "<group>"; };
 		45D7AE8E273476AF00A53812 /* TextFieldViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldViewModel.swift; sourceTree = "<group>"; };
@@ -109,7 +115,9 @@
 		45D8D39C275E784E0026ABE3 /* UserTabViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTabViewModel.swift; sourceTree = "<group>"; };
 		45D8D39E275ED2BE0026ABE3 /* FamilyTabContainerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyTabContainerViewModel.swift; sourceTree = "<group>"; };
 		45D8D3A0275ED3F10026ABE3 /* ChoreTabViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoreTabViewModel.swift; sourceTree = "<group>"; };
-		45D8D3A227619EC70026ABE3 /* FamilyTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyTabView.swift; sourceTree = "<group>"; };
+		45D8D3A42762F6DE0026ABE3 /* FamilyTabViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyTabViewModel.swift; sourceTree = "<group>"; };
+		45D8D3A82762FDB30026ABE3 /* FamilyTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyTabView.swift; sourceTree = "<group>"; };
+		45D8D3B3276345DB0026ABE3 /* FamilyRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyRepository.swift; sourceTree = "<group>"; };
 		45E483C9275402F6009DA543 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		45E483CB27540305009DA543 /* RootViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -296,6 +304,7 @@
 		45B012D427549394002C7A06 /* Repository */ = {
 			isa = PBXGroup;
 			children = (
+				45D8D3B2276345C40026ABE3 /* FamilyRepository */,
 				45B012D5275495B9002C7A06 /* UserRepository */,
 			);
 			path = Repository;
@@ -357,9 +366,10 @@
 		45D8D394275E77500026ABE3 /* FamilyTabView */ = {
 			isa = PBXGroup;
 			children = (
-				45D8D398275E77CA0026ABE3 /* FamilyTabContainerView.swift */,
-				45D8D39E275ED2BE0026ABE3 /* FamilyTabContainerViewModel.swift */,
-				45D8D3A227619EC70026ABE3 /* FamilyTabView.swift */,
+				45D8D3AD276344D60026ABE3 /* FamilyCreate */,
+				45D8D3AC276344C10026ABE3 /* TabContainer */,
+				45D8D3A82762FDB30026ABE3 /* FamilyTabView.swift */,
+				45D8D3A42762F6DE0026ABE3 /* FamilyTabViewModel.swift */,
 			);
 			path = FamilyTabView;
 			sourceTree = "<group>";
@@ -371,6 +381,32 @@
 				45D8D3A0275ED3F10026ABE3 /* ChoreTabViewModel.swift */,
 			);
 			path = ChoreTabView;
+			sourceTree = "<group>";
+		};
+		45D8D3AC276344C10026ABE3 /* TabContainer */ = {
+			isa = PBXGroup;
+			children = (
+				45D8D398275E77CA0026ABE3 /* FamilyTabContainerView.swift */,
+				45D8D39E275ED2BE0026ABE3 /* FamilyTabContainerViewModel.swift */,
+			);
+			path = TabContainer;
+			sourceTree = "<group>";
+		};
+		45D8D3AD276344D60026ABE3 /* FamilyCreate */ = {
+			isa = PBXGroup;
+			children = (
+				45C1FA5E2763B13E00BF11E3 /* FamilyCreateView.swift */,
+				45C1FA602763B15600BF11E3 /* FamilyCreateViewModel.swift */,
+			);
+			path = FamilyCreate;
+			sourceTree = "<group>";
+		};
+		45D8D3B2276345C40026ABE3 /* FamilyRepository */ = {
+			isa = PBXGroup;
+			children = (
+				45D8D3B3276345DB0026ABE3 /* FamilyRepository.swift */,
+			);
+			path = FamilyRepository;
 			sourceTree = "<group>";
 		};
 		45E483C8275402D9009DA543 /* RootView */ = {
@@ -533,6 +569,7 @@
 			files = (
 				45D8D397275E77AD0026ABE3 /* ChoreTabView.swift in Sources */,
 				45D7AE8F273476AF00A53812 /* TextFieldViewModel.swift in Sources */,
+				45D8D3A52762F6DE0026ABE3 /* FamilyTabViewModel.swift in Sources */,
 				45E483CA275402F6009DA543 /* RootView.swift in Sources */,
 				45ACB4AE2724AD1A000E04A0 /* ContentView.swift in Sources */,
 				455ECC84275DA79600438A43 /* RolePickerViewModel.swift in Sources */,
@@ -542,19 +579,21 @@
 				45ACB4DC2724AE00000E04A0 /* Chore.swift in Sources */,
 				455ECC86275DA7A100438A43 /* RolePickerView.swift in Sources */,
 				45B6BB39272FC72100F89D74 /* AppView.swift in Sources */,
+				45D8D3A92762FDB30026ABE3 /* FamilyTabView.swift in Sources */,
 				4531476B2751FFBD000A85D7 /* AuthService.swift in Sources */,
 				453147632751B2AF000A85D7 /* ListChoreViewModel.swift in Sources */,
 				452AFECE275443720060BD43 /* SignUpView.swift in Sources */,
 				4531476E2752FBFC000A85D7 /* AppViewModel.swift in Sources */,
-				45D8D3A327619EC80026ABE3 /* FamilyTabView.swift in Sources */,
 				45B012D7275495CF002C7A06 /* UserRepository.swift in Sources */,
 				453147612751B2A0000A85D7 /* ListChoreView.swift in Sources */,
 				45D7AE872733572700A53812 /* NewChoreFormView.swift.swift in Sources */,
 				45D7AE9327347D2900A53812 /* User.swift in Sources */,
 				45395C58272A258600F50B70 /* ChoreCard.swift in Sources */,
+				45C1FA5F2763B13E00BF11E3 /* FamilyCreateView.swift in Sources */,
 				45D8D399275E77CA0026ABE3 /* FamilyTabContainerView.swift in Sources */,
 				45D8D39D275E784E0026ABE3 /* UserTabViewModel.swift in Sources */,
 				45ACB4DE2724AEBE000E04A0 /* Reward.swift in Sources */,
+				45D8D3B4276345DB0026ABE3 /* FamilyRepository.swift in Sources */,
 				45D7AE952735B4A100A53812 /* Family.swift in Sources */,
 				45ACB4AC2724AD1A000E04A0 /* ChoreRewardApp.swift in Sources */,
 				452AFED0275444020060BD43 /* SignUpViewModel.swift in Sources */,
@@ -563,6 +602,7 @@
 				45D7AE8C27346E9900A53812 /* TextFieldView.swift in Sources */,
 				45E483CC27540305009DA543 /* RootViewModel.swift in Sources */,
 				45D7AE91273479C000A53812 /* NewChoreFormViewModel.swift in Sources */,
+				45C1FA612763B15600BF11E3 /* FamilyCreateViewModel.swift in Sources */,
 				45D8D39B275E77E20026ABE3 /* UserTabView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

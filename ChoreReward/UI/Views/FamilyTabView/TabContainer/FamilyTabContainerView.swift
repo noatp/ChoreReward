@@ -8,19 +8,19 @@
 import SwiftUI
 
 struct FamilyTabContainerView: View {
-    @ObservedObject var familyTabViewModel: FamilyTabContainerViewModel
+    @ObservedObject var familyTabContainerViewModel: FamilyTabContainerViewModel
     private var views: Dependency.Views
     
     init(
         familyTabViewModel: FamilyTabContainerViewModel,
         views: Dependency.Views
     ){
-        self.familyTabViewModel = familyTabViewModel
+        self.familyTabContainerViewModel = familyTabViewModel
         self.views = views
     }
     var body: some View {
-        if (familyTabViewModel.hasFamily){
-            FamilyTabView()
+        if (familyTabContainerViewModel.hasFamily){
+            views.familyTabView
         }
         else{
             Text("no family")
@@ -37,7 +37,7 @@ struct FamilyTabContainerView_Previews: PreviewProvider {
 extension Dependency.Views{
     var familyTabContainerView: FamilyTabContainerView{
         return FamilyTabContainerView(
-            familyTabViewModel: viewModels.familyTabViewModel,
+            familyTabViewModel: viewModels.familyTabContainerViewModel,
             views: self
         )
     }

@@ -21,17 +21,22 @@ class UserRepository: ObservableObject{
     }
     
     func createUser(newUser: User){
-        database.collection("users").document(newUser.id ?? "").setData([
-            "email": newUser.email,
-            "name": newUser.name,
-            "role": newUser.role.rawValue
-        ]) { err in
-            if let err = err {
-                print("Error adding document: \(err)")
-            } else {
-                self.readUser(userId: newUser.id ?? "")
-                print("Document added with ID: \(newUser.id ?? "")")
+        if let newUserId = newUser.id  {
+            database.collection("users").document(newUserId).setData([
+                "email": newUser.email,
+                "name": newUser.name,
+                "role": newUser.role.rawValue
+            ]) { err in
+                if let err = err {
+                    print("Error adding document: \(err)")
+                } else {
+                    self.readUser(userId: newUserId)
+                    print("Document added with ID: \(newUserId)")
+                }
             }
+        }
+        else{
+            print("Trying to create a new user with nil user id")
         }
     }
     
