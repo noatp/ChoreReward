@@ -27,7 +27,7 @@ class FamilyRepository: ObservableObject{
             return
         }
         currentFamilyRef = database.collection("families").addDocument(data: [
-            "members": newFamily.member,
+            "members": newFamily.members,
             "chores": newFamily.chores
         ]) { err in
             if let err = err {
@@ -50,6 +50,7 @@ class FamilyRepository: ObservableObject{
         }
         
         currentFamilyRef!.getDocument {[weak self] (document, error) in
+            print(document?.data())
             let result = Result {
                 try document?.data(as: Family.self)
             }

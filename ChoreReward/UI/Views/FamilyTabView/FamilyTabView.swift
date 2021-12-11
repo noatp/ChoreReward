@@ -22,7 +22,7 @@ struct FamilyTabView: View {
     var body: some View {
         HStack{
             Text("FamilyId: ")
-            Text(familyTabViewModel.familyId ?? "")
+            Text(familyTabViewModel.currentFamily?.id ?? "")
         }
     }
 }
