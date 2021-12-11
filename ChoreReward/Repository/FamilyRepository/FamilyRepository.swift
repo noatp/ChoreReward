@@ -23,7 +23,6 @@ class FamilyRepository: ObservableObject{
     
     func createFamily(newFamily: Family){
         guard currentFamilyRef == nil else{
-            print("already have a current family ref, why create?")
             return
         }
         currentFamilyRef = database.collection("families").addDocument(data: [
@@ -50,7 +49,6 @@ class FamilyRepository: ObservableObject{
         }
         
         currentFamilyRef!.getDocument {[weak self] (document, error) in
-            print(document?.data())
             let result = Result {
                 try document?.data(as: Family.self)
             }
