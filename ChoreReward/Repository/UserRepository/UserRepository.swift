@@ -39,16 +39,23 @@ class UserRepository: ObservableObject{
             if let err = err {
                 print("Error adding document: \(err)")
             } else {
-                self.readUser(userId: newUserId)
-                print("Document added with ID: \(newUserId)")
+                self.readCurrentUser(currentUserId: newUserId)
+                print("User added with ID: \(newUserId)")
             }
         }
     }
     
-    func readUser(userId: String){
-        let docRef = database.collection("users").document(userId)
+    func readCurrentUser(currentUserId: String? = nil){
+        if (currentUserId == nil && currentUserRef == nil){
+            print("there is no way to reference the user")
+            return
+        }
         
-        docRef.getDocument {[weak self] (document, error) in
+        if currentUserId != nil{
+            currentUserRef = database.collection("users").document(currentUserId!)
+        }
+        
+        currentUserRef!.getDocument {[weak self] (document, error) in
             let result = Result {
                 try document?.data(as: User.self)
             }
@@ -60,12 +67,16 @@ class UserRepository: ObservableObject{
                 } else {
                     // A nil value was successfully initialized from the DocumentSnapshot,
                     // or the DocumentSnapshot was nil.
-                    print("Document does not exist")
+                    print("User does not exist")
                 }
             case .failure(let error):
                 // A `user` value could not be initialized from the DocumentSnapshot.
                 print("Error decoding user: \(error)")
             }
         }
+    }
+    
+    func readOtherUser(otherUserId: String){
+        
     }
 }

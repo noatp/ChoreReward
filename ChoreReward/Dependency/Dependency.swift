@@ -103,11 +103,15 @@ class MockUserRepository: UserRepository{
         super.init(initUser: initUser)
     }
     
-    override func readUser(userId: String) {
+    override func readCurrentUser(currentUserId: String?) {
         return
     }
     
     override func createUser(newUser: User) {
+        return
+    }
+    
+    override func readOtherUser(otherUserId: String) {
         return
     }
 }

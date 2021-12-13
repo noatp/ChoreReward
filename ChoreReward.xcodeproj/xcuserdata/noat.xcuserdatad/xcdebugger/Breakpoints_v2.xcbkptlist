@@ -206,9 +206,9 @@
             filePath = "ChoreReward/Repository/UserRepository/UserRepository.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "52"
-            endingLineNumber = "52"
-            landmarkName = "readUser(userId:)"
+            startingLineNumber = "59"
+            endingLineNumber = "59"
+            landmarkName = "readCurrentUser(currentUserId:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

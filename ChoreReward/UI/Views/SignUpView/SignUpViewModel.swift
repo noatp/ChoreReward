@@ -62,7 +62,7 @@ class SignUpViewModel: ObservableObject{
     }
     
     func getUserProfile(uid: String){
-        userRepository.readUser(userId: uid)
+        userRepository.readCurrentUser(currentUserId: uid)
     }
     
     
