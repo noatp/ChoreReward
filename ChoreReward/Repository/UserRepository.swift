@@ -37,7 +37,7 @@ class UserRepository: ObservableObject{
             "role": newUser.role.rawValue
         ]) { err in
             if let err = err {
-                print("Error adding document: \(err)")
+                print("Error adding user: \(err)")
             } else {
                 self.readCurrentUser(currentUserId: newUserId)
                 print("User added with ID: \(newUserId)")

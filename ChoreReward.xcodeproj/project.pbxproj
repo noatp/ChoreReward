@@ -35,6 +35,7 @@
 		45B012D3275491ED002C7A06 /* FirebaseFirestoreSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = 45B012D2275491ED002C7A06 /* FirebaseFirestoreSwift-Beta */; };
 		45B012D7275495CF002C7A06 /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B012D6275495CF002C7A06 /* UserRepository.swift */; };
 		45B6BB39272FC72100F89D74 /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B6BB38272FC72100F89D74 /* AppView.swift */; };
+		45C1FA652767163F00BF11E3 /* FamilyRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C1FA642767163F00BF11E3 /* FamilyRepository.swift */; };
 		45D7AE872733572700A53812 /* NewChoreFormView.swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D7AE862733572700A53812 /* NewChoreFormView.swift.swift */; };
 		45D7AE8C27346E9900A53812 /* TextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D7AE8B27346E9900A53812 /* TextFieldView.swift */; };
 		45D7AE8F273476AF00A53812 /* TextFieldViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D7AE8E273476AF00A53812 /* TextFieldViewModel.swift */; };
@@ -96,6 +97,7 @@
 		45ACB4DD2724AEBE000E04A0 /* Reward.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reward.swift; sourceTree = "<group>"; };
 		45B012D6275495CF002C7A06 /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
 		45B6BB38272FC72100F89D74 /* AppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
+		45C1FA642767163F00BF11E3 /* FamilyRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyRepository.swift; sourceTree = "<group>"; };
 		45D7AE862733572700A53812 /* NewChoreFormView.swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewChoreFormView.swift.swift; sourceTree = "<group>"; };
 		45D7AE8B27346E9900A53812 /* TextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldView.swift; sourceTree = "<group>"; };
 		45D7AE8E273476AF00A53812 /* TextFieldViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldViewModel.swift; sourceTree = "<group>"; };
@@ -294,17 +296,10 @@
 		45B012D427549394002C7A06 /* Repository */ = {
 			isa = PBXGroup;
 			children = (
-				45B012D5275495B9002C7A06 /* UserRepository */,
+				45B012D6275495CF002C7A06 /* UserRepository.swift */,
+				45C1FA642767163F00BF11E3 /* FamilyRepository.swift */,
 			);
 			path = Repository;
-			sourceTree = "<group>";
-		};
-		45B012D5275495B9002C7A06 /* UserRepository */ = {
-			isa = PBXGroup;
-			children = (
-				45B012D6275495CF002C7A06 /* UserRepository.swift */,
-			);
-			path = UserRepository;
 			sourceTree = "<group>";
 		};
 		45D7AE8827346E5100A53812 /* NewChoreFormView */ = {
@@ -534,6 +529,7 @@
 				45ACB4AE2724AD1A000E04A0 /* ContentView.swift in Sources */,
 				455ECC84275DA79600438A43 /* RolePickerViewModel.swift in Sources */,
 				45395C5B272B20F600F50B70 /* Dependency.swift in Sources */,
+				45C1FA652767163F00BF11E3 /* FamilyRepository.swift in Sources */,
 				45D8D3A1275ED3F10026ABE3 /* ChoreTabViewModel.swift in Sources */,
 				45D8D39F275ED2BE0026ABE3 /* FamilyTabViewModel.swift in Sources */,
 				45ACB4DC2724AE00000E04A0 /* Chore.swift in Sources */,

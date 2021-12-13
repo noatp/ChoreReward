@@ -6,16 +6,17 @@
 //
 
 import Foundation
+import FirebaseFirestoreSwift
 
-struct Family: Identifiable{
-    var id: String
-    var member: [User]
-    var chores: [Chore]
+struct Family: Identifiable, Codable{
+    @DocumentID var id: String?
+    var members: [String]
+    var chores: [String]
     
     static let preview = Family(
         id: "tranfam",
-        member: [User.previewDavid, User.previewTim, User.previewBen],
-        chores: [Chore.preview, Chore.preview]
+        members: [User.previewDavid.id!, User.previewTim.id!, User.previewBen.id!],
+        chores: [Chore.preview.id, Chore.preview.id]
     )
 }
 
