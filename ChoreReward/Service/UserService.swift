@@ -89,7 +89,7 @@ class UserService: ObservableObject{
     }
     
     func signInIfCurrentUserExist(){
-        guard let user = self.auth.currentUser else{
+        guard self.auth.currentUser != nil else{
             return
         }
         authState = .signedIn

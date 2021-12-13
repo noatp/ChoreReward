@@ -13,6 +13,7 @@ struct User: Identifiable, Codable{
     var email: String
     var name: String
     var role: Role
+    var familyId: String?
     
     static let previewTim = User(
         id: "tim",
