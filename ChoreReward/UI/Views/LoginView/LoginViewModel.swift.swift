@@ -13,20 +13,20 @@ import Combine
 class LoginViewModel: ObservableObject{
     @Published var errorMessage: String? = nil
     
-    private var authService: AuthService
+    private var userService: UserService
     private var useCaseSubscription: AnyCancellable?
     
     var emailInputRender = TextFieldViewModel(title: "Email", prompt: "Email")
     var passwordInputRender = TextFieldViewModel(title: "Password", prompt: "Password", secure: true)
     
-    init(authService: AuthService) {
-        self.authService = authService
+    init(userService: UserService) {
+        self.userService = userService
         addSubscription()
         self.silentSignIn()
     }
     
     func addSubscription(){
-        useCaseSubscription = authService.$authState
+        useCaseSubscription = userService.$authState
             .sink(receiveValue: {[weak self] authState in
                 switch authState{
                 case .signedIn:
@@ -38,19 +38,19 @@ class LoginViewModel: ObservableObject{
     }
     
     func signIn(){
-        authService.signIn(
+        userService.signIn(
             email: emailInputRender.textInput,
             password: passwordInputRender.textInput
         )
     }
     
     func silentSignIn(){
-        authService.signInIfCurrentUserExist()
+        userService.signInIfCurrentUserExist()
     }
 }
 
 extension Dependency.ViewModels{
     var loginViewModel: LoginViewModel{
-        return LoginViewModel(authService: services.authService)
+        return LoginViewModel(userService: services.userService)
     }
 }

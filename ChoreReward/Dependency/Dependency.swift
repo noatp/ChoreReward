@@ -9,14 +9,14 @@ import Foundation
 import UIKit
 
 class Dependency{
-    let authService: AuthService
+    let userService: UserService
     let userRepository: UserRepository
     
     init(
-        authService: AuthService = MockAuthService(),
+        userService: UserService = MockUserService(),
         userRepository: UserRepository = MockUserRepository()
     ){
-        self.authService = authService
+        self.userService = userService
         self.userRepository = userRepository
     }
     
@@ -38,13 +38,13 @@ class Dependency{
     
     class Services{
         let dependency: Dependency
-        let authService: AuthService
+        let userService: UserService
         let repositories: Repositories
         
         init(dependency: Dependency){
             self.dependency = dependency
             self.repositories = self.dependency.repositories()
-            self.authService = self.dependency.authService
+            self.userService = self.dependency.userService
         }
     }
     
@@ -84,7 +84,7 @@ class Dependency{
     }
 }
 
-class MockAuthService: AuthService{
+class MockUserService: UserService{
     override init(
         userRepository: UserRepository = MockUserRepository(),
         initAuthState: AuthState = AuthState.signedIn

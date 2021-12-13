@@ -10,16 +10,16 @@ import Firebase
 
 @main
 struct ChoreRewardApp: App {
-    let authService: AuthService
+    let userService: UserService
     let userRepository: UserRepository
     let dependency: Dependency
     
     init(){
         FirebaseApp.configure()
         self.userRepository = UserRepository()
-        self.authService = AuthService(userRepository: self.userRepository)
+        self.userService = UserService(userRepository: self.userRepository)
         self.dependency = Dependency(
-            authService: self.authService,
+            userService: self.userService,
             userRepository: self.userRepository
         )
     }

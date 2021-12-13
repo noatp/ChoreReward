@@ -8,7 +8,7 @@
 import Foundation
 import FirebaseAuth
 
-class AuthService: ObservableObject{
+class UserService: ObservableObject{
     let auth = Auth.auth()
     let userRepository: UserRepository
     
@@ -75,6 +75,14 @@ class AuthService: ObservableObject{
             return
         }
         authState = .signedIn
+    }
+    
+    func readCurrentUser(){
+        
+    }
+    
+    func readOtherUser(){
+        
     }
     
     enum AuthState{

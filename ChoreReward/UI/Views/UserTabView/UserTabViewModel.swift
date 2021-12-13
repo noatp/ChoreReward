@@ -9,7 +9,7 @@ import Foundation
 import Combine
 
 class UserTabViewModel: ObservableObject{
-    private var authService: AuthService
+    private var userService: UserService
     
     private var userRepository: UserRepository
     private var userRepoSubscription: AnyCancellable?
@@ -19,10 +19,10 @@ class UserTabViewModel: ObservableObject{
     @Published var currentUserRole: String = ""
     
     init(
-        authService: AuthService,
+        userService: UserService,
         userRepository: UserRepository
     ){
-        self.authService = authService
+        self.userService = userService
         self.userRepository = userRepository
         self.addSubscription()
         self.getCurrentUserProfile()
@@ -38,11 +38,11 @@ class UserTabViewModel: ObservableObject{
     }
     
     func signOut(){
-        authService.signOut()
+        userService.signOut()
     }
     
     func getCurrentUserProfile(){
-        userRepository.readCurrentUser(currentUserId: authService.currentUid)
+        userRepository.readCurrentUser(currentUserId: userService.currentUid)
     }
     
     func getUserProfile(uid: String){
@@ -53,7 +53,7 @@ class UserTabViewModel: ObservableObject{
 extension Dependency.ViewModels{
     var userTabViewModel: UserTabViewModel{
         UserTabViewModel(
-            authService: services.authService,
+            userService: services.userService,
             userRepository: repositories.userRepository
         )
     }

@@ -11,17 +11,17 @@ import Combine
 class RootViewModel: ObservableObject{
     @Published var shouldRenderLoginView: Bool = true
     
-    private var authService: AuthService
+    private var userService: UserService
     private var useCaseSubscription: AnyCancellable?
     
     
-    init(authService: AuthService) {
-        self.authService = authService
+    init(userService: UserService) {
+        self.userService = userService
         addSubscription()
     }
     
     func addSubscription(){
-        useCaseSubscription = authService.$authState
+        useCaseSubscription = userService.$authState
             .sink(receiveValue: {[weak self] authState in
                 switch authState{
                 case .signedIn:
@@ -35,6 +35,6 @@ class RootViewModel: ObservableObject{
 
 extension Dependency.ViewModels{
     var rootViewModel: RootViewModel{
-        RootViewModel(authService: services.authService)
+        RootViewModel(userService: services.userService)
     }
 }

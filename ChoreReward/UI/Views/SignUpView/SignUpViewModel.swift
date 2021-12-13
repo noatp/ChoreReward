@@ -11,9 +11,9 @@ import Combine
 class SignUpViewModel: ObservableObject{
     @Published var errorMessage: String? = nil
 
-    private var authService: AuthService
+    private var userService: UserService
     private var userRepository: UserRepository
-    private var authServiceSubscription: AnyCancellable?
+    private var userServiceSubscription: AnyCancellable?
     private var userRepoSubscription: AnyCancellable?
     
     
@@ -23,16 +23,16 @@ class SignUpViewModel: ObservableObject{
     let rolePickerRender = RolePickerViewModel()
     
     init(
-        authService: AuthService,
+        userService: UserService,
         userRepository: UserRepository
     ){
-        self.authService = authService
+        self.userService = userService
         self.userRepository = userRepository
         addSubscription()
     }
     
     func addSubscription(){
-        authServiceSubscription = authService.$authState
+        userServiceSubscription = userService.$authState
             .sink(receiveValue: {[weak self] authState in
                 switch authState{
                 case .signedIn:
@@ -43,7 +43,7 @@ class SignUpViewModel: ObservableObject{
             })
         userRepoSubscription = userRepository.$currentUser
             .sink(receiveValue: {[weak self] userDoc in
-                self?.authService.signInIfCurrentUserExist()
+                self?.userService.signInIfCurrentUserExist()
                 self?.userRepoSubscription?.cancel()
             })
     }
@@ -55,7 +55,7 @@ class SignUpViewModel: ObservableObject{
             name: nameInputRender.textInput,
             role: rolePickerRender.selection
         )
-        authService.signUp(
+        userService.signUp(
             newUser: newUser,
             password: passwordInputRender.textInput
         )
@@ -71,7 +71,7 @@ class SignUpViewModel: ObservableObject{
 extension Dependency.ViewModels{
     var signUpViewModel: SignUpViewModel{
         SignUpViewModel(
-            authService: services.authService,
+            userService: services.userService,
             userRepository: repositories.userRepository
         )
     }
