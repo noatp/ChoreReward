@@ -19,7 +19,17 @@ struct FamilyTabView: View {
         self.views = views
     }
     var body: some View {
-        Text("Family Tab View")
+        HStack{
+            if (familyTabViewModel.currentFamily != nil){
+                Text("Has family")
+            }
+            else{
+                Text("Does not have family")
+            }
+        }
+        .onAppear {
+            familyTabViewModel.readCurrentFamily()
+        }
     }
 }
 

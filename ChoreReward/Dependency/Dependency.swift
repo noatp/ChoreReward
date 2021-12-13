@@ -11,13 +11,19 @@ import UIKit
 class Dependency{
     let userService: UserService
     let userRepository: UserRepository
+    let familyRepository: FamilyRepository
+    let familyService: FamilyService
     
     init(
         userService: UserService = MockUserService(),
-        userRepository: UserRepository = MockUserRepository()
+        userRepository: UserRepository = MockUserRepository(),
+        familyRepository: FamilyRepository = MockFamilyRepository(),
+        familyService: FamilyService = MockFamilyService()
     ){
         self.userService = userService
         self.userRepository = userRepository
+        self.familyRepository = familyRepository
+        self.familyService = familyService
     }
     
     static let preview = Dependency()
@@ -39,12 +45,14 @@ class Dependency{
     class Services{
         let dependency: Dependency
         let userService: UserService
+        let familyService: FamilyService
         let repositories: Repositories
         
         init(dependency: Dependency){
             self.dependency = dependency
             self.repositories = self.dependency.repositories()
             self.userService = self.dependency.userService
+            self.familyService = self.dependency.familyService
         }
     }
     
@@ -109,6 +117,24 @@ class MockUserRepository: UserRepository{
     
     override func readOtherUser(otherUserId: String) {
         return
+    }
+}
+
+class MockFamilyRepository: FamilyRepository{
+    
+}
+
+class MockFamilyService: FamilyService{
+    override init(
+        userRepository: UserRepository = MockUserRepository(),
+        familyRepository: FamilyRepository = MockFamilyRepository(),
+        initCurrentFamily: Family? = nil
+    ) {
+        super.init(
+            userRepository: userRepository,
+            familyRepository: familyRepository,
+            initCurrentFamily: initCurrentFamily
+        )
     }
 }
 
