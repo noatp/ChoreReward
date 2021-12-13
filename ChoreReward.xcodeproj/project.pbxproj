@@ -13,7 +13,7 @@
 		453147632751B2AF000A85D7 /* ListChoreViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453147622751B2AF000A85D7 /* ListChoreViewModel.swift */; };
 		453147662751C83E000A85D7 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453147652751C83E000A85D7 /* LoginView.swift */; };
 		453147682751CC53000A85D7 /* LoginViewModel.swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453147672751CC53000A85D7 /* LoginViewModel.swift.swift */; };
-		4531476B2751FFBD000A85D7 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4531476A2751FFBD000A85D7 /* AuthService.swift */; };
+		4531476B2751FFBD000A85D7 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4531476A2751FFBD000A85D7 /* UserService.swift */; };
 		4531476E2752FBFC000A85D7 /* AppViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4531476D2752FBFC000A85D7 /* AppViewModel.swift */; };
 		45395C58272A258600F50B70 /* ChoreCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45395C57272A258600F50B70 /* ChoreCard.swift */; };
 		45395C5B272B20F600F50B70 /* Dependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45395C5A272B20F600F50B70 /* Dependency.swift */; };
@@ -75,7 +75,7 @@
 		453147622751B2AF000A85D7 /* ListChoreViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListChoreViewModel.swift; sourceTree = "<group>"; };
 		453147652751C83E000A85D7 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		453147672751CC53000A85D7 /* LoginViewModel.swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift.swift; sourceTree = "<group>"; };
-		4531476A2751FFBD000A85D7 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
+		4531476A2751FFBD000A85D7 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		4531476D2752FBFC000A85D7 /* AppViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppViewModel.swift; sourceTree = "<group>"; };
 		45395C57272A258600F50B70 /* ChoreCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoreCard.swift; sourceTree = "<group>"; };
 		45395C5A272B20F600F50B70 /* Dependency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dependency.swift; sourceTree = "<group>"; };
@@ -162,7 +162,7 @@
 		453147692751FF91000A85D7 /* Service */ = {
 			isa = PBXGroup;
 			children = (
-				4531476A2751FFBD000A85D7 /* AuthService.swift */,
+				4531476A2751FFBD000A85D7 /* UserService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -539,7 +539,7 @@
 				45ACB4DC2724AE00000E04A0 /* Chore.swift in Sources */,
 				455ECC86275DA7A100438A43 /* RolePickerView.swift in Sources */,
 				45B6BB39272FC72100F89D74 /* AppView.swift in Sources */,
-				4531476B2751FFBD000A85D7 /* AuthService.swift in Sources */,
+				4531476B2751FFBD000A85D7 /* UserService.swift in Sources */,
 				453147632751B2AF000A85D7 /* ListChoreViewModel.swift in Sources */,
 				452AFECE275443720060BD43 /* SignUpView.swift in Sources */,
 				4531476E2752FBFC000A85D7 /* AppViewModel.swift in Sources */,

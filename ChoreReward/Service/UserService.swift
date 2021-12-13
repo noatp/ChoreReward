@@ -9,8 +9,10 @@ import Foundation
 import FirebaseAuth
 
 class UserService: ObservableObject{
-    let auth = Auth.auth()
-    let userRepository: UserRepository
+    @Published var authState: AuthState
+    
+    private let auth = Auth.auth()
+    private let userRepository: UserRepository
     
     var currentUid: String?{
         auth.currentUser?.uid
@@ -23,8 +25,6 @@ class UserService: ObservableObject{
         self.userRepository = userRepository
         self.authState = initAuthState
     }
-    
-    @Published var authState: AuthState
     
     func signIn(email: String, password: String){
         auth.signIn(
