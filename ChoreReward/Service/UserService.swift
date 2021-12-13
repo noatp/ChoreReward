@@ -29,6 +29,7 @@ class UserService: ObservableObject{
     ){
         self.userRepository = userRepository
         self.authState = initAuthState
+        addSubscription()
     }
     
     func addSubscription(){

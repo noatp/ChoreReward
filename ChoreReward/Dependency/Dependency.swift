@@ -54,20 +54,16 @@ class Dependency{
     
     class ViewModels{
         let services: Services
-        let repositories: Repositories
         init(
-            services: Services,
-            repositories: Repositories
+            services: Services
         ){
             self.services = services
-            self.repositories = repositories
         }
     }
     
     private func viewModels() -> ViewModels{
         return ViewModels(
-            services: services(),
-            repositories: repositories()
+            services: services()
         )
     }
     

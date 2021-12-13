@@ -12,10 +12,7 @@ class SignUpViewModel: ObservableObject{
     @Published var errorMessage: String? = nil
 
     private var userService: UserService
-    private var userRepository: UserRepository
-    private var userServiceSubscription: AnyCancellable?
-    private var userRepoSubscription: AnyCancellable?
-    
+    private var authStateSubscription: AnyCancellable?
     
     let nameInputRender = TextFieldViewModel(title: "Full name", prompt: "Full name")
     let emailInputRender = TextFieldViewModel(title: "Email", prompt: "Email")
@@ -23,16 +20,14 @@ class SignUpViewModel: ObservableObject{
     let rolePickerRender = RolePickerViewModel()
     
     init(
-        userService: UserService,
-        userRepository: UserRepository
+        userService: UserService
     ){
         self.userService = userService
-        self.userRepository = userRepository
         addSubscription()
     }
     
     func addSubscription(){
-        userServiceSubscription = userService.$authState
+        authStateSubscription = userService.$authState
             .sink(receiveValue: {[weak self] authState in
                 switch authState{
                 case .signedIn:
@@ -40,11 +35,6 @@ class SignUpViewModel: ObservableObject{
                 case .signedOut(let error):
                     self?.errorMessage = error?.localizedDescription ?? nil
                 }
-            })
-        userRepoSubscription = userRepository.$currentUser
-            .sink(receiveValue: {[weak self] userDoc in
-                self?.userService.signInIfCurrentUserExist()
-                self?.userRepoSubscription?.cancel()
             })
     }
     
@@ -62,7 +52,7 @@ class SignUpViewModel: ObservableObject{
     }
     
     func getUserProfile(uid: String){
-        userRepository.readOtherUser(otherUserId: uid)
+        userService.readOtherUser(otherUserId: uid)
     }
     
     
@@ -71,8 +61,7 @@ class SignUpViewModel: ObservableObject{
 extension Dependency.ViewModels{
     var signUpViewModel: SignUpViewModel{
         SignUpViewModel(
-            userService: services.userService,
-            userRepository: repositories.userRepository
+            userService: services.userService
         )
     }
 }

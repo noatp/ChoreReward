@@ -174,9 +174,9 @@
             filePath = "ChoreReward/UI/Views/SignUpView/SignUpViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "29"
-            endingLineNumber = "29"
-            landmarkName = "init(userService:userRepository:)"
+            startingLineNumber = "25"
+            endingLineNumber = "25"
+            landmarkName = "init(userService:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -190,8 +190,8 @@
             filePath = "ChoreReward/Dependency/Dependency.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "97"
-            endingLineNumber = "97"
+            startingLineNumber = "93"
+            endingLineNumber = "93"
             landmarkName = "init(initCurrentUser:)"
             landmarkType = "7">
          </BreakpointContent>
