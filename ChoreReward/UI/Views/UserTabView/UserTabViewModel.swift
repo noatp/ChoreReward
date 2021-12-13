@@ -29,7 +29,7 @@ class UserTabViewModel: ObservableObject{
     }
     
     func addSubscription(){
-        userRepoSubscription = userRepository.$user
+        userRepoSubscription = userRepository.$currentUser
             .sink(receiveValue: { [weak self] user in
                 self?.currentUserName = user?.name ?? ""
                 self?.currentUserEmail = user?.email ?? ""

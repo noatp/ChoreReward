@@ -12,15 +12,15 @@ import Combine
 import CoreMedia
 
 class UserRepository: ObservableObject{
-    @Published var user: User? = nil
+    @Published var currentUser: User? = nil
     
     private var currentUserRef: DocumentReference? = nil
     
     private let database = Firestore.firestore()
     private var currentUserId: String? = nil
     
-    init(initUser: User? = nil){
-        self.user = initUser
+    init(initCurrentUser: User? = nil){
+        self.currentUser = initCurrentUser
     }
     
     func createUser(newUser: User){
@@ -60,10 +60,10 @@ class UserRepository: ObservableObject{
                 try document?.data(as: User.self)
             }
             switch result {
-            case .success(let user):
-                if let user = user {
+            case .success(let receivedUser):
+                if let currentUser = receivedUser {
                     // A `user` value was successfully initialized from the DocumentSnapshot.
-                    self?.user = user
+                    self?.currentUser = currentUser
                 } else {
                     // A nil value was successfully initialized from the DocumentSnapshot,
                     // or the DocumentSnapshot was nil.

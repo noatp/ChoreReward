@@ -94,13 +94,13 @@ class MockAuthService: AuthService{
 }
 
 class MockUserRepository: UserRepository{
-    override init(initUser: User? = User(
+    override init(initCurrentUser: User? = User(
         id: "something",
         email: "preview email",
         name: "preview name",
         role: .child)
     ){
-        super.init(initUser: initUser)
+        super.init(initCurrentUser: initCurrentUser)
     }
     
     override func readCurrentUser(currentUserId: String?) {

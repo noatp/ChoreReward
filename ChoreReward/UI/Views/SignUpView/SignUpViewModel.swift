@@ -41,7 +41,7 @@ class SignUpViewModel: ObservableObject{
                     self?.errorMessage = error?.localizedDescription ?? nil
                 }
             })
-        userRepoSubscription = userRepository.$user
+        userRepoSubscription = userRepository.$currentUser
             .sink(receiveValue: {[weak self] userDoc in
                 self?.authService.signInIfCurrentUserExist()
                 self?.userRepoSubscription?.cancel()
