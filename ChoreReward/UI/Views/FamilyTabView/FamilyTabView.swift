@@ -24,7 +24,17 @@ struct FamilyTabView: View {
                 Text("Has family")
             }
             else{
-                Text("Does not have family")
+                VStack{
+                    Button("Create a new family") {
+                        familyTabViewModel.createFamily()
+                    }
+                    .padding()
+                    Button("Join an existing family"){
+                        
+                    }
+                    .padding()
+                }
+                
             }
         }
         .onAppear {
