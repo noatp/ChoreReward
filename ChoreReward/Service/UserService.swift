@@ -7,12 +7,17 @@
 
 import Foundation
 import FirebaseAuth
+import Combine
 
 class UserService: ObservableObject{
     @Published var authState: AuthState
+    @Published var currentUser: User? = nil
+    @Published var otherUser: User? = nil
     
     private let auth = Auth.auth()
     private let userRepository: UserRepository
+    private var currentUserSubscription: AnyCancellable?
+    private var otherUserSubscription: AnyCancellable?
     
     var currentUserid: String?{
         auth.currentUser?.uid
@@ -24,6 +29,18 @@ class UserService: ObservableObject{
     ){
         self.userRepository = userRepository
         self.authState = initAuthState
+    }
+    
+    func addSubscription(){
+        currentUserSubscription = userRepository.$currentUser
+            .sink(receiveValue: {[weak self] receivedUser in
+                self?.currentUser = receivedUser
+            })
+        otherUserSubscription = userRepository.$otherUser
+            .sink(receiveValue: {[weak self] receivedUser in
+                self?.otherUser = receivedUser
+            })
+        
     }
     
     func signIn(email: String, password: String){
