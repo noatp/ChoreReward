@@ -41,6 +41,7 @@ class FamilyService: ObservableObject{
         
         let newFamilyId = UUID().uuidString
         familyRepository.createFamily(currentUserId: currentUserId, newFamilyId: newFamilyId)
+        userRepository.updateFamilyForCurrentUser(newFamilyId: newFamilyId)
     }
     
     func readCurrentFamily(){

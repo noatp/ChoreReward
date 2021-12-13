@@ -97,4 +97,16 @@ class UserRepository: ObservableObject{
             }
         }
     }
+    
+    func updateFamilyForCurrentUser(newFamilyId: String){
+        currentUserRef?.updateData([
+            "familyId" : newFamilyId
+        ]){ err in
+            if let err = err {
+                print("Error updating user: \(err)")
+            } else {
+                print("User successfully updated")
+            }
+        }
+    }
 }
