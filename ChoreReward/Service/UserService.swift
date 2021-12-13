@@ -14,7 +14,7 @@ class UserService: ObservableObject{
     private let auth = Auth.auth()
     private let userRepository: UserRepository
     
-    var currentUid: String?{
+    var currentUserid: String?{
         auth.currentUser?.uid
     }
     
@@ -50,7 +50,7 @@ class UserService: ObservableObject{
             }
             else if (result != nil){
                 let newUserWithId = User(
-                    id: self.currentUid!,
+                    id: self.currentUserid!,
                     email: newUser.email,
                     name: newUser.name,
                     role: newUser.role
@@ -78,11 +78,11 @@ class UserService: ObservableObject{
     }
     
     func readCurrentUser(){
-        
+        userRepository.readCurrentUser(currentUserId: currentUserid)
     }
     
-    func readOtherUser(){
-        
+    func readOtherUser(otherUserId: String){
+        userRepository.readOtherUser(otherUserId: otherUserId)
     }
     
     enum AuthState{
