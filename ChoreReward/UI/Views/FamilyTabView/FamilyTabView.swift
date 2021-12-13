@@ -37,9 +37,6 @@ struct FamilyTabView: View {
                 
             }
         }
-        .onAppear {
-            familyTabViewModel.readCurrentFamily()
-        }
     }
 }
 

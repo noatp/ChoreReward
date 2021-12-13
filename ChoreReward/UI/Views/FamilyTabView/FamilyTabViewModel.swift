@@ -19,6 +19,7 @@ class FamilyTabViewModel: ObservableObject{
     ){
         self.familyService = familyService
         addSubscription()
+        readCurrentFamily()
     }
     
     func addSubscription(){
