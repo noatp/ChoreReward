@@ -42,11 +42,11 @@ class UserTabViewModel: ObservableObject{
     }
     
     func getCurrentUserProfile(){
-        userRepository.readCurrentUser(currentUserId: userService.currentUserid)
+        userService.readCurrentUser()
     }
     
     func getUserProfile(uid: String){
-        userRepository.readOtherUser(otherUserId: uid)
+        userService.readOtherUser(otherUserId: uid)
     }
 }
 
