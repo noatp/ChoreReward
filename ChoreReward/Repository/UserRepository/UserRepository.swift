@@ -14,6 +14,8 @@ import CoreMedia
 class UserRepository: ObservableObject{
     @Published var user: User? = nil
     
+    private var currentUserRef: DocumentReference? = nil
+    
     private let database = Firestore.firestore()
     private var currentUserId: String? = nil
     
@@ -27,7 +29,9 @@ class UserRepository: ObservableObject{
             return
         }
         
-        database.collection("users").document(newUserId).setData([
+        currentUserRef = database.collection("users").document(newUserId)
+        
+        currentUserRef!.setData([
             "email": newUser.email,
             "name": newUser.name,
             "role": newUser.role.rawValue
