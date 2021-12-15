@@ -16,6 +16,7 @@ class UserService: ObservableObject{
     
     private let auth = Auth.auth()
     private let userRepository: UserRepository
+    private let familyRepository: FamilyRepository
     private var currentUserSubscription: AnyCancellable?
     private var otherUserSubscription: AnyCancellable?
     
@@ -25,10 +26,12 @@ class UserService: ObservableObject{
     
     init(
         userRepository: UserRepository,
+        familyRepository: FamilyRepository,
         initAuthState: AuthState = .signedOut(error: nil)
     ){
         self.userRepository = userRepository
         self.authState = initAuthState
+        self.familyRepository = familyRepository
         addSubscription()
     }
     
@@ -82,6 +85,8 @@ class UserService: ObservableObject{
     func signOut(){
         do {
             try self.auth.signOut()
+            userRepository.currentUser = nil
+            familyRepository.currentFamily = nil
             self.authState = AuthState.signedOut(error: nil)
         } catch let signOutError as NSError {
             print("Error signing out: %@", signOutError)
@@ -92,10 +97,12 @@ class UserService: ObservableObject{
         guard self.auth.currentUser != nil else{
             return
         }
+        userRepository.readCurrentUser(currentUserId: currentUserid)
         authState = .signedIn
     }
     
     func readCurrentUser(){
+        print("Read current user here")
         userRepository.readCurrentUser(currentUserId: currentUserid)
     }
     

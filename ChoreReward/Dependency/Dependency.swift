@@ -31,10 +31,12 @@ class Dependency{
     class Repositories{
         let dependency: Dependency
         let userRepository: UserRepository
+        let familyRepository: FamilyRepository
         
         init(dependency: Dependency){
             self.dependency = dependency
             self.userRepository = self.dependency.userRepository
+            self.familyRepository = self.dependency.familyRepository
         }
     }
     
@@ -91,9 +93,13 @@ class Dependency{
 class MockUserService: UserService{
     override init(
         userRepository: UserRepository = MockUserRepository(),
+        familyRepository: FamilyRepository = MockFamilyRepository(),
         initAuthState: AuthState = AuthState.signedIn
     ){
-        super.init(userRepository: userRepository)
+        super.init(
+            userRepository: userRepository,
+            familyRepository: familyRepository
+        )
     }
 }
 

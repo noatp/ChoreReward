@@ -45,6 +45,7 @@ class LoginViewModel: ObservableObject{
     }
     
     func silentSignIn(){
+        print("silentSignIn called here")
         userService.signInIfCurrentUserExist()
     }
 }

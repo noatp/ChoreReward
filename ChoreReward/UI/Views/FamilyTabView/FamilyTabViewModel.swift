@@ -19,7 +19,6 @@ class FamilyTabViewModel: ObservableObject{
     ){
         self.familyService = familyService
         addSubscription()
-        readCurrentFamily()
     }
     
     func addSubscription(){
@@ -29,11 +28,8 @@ class FamilyTabViewModel: ObservableObject{
             })
     }
     
-    func readCurrentFamily(){
-        familyService.readCurrentFamily()
-    }
-    
     func createFamily(){
+        print("create family called here")
         familyService.createFamily()
     }
 }

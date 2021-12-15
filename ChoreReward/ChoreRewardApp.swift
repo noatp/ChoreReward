@@ -19,8 +19,8 @@ struct ChoreRewardApp: App {
     init(){
         FirebaseApp.configure()
         self.userRepository = UserRepository()
-        self.userService = UserService(userRepository: self.userRepository)
         self.familyRepository = FamilyRepository()
+        self.userService = UserService(userRepository: self.userRepository, familyRepository: self.familyRepository)
         self.familyService = FamilyService(userRepository: self.userRepository, familyRepository: self.familyRepository)
         self.dependency = Dependency(
             userService: self.userService,

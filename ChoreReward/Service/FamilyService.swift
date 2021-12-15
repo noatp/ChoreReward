@@ -14,6 +14,7 @@ class FamilyService: ObservableObject{
     private let userRepository: UserRepository
     private let familyRepository: FamilyRepository
     private var currentFamilySubscription: AnyCancellable?
+    private var currentUserSubscription: AnyCancellable?
     
     init(
         userRepository: UserRepository,
@@ -31,6 +32,11 @@ class FamilyService: ObservableObject{
             .sink(receiveValue: {[weak self] receivedFamily in
                 self?.currentFamily = receivedFamily
             })
+        currentUserSubscription = userRepository.$currentUser
+            .sink(receiveValue: { [weak self] _ in
+                self?.readCurrentFamily()
+            })
+        
     }
     
     func createFamily(){

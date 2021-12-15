@@ -38,6 +38,7 @@ class FamilyRepository{
     }
     
     func readCurrentFamily(currentFamilyId: String? = nil){
+        
         if (currentFamilyId == nil && currentFamilyRef == nil){
             print("there isno way to reference the family")
             return
