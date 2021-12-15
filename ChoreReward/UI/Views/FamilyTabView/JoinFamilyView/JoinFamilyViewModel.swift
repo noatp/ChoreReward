@@ -19,7 +19,8 @@ class JoinFamilyViewModel: ObservableObject{
         self.familyService = familyService
     }
     
-    func joinFamilyWithId(){
+    func addCurrentUserToFamilyWithId(){
+        familyService.addCurrentUserToFamilyWithId(familyId: familyIdInputRender.textInput)
     }
 }
 

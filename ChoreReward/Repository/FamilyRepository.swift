@@ -12,9 +12,7 @@ import Combine
 
 class FamilyRepository{
     @Published var currentFamily: Family? = nil
-    
-    private var currentFamilyRef: DocumentReference? = nil
-    
+        
     private let database = Firestore.firestore()
     
     init(initCurrentFamily: Family? = nil){
@@ -22,9 +20,8 @@ class FamilyRepository{
     }
     
     func createFamily(currentUserId: String, newFamilyId: String){
-        currentFamilyRef = database.collection("families").document(newFamilyId)
-        
-        currentFamilyRef!.setData([
+        let currentFamilyRef = database.collection("families").document(newFamilyId)
+        currentFamilyRef.setData([
             "members": [currentUserId],
             "chores": []
         ]){ err in
@@ -37,18 +34,9 @@ class FamilyRepository{
         }
     }
     
-    func readCurrentFamily(currentFamilyId: String? = nil){
-        
-        if (currentFamilyId == nil && currentFamilyRef == nil){
-            print("there isno way to reference the family")
-            return
-        }
-        
-        if (currentFamilyId != nil){
-            currentFamilyRef = database.collection("families").document(currentFamilyId!)
-        }
-        
-        currentFamilyRef!.getDocument { [weak self] (document, error) in
+    func readCurrentFamily(currentFamilyId: String){
+        let currentFamilyRef = database.collection("families").document(currentFamilyId)
+        currentFamilyRef.getDocument { [weak self] (document, error) in
             let result = Result {
                 try document?.data(as: Family.self)
             }
@@ -69,15 +57,12 @@ class FamilyRepository{
         }
     }
     
-    func addUserToCurrentFamily(userId: String){
-        currentFamilyRef?.updateData([
+    func addUserToFamily(familyId: String, userId: String, onCompletion: @escaping (Error?) -> Void){
+        let currentFamilyRef = database.collection("families").document(familyId)
+        currentFamilyRef.updateData([
             "members" : FieldValue.arrayUnion([userId])
         ]){ err in
-            if let err = err {
-                print("Error updating family: \(err)")
-            } else {
-                print("Family successfully updated")
-            }
+            onCompletion(err)
         }
     }
 }

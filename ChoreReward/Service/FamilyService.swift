@@ -47,7 +47,10 @@ class FamilyService: ObservableObject{
         
         let newFamilyId = UUID().uuidString
         familyRepository.createFamily(currentUserId: currentUserId, newFamilyId: newFamilyId)
-        userRepository.updateFamilyForCurrentUser(newFamilyId: newFamilyId)
+        userRepository.updateFamilyForCurrentUser(
+            familyId: newFamilyId,
+            currentUserId: currentUserId
+        ) 
     }
     
     func readCurrentFamily(){
@@ -57,5 +60,30 @@ class FamilyService: ObservableObject{
         }
         
         familyRepository.readCurrentFamily(currentFamilyId: currentFamilyId)
+    }
+    
+    func addCurrentUserToFamilyWithId(familyId: String){
+        guard let currentUserId = userRepository.currentUser?.id else{
+            print("cannot retrieve currentUserId")
+            return
+        }
+        familyRepository.addUserToFamily(
+            familyId: familyId,
+            userId: currentUserId
+        ) { [weak self] err in
+            if let err = err {
+                print("Error updating family: \(err)")
+            } else {
+                print("Family successfully updated")
+                self?.userRepository.updateFamilyForCurrentUser(
+                    familyId: familyId,
+                    currentUserId: currentUserId
+                )
+            }
+        }
+    }
+    
+    func addUserWithIdToCurrentFamily(userId: String){
+        
     }
 }

@@ -22,7 +22,7 @@ struct JoinFamilyView: View {
     var body: some View {
         TextFieldView(textFieldViewModel: joinFamilyViewModel.familyIdInputRender)
         Button("Join Family", action: {
-            joinFamilyViewModel.joinFamilyWithId()
+            joinFamilyViewModel.addCurrentUserToFamilyWithId()
         })
     }
 }

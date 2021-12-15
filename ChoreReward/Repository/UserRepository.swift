@@ -99,14 +99,17 @@ class UserRepository: ObservableObject{
         }
     }
     
-    func updateFamilyForCurrentUser(newFamilyId: String){
+    func updateFamilyForCurrentUser(familyId: String, currentUserId: String){
+        currentUserRef = database.collection("users").document(currentUserId)
+
         currentUserRef?.updateData([
-            "familyId" : newFamilyId
-        ]){ err in
+            "familyId" : familyId
+        ]){ [weak self] err in
             if let err = err {
                 print("Error updating user: \(err)")
             } else {
                 print("User successfully updated")
+                self?.readCurrentUser(currentUserId: currentUserId)
             }
         }
     }
