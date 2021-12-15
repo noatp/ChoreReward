@@ -69,4 +69,15 @@ class FamilyRepository{
         }
     }
     
+    func addUserToCurrentFamily(userId: String){
+        currentFamilyRef?.updateData([
+            "members" : FieldValue.arrayUnion([userId])
+        ]){ err in
+            if let err = err {
+                print("Error updating family: \(err)")
+            } else {
+                print("Family successfully updated")
+            }
+        }
+    }
 }

@@ -20,8 +20,11 @@ struct FamilyTabView: View {
     }
     var body: some View {
         HStack{
-            if (familyTabViewModel.currentFamily != nil){
-                Text("Has family")
+            if let currentFamily = familyTabViewModel.currentFamily{
+                HStack{
+                    Text("FamilyID: ")
+                    Text(currentFamily.id!)
+                }
             }
             else{
                 VStack{
@@ -29,12 +32,10 @@ struct FamilyTabView: View {
                         familyTabViewModel.createFamily()
                     }
                     .padding()
-                    Button("Join an existing family"){
-                        
+                    NavigationLink("Join an existing family") {
+                        views.joinFamilyView
                     }
-                    .padding()
                 }
-                
             }
         }
     }
