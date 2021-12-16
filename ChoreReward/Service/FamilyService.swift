@@ -33,8 +33,12 @@ class FamilyService: ObservableObject{
                 self?.currentFamily = receivedFamily
             })
         currentUserSubscription = userRepository.$currentUser
-            .sink(receiveValue: { [weak self] _ in
-                self?.readCurrentFamily()
+            .sink(receiveValue: { [weak self] receivedUser in
+                guard let currentFamilyId = receivedUser?.familyId else{
+                    print("current user does not have a family id")
+                    return
+                }
+                self?.readCurrentFamily(currentFamilyId: currentFamilyId)
             })
         
     }
@@ -53,12 +57,7 @@ class FamilyService: ObservableObject{
         ) 
     }
     
-    func readCurrentFamily(){
-        guard let currentFamilyId = userRepository.currentUser?.familyId else{
-            print("cannot retrieve currnetFamilyId")
-            return
-        }
-        
+    func readCurrentFamily(currentFamilyId: String){
         familyRepository.readCurrentFamily(currentFamilyId: currentFamilyId)
     }
     

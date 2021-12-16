@@ -44,7 +44,6 @@ class UserService: ObservableObject{
             .sink(receiveValue: {[weak self] receivedUser in
                 self?.otherUser = receivedUser
             })
-        
     }
     
     func signIn(email: String, password: String){

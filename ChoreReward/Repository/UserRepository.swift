@@ -20,7 +20,6 @@ class UserRepository: ObservableObject{
     private let database = Firestore.firestore()
     
     init(initCurrentUser: User? = nil){
-        print("new user repo")
         self.currentUser = initCurrentUser
     }
     
