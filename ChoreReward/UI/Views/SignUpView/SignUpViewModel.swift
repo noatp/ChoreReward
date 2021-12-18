@@ -50,12 +50,6 @@ class SignUpViewModel: ObservableObject{
             password: passwordInputRender.textInput
         )
     }
-    
-    func getUserProfile(uid: String){
-        userService.readOtherUser(otherUserId: uid)
-    }
-    
-    
 }
 
 extension Dependency.ViewModels{

@@ -34,9 +34,6 @@ struct SignUpView: View {
                 signUpViewModel.signUp()
             }
             .padding()
-            Button("Get test1 account data"){
-                signUpViewModel.getUserProfile(uid: "iZ3Ui5jeCpMu6ih3XGFHOekd81o2")
-            }
         }
     }
 }

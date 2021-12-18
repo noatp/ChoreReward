@@ -35,10 +35,6 @@ class UserTabViewModel: ObservableObject{
     func signOut(){
         userService.signOut()
     }
-    
-    func getUserProfile(uid: String){
-        userService.readOtherUser(otherUserId: uid)
-    }
 }
 
 extension Dependency.ViewModels{
