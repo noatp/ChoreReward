@@ -24,7 +24,7 @@ class UserRepository: ObservableObject{
     //only user service should be able to create a user
     func createUser(newUser: User){
         guard let newUserId = newUser.id else{
-            print("new user does not have an id")
+            print("UserRepository: createUser: new user does not have an id")
             return
         }
         
@@ -36,10 +36,10 @@ class UserRepository: ObservableObject{
             "role": newUser.role.rawValue
         ]) { [weak self] err in
             if let err = err {
-                print("Error adding user: \(err)")
+                print("UserRepository: createUser: Error adding user: \(err)")
             } else {
                 self?.readCurrentUser(currentUserId: newUserId)
-                print("User added with ID: \(newUserId)")
+                print("UserRepository: createUser: User added with ID: \(newUserId)")
             }
         }
     }
@@ -55,10 +55,10 @@ class UserRepository: ObservableObject{
                 if let currentUser = receivedUser {
                     self?.currentUser = currentUser
                 } else {
-                    print("User does not exist")
+                    print("UserRepository: readCurrentUser: User does not exist")
                 }
             case .failure(let error):
-                print("Error decoding user: \(error)")
+                print("UserRepository: readCurrentUser: Error decoding user: \(error)")
             }
         }
     }
@@ -74,10 +74,10 @@ class UserRepository: ObservableObject{
                 if let otherUser = receivedUser {
                     self?.otherUser = otherUser
                 } else {
-                    print("User does not exist")
+                    print("UserRepository: readOtherUser: User does not exist")
                 }
             case .failure(let error):
-                print("Error decoding user: \(error)")
+                print("UserRepository: readOtherUser: Error decoding user: \(error)")
             }
         }
     }
@@ -94,10 +94,10 @@ class UserRepository: ObservableObject{
     //split completion into a separate function to ensure readCurrentUser is called on all update
     private func onUpdateComplettion(err: Error?, currentUserId: String) -> Void{
         if let err = err {
-            print("Error updating user: \(err)")
+            print("UserRepository: onUpdateCompletion: Error updating user: \(err)")
         } else {
             readCurrentUser(currentUserId: currentUserId)
-            print("User successfully updated")
+            print("UserRepository: onUpdateCompletion: User successfully updated")
         }
     }
 }

@@ -99,7 +99,6 @@ class UserService: ObservableObject{
     
     func signInIfCurrentUserExist(){
         guard self.auth.currentUser != nil else{
-            print("UserService: signInIfCurrentUserExist: trying to silent sign in, but auth.currentUser = nil")
             return
         }
         readCurrentUser()

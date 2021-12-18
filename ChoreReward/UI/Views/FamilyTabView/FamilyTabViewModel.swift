@@ -29,7 +29,6 @@ class FamilyTabViewModel: ObservableObject{
     }
     
     func createFamily(){
-        print("create family called here")
         familyService.createFamily()
     }
 }

@@ -24,12 +24,12 @@ class FamilyRepository{
         currentFamilyRef.setData([
             "members": [currentUserId],
             "chores": []
-        ]){ err in
+        ]){ [weak self] err in
             if let err = err {
-                print("Error adding family: \(err)")
+                print("FamilyRepository: createFamily: Error adding family: \(err)")
             } else {
-                self.readCurrentFamily(currentFamilyId: newFamilyId)
-                print("Family added with ID: \(newFamilyId)")
+                self?.readCurrentFamily(currentFamilyId: newFamilyId)
+                print("FamilyRepository: createFamily: Family added with ID: \(newFamilyId)")
             }
         }
     }
@@ -43,26 +43,26 @@ class FamilyRepository{
             switch result {
             case .success(let receivedFamily):
                 if let currentFamily = receivedFamily {
-                    // A `user` value was successfully initialized from the DocumentSnapshot.
                     self?.currentFamily = currentFamily
                 } else {
-                    // A nil value was successfully initialized from the DocumentSnapshot,
-                    // or the DocumentSnapshot was nil.
-                    print("Family does not exist")
+                    print("FamilyRepository: readCurrentFamily: Family does not exist")
                 }
             case .failure(let error):
-                // A `user` value could not be initialized from the DocumentSnapshot.
-                print("Error decoding family: \(error)")
+                print("FamilyRepository: readCurrentFamily: Error decoding family: \(error)")
             }
         }
     }
     
-    func addUserToFamily(familyId: String, userId: String, onCompletion: @escaping (Error?) -> Void){
+    func addUserToFamily(familyId: String, userId: String){
         let currentFamilyRef = database.collection("families").document(familyId)
         currentFamilyRef.updateData([
             "members" : FieldValue.arrayUnion([userId])
         ]){ err in
-            onCompletion(err)
+            if let err = err {
+                print("FamilyRepository: addUserToFamily: Error updating family: \(err)")
+            } else {
+                print("FamilyRepository: addUserToFamily: Family successfully updated")
+            }
         }
     }
 }
