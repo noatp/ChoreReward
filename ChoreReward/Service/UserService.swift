@@ -9,6 +9,12 @@ import Foundation
 import FirebaseAuth
 import Combine
 
+
+/*
+ NOTE TO SELF:
+ - service should try to validate parameter before calling Repository
+ */
+
 class UserService: ObservableObject{
     @Published var authState: AuthState
     @Published var currentUser: User? = nil
@@ -20,7 +26,7 @@ class UserService: ObservableObject{
     private var currentUserSubscription: AnyCancellable?
     private var otherUserSubscription: AnyCancellable?
     
-    var currentUserid: String?{
+    var currentUserId: String?{
         auth.currentUser?.uid
     }
     
@@ -70,7 +76,7 @@ class UserService: ObservableObject{
             }
             else if (result != nil){
                 let newUserWithId = User(
-                    id: self.currentUserid!,
+                    id: self.currentUserId!,
                     email: newUser.email,
                     name: newUser.name,
                     role: newUser.role
@@ -94,6 +100,7 @@ class UserService: ObservableObject{
     
     func signInIfCurrentUserExist(){
         guard self.auth.currentUser != nil else{
+            print("UserService: signInIfCurrentUserExist: trying to silent sign in, but auth.currentUser = nil")
             return
         }
         readCurrentUser()
@@ -101,8 +108,11 @@ class UserService: ObservableObject{
     }
     
     func readCurrentUser(){
-        print("Read current user here")
-        userRepository.readCurrentUser(currentUserId: currentUserid)
+        guard let currentUserId = currentUserId else{
+            print("UserService: readCurrentUser: trying to read current user but currentUserId is nil within this service instance")
+            return
+        }
+        userRepository.readCurrentUser(currentUserId: currentUserId)
     }
     
     func readOtherUser(otherUserId: String){

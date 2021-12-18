@@ -14,9 +14,7 @@ import CoreMedia
 class UserRepository: ObservableObject{
     @Published var currentUser: User? = nil
     @Published var otherUser: User? = nil
-    
-    private var currentUserRef: DocumentReference? = nil
-    
+        
     private let database = Firestore.firestore()
     
     init(initCurrentUser: User? = nil){
@@ -30,9 +28,9 @@ class UserRepository: ObservableObject{
             return
         }
         
-        currentUserRef = database.collection("users").document(newUserId)
+        let currentUserRef = database.collection("users").document(newUserId)
         
-        currentUserRef!.setData([
+        currentUserRef.setData([
             "email": newUser.email,
             "name": newUser.name,
             "role": newUser.role.rawValue
@@ -46,17 +44,9 @@ class UserRepository: ObservableObject{
         }
     }
     
-    func readCurrentUser(currentUserId: String? = nil){
-        if (currentUserId == nil && currentUserRef == nil){
-            print("there is no way to reference the user")
-            return
-        }
-        
-        if currentUserId != nil{
-            currentUserRef = database.collection("users").document(currentUserId!)
-        }
-        
-        currentUserRef!.getDocument {[weak self] (document, error) in
+    func readCurrentUser(currentUserId: String){
+        let currentUserRef = database.collection("users").document(currentUserId)
+        currentUserRef.getDocument {[weak self] (document, error) in
             let result = Result {
                 try document?.data(as: User.self)
             }
@@ -74,7 +64,8 @@ class UserRepository: ObservableObject{
     }
     
     func readOtherUser(otherUserId: String){
-        database.collection("users").document(otherUserId).getDocument{[weak self] (document, error) in
+        let otherUserRef = database.collection("users").document(otherUserId)
+        otherUserRef.getDocument{[weak self] (document, error) in
             let result = Result {
                 try document?.data(as: User.self)
             }
@@ -92,8 +83,8 @@ class UserRepository: ObservableObject{
     }
     
     func updateFamilyForCurrentUser(familyId: String, currentUserId: String){
-        currentUserRef = database.collection("users").document(currentUserId)
-        currentUserRef?.updateData([
+        let  currentUserRef = database.collection("users").document(currentUserId)
+        currentUserRef.updateData([
             "familyId" : familyId
         ]){ [weak self] err in
             if let err = err {
