@@ -24,7 +24,6 @@ class FamilyTabViewModel: ObservableObject{
     func addSubscription(){
         currentFamilySubscription = familyService.$currentFamily
             .sink(receiveValue: {[weak self] receivedFamily in
-                print("received a new family here", receivedFamily)
                 self?.currentFamily = receivedFamily
             })
     }

@@ -23,6 +23,7 @@ class UserRepository: ObservableObject{
         self.currentUser = initCurrentUser
     }
     
+    //only user service should be able to create a user
     func createUser(newUser: User){
         guard let newUserId = newUser.id else{
             print("new user does not have an id")
@@ -62,15 +63,11 @@ class UserRepository: ObservableObject{
             switch result {
             case .success(let receivedUser):
                 if let currentUser = receivedUser {
-                    // A `user` value was successfully initialized from the DocumentSnapshot.
                     self?.currentUser = currentUser
                 } else {
-                    // A nil value was successfully initialized from the DocumentSnapshot,
-                    // or the DocumentSnapshot was nil.
                     print("User does not exist")
                 }
             case .failure(let error):
-                // A `user` value could not be initialized from the DocumentSnapshot.
                 print("Error decoding user: \(error)")
             }
         }
@@ -84,15 +81,11 @@ class UserRepository: ObservableObject{
             switch result {
             case .success(let receivedUser):
                 if let otherUser = receivedUser {
-                    // A `user` value was successfully initialized from the DocumentSnapshot.
                     self?.otherUser = otherUser
                 } else {
-                    // A nil value was successfully initialized from the DocumentSnapshot,
-                    // or the DocumentSnapshot was nil.
                     print("User does not exist")
                 }
             case .failure(let error):
-                // A `user` value could not be initialized from the DocumentSnapshot.
                 print("Error decoding user: \(error)")
             }
         }
@@ -100,7 +93,6 @@ class UserRepository: ObservableObject{
     
     func updateFamilyForCurrentUser(familyId: String, currentUserId: String){
         currentUserRef = database.collection("users").document(currentUserId)
-
         currentUserRef?.updateData([
             "familyId" : familyId
         ]){ [weak self] err in

@@ -96,7 +96,7 @@ class UserService: ObservableObject{
         guard self.auth.currentUser != nil else{
             return
         }
-        userRepository.readCurrentUser(currentUserId: currentUserid)
+        readCurrentUser()
         authState = .signedIn
     }
     
