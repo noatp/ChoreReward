@@ -90,8 +90,7 @@ class UserService: ObservableObject{
     func signOut(){
         do {
             try self.auth.signOut()
-            userRepository.currentUser = nil
-            familyRepository.currentFamily = nil
+            resetRepositoryCache()
             self.authState = AuthState.signedOut(error: nil)
         } catch let signOutError as NSError {
             print("Error signing out: %@", signOutError)
@@ -117,6 +116,11 @@ class UserService: ObservableObject{
     
     func readOtherUser(otherUserId: String){
         userRepository.readOtherUser(otherUserId: otherUserId)
+    }
+    
+    private func resetRepositoryCache(){
+        userRepository.currentUser = nil
+        familyRepository.currentFamily = nil
     }
     
     enum AuthState{
