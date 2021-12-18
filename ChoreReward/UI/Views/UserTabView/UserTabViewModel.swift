@@ -21,7 +21,6 @@ class UserTabViewModel: ObservableObject{
     ){
         self.userService = userService
         self.addSubscription()
-        self.getCurrentUserProfile()
     }
     
     func addSubscription(){
@@ -35,10 +34,6 @@ class UserTabViewModel: ObservableObject{
     
     func signOut(){
         userService.signOut()
-    }
-    
-    func getCurrentUserProfile(){
-        userService.readCurrentUser()
     }
     
     func getUserProfile(uid: String){

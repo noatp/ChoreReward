@@ -34,13 +34,8 @@ class UserRepository: ObservableObject{
             "email": newUser.email,
             "name": newUser.name,
             "role": newUser.role.rawValue
-        ]) { err in
-            if let err = err {
-                print("Error adding user: \(err)")
-            } else {
-                self.readCurrentUser(currentUserId: newUserId)
-                print("User added with ID: \(newUserId)")
-            }
+        ]) { [weak self] err in
+            self?.onCreateCompletion(err: err, newUserId: newUserId)
         }
     }
     
@@ -87,12 +82,27 @@ class UserRepository: ObservableObject{
         currentUserRef.updateData([
             "familyId" : familyId
         ]){ [weak self] err in
-            if let err = err {
-                print("Error updating user: \(err)")
-            } else {
-                print("User successfully updated")
-                self?.readCurrentUser(currentUserId: currentUserId)
-            }
+            self?.onUpdateComplettion(err: err, currentUserId: currentUserId)
+        }
+    }
+    
+    //split completion into a separate function to ensure readCurrentUser is called
+    private func onCreateCompletion(err: Error?, newUserId: String) -> Void{
+        if let err = err {
+            print("Error adding user: \(err)")
+        } else {
+            readCurrentUser(currentUserId: newUserId)
+            print("User added with ID: \(newUserId)")
+        }
+    }
+    
+    //split completion into a separate function to ensure readCurrentUser is called
+    private func onUpdateComplettion(err: Error?, currentUserId: String) -> Void{
+        if let err = err {
+            print("Error updating user: \(err)")
+        } else {
+            readCurrentUser(currentUserId: currentUserId)
+            print("User successfully updated")
         }
     }
 }
