@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		4512A3492769D4190009C798 /* JoinFamilyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4512A3482769D4190009C798 /* JoinFamilyView.swift */; };
 		4512A34B2769D4D00009C798 /* JoinFamilyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4512A34A2769D4D00009C798 /* JoinFamilyViewModel.swift */; };
+		45243EFF276E9F9000D2EACB /* UserCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45243EFE276E9F9000D2EACB /* UserCardView.swift */; };
 		452AFECE275443720060BD43 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 452AFECD275443720060BD43 /* SignUpView.swift */; };
 		452AFED0275444020060BD43 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 452AFECF275444020060BD43 /* SignUpViewModel.swift */; };
 		453147612751B2A0000A85D7 /* ListChoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453147602751B2A0000A85D7 /* ListChoreView.swift */; };
@@ -75,6 +76,7 @@
 /* Begin PBXFileReference section */
 		4512A3482769D4190009C798 /* JoinFamilyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinFamilyView.swift; sourceTree = "<group>"; };
 		4512A34A2769D4D00009C798 /* JoinFamilyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinFamilyViewModel.swift; sourceTree = "<group>"; };
+		45243EFE276E9F9000D2EACB /* UserCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCardView.swift; sourceTree = "<group>"; };
 		452AFECD275443720060BD43 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		452AFECF275444020060BD43 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		453147602751B2A0000A85D7 /* ListChoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListChoreView.swift; sourceTree = "<group>"; };
@@ -156,6 +158,14 @@
 				4512A34A2769D4D00009C798 /* JoinFamilyViewModel.swift */,
 			);
 			path = JoinFamilyView;
+			sourceTree = "<group>";
+		};
+		45243EF5276E87DF00D2EACB /* UserCard */ = {
+			isa = PBXGroup;
+			children = (
+				45243EFE276E9F9000D2EACB /* UserCardView.swift */,
+			);
+			path = UserCard;
 			sourceTree = "<group>";
 		};
 		4531475F2751B27F000A85D7 /* ListChoreView */ = {
@@ -330,6 +340,7 @@
 		45D7AE8A27346E7600A53812 /* ComponentViews */ = {
 			isa = PBXGroup;
 			children = (
+				45243EF5276E87DF00D2EACB /* UserCard */,
 				45395C57272A258600F50B70 /* ChoreCard.swift */,
 				45D7AE9A2735E77700A53812 /* PickerView */,
 				45D7AE8D2734769100A53812 /* TextFieldView */,
@@ -550,6 +561,7 @@
 				45395C5B272B20F600F50B70 /* Dependency.swift in Sources */,
 				45C1FA652767163F00BF11E3 /* FamilyRepository.swift in Sources */,
 				45D8D3A1275ED3F10026ABE3 /* ChoreTabViewModel.swift in Sources */,
+				45243EFF276E9F9000D2EACB /* UserCardView.swift in Sources */,
 				45D8D39F275ED2BE0026ABE3 /* FamilyTabViewModel.swift in Sources */,
 				45ACB4DC2724AE00000E04A0 /* Chore.swift in Sources */,
 				455ECC86275DA7A100438A43 /* RolePickerView.swift in Sources */,
