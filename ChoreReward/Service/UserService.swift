@@ -17,14 +17,19 @@ import Combine
 
 class UserService: ObservableObject{
     @Published var authState: AuthState
-    @Published var currentUser: User? = nil
-    @Published var otherUser: User? = nil
+    @Published var currentUser: User?
+    @Published var otherUser: User?
+    @Published var currentFamilyMembers: [User] = []
     
     private let auth = Auth.auth()
     private let userRepository: UserRepository
     private let familyRepository: FamilyRepository
+    
     private var currentUserSubscription: AnyCancellable?
     private var otherUserSubscription: AnyCancellable?
+    private var currentFamilySubscription: AnyCancellable?
+    private var familyMemberSubscription: AnyCancellable?
+    
     
     var currentUserId: String?{
         auth.currentUser?.uid
@@ -49,6 +54,17 @@ class UserService: ObservableObject{
         otherUserSubscription = userRepository.$otherUser
             .sink(receiveValue: {[weak self] receivedUser in
                 self?.otherUser = receivedUser
+            })
+        currentFamilySubscription = familyRepository.$currentFamily
+            .sink(receiveValue: {[weak self] receivedFamily in
+                guard let currentFamily = receivedFamily else{
+                    return
+                }
+                self?.getMembersOfCurrentFamily(currentFamily: currentFamily)
+            })
+        familyMemberSubscription = userRepository.$currentFamilyMembers
+            .sink(receiveValue: {[weak self] receivedFamilyMembers in
+                self?.currentFamilyMembers = receivedFamilyMembers
             })
     }
     
@@ -115,6 +131,10 @@ class UserService: ObservableObject{
     
     func readOtherUser(otherUserId: String){
         userRepository.readOtherUser(otherUserId: otherUserId)
+    }
+    
+    func getMembersOfCurrentFamily(currentFamily: Family){
+        userRepository.readMultipleUsers(userIds: currentFamily.members)
     }
     
     private func resetRepositoryCache(){

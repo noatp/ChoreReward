@@ -104,13 +104,16 @@ class MockUserService: UserService{
 }
 
 class MockUserRepository: UserRepository{
-    override init(initCurrentUser: User? = User(
-        id: "something",
-        email: "preview email",
-        name: "preview name",
-        role: .child)
-    ){
-        super.init(initCurrentUser: initCurrentUser)
+    override init(
+        initCurrentUser: User? = User.previewBen,
+        initOtherUser: User? = User.previewTim,
+        initcurrentFamilyMemebers: [User] = [User.previewTim, User.previewDavid]
+    ) {
+        super.init(
+            initCurrentUser: initCurrentUser,
+            initOtherUser: initOtherUser,
+            initcurrentFamilyMemebers: initcurrentFamilyMemebers
+        )
     }
     
     override func readCurrentUser(currentUserId: String?) {

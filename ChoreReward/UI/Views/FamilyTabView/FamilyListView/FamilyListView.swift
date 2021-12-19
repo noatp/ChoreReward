@@ -21,12 +21,12 @@ struct FamilyListView: View {
     
     var body: some View {
         VStack{
-            ForEach(familyListViewModel.members ?? [], id: \.self){ member in
-                Text(member)
+            Text("Family members:")
+            ForEach(familyListViewModel.members){ member in
+                UserCardView(user: member)
             }
-            Button("get family members") {
-                familyListViewModel.getFamilyMember()
-            }
+
+            Spacer()
         }
         .padding()
     }

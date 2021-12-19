@@ -20,7 +20,7 @@ struct FamilyTabView: View {
     }
     var body: some View {
         HStack{
-            if let currentFamily = familyTabViewModel.currentFamily{
+            if familyTabViewModel.currentFamily != nil {
                 HStack{
                     views.familyListView
                 }
