@@ -127,7 +127,25 @@ class MockUserRepository: UserRepository{
 }
 
 class MockFamilyRepository: FamilyRepository{
+    override init(
+        initCurrentFamily: Family? = Family.preview
+    ) {
+        super.init(
+            initCurrentFamily: initCurrentFamily
+        )
+    }
     
+    override func createFamily(currentUserId: String, newFamilyId: String) {
+        return
+    }
+    
+    override func readCurrentFamily(currentFamilyId: String) {
+        return
+    }
+    
+    override func addUserToFamily(familyId: String, userId: String) {
+        return
+    }
 }
 
 class MockFamilyService: FamilyService{

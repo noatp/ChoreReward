@@ -10,6 +10,8 @@
 		4512A3492769D4190009C798 /* JoinFamilyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4512A3482769D4190009C798 /* JoinFamilyView.swift */; };
 		4512A34B2769D4D00009C798 /* JoinFamilyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4512A34A2769D4D00009C798 /* JoinFamilyViewModel.swift */; };
 		45243EFF276E9F9000D2EACB /* UserCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45243EFE276E9F9000D2EACB /* UserCardView.swift */; };
+		45243F0E276EB5DA00D2EACB /* FamilyListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45243F0D276EB5DA00D2EACB /* FamilyListView.swift */; };
+		45243F10276EB5F700D2EACB /* FamilyListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45243F0F276EB5F700D2EACB /* FamilyListViewModel.swift */; };
 		452AFECE275443720060BD43 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 452AFECD275443720060BD43 /* SignUpView.swift */; };
 		452AFED0275444020060BD43 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 452AFECF275444020060BD43 /* SignUpViewModel.swift */; };
 		453147612751B2A0000A85D7 /* ListChoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453147602751B2A0000A85D7 /* ListChoreView.swift */; };
@@ -77,6 +79,8 @@
 		4512A3482769D4190009C798 /* JoinFamilyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinFamilyView.swift; sourceTree = "<group>"; };
 		4512A34A2769D4D00009C798 /* JoinFamilyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinFamilyViewModel.swift; sourceTree = "<group>"; };
 		45243EFE276E9F9000D2EACB /* UserCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCardView.swift; sourceTree = "<group>"; };
+		45243F0D276EB5DA00D2EACB /* FamilyListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyListView.swift; sourceTree = "<group>"; };
+		45243F0F276EB5F700D2EACB /* FamilyListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyListViewModel.swift; sourceTree = "<group>"; };
 		452AFECD275443720060BD43 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		452AFECF275444020060BD43 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		453147602751B2A0000A85D7 /* ListChoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListChoreView.swift; sourceTree = "<group>"; };
@@ -166,6 +170,15 @@
 				45243EFE276E9F9000D2EACB /* UserCardView.swift */,
 			);
 			path = UserCard;
+			sourceTree = "<group>";
+		};
+		45243F0C276EB5B900D2EACB /* FamilyListView */ = {
+			isa = PBXGroup;
+			children = (
+				45243F0D276EB5DA00D2EACB /* FamilyListView.swift */,
+				45243F0F276EB5F700D2EACB /* FamilyListViewModel.swift */,
+			);
+			path = FamilyListView;
 			sourceTree = "<group>";
 		};
 		4531475F2751B27F000A85D7 /* ListChoreView */ = {
@@ -377,6 +390,7 @@
 		45D8D394275E77500026ABE3 /* FamilyTabView */ = {
 			isa = PBXGroup;
 			children = (
+				45243F0C276EB5B900D2EACB /* FamilyListView */,
 				4512A3452769D32A0009C798 /* JoinFamilyView */,
 				45D8D398275E77CA0026ABE3 /* FamilyTabView.swift */,
 				45D8D39E275ED2BE0026ABE3 /* FamilyTabViewModel.swift */,
@@ -569,6 +583,7 @@
 				4531476B2751FFBD000A85D7 /* UserService.swift in Sources */,
 				453147632751B2AF000A85D7 /* ListChoreViewModel.swift in Sources */,
 				452AFECE275443720060BD43 /* SignUpView.swift in Sources */,
+				45243F10276EB5F700D2EACB /* FamilyListViewModel.swift in Sources */,
 				4531476E2752FBFC000A85D7 /* AppViewModel.swift in Sources */,
 				45B012D7275495CF002C7A06 /* UserRepository.swift in Sources */,
 				453147612751B2A0000A85D7 /* ListChoreView.swift in Sources */,
@@ -583,6 +598,7 @@
 				45ACB4AC2724AD1A000E04A0 /* ChoreRewardApp.swift in Sources */,
 				452AFED0275444020060BD43 /* SignUpViewModel.swift in Sources */,
 				453147662751C83E000A85D7 /* LoginView.swift in Sources */,
+				45243F0E276EB5DA00D2EACB /* FamilyListView.swift in Sources */,
 				453147682751CC53000A85D7 /* LoginViewModel.swift.swift in Sources */,
 				45D7AE8C27346E9900A53812 /* TextFieldView.swift in Sources */,
 				45E483CC27540305009DA543 /* RootViewModel.swift in Sources */,
