@@ -78,4 +78,8 @@ class FamilyService: ObservableObject{
     func addUserWithIdToCurrentFamily(userId: String){
         
     }
+    
+    func getMembersOfFamily(){
+        userRepository.readMultipleUsers(userIds: currentFamily?.members ?? [])
+    }
 }

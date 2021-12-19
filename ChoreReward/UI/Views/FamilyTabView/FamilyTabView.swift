@@ -22,8 +22,7 @@ struct FamilyTabView: View {
         HStack{
             if let currentFamily = familyTabViewModel.currentFamily{
                 HStack{
-                    Text("FamilyID: ")
-                    Text(currentFamily.id!)
+                    views.familyListView
                 }
             }
             else{

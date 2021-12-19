@@ -24,6 +24,9 @@ struct FamilyListView: View {
             ForEach(familyListViewModel.members ?? [], id: \.self){ member in
                 Text(member)
             }
+            Button("get family members") {
+                familyListViewModel.getFamilyMember()
+            }
         }
         .padding()
     }

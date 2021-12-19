@@ -28,6 +28,10 @@ class FamilyListViewModel: ObservableObject{
             })
     }
     
+    func getFamilyMember(){
+        familyService.getMembersOfFamily()
+    }
+    
 }
 
 extension Dependency.ViewModels{
