@@ -47,6 +47,10 @@ class FamilyService: ObservableObject{
             print("FamilyService: createFamily: cannot retrieve currentUserId")
             return
         }
+        guard userRepository.currentUser?.role == .parent else{
+            print("FamilyService: createFamily: user is not a parent")
+            return
+        }
         
         let newFamilyId = UUID().uuidString
         familyRepository.createFamily(currentUserId: currentUserId, newFamilyId: newFamilyId)
