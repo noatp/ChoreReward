@@ -60,7 +60,7 @@ class FamilyService: ObservableObject{
         ) 
     }
     
-    func readCurrentFamily(currentFamilyId: String){
+    private func readCurrentFamily(currentFamilyId: String){
         familyRepository.readCurrentFamily(currentFamilyId: currentFamilyId)
     }
     
