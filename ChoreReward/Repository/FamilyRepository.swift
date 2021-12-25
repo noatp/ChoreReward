@@ -10,7 +10,7 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 import Combine
 
-class FamilyRepository{
+class FamilyRepository: ObservableObject{
     @Published var currentFamily: Family? = nil
         
     private let database = Firestore.firestore()

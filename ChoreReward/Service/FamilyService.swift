@@ -82,4 +82,13 @@ class FamilyService: ObservableObject{
     func addUserWithIdToCurrentFamily(userId: String){
         
     }
+    
+    func inviteUserJoinCurrentFamily(userId: String){
+        guard let currentFamily = currentFamily else {
+            print("FamilyService: inviteUserJoinCurrentFamily: currentFamily is nil")
+            return
+        }
+        
+
+    }
 }

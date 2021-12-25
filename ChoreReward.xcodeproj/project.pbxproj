@@ -55,6 +55,7 @@
 		45D8D39F275ED2BE0026ABE3 /* FamilyTabViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D8D39E275ED2BE0026ABE3 /* FamilyTabViewModel.swift */; };
 		45D8D3A1275ED3F10026ABE3 /* ChoreTabViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D8D3A0275ED3F10026ABE3 /* ChoreTabViewModel.swift */; };
 		45DCD51D2777372700A1037B /* FamilyInvitation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45DCD51C2777372700A1037B /* FamilyInvitation.swift */; };
+		45DCD51F277738D400A1037B /* FamilyInvitationRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45DCD51E277738D400A1037B /* FamilyInvitationRepository.swift */; };
 		45E483CA275402F6009DA543 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E483C9275402F6009DA543 /* RootView.swift */; };
 		45E483CC27540305009DA543 /* RootViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E483CB27540305009DA543 /* RootViewModel.swift */; };
 /* End PBXBuildFile section */
@@ -124,6 +125,7 @@
 		45D8D39E275ED2BE0026ABE3 /* FamilyTabViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyTabViewModel.swift; sourceTree = "<group>"; };
 		45D8D3A0275ED3F10026ABE3 /* ChoreTabViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoreTabViewModel.swift; sourceTree = "<group>"; };
 		45DCD51C2777372700A1037B /* FamilyInvitation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyInvitation.swift; sourceTree = "<group>"; };
+		45DCD51E277738D400A1037B /* FamilyInvitationRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyInvitationRepository.swift; sourceTree = "<group>"; };
 		45E483C9275402F6009DA543 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		45E483CB27540305009DA543 /* RootViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -340,6 +342,7 @@
 			children = (
 				45B012D6275495CF002C7A06 /* UserRepository.swift */,
 				45C1FA642767163F00BF11E3 /* FamilyRepository.swift */,
+				45DCD51E277738D400A1037B /* FamilyInvitationRepository.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -594,6 +597,7 @@
 				45D7AE872733572700A53812 /* NewChoreFormView.swift.swift in Sources */,
 				45D7AE9327347D2900A53812 /* User.swift in Sources */,
 				45395C58272A258600F50B70 /* ChoreCard.swift in Sources */,
+				45DCD51F277738D400A1037B /* FamilyInvitationRepository.swift in Sources */,
 				45D8D399275E77CA0026ABE3 /* FamilyTabView.swift in Sources */,
 				45D8D39D275E784E0026ABE3 /* UserTabViewModel.swift in Sources */,
 				45ACB4DE2724AEBE000E04A0 /* Reward.swift in Sources */,
