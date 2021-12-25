@@ -37,10 +37,6 @@ struct UserTabView: View {
             Button("Sign out") {
                 userTabViewModel.signOut()
             }
-            
-            Button("Get test1 account data"){
-                userTabViewModel.getUserProfile(uid: "iZ3Ui5jeCpMu6ih3XGFHOekd81o2")
-            }
         }
         .padding()
     }

@@ -2,7 +2,7 @@
 //  FamilyTabView.swift
 //  ChoreReward
 //
-//  Created by Toan Pham on 12/9/21.
+//  Created by Toan Pham on 12/6/21.
 //
 
 import SwiftUI
@@ -18,16 +18,29 @@ struct FamilyTabView: View {
         self.familyTabViewModel = familyTabViewModel
         self.views = views
     }
-    
     var body: some View {
         HStack{
-            Text("FamilyId: ")
-            Text(familyTabViewModel.currentFamily?.id ?? "")
+            if familyTabViewModel.currentFamily != nil {
+                HStack{
+                    views.familyListView
+                }
+            }
+            else{
+                VStack{
+                    Button("Create a new family") {
+                        familyTabViewModel.createFamily()
+                    }
+                    .padding()
+                    NavigationLink("Join an existing family") {
+                        views.joinFamilyView
+                    }
+                }
+            }
         }
     }
 }
 
-struct FamilyTabViewPreviews: PreviewProvider {
+struct FamilyTabView_Previews: PreviewProvider {
     static var previews: some View {
         Dependency.preview.views().familyTabView
     }

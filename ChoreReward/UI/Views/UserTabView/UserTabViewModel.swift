@@ -9,51 +9,38 @@ import Foundation
 import Combine
 
 class UserTabViewModel: ObservableObject{
-    private let authService: AuthService
-    private let userRepository: UserRepository
-    private var userRepoSubscription: AnyCancellable?
+    private var userService: UserService
+    private var currentUserSubscription: AnyCancellable?
     
     @Published var currentUserEmail: String = ""
     @Published var currentUserName: String = ""
     @Published var currentUserRole: String = ""
     
     init(
-        authService: AuthService,
-        userRepository: UserRepository
+        userService: UserService
     ){
-        self.authService = authService
-        self.userRepository = userRepository
+        self.userService = userService
         self.addSubscription()
-        self.getCurrentUserProfile()
     }
     
     func addSubscription(){
-        userRepoSubscription = userRepository.$user
-            .sink(receiveValue: { [weak self] user in
-                self?.currentUserName = user?.name ?? ""
-                self?.currentUserEmail = user?.email ?? ""
-                self?.currentUserRole = user?.role.rawValue ?? ""
+        currentUserSubscription = userService.$currentUser
+            .sink(receiveValue: { [weak self] receivedUser in
+                self?.currentUserName = receivedUser?.name ?? ""
+                self?.currentUserEmail = receivedUser?.email ?? ""
+                self?.currentUserRole = receivedUser?.role.rawValue ?? ""
             })
     }
     
     func signOut(){
-        authService.signOut()
-    }
-    
-    func getCurrentUserProfile(){
-        userRepository.readUser(userId: authService.currentUid ?? "")
-    }
-    
-    func getUserProfile(uid: String){
-        userRepository.readUser(userId: uid)
+        userService.signOut()
     }
 }
 
 extension Dependency.ViewModels{
     var userTabViewModel: UserTabViewModel{
         UserTabViewModel(
-            authService: services.authService,
-            userRepository: repositories.userRepository
+            userService: services.userService
         )
     }
 }

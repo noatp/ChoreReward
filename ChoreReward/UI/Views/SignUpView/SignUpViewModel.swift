@@ -11,11 +11,8 @@ import Combine
 class SignUpViewModel: ObservableObject{
     @Published var errorMessage: String? = nil
 
-    private var authService: AuthService
-    private var userRepository: UserRepository
-    private var authServiceSubscription: AnyCancellable?
-    private var userRepoSubscription: AnyCancellable?
-    
+    private var userService: UserService
+    private var authStateSubscription: AnyCancellable?
     
     let nameInputRender = TextFieldViewModel(title: "Full name", prompt: "Full name")
     let emailInputRender = TextFieldViewModel(title: "Email", prompt: "Email")
@@ -23,16 +20,14 @@ class SignUpViewModel: ObservableObject{
     let rolePickerRender = RolePickerViewModel()
     
     init(
-        authService: AuthService,
-        userRepository: UserRepository
+        userService: UserService
     ){
-        self.authService = authService
-        self.userRepository = userRepository
+        self.userService = userService
         addSubscription()
     }
     
     func addSubscription(){
-        authServiceSubscription = authService.$authState
+        authStateSubscription = userService.$authState
             .sink(receiveValue: {[weak self] authState in
                 switch authState{
                 case .signedIn:
@@ -40,11 +35,6 @@ class SignUpViewModel: ObservableObject{
                 case .signedOut(let error):
                     self?.errorMessage = error?.localizedDescription ?? nil
                 }
-            })
-        userRepoSubscription = userRepository.$user
-            .sink(receiveValue: {[weak self] userDoc in
-                self?.authService.signInIfCurrentUserExist()
-                self?.userRepoSubscription?.cancel()
             })
     }
     
@@ -55,24 +45,17 @@ class SignUpViewModel: ObservableObject{
             name: nameInputRender.textInput,
             role: rolePickerRender.selection
         )
-        authService.signUp(
+        userService.signUp(
             newUser: newUser,
             password: passwordInputRender.textInput
         )
     }
-    
-    func getUserProfile(uid: String){
-        userRepository.readUser(userId: uid)
-    }
-    
-    
 }
 
 extension Dependency.ViewModels{
     var signUpViewModel: SignUpViewModel{
         SignUpViewModel(
-            authService: services.authService,
-            userRepository: repositories.userRepository
+            userService: services.userService
         )
     }
 }

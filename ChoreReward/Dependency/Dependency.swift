@@ -9,18 +9,21 @@ import Foundation
 import UIKit
 
 class Dependency{
-    let authService: AuthService
+    let userService: UserService
     let userRepository: UserRepository
     let familyRepository: FamilyRepository
+    let familyService: FamilyService
     
     init(
-        authService: AuthService = MockAuthService(),
+        userService: UserService = MockUserService(),
         userRepository: UserRepository = MockUserRepository(),
-        familyRepository: FamilyRepository = MockFamilyRepository()
+        familyRepository: FamilyRepository = MockFamilyRepository(),
+        familyService: FamilyService = MockFamilyService()
     ){
-        self.authService = authService
+        self.userService = userService
         self.userRepository = userRepository
         self.familyRepository = familyRepository
+        self.familyService = familyService
     }
     
     static let preview = Dependency()
@@ -43,13 +46,15 @@ class Dependency{
     
     class Services{
         let dependency: Dependency
-        let authService: AuthService
+        let userService: UserService
+        let familyService: FamilyService
         let repositories: Repositories
         
         init(dependency: Dependency){
             self.dependency = dependency
             self.repositories = self.dependency.repositories()
-            self.authService = self.dependency.authService
+            self.userService = self.dependency.userService
+            self.familyService = self.dependency.familyService
         }
     }
     
@@ -59,20 +64,16 @@ class Dependency{
     
     class ViewModels{
         let services: Services
-        let repositories: Repositories
         init(
-            services: Services,
-            repositories: Repositories
+            services: Services
         ){
             self.services = services
-            self.repositories = repositories
         }
     }
     
     private func viewModels() -> ViewModels{
         return ViewModels(
-            services: services(),
-            repositories: repositories()
+            services: services()
         )
     }
     
@@ -89,36 +90,79 @@ class Dependency{
     }
 }
 
-class MockAuthService: AuthService{
+class MockUserService: UserService{
     override init(
         userRepository: UserRepository = MockUserRepository(),
+        familyRepository: FamilyRepository = MockFamilyRepository(),
         initAuthState: AuthState = AuthState.signedIn
     ){
-        super.init(userRepository: userRepository)
+        super.init(
+            userRepository: userRepository,
+            familyRepository: familyRepository
+        )
     }
 }
 
 class MockUserRepository: UserRepository{
-    override init(initUser: User? = User(
-        id: "something",
-        email: "preview email",
-        name: "preview name",
-        role: .child)
-    ){
-        super.init(initUser: initUser)
+    override init(
+        initCurrentUser: User? = User.previewBen,
+        initOtherUser: User? = User.previewTim,
+        initcurrentFamilyMemebers: [User] = [User.previewTim, User.previewDavid]
+    ) {
+        super.init(
+            initCurrentUser: initCurrentUser,
+            initOtherUser: initOtherUser,
+            initcurrentFamilyMemebers: initcurrentFamilyMemebers
+        )
     }
     
-    override func readUser(userId: String) {
+    override func readCurrentUser(currentUserId: String?) {
         return
     }
     
     override func createUser(newUser: User) {
         return
     }
+    
+    override func readOtherUser(otherUserId: String) {
+        return
+    }
 }
 
 class MockFamilyRepository: FamilyRepository{
+    override init(
+        initCurrentFamily: Family? = Family.preview
+    ) {
+        super.init(
+            initCurrentFamily: initCurrentFamily
+        )
+    }
     
+    override func createFamily(currentUserId: String, newFamilyId: String) {
+        return
+    }
+    
+    override func readCurrentFamily(currentFamilyId: String) {
+        return
+    }
+    
+    override func addUserToFamily(familyId: String, userId: String) {
+        return
+    }
+}
+
+class MockFamilyService: FamilyService{
+    override init(
+        userRepository: UserRepository = MockUserRepository(),
+        familyRepository: FamilyRepository = MockFamilyRepository(),
+        initCurrentFamily: Family? = nil
+    ) {
+        super.init(
+            userRepository: userRepository,
+            familyRepository: familyRepository,
+            initCurrentFamily: initCurrentFamily
+        )
+    }
 }
 
 

@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-struct Chore: Identifiable,Codable{
+struct Chore: Identifiable, Codable{
     var id: String
     var title: String
     var assigner: User
