@@ -14,13 +14,15 @@ struct User: Identifiable, Codable{
     var name: String
     var role: Role
     var familyId: String?
+    var invitation: String?
     
     static let previewTim = User(
         id: "tim",
         email: "test@gmail.com",
         name: "Timothy Tran",
         role: .child,
-        familyId: nil
+        familyId: nil,
+        invitation: nil
     )
     
     static let previewBen = User(
@@ -28,7 +30,8 @@ struct User: Identifiable, Codable{
         email: "test1@gmail.com",
         name: "Benjamin Tran",
         role: .child,
-        familyId: nil
+        familyId: nil,
+        invitation: nil
     )
     
     static let previewDavid = User(
@@ -36,7 +39,8 @@ struct User: Identifiable, Codable{
         email: "test2@gmail.com",
         name: "David Tran",
         role: .parent,
-        familyId: nil
+        familyId: nil,
+        invitation: nil
     )
 }
 
