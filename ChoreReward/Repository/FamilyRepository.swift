@@ -22,6 +22,7 @@ class FamilyRepository{
     func createFamily(currentUserId: String, newFamilyId: String){
         let currentFamilyRef = database.collection("families").document(newFamilyId)
         currentFamilyRef.setData([
+            "admin": currentUserId,
             "members": [currentUserId],
             "chores": []
         ]){ [weak self] err in
