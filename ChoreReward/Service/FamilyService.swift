@@ -37,10 +37,13 @@ class FamilyService: ObservableObject{
             })
         currentUserSubscription = userRepository.$currentUser
             .sink(receiveValue: { [weak self] receivedUser in
-                guard let currentFamilyId = receivedUser?.familyId else{
+                guard let currentFamilyId = receivedUser?.familyId,
+                      let currentUserId = receivedUser?.id
+                else{
                     return
                 }
                 self?.readCurrentFamily(currentFamilyId: currentFamilyId)
+                self?.addListenToInvite(userId: currentUserId)
             })
         
     }
@@ -104,5 +107,9 @@ class FamilyService: ObservableObject{
         )
         
         familyInvitationRepository.createInvitation(invitation: newInvitation)
+    }
+    
+    func addListenToInvite(userId: String){
+        familyInvitationRepository.addListenerForInvitationToCurrentUser(currentUserId: userId)
     }
 }

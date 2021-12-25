@@ -14,14 +14,23 @@ struct ChoreRewardApp: App {
     let userRepository: UserRepository
     let familyRepository: FamilyRepository
     let familyService: FamilyService
+    let familyInvitationRepository: FamilyInvitationRepository
     let dependency: Dependency
     
     init(){
         FirebaseApp.configure()
         self.userRepository = UserRepository()
         self.familyRepository = FamilyRepository()
-        self.userService = UserService(userRepository: self.userRepository, familyRepository: self.familyRepository)
-        self.familyService = FamilyService(userRepository: self.userRepository, familyRepository: self.familyRepository)
+        self.familyInvitationRepository = FamilyInvitationRepository()
+        self.userService = UserService(
+            userRepository: self.userRepository,
+            familyRepository: self.familyRepository
+        )
+        self.familyService = FamilyService(
+            userRepository: self.userRepository,
+            familyRepository: self.familyRepository,
+            familyInvitationRepository: self.familyInvitationRepository
+        )
         self.dependency = Dependency(
             userService: self.userService,
             userRepository: self.userRepository,

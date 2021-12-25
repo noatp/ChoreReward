@@ -155,15 +155,20 @@ class MockFamilyService: FamilyService{
     override init(
         userRepository: UserRepository = MockUserRepository(),
         familyRepository: FamilyRepository = MockFamilyRepository(),
+        familyInvitationRepository: FamilyInvitationRepository = MockFamilyInvitationRepository(),
         initCurrentFamily: Family? = nil
     ) {
         super.init(
             userRepository: userRepository,
             familyRepository: familyRepository,
+            familyInvitationRepository: familyInvitationRepository,
             initCurrentFamily: initCurrentFamily
         )
     }
 }
 
+class MockFamilyInvitationRepository: FamilyInvitationRepository{
+    
+}
 
 
