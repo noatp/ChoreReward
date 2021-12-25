@@ -13,16 +13,19 @@ class FamilyService: ObservableObject{
     
     private let userRepository: UserRepository
     private let familyRepository: FamilyRepository
+    private let familyInvitationRepository: FamilyInvitationRepository
     private var currentFamilySubscription: AnyCancellable?
     private var currentUserSubscription: AnyCancellable?
     
     init(
         userRepository: UserRepository,
         familyRepository: FamilyRepository,
+        familyInvitationRepository: FamilyInvitationRepository,
         initCurrentFamily: Family? = nil
     ){
         self.userRepository = userRepository
         self.familyRepository = familyRepository
+        self.familyInvitationRepository = familyInvitationRepository
         self.currentFamily = initCurrentFamily
         addSubscription()
     }
@@ -84,11 +87,22 @@ class FamilyService: ObservableObject{
     }
     
     func inviteUserJoinCurrentFamily(userId: String){
-        guard let currentFamily = currentFamily else {
+        guard let currentFamily = currentFamily?.id else {
             print("FamilyService: inviteUserJoinCurrentFamily: currentFamily is nil")
             return
         }
         
-
+        guard let currentUserId = userRepository.currentUser?.id else{
+            print("FamilyService: inviteUserJoinCurrentFamily: cannot retrieve currentUserId")
+            return
+        }
+        
+        let newInvitation = FamilyInvitation(
+            id: userId,
+            inviter: currentUserId,
+            toJoinFamily: currentFamily
+        )
+        
+        familyInvitationRepository.createInvitation(invitation: newInvitation)
     }
 }
