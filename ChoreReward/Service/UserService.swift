@@ -18,16 +18,11 @@ import Combine
 class UserService: ObservableObject{
     @Published var authState: AuthState
     @Published var currentUser: User?
-    @Published var currentFamilyMembers: [User] = []
     
     private let auth = Auth.auth()
     private let currentUserRepository: UserRepository
-    private let familyRepository: FamilyRepository
-    
+
     private var currentUserSubscription: AnyCancellable?
-    private var currentFamilySubscription: AnyCancellable?
-    private var familyMemberSubscription: AnyCancellable?
-    
     
     var currentUserId: String?{
         auth.currentUser?.uid
@@ -35,12 +30,10 @@ class UserService: ObservableObject{
     
     init(
         currentUserRepository: UserRepository,
-        familyRepository: FamilyRepository,
         initAuthState: AuthState = .signedOut(error: nil)
     ){
         self.currentUserRepository = currentUserRepository
         self.authState = initAuthState
-        self.familyRepository = familyRepository
         addSubscription()
     }
     
@@ -48,17 +41,6 @@ class UserService: ObservableObject{
         currentUserSubscription = currentUserRepository.$user
             .sink(receiveValue: {[weak self] receivedUser in
                 self?.currentUser = receivedUser
-            })
-        currentFamilySubscription = familyRepository.$family
-            .sink(receiveValue: {[weak self] receivedFamily in
-                guard let currentFamily = receivedFamily else{
-                    return
-                }
-                self?.getMembersOfCurrentFamily(currentFamily: currentFamily)
-            })
-        familyMemberSubscription = currentUserRepository.$users
-            .sink(receiveValue: {[weak self] receivedFamilyMembers in
-                self?.currentFamilyMembers = receivedFamilyMembers
             })
     }
     
@@ -123,13 +105,8 @@ class UserService: ObservableObject{
         currentUserRepository.readUser(userId: currentUserId)
     }
     
-    func getMembersOfCurrentFamily(currentFamily: Family){
-        currentUserRepository.readMultipleUsers(userIds: currentFamily.members)
-    }
-    
     private func resetRepositoryCache(){
         currentUserRepository.user = nil
-        familyRepository.family = nil
     }
     
     enum AuthState{

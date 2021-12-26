@@ -10,11 +10,13 @@ import Combine
 
 class FamilyService: ObservableObject{
     @Published var currentFamily: Family? = nil
+    @Published var currentFamilyMembers: [User] = []
     
     private let currentUserRepository: UserRepository
     private let familyRepository: FamilyRepository
     private var currentFamilySubscription: AnyCancellable?
     private var currentUserSubscription: AnyCancellable?
+    private var familyMemberSubscription: AnyCancellable?
     
     init(
         currentUserRepository: UserRepository,
@@ -30,7 +32,12 @@ class FamilyService: ObservableObject{
     func addSubscription(){
         currentFamilySubscription = familyRepository.$family
             .sink(receiveValue: {[weak self] receivedFamily in
-                self?.currentFamily = receivedFamily
+                guard let currentFamily = receivedFamily else{
+                    return
+                }
+                
+                self?.currentFamily = currentFamily
+                self?.getMembersOfCurrentFamily(currentFamily: currentFamily)
             })
         currentUserSubscription = currentUserRepository.$user
             .sink(receiveValue: { [weak self] receivedUser in
@@ -38,6 +45,10 @@ class FamilyService: ObservableObject{
                     return
                 }
                 self?.readCurrentFamily(currentFamilyId: currentFamilyId)
+            })
+        familyMemberSubscription = currentUserRepository.$users
+            .sink(receiveValue: {[weak self] receivedFamilyMembers in
+                self?.currentFamilyMembers = receivedFamilyMembers
             })
         
     }
@@ -88,5 +99,9 @@ class FamilyService: ObservableObject{
         familyRepository.updateMemberOfFamily(familyId: currentFamilyId, userId: userId)
         let userRepository = UserRepository()
         userRepository.updateFamilyForUser(familyId: currentFamilyId, userId: userId)
+    }
+    
+    func getMembersOfCurrentFamily(currentFamily: Family){
+        currentUserRepository.readMultipleUsers(userIds: currentFamily.members)
     }
 }

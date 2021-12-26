@@ -11,18 +11,18 @@ import Combine
 class FamilyListViewModel: ObservableObject{
     @Published var members: [User] = []
     
-    private let userService: UserService
+    private let familyService: FamilyService
     private var familyMemberSubscription: AnyCancellable?
     
     init(
-        userService: UserService
+        familyService: FamilyService
     ){
-        self.userService = userService
+        self.familyService = familyService
         addSubscription()
     }
     
     func addSubscription(){
-        familyMemberSubscription = userService.$currentFamilyMembers
+        familyMemberSubscription = familyService.$currentFamilyMembers
             .sink(receiveValue: { [weak self] receivedFamilyMembers in
                 self?.members = receivedFamilyMembers
             })
@@ -31,6 +31,6 @@ class FamilyListViewModel: ObservableObject{
 
 extension Dependency.ViewModels{
     var familyListViewModel: FamilyListViewModel{
-        FamilyListViewModel(userService: services.userService)
+        FamilyListViewModel(familyService: services.familyService)
     }
 }
