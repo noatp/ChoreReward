@@ -18,7 +18,6 @@ import Combine
 class UserService: ObservableObject{
     @Published var authState: AuthState
     @Published var currentUser: User?
-    @Published var otherUser: User?
     @Published var currentFamilyMembers: [User] = []
     
     private let auth = Auth.auth()
@@ -26,7 +25,6 @@ class UserService: ObservableObject{
     private let familyRepository: FamilyRepository
     
     private var currentUserSubscription: AnyCancellable?
-    private var otherUserSubscription: AnyCancellable?
     private var currentFamilySubscription: AnyCancellable?
     private var familyMemberSubscription: AnyCancellable?
     
@@ -50,10 +48,6 @@ class UserService: ObservableObject{
         currentUserSubscription = userRepository.$currentUser
             .sink(receiveValue: {[weak self] receivedUser in
                 self?.currentUser = receivedUser
-            })
-        otherUserSubscription = userRepository.$otherUser
-            .sink(receiveValue: {[weak self] receivedUser in
-                self?.otherUser = receivedUser
             })
         currentFamilySubscription = familyRepository.$currentFamily
             .sink(receiveValue: {[weak self] receivedFamily in
@@ -127,10 +121,6 @@ class UserService: ObservableObject{
             return
         }
         userRepository.readCurrentUser(currentUserId: currentUserId)
-    }
-    
-    func readOtherUser(otherUserId: String){
-        userRepository.readOtherUser(otherUserId: otherUserId)
     }
     
     func getMembersOfCurrentFamily(currentFamily: Family){

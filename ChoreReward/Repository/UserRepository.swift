@@ -13,18 +13,15 @@ import CoreMedia
 
 class UserRepository: ObservableObject{
     @Published var currentUser: User?
-    @Published var otherUser: User?
     @Published var currentFamilyMembers: [User] = []
         
     private let database = Firestore.firestore()
     
     init(
         initCurrentUser: User? = nil,
-        initOtherUser: User? = nil,
         initcurrentFamilyMemebers: [User] = []
     ){
         self.currentUser = initCurrentUser
-        self.otherUser = initOtherUser
         self.currentFamilyMembers = initcurrentFamilyMemebers
     }
     
@@ -66,25 +63,6 @@ class UserRepository: ObservableObject{
                 }
             case .failure(let error):
                 print("UserRepository: readCurrentUser: Error decoding user: \(error)")
-            }
-        }
-    }
-    
-    func readOtherUser(otherUserId: String){
-        let otherUserRef = database.collection("users").document(otherUserId)
-        otherUserRef.getDocument{[weak self] (document, error) in
-            let result = Result {
-                try document?.data(as: User.self)
-            }
-            switch result {
-            case .success(let receivedUser):
-                if let otherUser = receivedUser {
-                    self?.otherUser = otherUser
-                } else {
-                    print("UserRepository: readOtherUser: User does not exist")
-                }
-            case .failure(let error):
-                print("UserRepository: readOtherUser: Error decoding user: \(error)")
             }
         }
     }
