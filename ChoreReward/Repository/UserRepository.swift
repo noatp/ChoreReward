@@ -14,21 +14,17 @@ import CoreMedia
 class UserRepository: ObservableObject{
     @Published var currentUser: User?
     @Published var otherUser: User?
-    @Published var currentFamilyMembers: [User] = []
         
     private let database = Firestore.firestore()
     
     init(
         initCurrentUser: User? = nil,
-        initOtherUser: User? = nil,
-        initcurrentFamilyMemebers: [User] = []
+        initOtherUser: User? = nil
     ){
         self.currentUser = initCurrentUser
         self.otherUser = initOtherUser
-        self.currentFamilyMembers = initcurrentFamilyMemebers
     }
     
-    //only user service should be able to create a user
     func createUser(newUser: User){
         guard let newUserId = newUser.id else{
             print("UserRepository: createUser: new user does not have an id")
@@ -106,30 +102,5 @@ class UserRepository: ObservableObject{
             readCurrentUser(currentUserId: currentUserId)
             print("UserRepository: onUpdateCompletion: User successfully updated")
         }
-    }
-    
-    func readMultipleUsers(userIds: [String]){
-        database.collection("users").whereField(FieldPath.documentID(), in: userIds)
-            .getDocuments() { [weak self] (querySnapshot, err) in
-                if let err = err {
-                    print("Error getting documents: \(err)")
-                } else {
-                    self?.currentFamilyMembers = querySnapshot!.documents.compactMap({ document in
-                        let result = Result{
-                            try document.data(as: User.self)
-                        }
-                        switch result{
-                        case .success(let receivedUser):
-                            guard let user = receivedUser else{
-                                return nil
-                            }
-                            return user
-                        case .failure(let error):
-                            print("UserRepository: readMultipleUser: Error decoding user: \(error)")
-                            return nil
-                        }
-                    })
-                }
-            }
     }
 }
