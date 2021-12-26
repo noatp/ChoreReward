@@ -62,7 +62,7 @@ class UserService: ObservableObject{
                 }
                 self?.getMembersOfCurrentFamily(currentFamily: currentFamily)
             })
-        familyMemberSubscription = familyRepository.$currentFamilyMembers
+        familyMemberSubscription = userRepository.$currentFamilyMembers
             .sink(receiveValue: {[weak self] receivedFamilyMembers in
                 self?.currentFamilyMembers = receivedFamilyMembers
             })
@@ -134,7 +134,7 @@ class UserService: ObservableObject{
     }
     
     func getMembersOfCurrentFamily(currentFamily: Family){
-        familyRepository.readCurrentFamilyMembers(userIds: currentFamily.members)
+        userRepository.readMultipleUsers(userIds: currentFamily.members)
     }
     
     private func resetRepositoryCache(){

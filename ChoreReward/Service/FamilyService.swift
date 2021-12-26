@@ -10,7 +10,6 @@ import Combine
 
 class FamilyService: ObservableObject{
     @Published var currentFamily: Family? = nil
-    @Published var currentMembers: [User?] = []
     
     private let userRepository: UserRepository
     private let familyRepository: FamilyRepository
@@ -38,16 +37,13 @@ class FamilyService: ObservableObject{
             })
         currentUserSubscription = userRepository.$currentUser
             .sink(receiveValue: { [weak self] receivedUser in
-                guard let currentUserId = receivedUser?.id else{
-                    return
-                }
-                self?.addListenToInvite(userId: currentUserId)
-
-                
-                guard let currentFamilyId = receivedUser?.familyId else{
+                guard let currentFamilyId = receivedUser?.familyId,
+                      let currentUserId = receivedUser?.id
+                else{
                     return
                 }
                 self?.readCurrentFamily(currentFamilyId: currentFamilyId)
+                self?.addListenToInvite(userId: currentUserId)
             })
         
     }

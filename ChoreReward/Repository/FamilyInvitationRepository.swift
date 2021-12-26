@@ -11,7 +11,7 @@ import FirebaseFirestoreSwift
 import Combine
 
 class FamilyInvitationRepository: ObservableObject{
-    @Published var invitationForCurrentUser: FamilyInvitation?
+    @Published var invitationForCurrentUser: FamilyInvitation? = nil
         
     private let database = Firestore.firestore()
     
@@ -39,25 +39,16 @@ class FamilyInvitationRepository: ObservableObject{
     
     func addListenerForInvitationToCurrentUser(currentUserId: String){
         database.collection("invitations").document(currentUserId)
-            .addSnapshotListener { [weak self] documentSnapshot, error in
-                guard let document = documentSnapshot else {
+            .addSnapshotListener { documentSnapshot, error in
+                  guard let document = documentSnapshot else {
                     print("FamilyInvitationRepository: addListenerForInvitationToCurrentUser: Error fetching document: \(error!)")
                     return
-                }
-                let result = Result {
-                    try document.data(as: FamilyInvitation.self)
-                }
-                switch result {
-                case .success(let receivedInvitation):
-                    if let invitationForCurrentUser = receivedInvitation {
-                        print("FamilyInvitationRepository: addListenerForInvitationToCurrentUser: Current data: \(invitationForCurrentUser)")
-                        self?.invitationForCurrentUser = invitationForCurrentUser
-                    } else {
-                        print("FamilyInvitationRepository: addListenerForInvitationToCurrentUser: Document data was empty.")
-                    }
-                case .failure(let error):
-                    print("FamilyRepository: readCurrentFamily: Error decoding family: \(error)")
-                }
+                  }
+                  guard let data = document.data() else {
+                    print("FamilyInvitationRepository: addListenerForInvitationToCurrentUser: Document data was empty.")
+                    return
+                  }
+                  print("FamilyInvitationRepository: addListenerForInvitationToCurrentUser: Current data: \(data)")
             }
     }
     

@@ -106,11 +106,13 @@ class MockUserService: UserService{
 class MockUserRepository: UserRepository{
     override init(
         initCurrentUser: User? = User.previewBen,
-        initOtherUser: User? = User.previewTim
+        initOtherUser: User? = User.previewTim,
+        initcurrentFamilyMemebers: [User] = [User.previewTim, User.previewDavid]
     ) {
         super.init(
             initCurrentUser: initCurrentUser,
-            initOtherUser: initOtherUser
+            initOtherUser: initOtherUser,
+            initcurrentFamilyMemebers: initcurrentFamilyMemebers
         )
     }
     
@@ -129,12 +131,10 @@ class MockUserRepository: UserRepository{
 
 class MockFamilyRepository: FamilyRepository{
     override init(
-        initCurrentFamily: Family? = Family.preview,
-        initcurrentFamilyMemebers: [User] = [User.previewTim, User.previewDavid]
+        initCurrentFamily: Family? = Family.preview
     ) {
         super.init(
-            initCurrentFamily: initCurrentFamily,
-            initcurrentFamilyMemebers: initcurrentFamilyMemebers
+            initCurrentFamily: initCurrentFamily
         )
     }
     
