@@ -45,18 +45,18 @@ class UserService: ObservableObject{
     }
     
     func addSubscription(){
-        currentUserSubscription = userRepository.$currentUser
+        currentUserSubscription = userRepository.$user
             .sink(receiveValue: {[weak self] receivedUser in
                 self?.currentUser = receivedUser
             })
-        currentFamilySubscription = familyRepository.$currentFamily
+        currentFamilySubscription = familyRepository.$family
             .sink(receiveValue: {[weak self] receivedFamily in
                 guard let currentFamily = receivedFamily else{
                     return
                 }
                 self?.getMembersOfCurrentFamily(currentFamily: currentFamily)
             })
-        familyMemberSubscription = userRepository.$currentFamilyMembers
+        familyMemberSubscription = userRepository.$users
             .sink(receiveValue: {[weak self] receivedFamilyMembers in
                 self?.currentFamilyMembers = receivedFamilyMembers
             })
@@ -120,7 +120,7 @@ class UserService: ObservableObject{
             print("UserService: readCurrentUser: trying to read current user but currentUserId is nil within this service instance")
             return
         }
-        userRepository.readCurrentUser(currentUserId: currentUserId)
+        userRepository.readUser(userId: currentUserId)
     }
     
     func getMembersOfCurrentFamily(currentFamily: Family){
@@ -128,8 +128,8 @@ class UserService: ObservableObject{
     }
     
     private func resetRepositoryCache(){
-        userRepository.currentUser = nil
-        familyRepository.currentFamily = nil
+        userRepository.user = nil
+        familyRepository.family = nil
     }
     
     enum AuthState{

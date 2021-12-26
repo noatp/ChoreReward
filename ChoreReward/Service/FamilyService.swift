@@ -31,11 +31,11 @@ class FamilyService: ObservableObject{
     }
     
     func addSubscription(){
-        currentFamilySubscription = familyRepository.$currentFamily
+        currentFamilySubscription = familyRepository.$family
             .sink(receiveValue: {[weak self] receivedFamily in
                 self?.currentFamily = receivedFamily
             })
-        currentUserSubscription = userRepository.$currentUser
+        currentUserSubscription = userRepository.$user
             .sink(receiveValue: { [weak self] receivedUser in
                 guard let currentFamilyId = receivedUser?.familyId,
                       let currentUserId = receivedUser?.id
@@ -49,29 +49,29 @@ class FamilyService: ObservableObject{
     }
     
     func createFamily(){
-        guard let currentUserId = userRepository.currentUser?.id else{
+        guard let currentUserId = userRepository.user?.id else{
             print("FamilyService: createFamily: cannot retrieve currentUserId")
             return
         }
-        guard userRepository.currentUser?.role == .parent else{
+        guard userRepository.user?.role == .parent else{
             print("FamilyService: createFamily: user is not a parent")
             return
         }
         
         let newFamilyId = UUID().uuidString
         familyRepository.createFamily(currentUserId: currentUserId, newFamilyId: newFamilyId)
-        userRepository.updateFamilyForCurrentUser(
+        userRepository.updateFamilyForUser(
             familyId: newFamilyId,
-            currentUserId: currentUserId
+            userId: currentUserId
         ) 
     }
     
     private func readCurrentFamily(currentFamilyId: String){
-        familyRepository.readCurrentFamily(currentFamilyId: currentFamilyId)
+        familyRepository.readFamily(familyId: currentFamilyId)
     }
     
     func addCurrentUserToFamilyWithId(familyId: String){
-        guard let currentUserId = userRepository.currentUser?.id else{
+        guard let currentUserId = userRepository.user?.id else{
             print("FamilyService: addCurrentUserToFamilyWithId: cannot retrieve currentUserId")
             return
         }
@@ -79,9 +79,9 @@ class FamilyService: ObservableObject{
             familyId: familyId,
             userId: currentUserId
         )
-        userRepository.updateFamilyForCurrentUser(
+        userRepository.updateFamilyForUser(
             familyId: familyId,
-            currentUserId: currentUserId
+            userId: currentUserId
         )
     }
     
@@ -95,7 +95,7 @@ class FamilyService: ObservableObject{
             return
         }
         
-        guard let currentUserId = userRepository.currentUser?.id else{
+        guard let currentUserId = userRepository.user?.id else{
             print("FamilyService: inviteUserJoinCurrentFamily: cannot retrieve currentUserId")
             return
         }

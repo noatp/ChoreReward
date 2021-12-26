@@ -11,12 +11,12 @@ import FirebaseFirestoreSwift
 import Combine
 
 class FamilyRepository: ObservableObject{
-    @Published var currentFamily: Family? = nil
+    @Published var family: Family? = nil
         
     private let database = Firestore.firestore()
     
-    init(initCurrentFamily: Family? = nil){
-        self.currentFamily = initCurrentFamily
+    init(initFamily: Family? = nil){
+        self.family = initFamily
     }
     
     func createFamily(currentUserId: String, newFamilyId: String){
@@ -29,14 +29,14 @@ class FamilyRepository: ObservableObject{
             if let err = err {
                 print("FamilyRepository: createFamily: Error adding family: \(err)")
             } else {
-                self?.readCurrentFamily(currentFamilyId: newFamilyId)
+                self?.readFamily(familyId: newFamilyId)
                 print("FamilyRepository: createFamily: Family added with ID: \(newFamilyId)")
             }
         }
     }
     
-    func readCurrentFamily(currentFamilyId: String){
-        let currentFamilyRef = database.collection("families").document(currentFamilyId)
+    func readFamily(familyId: String){
+        let currentFamilyRef = database.collection("families").document(familyId)
         currentFamilyRef.getDocument { [weak self] (document, error) in
             let result = Result {
                 try document?.data(as: Family.self)
@@ -44,7 +44,7 @@ class FamilyRepository: ObservableObject{
             switch result {
             case .success(let receivedFamily):
                 if let currentFamily = receivedFamily {
-                    self?.currentFamily = currentFamily
+                    self?.family = currentFamily
                 } else {
                     print("FamilyRepository: readCurrentFamily: Family does not exist")
                 }

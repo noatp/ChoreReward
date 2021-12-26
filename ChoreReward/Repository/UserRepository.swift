@@ -12,17 +12,17 @@ import Combine
 import CoreMedia
 
 class UserRepository: ObservableObject{
-    @Published var currentUser: User?
-    @Published var currentFamilyMembers: [User] = []
+    @Published var user: User?
+    @Published var users: [User] = []
         
     private let database = Firestore.firestore()
     
     init(
-        initCurrentUser: User? = nil,
-        initcurrentFamilyMemebers: [User] = []
+        initUser: User? = nil,
+        initUsers: [User] = []
     ){
-        self.currentUser = initCurrentUser
-        self.currentFamilyMembers = initcurrentFamilyMemebers
+        self.user = initUser
+        self.users = initUsers
     }
     
     //only user service should be able to create a user
@@ -32,9 +32,7 @@ class UserRepository: ObservableObject{
             return
         }
         
-        let currentUserRef = database.collection("users").document(newUserId)
-        
-        currentUserRef.setData([
+        database.collection("users").document(newUserId).setData([
             "email": newUser.email,
             "name": newUser.name,
             "role": newUser.role.rawValue
@@ -42,46 +40,44 @@ class UserRepository: ObservableObject{
             if let err = err {
                 print("UserRepository: createUser: Error adding user: \(err)")
             } else {
-                self?.readCurrentUser(currentUserId: newUserId)
+                self?.readUser(userId: newUserId)
                 print("UserRepository: createUser: User added with ID: \(newUserId)")
             }
         }
     }
     
-    func readCurrentUser(currentUserId: String){
-        let currentUserRef = database.collection("users").document(currentUserId)
-        currentUserRef.getDocument {[weak self] (document, error) in
+    func readUser(userId: String){
+        database.collection("users").document(userId).getDocument {[weak self] (document, error) in
             let result = Result {
                 try document?.data(as: User.self)
             }
             switch result {
             case .success(let receivedUser):
-                if let currentUser = receivedUser {
-                    self?.currentUser = currentUser
+                if let user = receivedUser {
+                    self?.user = user
                 } else {
-                    print("UserRepository: readCurrentUser: User does not exist")
+                    print("UserRepository: readUser: User does not exist")
                 }
             case .failure(let error):
-                print("UserRepository: readCurrentUser: Error decoding user: \(error)")
+                print("UserRepository: readUser: Error decoding user: \(error)")
             }
         }
     }
     
-    func updateFamilyForCurrentUser(familyId: String, currentUserId: String){
-        let  currentUserRef = database.collection("users").document(currentUserId)
-        currentUserRef.updateData([
+    func updateFamilyForUser(familyId: String, userId: String){
+        database.collection("users").document(userId).updateData([
             "familyId" : familyId
         ]){ [weak self] err in
-            self?.onUpdateComplettion(err: err, currentUserId: currentUserId)
+            self?.onUpdateComplettion(err: err, userId: userId)
         }
     }
     
-    //split completion into a separate function to ensure readCurrentUser is called on all update
-    private func onUpdateComplettion(err: Error?, currentUserId: String) -> Void{
+    //split completion into a separate function to ensure readUser is called on all update
+    private func onUpdateComplettion(err: Error?, userId: String) -> Void{
         if let err = err {
             print("UserRepository: onUpdateCompletion: Error updating user: \(err)")
         } else {
-            readCurrentUser(currentUserId: currentUserId)
+            readUser(userId: userId)
             print("UserRepository: onUpdateCompletion: User successfully updated")
         }
     }
@@ -92,7 +88,7 @@ class UserRepository: ObservableObject{
                 if let err = err {
                     print("Error getting documents: \(err)")
                 } else {
-                    self?.currentFamilyMembers = querySnapshot!.documents.compactMap({ document in
+                    self?.users = querySnapshot!.documents.compactMap({ document in
                         let result = Result{
                             try document.data(as: User.self)
                         }
