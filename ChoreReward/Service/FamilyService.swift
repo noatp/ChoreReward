@@ -13,19 +13,16 @@ class FamilyService: ObservableObject{
     
     private let currentUserRepository: UserRepository
     private let familyRepository: FamilyRepository
-    private let familyInvitationRepository: FamilyInvitationRepository
     private var currentFamilySubscription: AnyCancellable?
     private var currentUserSubscription: AnyCancellable?
     
     init(
         currentUserRepository: UserRepository,
         familyRepository: FamilyRepository,
-        familyInvitationRepository: FamilyInvitationRepository,
         initCurrentFamily: Family? = nil
     ){
         self.currentUserRepository = currentUserRepository
         self.familyRepository = familyRepository
-        self.familyInvitationRepository = familyInvitationRepository
         self.currentFamily = initCurrentFamily
         addSubscription()
     }
@@ -37,13 +34,10 @@ class FamilyService: ObservableObject{
             })
         currentUserSubscription = currentUserRepository.$user
             .sink(receiveValue: { [weak self] receivedUser in
-                guard let currentFamilyId = receivedUser?.familyId,
-                      let currentUserId = receivedUser?.id
-                else{
+                guard let currentFamilyId = receivedUser?.familyId else{
                     return
                 }
                 self?.readCurrentFamily(currentFamilyId: currentFamilyId)
-                self?.addListenToInvite(userId: currentUserId)
             })
         
     }
@@ -87,29 +81,5 @@ class FamilyService: ObservableObject{
     
     func addUserWithIdToCurrentFamily(userId: String){
         
-    }
-    
-    func inviteUserJoinCurrentFamily(userId: String){
-        guard let currentFamily = currentFamily?.id else {
-            print("FamilyService: inviteUserJoinCurrentFamily: currentFamily is nil")
-            return
-        }
-        
-        guard let currentUserId = currentUserRepository.user?.id else{
-            print("FamilyService: inviteUserJoinCurrentFamily: cannot retrieve currentUserId")
-            return
-        }
-        
-        let newInvitation = FamilyInvitation(
-            id: userId,
-            inviter: currentUserId,
-            toJoinFamily: currentFamily
-        )
-        
-        familyInvitationRepository.createInvitation(invitation: newInvitation)
-    }
-    
-    func addListenToInvite(userId: String){
-        familyInvitationRepository.addListenerForInvitationToCurrentUser(currentUserId: userId)
     }
 }
