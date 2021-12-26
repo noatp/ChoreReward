@@ -27,7 +27,7 @@ struct ChoreRewardApp: App {
             familyRepository: self.familyRepository
         )
         self.familyService = FamilyService(
-            userRepository: self.currentUserRepository,
+            currentUserRepository: self.currentUserRepository,
             familyRepository: self.familyRepository,
             familyInvitationRepository: self.familyInvitationRepository
         )
