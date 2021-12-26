@@ -69,7 +69,7 @@ class FamilyService: ObservableObject{
             print("FamilyService: addCurrentUserToFamilyWithId: cannot retrieve currentUserId")
             return
         }
-        familyRepository.addUserToFamily(
+        familyRepository.updateMemberOfFamily(
             familyId: familyId,
             userId: currentUserId
         )
@@ -79,7 +79,14 @@ class FamilyService: ObservableObject{
         )
     }
     
-    func addUserWithIdToCurrentFamily(userId: String){
+    func addUserByIdToFamily(userId: String){
+        guard let currentFamilyId = currentFamily?.id else {
+            print ("FamilyService: addUserByIdToFamily: cannot retrieve currentFamilyId")
+            return
+        }
         
+        familyRepository.updateMemberOfFamily(familyId: currentFamilyId, userId: userId)
+        let userRepository = UserRepository()
+        userRepository.updateFamilyForUser(familyId: currentFamilyId, userId: userId)
     }
 }

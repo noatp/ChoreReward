@@ -54,7 +54,7 @@ class FamilyRepository: ObservableObject{
         }
     }
     
-    func addUserToFamily(familyId: String, userId: String){
+    func updateMemberOfFamily(familyId: String, userId: String){
         let currentFamilyRef = database.collection("families").document(familyId)
         currentFamilyRef.updateData([
             "members" : FieldValue.arrayUnion([userId])

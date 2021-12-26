@@ -140,7 +140,7 @@ class MockFamilyRepository: FamilyRepository{
         return
     }
     
-    override func addUserToFamily(familyId: String, userId: String) {
+    override func updateMemberOfFamily(familyId: String, userId: String) {
         return
     }
 }
