@@ -21,7 +21,7 @@ class UserService: ObservableObject{
     @Published var currentFamilyMembers: [User] = []
     
     private let auth = Auth.auth()
-    private let userRepository: UserRepository
+    private let currentUserRepository: UserRepository
     private let familyRepository: FamilyRepository
     
     private var currentUserSubscription: AnyCancellable?
@@ -34,18 +34,18 @@ class UserService: ObservableObject{
     }
     
     init(
-        userRepository: UserRepository,
+        currentUserRepository: UserRepository,
         familyRepository: FamilyRepository,
         initAuthState: AuthState = .signedOut(error: nil)
     ){
-        self.userRepository = userRepository
+        self.currentUserRepository = currentUserRepository
         self.authState = initAuthState
         self.familyRepository = familyRepository
         addSubscription()
     }
     
     func addSubscription(){
-        currentUserSubscription = userRepository.$user
+        currentUserSubscription = currentUserRepository.$user
             .sink(receiveValue: {[weak self] receivedUser in
                 self?.currentUser = receivedUser
             })
@@ -56,7 +56,7 @@ class UserService: ObservableObject{
                 }
                 self?.getMembersOfCurrentFamily(currentFamily: currentFamily)
             })
-        familyMemberSubscription = userRepository.$users
+        familyMemberSubscription = currentUserRepository.$users
             .sink(receiveValue: {[weak self] receivedFamilyMembers in
                 self?.currentFamilyMembers = receivedFamilyMembers
             })
@@ -91,7 +91,7 @@ class UserService: ObservableObject{
                     name: newUser.name,
                     role: newUser.role
                 )
-                self.userRepository.createUser(newUser: newUserWithId)
+                self.currentUserRepository.createUser(newUser: newUserWithId)
                 self.signInIfCurrentUserExist()
             }
         }
@@ -120,15 +120,15 @@ class UserService: ObservableObject{
             print("UserService: readCurrentUser: trying to read current user but currentUserId is nil within this service instance")
             return
         }
-        userRepository.readUser(userId: currentUserId)
+        currentUserRepository.readUser(userId: currentUserId)
     }
     
     func getMembersOfCurrentFamily(currentFamily: Family){
-        userRepository.readMultipleUsers(userIds: currentFamily.members)
+        currentUserRepository.readMultipleUsers(userIds: currentFamily.members)
     }
     
     private func resetRepositoryCache(){
-        userRepository.user = nil
+        currentUserRepository.user = nil
         familyRepository.family = nil
     }
     

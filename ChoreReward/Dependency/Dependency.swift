@@ -92,12 +92,12 @@ class Dependency{
 
 class MockUserService: UserService{
     override init(
-        userRepository: UserRepository = MockUserRepository(),
+        currentUserRepository: UserRepository = MockUserRepository(),
         familyRepository: FamilyRepository = MockFamilyRepository(),
         initAuthState: AuthState = AuthState.signedIn
     ){
         super.init(
-            userRepository: userRepository,
+            currentUserRepository: currentUserRepository,
             familyRepository: familyRepository
         )
     }
