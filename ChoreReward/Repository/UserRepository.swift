@@ -9,7 +9,6 @@ import Foundation
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 import Combine
-import CoreMedia
 
 class UserRepository: ObservableObject{
     @Published var user: User?
@@ -25,7 +24,6 @@ class UserRepository: ObservableObject{
         self.users = initUsers
     }
     
-    //only user service should be able to create a user
     func createUser(newUser: User){
         guard let newUserId = newUser.id else{
             print("UserRepository: createUser: new user does not have an id")
@@ -37,12 +35,7 @@ class UserRepository: ObservableObject{
             "name": newUser.name,
             "role": newUser.role.rawValue
         ]) { [weak self] err in
-            if let err = err {
-                print("UserRepository: createUser: Error adding user: \(err)")
-            } else {
-                self?.readUser(userId: newUserId)
-                print("UserRepository: createUser: User added with ID: \(newUserId)")
-            }
+            self?.onWriteCompletion(err: err, userId: newUserId)
         }
     }
     
@@ -68,17 +61,17 @@ class UserRepository: ObservableObject{
         database.collection("users").document(userId).updateData([
             "familyId" : familyId
         ]){ [weak self] err in
-            self?.onUpdateComplettion(err: err, userId: userId)
+            self?.onWriteCompletion(err: err, userId: userId)
         }
     }
     
-    //split completion into a separate function to ensure readUser is called on all update
-    private func onUpdateComplettion(err: Error?, userId: String) -> Void{
+    //split completion into a separate function to ensure readUser is called on all write operation
+    private func onWriteCompletion(err: Error?, userId: String) -> Void{
         if let err = err {
-            print("UserRepository: onUpdateCompletion: Error updating user: \(err)")
+            print("UserRepository: onWriteCompletion: Error writing to user: \(err)")
         } else {
             readUser(userId: userId)
-            print("UserRepository: onUpdateCompletion: User successfully updated")
+            print("UserRepository: onWriteCompletion: Successfully write to user with ID \(userId)")
         }
     }
     
@@ -105,5 +98,10 @@ class UserRepository: ObservableObject{
                     })
                 }
             }
+    }
+    
+    func resetCache(){
+        user = nil
+        users = []
     }
 }

@@ -41,6 +41,10 @@ class UserService: ObservableObject{
         currentUserSubscription = currentUserRepository.$user
             .sink(receiveValue: {[weak self] receivedUser in
                 self?.currentUser = receivedUser
+                guard receivedUser != nil else{
+                    return
+                }
+                self?.authState = .signedIn
             })
     }
     
@@ -82,8 +86,8 @@ class UserService: ObservableObject{
     func signOut(){
         do {
             try self.auth.signOut()
-            resetRepositoryCache()
-            self.authState = AuthState.signedOut(error: nil)
+            resetUserCache()
+            authState = .signedOut(error: nil)
         } catch let signOutError as NSError {
             print("Error signing out: %@", signOutError)
         }
@@ -94,7 +98,6 @@ class UserService: ObservableObject{
             return
         }
         readCurrentUser()
-        authState = .signedIn
     }
     
     func readCurrentUser(){
@@ -105,8 +108,8 @@ class UserService: ObservableObject{
         currentUserRepository.readUser(userId: currentUserId)
     }
     
-    private func resetRepositoryCache(){
-        currentUserRepository.user = nil
+    private func resetUserCache(){
+        currentUserRepository.resetCache()
     }
     
     enum AuthState{

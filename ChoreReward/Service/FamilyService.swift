@@ -13,34 +13,38 @@ class FamilyService: ObservableObject{
     @Published var currentFamilyMembers: [User] = []
     
     private let currentUserRepository: UserRepository
-    private let familyRepository: FamilyRepository
+    private let currentFamilyRepository: FamilyRepository
+    
     private var currentFamilySubscription: AnyCancellable?
     private var currentUserSubscription: AnyCancellable?
     private var familyMemberSubscription: AnyCancellable?
     
     init(
         currentUserRepository: UserRepository,
-        familyRepository: FamilyRepository,
+        currentFamilyRepository: FamilyRepository,
         initCurrentFamily: Family? = nil
     ){
         self.currentUserRepository = currentUserRepository
-        self.familyRepository = familyRepository
+        self.currentFamilyRepository = currentFamilyRepository
         self.currentFamily = initCurrentFamily
         addSubscription()
     }
     
     func addSubscription(){
-        currentFamilySubscription = familyRepository.$family
+        currentFamilySubscription = currentFamilyRepository.$family
             .sink(receiveValue: {[weak self] receivedFamily in
+                self?.currentFamily = receivedFamily
                 guard let currentFamily = receivedFamily else{
                     return
                 }
-                
-                self?.currentFamily = currentFamily
                 self?.getMembersOfCurrentFamily(currentFamily: currentFamily)
             })
         currentUserSubscription = currentUserRepository.$user
             .sink(receiveValue: { [weak self] receivedUser in
+                guard receivedUser != nil else{
+                    self?.resetFamilyCache()
+                    return
+                }
                 guard let currentFamilyId = receivedUser?.familyId else{
                     return
                 }
@@ -64,7 +68,7 @@ class FamilyService: ObservableObject{
         }
         
         let newFamilyId = UUID().uuidString
-        familyRepository.createFamily(currentUserId: currentUserId, newFamilyId: newFamilyId)
+        currentFamilyRepository.createFamily(currentUserId: currentUserId, newFamilyId: newFamilyId)
         currentUserRepository.updateFamilyForUser(
             familyId: newFamilyId,
             userId: currentUserId
@@ -72,7 +76,7 @@ class FamilyService: ObservableObject{
     }
     
     private func readCurrentFamily(currentFamilyId: String){
-        familyRepository.readFamily(familyId: currentFamilyId)
+        currentFamilyRepository.readFamily(familyId: currentFamilyId)
     }
     
     func addCurrentUserToFamilyWithId(familyId: String){
@@ -80,7 +84,7 @@ class FamilyService: ObservableObject{
             print("FamilyService: addCurrentUserToFamilyWithId: cannot retrieve currentUserId")
             return
         }
-        familyRepository.updateMemberOfFamily(
+        currentFamilyRepository.updateMemberOfFamily(
             familyId: familyId,
             userId: currentUserId
         )
@@ -96,12 +100,16 @@ class FamilyService: ObservableObject{
             return
         }
         
-        familyRepository.updateMemberOfFamily(familyId: currentFamilyId, userId: userId)
+        currentFamilyRepository.updateMemberOfFamily(familyId: currentFamilyId, userId: userId)
         let userRepository = UserRepository()
         userRepository.updateFamilyForUser(familyId: currentFamilyId, userId: userId)
     }
     
     func getMembersOfCurrentFamily(currentFamily: Family){
         currentUserRepository.readMultipleUsers(userIds: currentFamily.members)
+    }
+    
+    func resetFamilyCache(){
+        currentFamilyRepository.resetCache()
     }
 }

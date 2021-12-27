@@ -10,19 +10,19 @@ import UIKit
 
 class Dependency{
     let userService: UserService
-    let userRepository: UserRepository
-    let familyRepository: FamilyRepository
+    let currentUserRepository: UserRepository
+    let currentFamilyRepository: FamilyRepository
     let familyService: FamilyService
     
     init(
         userService: UserService = MockUserService(),
-        userRepository: UserRepository = MockUserRepository(),
-        familyRepository: FamilyRepository = MockFamilyRepository(),
+        currentUserRepository: UserRepository = MockUserRepository(),
+        currentFamilyRepository: FamilyRepository = MockFamilyRepository(),
         familyService: FamilyService = MockFamilyService()
     ){
         self.userService = userService
-        self.userRepository = userRepository
-        self.familyRepository = familyRepository
+        self.currentUserRepository = currentUserRepository
+        self.currentFamilyRepository = currentFamilyRepository
         self.familyService = familyService
     }
     
@@ -35,8 +35,8 @@ class Dependency{
         
         init(dependency: Dependency){
             self.dependency = dependency
-            self.userRepository = self.dependency.userRepository
-            self.familyRepository = self.dependency.familyRepository
+            self.userRepository = self.dependency.currentUserRepository
+            self.familyRepository = self.dependency.currentFamilyRepository
         }
     }
     
@@ -146,12 +146,12 @@ class MockFamilyRepository: FamilyRepository{
 class MockFamilyService: FamilyService{
     override init(
         currentUserRepository: UserRepository = MockUserRepository(),
-        familyRepository: FamilyRepository = MockFamilyRepository(),
+        currentFamilyRepository: FamilyRepository = MockFamilyRepository(),
         initCurrentFamily: Family? = nil
     ) {
         super.init(
             currentUserRepository: currentUserRepository,
-            familyRepository: familyRepository,
+            currentFamilyRepository: currentFamilyRepository,
             initCurrentFamily: initCurrentFamily
         )
     }

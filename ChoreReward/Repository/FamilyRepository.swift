@@ -20,24 +20,17 @@ class FamilyRepository: ObservableObject{
     }
     
     func createFamily(currentUserId: String, newFamilyId: String){
-        let currentFamilyRef = database.collection("families").document(newFamilyId)
-        currentFamilyRef.setData([
+        database.collection("families").document(newFamilyId).setData([
             "admin": currentUserId,
             "members": [currentUserId],
             "chores": []
         ]){ [weak self] err in
-            if let err = err {
-                print("FamilyRepository: createFamily: Error adding family: \(err)")
-            } else {
-                self?.readFamily(familyId: newFamilyId)
-                print("FamilyRepository: createFamily: Family added with ID: \(newFamilyId)")
-            }
+            self?.onWriteCompletion(err: err, familyId: currentUserId)
         }
     }
     
     func readFamily(familyId: String){
-        let currentFamilyRef = database.collection("families").document(familyId)
-        currentFamilyRef.getDocument { [weak self] (document, error) in
+        database.collection("families").document(familyId).getDocument { [weak self] (document, error) in
             let result = Result {
                 try document?.data(as: Family.self)
             }
@@ -55,15 +48,25 @@ class FamilyRepository: ObservableObject{
     }
     
     func updateMemberOfFamily(familyId: String, userId: String){
-        let currentFamilyRef = database.collection("families").document(familyId)
-        currentFamilyRef.updateData([
+        database.collection("families").document(familyId).updateData([
             "members" : FieldValue.arrayUnion([userId])
-        ]){ err in
-            if let err = err {
-                print("FamilyRepository: addUserToFamily: Error updating family: \(err)")
-            } else {
-                print("FamilyRepository: addUserToFamily: Family successfully updated")
-            }
+        ]){ [weak self] err in
+            self?.onWriteCompletion(err: err, familyId: familyId)
         }
+    }
+    
+    //split completion into a separate function to ensure readFamily is called on all write operation
+    private func onWriteCompletion(err: Error?, familyId: String) -> Void{
+        if let err = err {
+            print("FamilyRepository: onWriteCompletion: Error writing to family: \(err)")
+        } else {
+            readFamily(familyId: familyId)
+            print("FamilyRepository: onWriteCompletion: Successfully write to family with ID: \(familyId)")
+        }
+    }
+
+    
+    func resetCache(){
+        family = nil
     }
 }
