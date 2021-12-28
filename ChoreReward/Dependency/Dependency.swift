@@ -103,7 +103,7 @@ class MockUserService: UserService{
 
 class MockUserRepository: UserRepository{
     override init(
-        initUser: User? = User.previewBen,
+        initUser: User? = User.previewDavid,
         initUsers: [User] = [User.previewTim, User.previewDavid]
     ) {
         super.init(

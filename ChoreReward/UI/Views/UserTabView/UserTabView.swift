@@ -20,7 +20,7 @@ struct UserTabView: View {
     }
     
     var body: some View {
-        VStack{
+        VStack(spacing: 16){
             HStack{
                 Text("signed in with email")
                 Text(userTabViewModel.currentUserEmail)

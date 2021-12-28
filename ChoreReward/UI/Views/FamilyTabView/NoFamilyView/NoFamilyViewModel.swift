@@ -9,8 +9,8 @@ import Foundation
 import Combine
 
 class NoFamilyViewModel: ObservableObject{
-    var shouldRenderButtons: Bool
-    var currentUserId: String
+    let shouldRenderButtons: Bool
+    let currentUserId: String
     
     private let userService: UserService
     private let familyService: FamilyService

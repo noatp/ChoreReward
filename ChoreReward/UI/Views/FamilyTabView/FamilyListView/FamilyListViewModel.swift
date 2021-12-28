@@ -10,14 +10,19 @@ import Combine
 
 class FamilyListViewModel: ObservableObject{
     @Published var members: [User] = []
+    let shouldRenderButtons: Bool
     
     private let familyService: FamilyService
+    private let userService: UserService
     private var familyMemberSubscription: AnyCancellable?
     
     init(
-        familyService: FamilyService
+        familyService: FamilyService,
+        userService: UserService
     ){
         self.familyService = familyService
+        self.userService = userService
+        self.shouldRenderButtons = userService.isCurrentUserParent()
         addSubscription()
     }
     
@@ -31,6 +36,9 @@ class FamilyListViewModel: ObservableObject{
 
 extension Dependency.ViewModels{
     var familyListViewModel: FamilyListViewModel{
-        FamilyListViewModel(familyService: services.familyService)
+        FamilyListViewModel(
+            familyService: services.familyService,
+            userService: services.userService
+        )
     }
 }

@@ -21,9 +21,7 @@ struct FamilyTabView: View {
     var body: some View {
         HStack{
             if familyTabViewModel.currentFamily != nil {
-                HStack{
-                    views.familyListView
-                }
+                views.familyListView
             }
             else{
                 views.noFamilyView
