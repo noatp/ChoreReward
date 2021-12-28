@@ -20,7 +20,7 @@ struct NoFamilyView: View {
     }
     
     var body: some View {
-        VStack{
+        VStack(spacing: 16){
             Text("Please ask your family's admin to invite you to the family")
                 .multilineTextAlignment(.center)
             Text("This is your user ID: ")

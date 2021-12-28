@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4512A3492769D4190009C798 /* JoinFamilyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4512A3482769D4190009C798 /* JoinFamilyView.swift */; };
-		4512A34B2769D4D00009C798 /* JoinFamilyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4512A34A2769D4D00009C798 /* JoinFamilyViewModel.swift */; };
 		45243EFF276E9F9000D2EACB /* UserCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45243EFE276E9F9000D2EACB /* UserCardView.swift */; };
 		45243F0E276EB5DA00D2EACB /* FamilyListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45243F0D276EB5DA00D2EACB /* FamilyListView.swift */; };
 		45243F10276EB5F700D2EACB /* FamilyListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45243F0F276EB5F700D2EACB /* FamilyListViewModel.swift */; };
@@ -78,8 +76,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		4512A3482769D4190009C798 /* JoinFamilyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinFamilyView.swift; sourceTree = "<group>"; };
-		4512A34A2769D4D00009C798 /* JoinFamilyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinFamilyViewModel.swift; sourceTree = "<group>"; };
 		45243EFE276E9F9000D2EACB /* UserCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCardView.swift; sourceTree = "<group>"; };
 		45243F0D276EB5DA00D2EACB /* FamilyListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyListView.swift; sourceTree = "<group>"; };
 		45243F0F276EB5F700D2EACB /* FamilyListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyListViewModel.swift; sourceTree = "<group>"; };
@@ -159,15 +155,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		4512A3452769D32A0009C798 /* JoinFamilyView */ = {
-			isa = PBXGroup;
-			children = (
-				4512A3482769D4190009C798 /* JoinFamilyView.swift */,
-				4512A34A2769D4D00009C798 /* JoinFamilyViewModel.swift */,
-			);
-			path = JoinFamilyView;
-			sourceTree = "<group>";
-		};
 		45243EF5276E87DF00D2EACB /* UserCard */ = {
 			isa = PBXGroup;
 			children = (
@@ -396,7 +383,6 @@
 			children = (
 				45DCD52A277965BF00A1037B /* NoFamilyView */,
 				45243F0C276EB5B900D2EACB /* FamilyListView */,
-				4512A3452769D32A0009C798 /* JoinFamilyView */,
 				45D8D398275E77CA0026ABE3 /* FamilyTabView.swift */,
 				45D8D39E275ED2BE0026ABE3 /* FamilyTabViewModel.swift */,
 			);
@@ -579,9 +565,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4512A3492769D4190009C798 /* JoinFamilyView.swift in Sources */,
 				45D8D397275E77AD0026ABE3 /* ChoreTabView.swift in Sources */,
-				4512A34B2769D4D00009C798 /* JoinFamilyViewModel.swift in Sources */,
 				45DCD52E2779660700A1037B /* NoFamilyView.swift in Sources */,
 				45D7AE8F273476AF00A53812 /* TextFieldViewModel.swift in Sources */,
 				45E483CA275402F6009DA543 /* RootView.swift in Sources */,
