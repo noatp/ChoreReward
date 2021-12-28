@@ -28,9 +28,7 @@ class FamilyTabViewModel: ObservableObject{
             })
     }
     
-    func createFamily(){
-        familyService.createFamily()
-    }
+    
 }
 
 extension Dependency.ViewModels{

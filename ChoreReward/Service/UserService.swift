@@ -112,6 +112,10 @@ class UserService: ObservableObject{
         currentUserRepository.resetCache()
     }
     
+    func isCurrentUserParent() -> Bool{
+        return currentUser?.role == .parent
+    }
+    
     enum AuthState{
         case signedIn
         case signedOut(error: Error?)

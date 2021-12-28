@@ -26,15 +26,7 @@ struct FamilyTabView: View {
                 }
             }
             else{
-                VStack{
-                    Button("Create a new family") {
-                        familyTabViewModel.createFamily()
-                    }
-                    .padding()
-                    NavigationLink("Join an existing family") {
-                        views.joinFamilyView
-                    }
-                }
+                views.noFamilyView
             }
         }
     }
