@@ -40,21 +40,29 @@ class UserRepository: ObservableObject{
     }
     
     func readUser(userId: String){
-        database.collection("users").document(userId).getDocument {[weak self] (document, error) in
-            let result = Result {
-                try document?.data(as: User.self)
-            }
-            switch result {
-            case .success(let receivedUser):
-                if let user = receivedUser {
-                    self?.user = user
-                } else {
-                    print("UserRepository: readUser: User does not exist")
+        database.collection("users").document(userId)
+            .addSnapshotListener { [weak self] documentSnapshot, error in
+                guard let document = documentSnapshot else {
+                    print("Error fetching document: \(error!)")
+                    return
                 }
-            case .failure(let error):
-                print("UserRepository: readUser: Error decoding user: \(error)")
+                let result = Result {
+                    try document.data(as: User.self)
+                }
+                switch result {
+                case .success(let receivedUser):
+                    if let user = receivedUser {
+                        print("UserRepository: readUser: Received new data ", user)
+                        self?.user = user
+                    } else {
+                        print("UserRepository: readUser: User does not exist")
+                    }
+                case .failure(let error):
+                    print("UserRepository: readUser: Error decoding user: \(error)")
+                }
             }
-        }
+        
+        
     }
     
     func updateFamilyForUser(familyId: String, userId: String){
