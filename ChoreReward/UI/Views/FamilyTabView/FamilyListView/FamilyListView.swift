@@ -27,12 +27,9 @@ struct FamilyListView: View {
                     UserCardView(user: member)
                 }
                 if (familyListViewModel.shouldRenderButtons){
-                    Button {
-                        
-                    } label: {
-                        Text("Add member")
+                    NavigationLink("Add new member") {
+                        views.addFamilyMemberView
                     }
-                    .padding()
                 }
                 Spacer()
             }

@@ -22,7 +22,7 @@ class NoFamilyViewModel: ObservableObject{
         self.userService = userService
         self.familyService = familyService
         self.shouldRenderButtons = userService.isCurrentUserParent()
-        self.currentUserId = userService.currentUserId ?? ""
+        self.currentUserId = userService.currentUser?.id ?? ""
     }
     
     func createFamily(){
