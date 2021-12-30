@@ -109,6 +109,15 @@ class FamilyService: ObservableObject{
         currentUserRepository.readMultipleUsers(userIds: currentFamily.members)
     }
     
+    func isCurrentUserAdminOfCurrentFamily() -> Bool{
+        guard let adminId = currentFamily?.admin,
+              let currentUserId = currentUserRepository.user?.id else{
+                  print ("FamilyService: isCurrentUserAdminOfCurrentFamily: can't get adminId or currentUserId")
+                  return false
+              }
+        return adminId == currentUserId
+    }
+    
     func resetFamilyCache(){
         currentFamilyRepository.resetCache()
     }

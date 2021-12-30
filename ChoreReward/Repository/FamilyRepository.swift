@@ -30,21 +30,6 @@ class FamilyRepository: ObservableObject{
     }
     
     func readFamily(familyId: String){
-//        database.collection("families").document(familyId).getDocument { [weak self] (document, error) in
-//            let result = Result {
-//                try document?.data(as: Family.self)
-//            }
-//            switch result {
-//            case .success(let receivedFamily):
-//                if let currentFamily = receivedFamily {
-//                    self?.family = currentFamily
-//                } else {
-//                    print("FamilyRepository: readCurrentFamily: Family does not exist")
-//                }
-//            case .failure(let error):
-//                print("FamilyRepository: readCurrentFamily: Error decoding family: \(error)")
-//            }
-//        }
         database.collection("families").document(familyId)
             .addSnapshotListener { [weak self] documentSnapshot, error in
                 guard let document = documentSnapshot else {

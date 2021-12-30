@@ -22,7 +22,7 @@ class FamilyListViewModel: ObservableObject{
     ){
         self.familyService = familyService
         self.userService = userService
-        self.shouldRenderButtons = userService.isCurrentUserParent()
+        self.shouldRenderButtons = familyService.isCurrentUserAdminOfCurrentFamily()
         addSubscription()
     }
     
