@@ -20,19 +20,29 @@ struct FamilyListView: View {
     }
     
     var body: some View {
-        VStack{
-            Text("Family members:")
-            ScrollView {
-                ForEach(familyListViewModel.members){ member in
-                    UserCardView(user: member)
+        ZStack{
+            VStack{
+                Text("Family members:")
+                ScrollView {
+                    ForEach(familyListViewModel.members){ member in
+                        UserCardView(user: member)
+                    }
                 }
-                if (familyListViewModel.shouldRenderButtons){
+            }
+            if (familyListViewModel.shouldRenderButtons){
+                VStack{
+                    Spacer()
                     NavigationLink("Add new member") {
                         views.addFamilyMemberView
                     }
+                    .frame(maxWidth: .infinity, maxHeight: 50)
+                    .foregroundColor(.white)
+                    .background(Color.accentColor)
+                    .cornerRadius(25)
+                    
                 }
-                Spacer()
             }
+
         }
         .padding()
     }
