@@ -21,18 +21,26 @@ struct UserTabView: View {
     
     var body: some View {
         VStack(spacing: 16){
+            Image(systemName: "person.fill")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 200, height: 200)
+                .padding(30)
+                .overlay(RoundedRectangle(cornerRadius: 200)
+                            .stroke())
+            Text(userTabViewModel.currentUserName)
+                .font(.title)
             HStack{
-                Text("signed in with email")
+                Text("Email: ")
                 Text(userTabViewModel.currentUserEmail)
             }
+
             HStack{
-                Text("name:")
-                Text(userTabViewModel.currentUserName)
-            }
-            HStack{
-                Text("role")
+                Text("Role: ")
                 Text(userTabViewModel.currentUserRole)
             }
+            
+            Spacer()
             
             Button("Sign out") {
                 userTabViewModel.signOut()
