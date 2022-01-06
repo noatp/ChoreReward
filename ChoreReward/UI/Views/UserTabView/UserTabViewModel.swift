@@ -16,11 +16,6 @@ class UserTabViewModel: StatefulViewModel{
     var state: AnyPublisher<UserTabState, Never>{
         return $_state.eraseToAnyPublisher()
     }
-    var actions: [String : () -> Void]{
-        return [
-            "signOut": signOut
-        ]
-    }
     
     var action: Action{
         return Action(signOut: signOut)

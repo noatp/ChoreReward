@@ -22,6 +22,7 @@
 		45395C5B272B20F600F50B70 /* Dependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45395C5A272B20F600F50B70 /* Dependency.swift */; };
 		45395C5D272B2A6B00F50B70 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 45395C5C272B2A6B00F50B70 /* Assets.xcassets */; };
 		45395C5F272B2E2700F50B70 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 45395C5E272B2E2700F50B70 /* GoogleService-Info.plist */; };
+		453CC1A22787B41F002996AF /* ObservableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453CC1A12787B41F002996AF /* ObservableViewModel.swift */; };
 		4555338D277C1D7B00375927 /* AddFamilyMemberViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4555338C277C1D7B00375927 /* AddFamilyMemberViewModel.swift */; };
 		4555338F277C1DC000375927 /* AddFamilyMemberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4555338E277C1DC000375927 /* AddFamilyMemberView.swift */; };
 		455ECC84275DA79600438A43 /* RolePickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 455ECC83275DA79600438A43 /* RolePickerViewModel.swift */; };
@@ -93,6 +94,7 @@
 		45395C5A272B20F600F50B70 /* Dependency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dependency.swift; sourceTree = "<group>"; };
 		45395C5C272B2A6B00F50B70 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		45395C5E272B2E2700F50B70 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		453CC1A12787B41F002996AF /* ObservableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableViewModel.swift; sourceTree = "<group>"; };
 		4555338C277C1D7B00375927 /* AddFamilyMemberViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFamilyMemberViewModel.swift; sourceTree = "<group>"; };
 		4555338E277C1DC000375927 /* AddFamilyMemberView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFamilyMemberView.swift; sourceTree = "<group>"; };
 		455ECC83275DA79600438A43 /* RolePickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RolePickerViewModel.swift; sourceTree = "<group>"; };
@@ -233,6 +235,7 @@
 				4531475F2751B27F000A85D7 /* ListChoreView */,
 				45D7AE8A27346E7600A53812 /* ComponentViews */,
 				45D7AE8827346E5100A53812 /* NewChoreFormView */,
+				453CC1A12787B41F002996AF /* ObservableViewModel.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -608,6 +611,7 @@
 				45395C58272A258600F50B70 /* ChoreCard.swift in Sources */,
 				45D8D399275E77CA0026ABE3 /* FamilyTabView.swift in Sources */,
 				45D8D39D275E784E0026ABE3 /* UserTabViewModel.swift in Sources */,
+				453CC1A22787B41F002996AF /* ObservableViewModel.swift in Sources */,
 				45ACB4DE2724AEBE000E04A0 /* Reward.swift in Sources */,
 				45D7AE952735B4A100A53812 /* Family.swift in Sources */,
 				45C1FA672767ABBB00BF11E3 /* FamilyService.swift in Sources */,
