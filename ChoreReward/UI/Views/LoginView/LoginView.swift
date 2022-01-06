@@ -20,28 +20,31 @@ struct LoginView: View {
     }
     
     var body: some View {
-        VStack{
-            if (loginViewModel.errorMessage != nil){
-                Text(loginViewModel.errorMessage!)
+        NavigationView{
+            VStack{
+                if (loginViewModel.errorMessage != nil){
+                    Text(loginViewModel.errorMessage!)
+                        .padding()
+                }
+                
+                TextFieldView(textFieldViewModel: loginViewModel.emailInputRender)
                     .padding()
-            }
-            
-            TextFieldView(textFieldViewModel: loginViewModel.emailInputRender)
+                TextFieldView(textFieldViewModel: loginViewModel.passwordInputRender)
+                    .padding()
+                
+                Button("Log in") {
+                    loginViewModel.signIn()
+                }
                 .padding()
-            TextFieldView(textFieldViewModel: loginViewModel.passwordInputRender)
-                .padding()
             
-            Button("Log in") {
-                loginViewModel.signIn()
-            }
-            .padding()
-        
-            NavigationLink(destination: views.signUpView) {
-                Text("Sign up with email")
+                NavigationLink(destination: views.signUpView) {
+                    Text("Sign up with email")
+                }
+                .padding()
             }
             .padding()
         }
-        .padding()
+        
     }
 }
 

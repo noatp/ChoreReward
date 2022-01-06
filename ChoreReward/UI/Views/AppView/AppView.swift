@@ -21,21 +21,34 @@ struct AppView: View {
     
     var body: some View {
         TabView {
-            views.choreTabView
-                .tabItem {
-                    Image(systemName: "checkmark.seal.fill")
-                    Text("Chore")
-                }
-            views.familyTabView
-                .tabItem {
-                    Image(systemName: "house")
-                    Text("Family")
-                }
-            views.userTabView
-                .tabItem {
-                    Image(systemName: "person.crop.circle")
-                    Text("Profile")
-                }
+            NavigationView{
+                views.choreTabView
+                    
+            }
+            .tabItem {
+                Image(systemName: "checkmark.seal.fill")
+                Text("Chore")
+            }
+            
+            NavigationView{
+                views.familyTabView
+                    .navigationTitle("Family Members")
+                    .navigationBarTitleDisplayMode(.inline)
+            }
+            .tabItem {
+                Image(systemName: "house")
+                Text("Family")
+            }
+            
+            NavigationView{
+                views.userTabView
+                    
+            }
+            .tabItem {
+                Image(systemName: "person.crop.circle")
+                Text("Profile")
+            }
+            
         }
         .font(.headline)
     }

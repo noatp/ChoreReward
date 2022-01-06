@@ -21,7 +21,6 @@ struct FamilyListView: View {
     
     var body: some View {
         VStack{
-            Text("Family members:")
             ScrollView {
                 ForEach(familyListViewModel.members){ member in
                     UserCardView(user: member)
