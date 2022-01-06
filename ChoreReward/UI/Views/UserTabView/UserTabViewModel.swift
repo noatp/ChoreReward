@@ -11,21 +11,24 @@ import Combine
 class UserTabViewModel: StatefulViewModel{
     typealias State = UserTabState
     typealias Action = UserTabAction
-
-    static let empty = UserTabState(currentUserEmail: "", currentUserName: "", currentUserRole: "")
+    
+    @Published var _state: UserTabState = empty
     var state: AnyPublisher<UserTabState, Never>{
         return $_state.eraseToAnyPublisher()
     }
-    
     var action: Action{
         return Action(signOut: signOut)
     }
-    
+
     private var userService: UserService
     private var currentUserSubscription: AnyCancellable?
     
-    @Published var _state: UserTabState = empty
-    
+    static let empty = UserTabState(
+        currentUserEmail: "",
+        currentUserName: "",
+        currentUserRole: ""
+    )
+        
     init(
         userService: UserService
     ){
@@ -47,8 +50,6 @@ class UserTabViewModel: StatefulViewModel{
     func signOut(){
         userService.signOut()
     }
-    
-    
 }
 
 struct UserTabState: Equatable {

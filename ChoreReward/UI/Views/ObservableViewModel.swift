@@ -12,9 +12,8 @@ import Combine
 class ObservableViewModel<State, Action>: ObservableObject{
     @Published var state: State
     
-    var cancellable: AnyCancellable?
-    
     var action: Action
+    var cancellable: AnyCancellable?
     
     init(
         staticState: State,
@@ -23,7 +22,6 @@ class ObservableViewModel<State, Action>: ObservableObject{
         self.state = staticState
         self.action = staticAction
     }
-
 
     init<VM: StatefulViewModel>(viewModel: VM) where VM.State == State, VM.Action == Action{
         self.state = VM.empty
@@ -41,9 +39,8 @@ protocol StatefulViewModel{
     associatedtype Action
     
     var state: AnyPublisher<State, Never> {get}
+    var action: Action {get}
     
     static var empty: State {get}
-    
-    var action: Action {get}
 }
 
