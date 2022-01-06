@@ -8,13 +8,28 @@
 import Foundation
 import Combine
 
-class UserTabViewModel: ObservableObject{
+class UserTabViewModel: StatefulViewModel{
+    typealias State = UserTabState
+    typealias Action = UserTabAction
+
+    static let empty = UserTabState(currentUserEmail: "", currentUserName: "", currentUserRole: "")
+    var state: AnyPublisher<UserTabState, Never>{
+        return $_state.eraseToAnyPublisher()
+    }
+    var actions: [String : () -> Void]{
+        return [
+            "signOut": signOut
+        ]
+    }
+    
+    var action: Action{
+        return Action(signOut: signOut)
+    }
+    
     private var userService: UserService
     private var currentUserSubscription: AnyCancellable?
     
-    @Published var currentUserEmail: String = ""
-    @Published var currentUserName: String = ""
-    @Published var currentUserRole: String = ""
+    @Published var _state: UserTabState = empty
     
     init(
         userService: UserService
@@ -26,15 +41,29 @@ class UserTabViewModel: ObservableObject{
     func addSubscription(){
         currentUserSubscription = userService.$currentUser
             .sink(receiveValue: { [weak self] receivedUser in
-                self?.currentUserName = receivedUser?.name ?? ""
-                self?.currentUserEmail = receivedUser?.email ?? ""
-                self?.currentUserRole = receivedUser?.role.rawValue ?? ""
+                self?._state = .init(
+                    currentUserEmail: receivedUser?.name ?? "",
+                    currentUserName: receivedUser?.email ?? "",
+                    currentUserRole: receivedUser?.role.rawValue ?? ""
+                )
             })
     }
     
     func signOut(){
         userService.signOut()
     }
+    
+    
+}
+
+struct UserTabState: Equatable {
+    let currentUserEmail: String
+    let currentUserName: String
+    let currentUserRole: String
+}
+
+struct UserTabAction{
+    let signOut: () -> Void
 }
 
 extension Dependency.ViewModels{
