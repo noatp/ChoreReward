@@ -26,9 +26,9 @@ struct SignUpView: View {
                     .padding()
             }
             
-            TextFieldView(textFieldViewModel: signUpViewModel.nameInputRender)
-            TextFieldView(textFieldViewModel: signUpViewModel.emailInputRender)
-            TextFieldView(textFieldViewModel: signUpViewModel.passwordInputRender)
+            TextFieldView(textInput: $signUpViewModel.nameInput, title: "Full Name")
+            TextFieldView(textInput: $signUpViewModel.emailInput, title: "Email")
+            TextFieldView(textInput: $signUpViewModel.passwordInput, secured: true, title: "Password")
             RolePickerView(rolePickerViewModel: signUpViewModel.rolePickerRender)
             Button("Sign up") {
                 signUpViewModel.signUp()

@@ -12,12 +12,11 @@ import Combine
 
 class LoginViewModel: ObservableObject{
     @Published var errorMessage: String? = nil
+    @Published var emailInput: String = ""
+    @Published var passwordInput: String = ""
     
     private var userService: UserService
     private var useCaseSubscription: AnyCancellable?
-    
-    var emailInputRender = TextFieldViewModel(title: "Email", prompt: "Email")
-    var passwordInputRender = TextFieldViewModel(title: "Password", prompt: "Password", secure: true)
     
     init(userService: UserService) {
         self.userService = userService
@@ -39,8 +38,8 @@ class LoginViewModel: ObservableObject{
     
     func signIn(){
         userService.signIn(
-            email: emailInputRender.textInput,
-            password: passwordInputRender.textInput
+            email: emailInput,
+            password: passwordInput
         )
     }
     

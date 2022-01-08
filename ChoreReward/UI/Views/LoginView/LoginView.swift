@@ -27,9 +27,9 @@ struct LoginView: View {
                         .padding()
                 }
                 
-                TextFieldView(textFieldViewModel: loginViewModel.emailInputRender)
+                TextFieldView(textInput: $loginViewModel.emailInput, title: "Email")
                     .padding()
-                TextFieldView(textFieldViewModel: loginViewModel.passwordInputRender)
+                TextFieldView(textInput: $loginViewModel.passwordInput, title: "Password")
                     .padding()
                 
                 Button("Log in") {

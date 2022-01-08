@@ -46,9 +46,7 @@
 		45B6BB39272FC72100F89D74 /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B6BB38272FC72100F89D74 /* AppView.swift */; };
 		45C1FA652767163F00BF11E3 /* FamilyRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C1FA642767163F00BF11E3 /* FamilyRepository.swift */; };
 		45C1FA672767ABBB00BF11E3 /* FamilyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C1FA662767ABBB00BF11E3 /* FamilyService.swift */; };
-		45D7AE872733572700A53812 /* NewChoreFormView.swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D7AE862733572700A53812 /* NewChoreFormView.swift.swift */; };
 		45D7AE8C27346E9900A53812 /* TextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D7AE8B27346E9900A53812 /* TextFieldView.swift */; };
-		45D7AE91273479C000A53812 /* NewChoreFormViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D7AE90273479C000A53812 /* NewChoreFormViewModel.swift */; };
 		45D7AE9327347D2900A53812 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D7AE9227347D2900A53812 /* User.swift */; };
 		45D7AE952735B4A100A53812 /* Family.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D7AE942735B4A100A53812 /* Family.swift */; };
 		45D8D399275E77CA0026ABE3 /* FamilyTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D8D398275E77CA0026ABE3 /* FamilyTabView.swift */; };
@@ -117,9 +115,7 @@
 		45B6BB38272FC72100F89D74 /* AppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
 		45C1FA642767163F00BF11E3 /* FamilyRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyRepository.swift; sourceTree = "<group>"; };
 		45C1FA662767ABBB00BF11E3 /* FamilyService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyService.swift; sourceTree = "<group>"; };
-		45D7AE862733572700A53812 /* NewChoreFormView.swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewChoreFormView.swift.swift; sourceTree = "<group>"; };
 		45D7AE8B27346E9900A53812 /* TextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldView.swift; sourceTree = "<group>"; };
-		45D7AE90273479C000A53812 /* NewChoreFormViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewChoreFormViewModel.swift; sourceTree = "<group>"; };
 		45D7AE9227347D2900A53812 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		45D7AE942735B4A100A53812 /* Family.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Family.swift; sourceTree = "<group>"; };
 		45D8D398275E77CA0026ABE3 /* FamilyTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyTabView.swift; sourceTree = "<group>"; };
@@ -234,7 +230,6 @@
 				453147642751C823000A85D7 /* LoginView */,
 				4531475F2751B27F000A85D7 /* ListChoreView */,
 				45D7AE8A27346E7600A53812 /* ComponentViews */,
-				45D7AE8827346E5100A53812 /* NewChoreFormView */,
 				453CC1A12787B41F002996AF /* ObservableViewModel.swift */,
 			);
 			path = Views;
@@ -346,15 +341,6 @@
 				45C1FA642767163F00BF11E3 /* FamilyRepository.swift */,
 			);
 			path = Repository;
-			sourceTree = "<group>";
-		};
-		45D7AE8827346E5100A53812 /* NewChoreFormView */ = {
-			isa = PBXGroup;
-			children = (
-				45D7AE862733572700A53812 /* NewChoreFormView.swift.swift */,
-				45D7AE90273479C000A53812 /* NewChoreFormViewModel.swift */,
-			);
-			path = NewChoreFormView;
 			sourceTree = "<group>";
 		};
 		45D7AE8A27346E7600A53812 /* ComponentViews */ = {
@@ -601,7 +587,6 @@
 				4531476E2752FBFC000A85D7 /* AppViewModel.swift in Sources */,
 				45B012D7275495CF002C7A06 /* UserRepository.swift in Sources */,
 				453147612751B2A0000A85D7 /* ListChoreView.swift in Sources */,
-				45D7AE872733572700A53812 /* NewChoreFormView.swift.swift in Sources */,
 				45D7AE9327347D2900A53812 /* User.swift in Sources */,
 				45395C58272A258600F50B70 /* ChoreCard.swift in Sources */,
 				45D8D399275E77CA0026ABE3 /* FamilyTabView.swift in Sources */,
@@ -622,7 +607,6 @@
 				45D7AE8C27346E9900A53812 /* TextFieldView.swift in Sources */,
 				45A45EC82789923D007EF3F4 /* TextFieldViewModel.swift in Sources */,
 				45E483CC27540305009DA543 /* RootViewModel.swift in Sources */,
-				45D7AE91273479C000A53812 /* NewChoreFormViewModel.swift in Sources */,
 				45D8D39B275E77E20026ABE3 /* UserTabView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

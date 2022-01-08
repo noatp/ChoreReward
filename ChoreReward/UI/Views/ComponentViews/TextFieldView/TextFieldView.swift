@@ -9,43 +9,52 @@ import SwiftUI
 
 struct TextFieldView: View {
     
-    @ObservedObject private var textFieldViewModel: TextFieldViewModel
+    @Binding var textInput: String
+    private var secured: Bool
+    private var title: String
+    private var prompt: String
     
     init(
-        textFieldViewModel: TextFieldViewModel
+        textInput: Binding<String>,
+        secured: Bool = false,
+        title: String,
+        prompt: String = ""
     ){
-        self.textFieldViewModel = textFieldViewModel
+        self._textInput = textInput
+        self.secured = secured
+        self.title = title
+        self.prompt = prompt
     }
     
     var body: some View {
         Group{
-            if (textFieldViewModel.secure){
+            if (secured){
                 if #available(iOS 15.0, *) {
                     SecureField(
-                        text: $textFieldViewModel.textInput,
-                        prompt: Text(textFieldViewModel.prompt)) {
-                            Text(textFieldViewModel.title)
+                        text: $textInput,
+                        prompt: Text(prompt)) {
+                            Text(title)
                         }
                 } else {
                     SecureField(
-                        textFieldViewModel.title,
-                        text: $textFieldViewModel.textInput
+                        title,
+                        text: $textInput
                     )
                 }
             }
             else
                 if #available(iOS 15.0, *) {
                     TextField(
-                        text: $textFieldViewModel.textInput,
-                        prompt: Text(textFieldViewModel.prompt)) {
-                            Text(textFieldViewModel.title)
+                        text: $textInput,
+                        prompt: Text(prompt)) {
+                            Text(title)
                         }
                         .textInputAutocapitalization(TextInputAutocapitalization.never)
                     
                 } else {
                     TextField(
-                        textFieldViewModel.title,
-                        text: $textFieldViewModel.textInput
+                        title,
+                        text: $textInput
                     )
                         .autocapitalization(UITextAutocapitalizationType.none)
                 }
@@ -60,7 +69,7 @@ struct TextFieldView: View {
 struct TextFieldView_Previews: PreviewProvider {
     static var previews: some View {
         Group{
-            TextFieldView(textFieldViewModel: TextFieldViewModel.preview)
+            TextFieldView(textInput: Binding(get: {""}, set: {_ in }), title: "Preview")
         }
         .previewLayout(.sizeThatFits)
     }
