@@ -2,17 +2,17 @@
 //  AddFamilyMemberView.swift
 //  ChoreReward
 //
-//  Created by Toan Pham on 12/28/21.
+//  Created by Toan Pham on 1/7/22.
 //
 
 import SwiftUI
 
 struct AddFamilyMemberView: View {
-    @ObservedObject var addFamilyMemberViewModel: AddFamilyMemberViewModel
+    @ObservedObject var addFamilyMemberViewModel: ObservableViewModel<AddFamilyMemberState, AddFamilyMemberAction>
     private var views: Dependency.Views
     
     init(
-        addFamilyMemberViewModel: AddFamilyMemberViewModel,
+        addFamilyMemberViewModel: ObservableViewModel<AddFamilyMemberState, AddFamilyMemberAction>,
         views: Dependency.Views
     ){
         self.addFamilyMemberViewModel = addFamilyMemberViewModel
@@ -22,9 +22,13 @@ struct AddFamilyMemberView: View {
     var body: some View {
         VStack(spacing: 16){
             Text("You need the UserID to add them to your family")
-            TextFieldView(textFieldViewModel: addFamilyMemberViewModel.userIdInputRender)
+            TextField(
+                "BUH",
+                text: Binding(
+                    get: {addFamilyMemberViewModel.state.userIdInput},
+                    set: addFamilyMemberViewModel.action.updateUserIdInput))
             Button("Add Member") {
-                addFamilyMemberViewModel.addMember()
+                addFamilyMemberViewModel.action.addMember()
             }
         }
         .padding()
@@ -33,7 +37,16 @@ struct AddFamilyMemberView: View {
 
 struct AddFamilyMemberView_Previews: PreviewProvider {
     static var previews: some View {
-        Dependency.preview.views().addFamilyMemberView
+        AddFamilyMemberView(
+            addFamilyMemberViewModel: ObservableViewModel(
+                staticState: AddFamilyMemberState(userIdInput: ""),
+                staticAction: AddFamilyMemberAction(
+                    addMember: {},
+                    updateUserIdInput: {_ in }
+                )
+            ),
+            views: Dependency.preview.views()
+        )
 
     }
 }
@@ -41,7 +54,9 @@ struct AddFamilyMemberView_Previews: PreviewProvider {
 extension Dependency.Views{
     var addFamilyMemberView: AddFamilyMemberView{
         return AddFamilyMemberView(
-            addFamilyMemberViewModel: viewModels.addFamilyMemberViewModel,
+            addFamilyMemberViewModel: ObservableViewModel(
+                viewModel: viewModels.addFamilyMemberViewModel
+            ),
             views: self
         )
     }

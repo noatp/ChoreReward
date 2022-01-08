@@ -2,37 +2,50 @@
 //  ChoreTabView.swift
 //  ChoreReward
 //
-//  Created by Toan Pham on 12/6/21.
+//  Created by Toan Pham on 1/6/22.
 //
 
 import SwiftUI
 
 struct ChoreTabView: View {
-    @ObservedObject var choreTabViewModel: ChoreTabViewModel
+    @ObservedObject var choreTabViewModel: ObservableViewModel<ChoreTabState, ChoreTabAction>
     private var views: Dependency.Views
     
     init(
-        choreTabViewModel: ChoreTabViewModel,
+        choreTabViewModel: ObservableViewModel<ChoreTabState, ChoreTabAction>,
         views: Dependency.Views
     ){
         self.choreTabViewModel = choreTabViewModel
         self.views = views
     }
+    
     var body: some View {
-        Text("Chore Tab View")
+        VStack{
+            Text("ChoreTabView")
+        }
+        .padding()
     }
 }
 
 struct ChoreTabView_Previews: PreviewProvider {
     static var previews: some View {
-        Dependency.preview.views().choreTabView
+        ChoreTabView(
+            choreTabViewModel: ObservableViewModel(
+                staticState: ChoreTabState(),
+                staticAction: ChoreTabAction()
+            ),
+            views: Dependency.preview.views()
+        )
+
     }
 }
 
 extension Dependency.Views{
     var choreTabView: ChoreTabView{
         return ChoreTabView(
-            choreTabViewModel: viewModels.choreTabViewModel,
+            choreTabViewModel: ObservableViewModel(
+                viewModel: viewModels.choreTabViewModel
+            ),
             views: self
         )
     }

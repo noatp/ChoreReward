@@ -12,22 +12,22 @@ class UserTabViewModel: StatefulViewModel{
     typealias State = UserTabState
     typealias Action = UserTabAction
     
-    @Published var _state: UserTabState = empty
-    var state: AnyPublisher<UserTabState, Never>{
-        return $_state.eraseToAnyPublisher()
-    }
-    var action: Action{
-        return Action(signOut: signOut)
-    }
-
-    private var userService: UserService
-    private var currentUserSubscription: AnyCancellable?
-    
     static let empty = UserTabState(
         currentUserEmail: "",
         currentUserName: "",
         currentUserRole: ""
     )
+    
+    @Published var _state: UserTabState = empty
+    var state: AnyPublisher<UserTabState, Never>{
+        return $_state.eraseToAnyPublisher()
+    }
+    var action: UserTabAction{
+        return UserTabAction(signOut: signOut)
+    }
+
+    private var userService: UserService
+    private var currentUserSubscription: AnyCancellable?
         
     init(
         userService: UserService
@@ -52,7 +52,7 @@ class UserTabViewModel: StatefulViewModel{
     }
 }
 
-struct UserTabState: Equatable {
+struct UserTabState {
     let currentUserEmail: String
     let currentUserName: String
     let currentUserRole: String
