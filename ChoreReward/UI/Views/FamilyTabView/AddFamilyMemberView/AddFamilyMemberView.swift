@@ -22,11 +22,12 @@ struct AddFamilyMemberView: View {
     var body: some View {
         VStack(spacing: 16){
             Text("You need the UserID to add them to your family")
-            TextField(
-                "BUH",
-                text: Binding(
+            TextFieldView(
+                textInput: Binding(
                     get: {addFamilyMemberViewModel.state.userIdInput},
-                    set: addFamilyMemberViewModel.action.updateUserIdInput))
+                    set: addFamilyMemberViewModel.action.updateUserIdInput),
+                title: "UserID"
+            )
             Button("Add Member") {
                 addFamilyMemberViewModel.action.addMember()
             }

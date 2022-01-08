@@ -29,39 +29,15 @@ struct TextFieldView: View {
     var body: some View {
         Group{
             if (secured){
-                if #available(iOS 15.0, *) {
-                    SecureField(
-                        text: $textInput,
-                        prompt: Text(prompt)) {
-                            Text(title)
-                        }
-                } else {
-                    SecureField(
-                        title,
-                        text: $textInput
-                    )
-                }
+                SecureField(title, text: $textInput)
             }
-            else
-                if #available(iOS 15.0, *) {
-                    TextField(
-                        text: $textInput,
-                        prompt: Text(prompt)) {
-                            Text(title)
-                        }
-                        .textInputAutocapitalization(TextInputAutocapitalization.never)
-                    
-                } else {
-                    TextField(
-                        title,
-                        text: $textInput
-                    )
-                        .autocapitalization(UITextAutocapitalizationType.none)
-                }
+            else{
+                TextField(title, text: $textInput)
+            }
         }
         .padding()
         .textFieldStyle(RoundedBorderTextFieldStyle())
-
+        .autocapitalization(UITextAutocapitalizationType.none)
     }
 }
 
