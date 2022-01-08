@@ -100,6 +100,10 @@ class FamilyService: ObservableObject{
             return
         }
         
+        guard userId != "" else{
+            return
+        }
+        
         currentFamilyRepository.updateMemberOfFamily(familyId: currentFamilyId, userId: userId)
         let userRepository = UserRepository()
         userRepository.updateFamilyForUser(familyId: currentFamilyId, userId: userId)

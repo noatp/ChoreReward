@@ -26,21 +26,24 @@ struct FamilyListView: View {
                     UserCardView(user: member)
                 }
                 if (familyListViewModel.shouldRenderButtons){
-                    NavigationLink("Add new member") {
-                        views.addFamilyMemberView
+                    NavigationLink (destination: views.addFamilyMemberView) {
+                        Label("Add new member", systemImage: "person.badge.plus")
                     }
                 }
                 Spacer()
             }
         }
         .padding()
+        .navigationTitle("Family Members")
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 
 struct FamilyListView_Previews: PreviewProvider {
     static var previews: some View {
-        Dependency.preview.views().familyListView
-
+        NavigationView{
+            Dependency.preview.views().familyListView
+        }
     }
 }
 

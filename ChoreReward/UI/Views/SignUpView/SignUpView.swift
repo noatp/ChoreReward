@@ -30,17 +30,23 @@ struct SignUpView: View {
             TextFieldView(textInput: $signUpViewModel.emailInput, title: "Email")
             TextFieldView(textInput: $signUpViewModel.passwordInput, secured: true, title: "Password")
             RolePickerView(rolePickerViewModel: signUpViewModel.rolePickerRender)
-            Button("Sign up") {
-                signUpViewModel.signUp()
-            }
-            .padding()
+            ButtonView(
+                action: signUpViewModel.signUp,
+                buttonTitle: "Sign Up",
+                buttonImage: "arrow.turn.right.up",
+                buttonColor: .accentColor
+            )
         }
+        .navigationTitle("Sign Up")
+        .navigationBarTitleDisplayMode(.automatic)
     }
 }
 
 struct SignupView_Previews: PreviewProvider {
     static var previews: some View {
-        Dependency.preview.views().signUpView
+        NavigationView {
+            Dependency.preview.views().signUpView
+        }
     }
 }
 

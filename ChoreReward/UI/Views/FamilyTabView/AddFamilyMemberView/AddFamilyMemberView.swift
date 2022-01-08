@@ -22,33 +22,41 @@ struct AddFamilyMemberView: View {
     var body: some View {
         VStack(spacing: 16){
             Text("You need the UserID to add them to your family")
+                .font(.footnote)
             TextFieldView(
                 textInput: Binding(
                     get: {addFamilyMemberViewModel.state.userIdInput},
                     set: addFamilyMemberViewModel.action.updateUserIdInput),
                 title: "UserID"
             )
-            Button("Add Member") {
-                addFamilyMemberViewModel.action.addMember()
-            }
+            ButtonView(
+                action: addFamilyMemberViewModel.action.addMember,
+                buttonTitle: "Add member",
+                buttonImage: "person.badge.plus",
+                buttonColor: .accentColor
+            )
         }
+        .navigationTitle("Add new member")
+        .navigationBarTitleDisplayMode(.inline)
         .padding()
     }
 }
 
 struct AddFamilyMemberView_Previews: PreviewProvider {
     static var previews: some View {
-        AddFamilyMemberView(
-            addFamilyMemberViewModel: ObservableViewModel(
-                staticState: AddFamilyMemberState(userIdInput: ""),
-                staticAction: AddFamilyMemberAction(
-                    addMember: {},
-                    updateUserIdInput: {_ in }
-                )
-            ),
-            views: Dependency.preview.views()
-        )
+        NavigationView{
+            AddFamilyMemberView(
+                addFamilyMemberViewModel: ObservableViewModel(
+                    staticState: AddFamilyMemberState(userIdInput: ""),
+                    staticAction: AddFamilyMemberAction(
+                        addMember: {},
+                        updateUserIdInput: {_ in }
+                    )
+                ),
+                views: Dependency.preview.views()
+            )
 
+        }
     }
 }
 

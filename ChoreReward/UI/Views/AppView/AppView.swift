@@ -23,32 +23,32 @@ struct AppView: View {
         TabView {
             NavigationView{
                 views.choreTabView
-                    
             }
             .tabItem {
                 Image(systemName: "checkmark.seal.fill")
                 Text("Chore")
             }
+            .navigationViewStyle(.automatic)
+
             
             NavigationView{
                 views.familyTabView
-                    .navigationTitle("Family Members")
-                    .navigationBarTitleDisplayMode(.inline)
             }
             .tabItem {
                 Image(systemName: "house")
                 Text("Family")
             }
+            .navigationViewStyle(.automatic)
+
             
             NavigationView{
                 views.userTabView
-                    
             }
             .tabItem {
                 Image(systemName: "person.crop.circle")
                 Text("Profile")
             }
-            
+            .navigationViewStyle(.automatic)
         }
         .font(.headline)
     }

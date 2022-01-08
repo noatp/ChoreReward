@@ -28,23 +28,25 @@ struct LoginView: View {
                 }
                 
                 TextFieldView(textInput: $loginViewModel.emailInput, title: "Email")
-                    .padding()
                 TextFieldView(textInput: $loginViewModel.passwordInput, secured: true, title: "Password")
-                    .padding()
                 
-                Button("Log in") {
-                    loginViewModel.signIn()
-                }
-                .padding()
+                ButtonView(
+                    action: loginViewModel.signIn,
+                    buttonTitle: "Log In",
+                    buttonImage: "arrow.forward.to.line",
+                    buttonColor: Color.accentColor
+                )
             
                 NavigationLink(destination: views.signUpView) {
-                    Text("Sign up with email")
+                    Label("Sign Up with Email", systemImage: "arrow.turn.right.up")
                 }
                 .padding()
             }
             .padding()
+            .navigationTitle("Login")
+            .navigationBarTitleDisplayMode(.automatic)
         }
-        
+        .navigationViewStyle(.stack)
     }
 }
 

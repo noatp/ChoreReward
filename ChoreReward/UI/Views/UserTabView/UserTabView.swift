@@ -21,41 +21,58 @@ struct UserTabView: View {
     
     var body: some View {
         VStack(spacing: 16){
+            Image(systemName: "person.fill")
+                .font(.system(size: 200))
+                .padding()
+                .overlay(
+                    RoundedRectangle(cornerRadius: 120)
+                        .stroke(lineWidth: 4)
+                        .frame(width: 240, height: 240)
+                )
+            Text(userTabViewModel.state.currentUserName)
+                .font(.title)
+
+
             HStack{
-                Text("signed in with email")
+                Text("Email:")
                 Text(userTabViewModel.state.currentUserEmail)
             }
             HStack{
-                Text("name:")
-                Text(userTabViewModel.state.currentUserName)
-            }
-            HStack{
-                Text("role")
+                Text("Role:")
                 Text(userTabViewModel.state.currentUserRole)
             }
             
-            Button("Sign out") {
-                userTabViewModel.action.signOut()
-            }
+            Spacer()
+            
+            ButtonView(
+                action: userTabViewModel.action.signOut,
+                buttonTitle: "Log Out",
+                buttonImage: "arrow.backward.to.line",
+                buttonColor: .red
+            )
         }
         .padding()
+        .navigationTitle("Hello, \(userTabViewModel.state.currentUserName)")
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 
 struct UserTabView_Previews: PreviewProvider {
     static var previews: some View {
-        UserTabView(
-            userTabViewModel: ObservableViewModel(
-                staticState: UserTabState(
-                    currentUserEmail: "hello",
-                    currentUserName: "buh",
-                    currentUserRole: "here"
+        NavigationView{
+            UserTabView(
+                userTabViewModel: ObservableViewModel(
+                    staticState: UserTabState(
+                        currentUserEmail: "toan.chpham@gmail.com",
+                        currentUserName: "Toan Pham",
+                        currentUserRole: "Child"
+                    ),
+                    staticAction: UserTabAction(signOut: {})
+                    
                 ),
-                staticAction: UserTabAction(signOut: {})
-                
-            ),
-            views: Dependency.preview.views()
-        )
+                views: Dependency.preview.views()
+            )
+        }
     }
 }
 

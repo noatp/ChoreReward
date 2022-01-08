@@ -24,19 +24,22 @@ struct ChoreTabView: View {
             Text("ChoreTabView")
         }
         .padding()
+        .navigationTitle("Chores")
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 
 struct ChoreTabView_Previews: PreviewProvider {
     static var previews: some View {
-        ChoreTabView(
-            choreTabViewModel: ObservableViewModel(
-                staticState: ChoreTabState(),
-                staticAction: ChoreTabAction()
-            ),
-            views: Dependency.preview.views()
-        )
-
+        NavigationView{
+            ChoreTabView(
+                choreTabViewModel: ObservableViewModel(
+                    staticState: ChoreTabState(),
+                    staticAction: ChoreTabAction()
+                ),
+                views: Dependency.preview.views()
+            )
+        }
     }
 }
 
