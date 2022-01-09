@@ -8,11 +8,11 @@
 import SwiftUI
 
 struct ChoreTabView: View {
-    @ObservedObject var choreTabViewModel: ObservableViewModel<ChoreTabState, ChoreTabAction>
+    @ObservedObject var choreTabViewModel: ObservableViewModel<Void, ChoreTabAction>
     private var views: Dependency.Views
     
     init(
-        choreTabViewModel: ObservableViewModel<ChoreTabState, ChoreTabAction>,
+        choreTabViewModel: ObservableViewModel<Void, ChoreTabAction>,
         views: Dependency.Views
     ){
         self.choreTabViewModel = choreTabViewModel
@@ -34,7 +34,7 @@ struct ChoreTabView_Previews: PreviewProvider {
         NavigationView{
             ChoreTabView(
                 choreTabViewModel: ObservableViewModel(
-                    staticState: ChoreTabState()
+                    staticState: ()
                 ),
                 views: Dependency.preview.views()
             )

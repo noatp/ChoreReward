@@ -21,7 +21,7 @@ class UserTabViewModel: StatefulViewModel{
         return $_state.eraseToAnyPublisher()
     }
 
-    private var userService: UserService
+    private let userService: UserService
     private var currentUserSubscription: AnyCancellable?
         
     init(
@@ -48,8 +48,8 @@ class UserTabViewModel: StatefulViewModel{
     
     func performAction(_ action: UserTabAction) {
         switch(action){
-            case .signOut:
-                self.signOut()
+        case .signOut:
+            signOut()
         }
     }
 }

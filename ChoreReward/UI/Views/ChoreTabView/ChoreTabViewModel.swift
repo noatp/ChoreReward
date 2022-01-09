@@ -9,27 +9,16 @@ import Foundation
 import Combine
 
 class ChoreTabViewModel: StatefulViewModel{
-    func performAction(_ action: ChoreTabAction) {
-        
-    }
-
-    static let empty = ChoreTabState(
-
-    )
-
-    @Published var _state: ChoreTabState = empty
-    var state: AnyPublisher<ChoreTabState, Never>{
+    @Published var _state: Void = ()
+    static var empty: Void = ()
+    var state: AnyPublisher<Void, Never>{
         return $_state.eraseToAnyPublisher()
     }
+
+    func performAction(_ action: ChoreTabAction) {}
 }
 
-struct ChoreTabState{
-
-}
-
-enum ChoreTabAction{
-
-}
+enum ChoreTabAction{}
 
 extension Dependency.ViewModels{
     var choreTabViewModel: ChoreTabViewModel{

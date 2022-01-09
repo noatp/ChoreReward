@@ -8,11 +8,11 @@
 import SwiftUI
 
 struct NoFamilyView: View {
-    @ObservedObject var noFamilyViewModel: NoFamilyViewModel
+    @ObservedObject var noFamilyViewModel: ObservableViewModel<NoFamilyState, NoFamilyAction>
     private var views: Dependency.Views
     
     init(
-        noFamilyViewModel: NoFamilyViewModel,
+        noFamilyViewModel: ObservableViewModel<NoFamilyState, NoFamilyAction>,
         views: Dependency.Views
     ){
         self.noFamilyViewModel = noFamilyViewModel
@@ -24,10 +24,10 @@ struct NoFamilyView: View {
             Text("Please ask your family's admin to invite you to the family")
                 .multilineTextAlignment(.center)
             Text("This is your user ID: ")
-            Text(noFamilyViewModel.currentUserId)
-            if (noFamilyViewModel.shouldRenderButtons){
+            Text(noFamilyViewModel.state.currentUserId)
+            if (noFamilyViewModel.state.shouldRenderCreateFamilyButton){
                 Button("Create a new family") {
-                    noFamilyViewModel.createFamily()
+                    noFamilyViewModel.perform(action: .createFamily)
                 }
             }
         }
@@ -40,7 +40,14 @@ struct NoFamilyView: View {
 struct NoFamilyView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView{
-            Dependency.preview.views().noFamilyView
+            NoFamilyView(
+                noFamilyViewModel: .init(
+                    staticState: .init(
+                        shouldRenderCreateFamilyButton: true,
+                        currentUserId: "preview userId"
+                    )
+                ),
+                views: Dependency.preview.views())
         }
     }
 }
@@ -48,8 +55,9 @@ struct NoFamilyView_Previews: PreviewProvider {
 extension Dependency.Views{
     var noFamilyView: NoFamilyView{
         return NoFamilyView(
-            noFamilyViewModel: viewModels.noFamilyViewModel,
+            noFamilyViewModel: ObservableViewModel(viewModel: viewModels.noFamilyViewModel),
             views: self
         )
+        
     }
 }

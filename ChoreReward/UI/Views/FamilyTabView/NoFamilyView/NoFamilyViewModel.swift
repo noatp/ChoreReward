@@ -8,12 +8,20 @@
 import Foundation
 import Combine
 
-class NoFamilyViewModel: ObservableObject{
-    let shouldRenderButtons: Bool
-    let currentUserId: String
+class NoFamilyViewModel: StatefulViewModel{
+    @Published var _state: NoFamilyState = empty
+    static let empty = NoFamilyState(
+        shouldRenderCreateFamilyButton: false,
+        currentUserId: ""
+    )
     
     private let userService: UserService
     private let familyService: FamilyService
+    private var currentUserSubscription: AnyCancellable?
+    
+    var state: AnyPublisher<NoFamilyState, Never>{
+        return $_state.eraseToAnyPublisher()
+    }
     
     init(
         userService: UserService,
@@ -21,13 +29,38 @@ class NoFamilyViewModel: ObservableObject{
     ){
         self.userService = userService
         self.familyService = familyService
-        self.shouldRenderButtons = userService.isCurrentUserParent()
-        self.currentUserId = userService.currentUser?.id ?? ""
+        addSubscription()
+    }
+    
+    func addSubscription(){
+        currentUserSubscription = userService.$currentUser
+            .sink(receiveValue: { [weak self] receivedUser in
+                self?._state = .init(
+                    shouldRenderCreateFamilyButton: receivedUser?.role == .parent,
+                    currentUserId: receivedUser?.id ?? ""
+                )
+            })
     }
     
     func createFamily(){
         familyService.createFamily()
     }
+    
+    func performAction(_ action: NoFamilyAction) {
+        switch(action){
+        case .createFamily:
+            createFamily()
+        }
+    }
+}
+
+struct NoFamilyState{
+    let shouldRenderCreateFamilyButton: Bool
+    let currentUserId: String
+}
+
+enum NoFamilyAction{
+    case createFamily
 }
 
 extension Dependency.ViewModels{

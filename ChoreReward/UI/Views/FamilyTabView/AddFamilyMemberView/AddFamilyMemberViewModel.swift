@@ -7,10 +7,9 @@
 
 import Foundation
 import Combine
-import SwiftUI
 
 class AddFamilyMemberViewModel: StatefulViewModel{
-    @Published var _state: Void = ()
+    @Published var _state: Void = empty
     static var empty: Void = ()
     private let familyService: FamilyService
     var state: AnyPublisher<Void, Never>{
