@@ -25,12 +25,12 @@ struct FamilyListView: View {
                 ForEach(familyListViewModel.members){ member in
                     UserCardView(user: member)
                 }
-                if (familyListViewModel.shouldRenderButtons){
-                    NavigationLink (destination: views.addFamilyMemberView) {
-                        Label("Add new member", systemImage: "person.badge.plus")
-                    }
+            }
+            if (familyListViewModel.shouldRenderButtons){
+                NavigationLink (destination: views.addFamilyMemberView) {
+                    Label("Add new member", systemImage: "person.badge.plus")
                 }
-                Spacer()
+                .padding()
             }
         }
         .padding()

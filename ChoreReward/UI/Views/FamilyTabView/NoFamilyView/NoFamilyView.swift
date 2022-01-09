@@ -32,13 +32,16 @@ struct NoFamilyView: View {
             }
         }
         .padding()
+        .navigationTitle("Join a family")
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 
 struct NoFamilyView_Previews: PreviewProvider {
     static var previews: some View {
-        Dependency.preview.views().noFamilyView
-
+        NavigationView{
+            Dependency.preview.views().noFamilyView
+        }
     }
 }
 

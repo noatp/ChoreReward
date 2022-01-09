@@ -40,8 +40,8 @@ class UserTabViewModel: StatefulViewModel{
         currentUserSubscription = userService.$currentUser
             .sink(receiveValue: { [weak self] receivedUser in
                 self?._state = .init(
-                    currentUserEmail: receivedUser?.name ?? "",
-                    currentUserName: receivedUser?.email ?? "",
+                    currentUserEmail: receivedUser?.email ?? "",
+                    currentUserName: receivedUser?.name ?? "",
                     currentUserRole: receivedUser?.role.rawValue ?? ""
                 )
             })
