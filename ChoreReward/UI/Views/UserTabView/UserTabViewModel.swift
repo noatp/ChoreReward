@@ -9,8 +9,6 @@ import Foundation
 import Combine
 
 class UserTabViewModel: StatefulViewModel{
-    typealias State = UserTabState
-    typealias Action = UserTabAction
     
     static let empty = UserTabState(
         currentUserEmail: "",
@@ -21,9 +19,6 @@ class UserTabViewModel: StatefulViewModel{
     @Published var _state: UserTabState = empty
     var state: AnyPublisher<UserTabState, Never>{
         return $_state.eraseToAnyPublisher()
-    }
-    var action: UserTabAction{
-        return UserTabAction(signOut: signOut)
     }
 
     private var userService: UserService
@@ -50,6 +45,13 @@ class UserTabViewModel: StatefulViewModel{
     func signOut(){
         userService.signOut()
     }
+    
+    func performAction(_ action: UserTabAction) {
+        switch(action){
+            case .signOut:
+                self.signOut()
+        }
+    }
 }
 
 struct UserTabState {
@@ -58,8 +60,8 @@ struct UserTabState {
     let currentUserRole: String
 }
 
-struct UserTabAction{
-    let signOut: () -> Void
+enum UserTabAction{
+    case signOut
 }
 
 extension Dependency.ViewModels{

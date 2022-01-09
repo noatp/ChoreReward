@@ -8,11 +8,11 @@
 import SwiftUI
 
 struct AddFamilyMemberView: View {
-    @ObservedObject var addFamilyMemberViewModel: ObservableViewModel<AddFamilyMemberState, AddFamilyMemberAction>
+    @ObservedObject var addFamilyMemberViewModel: ObservableViewModel<Void, AddFamilyMemberAction>
     private var views: Dependency.Views
-    
+    @State var userIdInput = ""
     init(
-        addFamilyMemberViewModel: ObservableViewModel<AddFamilyMemberState, AddFamilyMemberAction>,
+        addFamilyMemberViewModel: ObservableViewModel<Void, AddFamilyMemberAction>,
         views: Dependency.Views
     ){
         self.addFamilyMemberViewModel = addFamilyMemberViewModel
@@ -24,13 +24,11 @@ struct AddFamilyMemberView: View {
             Text("You need the UserID to add them to your family")
                 .font(.footnote)
             TextFieldView(
-                textInput: Binding(
-                    get: {addFamilyMemberViewModel.state.userIdInput},
-                    set: addFamilyMemberViewModel.action.updateUserIdInput),
+                textInput: $userIdInput,
                 title: "UserID"
             )
             ButtonView(
-                action: addFamilyMemberViewModel.action.addMember,
+                action: {addFamilyMemberViewModel.perform(action: .addMember(userId: self.userIdInput))},
                 buttonTitle: "Add member",
                 buttonImage: "person.badge.plus",
                 buttonColor: .accentColor
@@ -47,11 +45,7 @@ struct AddFamilyMemberView_Previews: PreviewProvider {
         NavigationView{
             AddFamilyMemberView(
                 addFamilyMemberViewModel: ObservableViewModel(
-                    staticState: AddFamilyMemberState(userIdInput: ""),
-                    staticAction: AddFamilyMemberAction(
-                        addMember: {},
-                        updateUserIdInput: {_ in }
-                    )
+                    staticState: ()
                 ),
                 views: Dependency.preview.views()
             )

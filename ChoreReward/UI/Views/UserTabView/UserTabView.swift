@@ -45,7 +45,7 @@ struct UserTabView: View {
             Spacer()
             
             ButtonView(
-                action: userTabViewModel.action.signOut,
+                action: {userTabViewModel.perform(action: .signOut)},
                 buttonTitle: "Log Out",
                 buttonImage: "arrow.backward.to.line",
                 buttonColor: .red
@@ -66,9 +66,7 @@ struct UserTabView_Previews: PreviewProvider {
                         currentUserEmail: "toan.chpham@gmail.com",
                         currentUserName: "Toan Pham",
                         currentUserRole: "Child"
-                    ),
-                    staticAction: UserTabAction(signOut: {})
-                    
+                    )                    
                 ),
                 views: Dependency.preview.views()
             )

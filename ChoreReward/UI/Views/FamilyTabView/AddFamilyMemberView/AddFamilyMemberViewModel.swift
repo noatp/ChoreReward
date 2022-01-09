@@ -10,23 +10,12 @@ import Combine
 import SwiftUI
 
 class AddFamilyMemberViewModel: StatefulViewModel{
-    typealias State = AddFamilyMemberState
-    typealias Action = AddFamilyMemberAction
-
-    static let empty = AddFamilyMemberState(userIdInput: "")
-
-    @Published var _state: AddFamilyMemberState = empty
-    var state: AnyPublisher<AddFamilyMemberState, Never>{
+    @Published var _state: Void = ()
+    static var empty: Void = ()
+    private let familyService: FamilyService
+    var state: AnyPublisher<Void, Never>{
         return $_state.eraseToAnyPublisher()
     }
-    var action: AddFamilyMemberAction{
-        return AddFamilyMemberAction(
-            addMember: addMember,
-            updateUserIdInput: updateUserIdInput
-        )
-    }
-    
-    private let familyService: FamilyService
     
     init(
         familyService: FamilyService
@@ -34,22 +23,20 @@ class AddFamilyMemberViewModel: StatefulViewModel{
         self.familyService = familyService
     }
     
-    private func addMember(){
-        familyService.addUserByIdToFamily(userId: _state.userIdInput)
+    private func addMember(userId: String){
+        familyService.addUserByIdToFamily(userId: userId)
     }
     
-    private func updateUserIdInput(newValue: String){
-        self._state = AddFamilyMemberState(userIdInput: newValue)
+    func performAction(_ action: AddFamilyMemberAction) {
+        switch action{
+        case .addMember(let userId):
+            self.addMember(userId: userId)
+        }
     }
 }
-
-struct AddFamilyMemberState{
-    var userIdInput: String
-}
-
-struct AddFamilyMemberAction{
-    let addMember: () -> Void
-    let updateUserIdInput: (String) -> Void
+    
+enum AddFamilyMemberAction{
+    case addMember(userId: String)
 }
 
 extension Dependency.ViewModels{

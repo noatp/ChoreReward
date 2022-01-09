@@ -34,8 +34,7 @@ struct ChoreTabView_Previews: PreviewProvider {
         NavigationView{
             ChoreTabView(
                 choreTabViewModel: ObservableViewModel(
-                    staticState: ChoreTabState(),
-                    staticAction: ChoreTabAction()
+                    staticState: ChoreTabState()
                 ),
                 views: Dependency.preview.views()
             )
