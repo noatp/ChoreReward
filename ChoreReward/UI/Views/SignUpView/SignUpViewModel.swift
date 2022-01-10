@@ -8,17 +8,16 @@
 import Foundation
 import Combine
 
-class SignUpViewModel: ObservableObject{
-    @Published var errorMessage: String? = nil
-    @Published var nameInput: String = ""
-    @Published var emailInput: String = ""
-    @Published var passwordInput: String = ""
+class SignUpViewModel: StatefulViewModel{
+    @Published var _state: SignUpState = empty
+    static let empty = SignUpState(errorMessage: "")
+    var state: AnyPublisher<SignUpState, Never>{
+        return $_state.eraseToAnyPublisher()
+    }
 
-    private var userService: UserService
+    private let userService: UserService
     private var authStateSubscription: AnyCancellable?
-    
-    let rolePickerRender = RolePickerViewModel()
-    
+        
     init(
         userService: UserService
     ){
@@ -33,23 +32,54 @@ class SignUpViewModel: ObservableObject{
                 case .signedIn:
                     break
                 case .signedOut(let error):
-                    self?.errorMessage = error?.localizedDescription ?? nil
+                    self?._state = .init(errorMessage: error?.localizedDescription ?? "")
                 }
+                
             })
     }
     
-    func signUp(){
+    func signUp(
+        emailInput: String,
+        nameInput: String,
+        passwordInput: String,
+        roleSelection: Role
+    ){
         let newUser = User(
             id: "",
             email: emailInput,
             name: nameInput,
-            role: rolePickerRender.selection
+            role: roleSelection
         )
         userService.signUp(
             newUser: newUser,
             password: passwordInput
         )
     }
+    
+    func performAction(_ action: SignUpAction) {
+        switch(action){
+        case .signUp(let emailInput, let nameInput, let passwordInput, let roleSelection):
+            signUp(
+                emailInput: emailInput,
+                nameInput: nameInput,
+                passwordInput: passwordInput,
+                roleSelection: roleSelection
+            )
+        }
+    }
+}
+
+struct SignUpState{
+    let errorMessage: String
+}
+
+enum SignUpAction{
+    case signUp(
+        emailInput: String,
+        nameInput: String,
+        passwordInput: String,
+        roleSelection: Role
+    )
 }
 
 extension Dependency.ViewModels{

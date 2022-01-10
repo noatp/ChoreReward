@@ -10,7 +10,7 @@ import Combine
 
 class AddFamilyMemberViewModel: StatefulViewModel{
     @Published var _state: Void = empty
-    static var empty: Void = ()
+    static let empty: Void = ()
     private let familyService: FamilyService
     var state: AnyPublisher<Void, Never>{
         return $_state.eraseToAnyPublisher()

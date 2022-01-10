@@ -8,11 +8,16 @@
 import SwiftUI
 
 struct SignUpView: View {
-    @ObservedObject var signUpViewModel: SignUpViewModel
+    @ObservedObject var signUpViewModel: ObservableViewModel<SignUpState, SignUpAction>
     private var views: Dependency.Views
     
+    @State var nameInput: String = ""
+    @State var emailInput: String = ""
+    @State var passwordInput: String = ""
+    @State var roleSelection: Role = .parent
+    
     init(
-        signUpViewModel: SignUpViewModel,
+        signUpViewModel: ObservableViewModel<SignUpState, SignUpAction>,
         views: Dependency.Views
     ){
         self.signUpViewModel = signUpViewModel
@@ -21,17 +26,22 @@ struct SignUpView: View {
     
     var body: some View {
         VStack{
-            if (signUpViewModel.errorMessage != nil){
-                Text(signUpViewModel.errorMessage!)
-                    .padding()
-            }
+            Text(signUpViewModel.state.errorMessage)
+                .padding()
             
-            TextFieldView(textInput: $signUpViewModel.nameInput, title: "Full Name")
-            TextFieldView(textInput: $signUpViewModel.emailInput, title: "Email")
-            TextFieldView(textInput: $signUpViewModel.passwordInput, secured: true, title: "Password")
-            RolePickerView(rolePickerViewModel: signUpViewModel.rolePickerRender)
+            TextFieldView(textInput: $nameInput, title: "Full Name")
+            TextFieldView(textInput: $emailInput, title: "Email")
+            TextFieldView(textInput: $passwordInput, secured: true, title: "Password")
+            RolePickerView(roleSelection: $roleSelection)
             ButtonView(
-                action: signUpViewModel.signUp,
+                action: {signUpViewModel.perform(
+                    action: .signUp(
+                        emailInput: emailInput,
+                        nameInput: nameInput,
+                        passwordInput: passwordInput,
+                        roleSelection: roleSelection
+                    )
+                )},
                 buttonTitle: "Sign Up",
                 buttonImage: "arrow.turn.right.up",
                 buttonColor: .accentColor
@@ -45,7 +55,10 @@ struct SignUpView: View {
 struct SignupView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            Dependency.preview.views().signUpView
+            SignUpView(
+                signUpViewModel: .init(staticState: .init(errorMessage: "")),
+                views: Dependency.preview.views()
+            )
         }
     }
 }
@@ -53,7 +66,7 @@ struct SignupView_Previews: PreviewProvider {
 extension Dependency.Views{
     var signUpView: SignUpView{
         return SignUpView(
-            signUpViewModel: viewModels.signUpViewModel,
+            signUpViewModel:ObservableViewModel(viewModel: viewModels.signUpViewModel),
             views: self
         )
     }

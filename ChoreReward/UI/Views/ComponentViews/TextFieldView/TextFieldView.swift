@@ -45,7 +45,8 @@ struct TextFieldView: View {
 struct TextFieldView_Previews: PreviewProvider {
     static var previews: some View {
         Group{
-            TextFieldView(textInput: Binding(get: {""}, set: {_ in }), title: "Preview")
+            TextFieldView(textInput: .constant("Preview"), title: "Preview")
+            TextFieldView(textInput: .constant(""), title: "Preview")
         }
         .previewLayout(.sizeThatFits)
     }

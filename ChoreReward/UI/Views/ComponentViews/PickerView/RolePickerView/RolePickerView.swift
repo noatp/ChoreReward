@@ -8,18 +8,18 @@
 import SwiftUI
 
 struct RolePickerView: View {
-    @ObservedObject private var rolePickerViewModel: RolePickerViewModel
+    @Binding var roleSelection: Role
     
     init(
-        rolePickerViewModel: RolePickerViewModel
+        roleSelection: Binding<Role>
     ){
-        self.rolePickerViewModel = rolePickerViewModel
+        self._roleSelection = roleSelection
     }
     
     var body: some View {
         HStack{
             Text("You are a: ")
-            Picker("Role", selection: $rolePickerViewModel.selection) {
+            Picker("Role", selection: $roleSelection) {
                 Text("Parent").tag(Role.parent)
                 Text("Child").tag(Role.child)
             }
@@ -32,6 +32,6 @@ struct RolePickerView: View {
 
 struct RolePickerView_Previews: PreviewProvider {
     static var previews: some View {
-        RolePickerView(rolePickerViewModel: RolePickerViewModel.preview)
+        RolePickerView(roleSelection: .constant(.parent))
     }
 }
