@@ -26,7 +26,7 @@ import Combine
  */
 
 class UserService: ObservableObject{
-    @Published var authState: AuthState
+    @Published var authState: AuthState = .signedOut(error: nil)
     @Published var currentUser: User?
     
     private let auth = Auth.auth()
@@ -39,11 +39,9 @@ class UserService: ObservableObject{
     }
     
     init(
-        currentUserRepository: UserRepository,
-        initAuthState: AuthState = .signedOut(error: nil)
+        currentUserRepository: UserRepository
     ){
         self.currentUserRepository = currentUserRepository
-        self.authState = initAuthState
         addSubscription()
     }
     

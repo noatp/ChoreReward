@@ -21,12 +21,10 @@ class FamilyService: ObservableObject{
     
     init(
         currentUserRepository: UserRepository,
-        currentFamilyRepository: FamilyRepository,
-        initCurrentFamily: Family? = nil
+        currentFamilyRepository: FamilyRepository
     ){
         self.currentUserRepository = currentUserRepository
         self.currentFamilyRepository = currentFamilyRepository
-        self.currentFamily = initCurrentFamily
         addSubscription()
     }
     

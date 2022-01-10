@@ -90,10 +90,13 @@ class Dependency{
     }
 }
 
+class MockUserRepository: UserRepository{}
+
+class MockFamilyRepository: FamilyRepository{}
+
 class MockUserService: UserService{
     override init(
-        currentUserRepository: UserRepository = MockUserRepository(),
-        initAuthState: AuthState = AuthState.signedIn
+        currentUserRepository: UserRepository = MockUserRepository()
     ){
         super.init(
             currentUserRepository: currentUserRepository
@@ -101,58 +104,14 @@ class MockUserService: UserService{
     }
 }
 
-class MockUserRepository: UserRepository{
-    override init(
-        initUser: User? = User.previewDavid,
-        initUsers: [User] = [User.previewTim, User.previewDavid]
-    ) {
-        super.init(
-            initUser: initUser,
-            initUsers: initUsers
-        )
-    }
-    
-    override func readUser(userId: String?) {
-        return
-    }
-    
-    override func createUser(newUser: User) {
-        return
-    }
-}
-
-class MockFamilyRepository: FamilyRepository{
-    override init(
-        initFamily: Family? = Family.preview
-    ) {
-        super.init(
-            initFamily: initFamily
-        )
-    }
-    
-    override func createFamily(currentUserId: String, newFamilyId: String) {
-        return
-    }
-    
-    override func readFamily(familyId: String) {
-        return
-    }
-    
-    override func updateMemberOfFamily(familyId: String, userId: String) {
-        return
-    }
-}
-
 class MockFamilyService: FamilyService{
     override init(
         currentUserRepository: UserRepository = MockUserRepository(),
-        currentFamilyRepository: FamilyRepository = MockFamilyRepository(),
-        initCurrentFamily: Family? = nil
+        currentFamilyRepository: FamilyRepository = MockFamilyRepository()
     ) {
         super.init(
             currentUserRepository: currentUserRepository,
-            currentFamilyRepository: currentFamilyRepository,
-            initCurrentFamily: initCurrentFamily
+            currentFamilyRepository: currentFamilyRepository
         )
     }
 }
