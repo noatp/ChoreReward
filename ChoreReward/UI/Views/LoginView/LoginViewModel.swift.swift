@@ -10,10 +10,12 @@ import FirebaseAuth
 import SwiftUI
 import Combine
 
-class LoginViewModel: ObservableObject{
-    @Published var errorMessage: String? = nil
-    @Published var emailInput: String = ""
-    @Published var passwordInput: String = ""
+class LoginViewModel: StatefulViewModel{
+    @Published var _state: LoginViewState = empty
+    static let empty = LoginViewState(errorMessage: "")
+    var state: AnyPublisher<LoginViewState, Never>{
+        return $_state.eraseToAnyPublisher()
+    }
     
     private var userService: UserService
     private var useCaseSubscription: AnyCancellable?
@@ -31,12 +33,12 @@ class LoginViewModel: ObservableObject{
                 case .signedIn:
                     break
                 case .signedOut(let error):
-                    self?.errorMessage = error?.localizedDescription
+                    self?._state = .init(errorMessage: error?.localizedDescription ?? "")
                 }
             })
     }
     
-    func signIn(){
+    func signIn(emailInput: String, passwordInput: String){
         userService.signIn(
             email: emailInput,
             password: passwordInput
@@ -46,6 +48,21 @@ class LoginViewModel: ObservableObject{
     func silentSignIn(){
         userService.signInIfCurrentUserExist()
     }
+    
+    func performAction(_ action: LoginViewAction) {
+        switch action{
+        case .signIn(let emailInput, let passwordInput):
+            signIn(emailInput: emailInput, passwordInput: passwordInput)
+        }
+    }
+}
+
+struct LoginViewState{
+    let errorMessage: String
+}
+
+enum LoginViewAction{
+    case signIn(emailInput: String, passwordInput: String)
 }
 
 extension Dependency.ViewModels{

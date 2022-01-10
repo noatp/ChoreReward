@@ -8,8 +8,15 @@
 import Foundation
 import Combine
 
-class AppViewModel: ObservableObject{
+class AppViewModel: StatefulViewModel{
+    @Published var _state: Void = empty
+    var state: AnyPublisher<Void, Never>{
+        return $_state.eraseToAnyPublisher()
+    }
     
+    func performAction(_ action: Void) {}
+    
+    static let empty: Void = ()
 }
 
 extension Dependency.ViewModels{

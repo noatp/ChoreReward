@@ -8,11 +8,14 @@
 import SwiftUI
 
 struct LoginView: View {
-    @ObservedObject var loginViewModel: LoginViewModel
+    @ObservedObject var loginViewModel: ObservableViewModel<LoginViewState, LoginViewAction>
     private var views: Dependency.Views
     
+    @State var emailInput: String = ""
+    @State var passwordInput: String = ""
+    
     init(
-        loginViewModel: LoginViewModel,
+        loginViewModel: ObservableViewModel<LoginViewState, LoginViewAction>,
         views: Dependency.Views
     ) {
         self.loginViewModel = loginViewModel
@@ -22,16 +25,16 @@ struct LoginView: View {
     var body: some View {
         NavigationView{
             VStack{
-                if (loginViewModel.errorMessage != nil){
-                    Text(loginViewModel.errorMessage!)
-                        .padding()
-                }
+                Text(loginViewModel.state.errorMessage)
+                    .padding()
                 
-                TextFieldView(textInput: $loginViewModel.emailInput, title: "Email")
-                TextFieldView(textInput: $loginViewModel.passwordInput, secured: true, title: "Password")
+                TextFieldView(textInput: $emailInput, title: "Email")
+                TextFieldView(textInput: $passwordInput, secured: true, title: "Password")
                 
                 ButtonView(
-                    action: loginViewModel.signIn,
+                    action: {loginViewModel.perform(
+                        action: .signIn(emailInput: emailInput, passwordInput: passwordInput))
+                    },
                     buttonTitle: "Log In",
                     buttonImage: "arrow.forward.to.line",
                     buttonColor: Color.accentColor
@@ -52,14 +55,19 @@ struct LoginView: View {
 
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
-        Dependency.preview.views().loginView
+        NavigationView{
+            LoginView(
+                loginViewModel: .init(staticState: .init(errorMessage: "")),
+                views: Dependency.preview.views()
+            )
+        }
     }
 }
 
 extension Dependency.Views{
     var loginView: LoginView{
         return LoginView(
-            loginViewModel: viewModels.loginViewModel,
+            loginViewModel: ObservableViewModel(viewModel: viewModels.loginViewModel),
             views: self
         )
     }

@@ -8,11 +8,11 @@
 import SwiftUI
 
 struct AppView: View {
-    @ObservedObject var appViewModel: AppViewModel
+    @ObservedObject var appViewModel: ObservableViewModel<Void, Void>
     private var views: Dependency.Views
     
     init(
-        appViewModel: AppViewModel,
+        appViewModel: ObservableViewModel<Void, Void>,
         views: Dependency.Views
     ){
         self.appViewModel = appViewModel
@@ -56,14 +56,17 @@ struct AppView: View {
 
 struct AppView_Previews: PreviewProvider {
     static var previews: some View {
-        Dependency.preview.views().appView
+        AppView(
+            appViewModel: .init(staticState: ()),
+            views: Dependency.preview.views()
+        )
     }
 }
 
 extension Dependency.Views{
     var appView: AppView{
         return AppView(
-            appViewModel: viewModels.appViewModel,
+            appViewModel: ObservableViewModel(viewModel: viewModels.appViewModel),
             views: self
         )
     }
