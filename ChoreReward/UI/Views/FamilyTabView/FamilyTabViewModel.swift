@@ -8,8 +8,12 @@
 import Foundation
 import Combine
 
-class FamilyTabViewModel: ObservableObject{
-    @Published var currentFamily: Family? = nil
+class FamilyTabViewModel: StatefulViewModel{
+    @Published var _state: FamilyTabState = empty
+    static let empty = FamilyTabState(hasCurrentFamily: false)
+    var state: AnyPublisher<FamilyTabState, Never>{
+        return $_state.eraseToAnyPublisher()
+    }
     
     private let familyService: FamilyService
     private var currentFamilySubscription: AnyCancellable?
@@ -24,11 +28,19 @@ class FamilyTabViewModel: ObservableObject{
     func addSubscription(){
         currentFamilySubscription = familyService.$currentFamily
             .sink(receiveValue: {[weak self] receivedFamily in
-                self?.currentFamily = receivedFamily
+                guard receivedFamily != nil else{
+                    self?._state = .init(hasCurrentFamily: false)
+                    return
+                }
+                self?._state = .init(hasCurrentFamily: true)
             })
     }
     
-    
+    func performAction(_ action: Void) {}
+}
+
+struct FamilyTabState{
+    let hasCurrentFamily: Bool
 }
 
 extension Dependency.ViewModels{

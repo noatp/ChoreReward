@@ -9,14 +9,12 @@ import Foundation
 import Combine
 
 class UserTabViewModel: StatefulViewModel{
-    
+    @Published var _state: UserTabState = empty
     static let empty = UserTabState(
         currentUserEmail: "",
         currentUserName: "",
         currentUserRole: ""
     )
-    
-    @Published var _state: UserTabState = empty
     var state: AnyPublisher<UserTabState, Never>{
         return $_state.eraseToAnyPublisher()
     }

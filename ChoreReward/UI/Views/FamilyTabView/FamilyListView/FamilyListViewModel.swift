@@ -8,13 +8,20 @@
 import Foundation
 import Combine
 
-class FamilyListViewModel: ObservableObject{
-    @Published var members: [User] = []
-    let shouldRenderButtons: Bool
+class FamilyListViewModel: StatefulViewModel{
+    @Published var _state: FamilyListState
+    static let empty = FamilyListState(
+        members: [],
+        shouldRenderAddMemberButton: false
+    )
+    var state: AnyPublisher<FamilyListState, Never>{
+        return $_state.eraseToAnyPublisher()
+    }
     
     private let familyService: FamilyService
     private let userService: UserService
     private var familyMemberSubscription: AnyCancellable?
+    private var currentUserSubscription: AnyCancellable?
     
     init(
         familyService: FamilyService,
@@ -22,16 +29,32 @@ class FamilyListViewModel: ObservableObject{
     ){
         self.familyService = familyService
         self.userService = userService
-        self.shouldRenderButtons = familyService.isCurrentUserAdminOfCurrentFamily()
+        self._state = .init(
+            members: [],
+            shouldRenderAddMemberButton: familyService.isCurrentUserAdminOfCurrentFamily()
+        )
         addSubscription()
     }
     
     func addSubscription(){
         familyMemberSubscription = familyService.$currentFamilyMembers
             .sink(receiveValue: { [weak self] receivedFamilyMembers in
-                self?.members = receivedFamilyMembers
+                guard let oldState = self?._state else{
+                    return
+                }
+                self?._state = .init(
+                    members: receivedFamilyMembers,
+                    shouldRenderAddMemberButton: oldState.shouldRenderAddMemberButton
+                )
             })
     }
+    
+    func performAction(_ action: Void) {}
+}
+
+struct FamilyListState{
+    let members: [User]
+    let shouldRenderAddMemberButton: Bool
 }
 
 extension Dependency.ViewModels{

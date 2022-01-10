@@ -8,11 +8,11 @@
 import SwiftUI
 
 struct FamilyTabView: View {
-    @ObservedObject var familyTabViewModel: FamilyTabViewModel
+    @ObservedObject var familyTabViewModel: ObservableViewModel<FamilyTabState, Void>
     private var views: Dependency.Views
     
     init(
-        familyTabViewModel: FamilyTabViewModel,
+        familyTabViewModel: ObservableViewModel<FamilyTabState, Void>,
         views: Dependency.Views
     ){
         self.familyTabViewModel = familyTabViewModel
@@ -20,7 +20,7 @@ struct FamilyTabView: View {
     }
     var body: some View {
         HStack{
-            if familyTabViewModel.currentFamily != nil {
+            if familyTabViewModel.state.hasCurrentFamily {
                 views.familyListView
             }
             else{
@@ -32,14 +32,33 @@ struct FamilyTabView: View {
 
 struct FamilyTabView_Previews: PreviewProvider {
     static var previews: some View {
-        Dependency.preview.views().familyTabView
+        NavigationView {
+            FamilyTabView(
+                familyTabViewModel: .init(
+                    staticState: .init(
+                        hasCurrentFamily: true
+                    )
+                ),
+                views: Dependency.preview.views()
+            )
+        }
+        NavigationView{
+            FamilyTabView(
+                familyTabViewModel: .init(
+                    staticState: .init(
+                        hasCurrentFamily: false
+                    )
+                ),
+                views: Dependency.preview.views()
+            )
+        }
     }
 }
 
 extension Dependency.Views{
     var familyTabView: FamilyTabView{
         return FamilyTabView(
-            familyTabViewModel: viewModels.familyTabViewModel,
+            familyTabViewModel: ObservableViewModel(viewModel: viewModels.familyTabViewModel),
             views: self
         )
     }

@@ -8,11 +8,11 @@
 import SwiftUI
 
 struct FamilyListView: View {
-    @ObservedObject var familyListViewModel: FamilyListViewModel
+    @ObservedObject var familyListViewModel: ObservableViewModel<FamilyListState, Void>
     private var views: Dependency.Views
     
     init(
-        familyListViewModel: FamilyListViewModel,
+        familyListViewModel: ObservableViewModel<FamilyListState, Void>,
         views: Dependency.Views
     ){
         self.familyListViewModel = familyListViewModel
@@ -22,11 +22,11 @@ struct FamilyListView: View {
     var body: some View {
         VStack{
             ScrollView {
-                ForEach(familyListViewModel.members){ member in
+                ForEach(familyListViewModel.state.members){ member in
                     UserCardView(user: member)
                 }
             }
-            if (familyListViewModel.shouldRenderButtons){
+            if (familyListViewModel.state.shouldRenderAddMemberButton){
                 NavigationLink (destination: views.addFamilyMemberView) {
                     Label("Add new member", systemImage: "person.badge.plus")
                 }
@@ -42,7 +42,14 @@ struct FamilyListView: View {
 struct FamilyListView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView{
-            Dependency.preview.views().familyListView
+            FamilyListView(
+                familyListViewModel: .init(
+                    staticState: .init(
+                        members: User.previewMembers,
+                        shouldRenderAddMemberButton: true
+                    )
+                ),
+                views: Dependency.preview.views())
         }
     }
 }
@@ -50,7 +57,7 @@ struct FamilyListView_Previews: PreviewProvider {
 extension Dependency.Views{
     var familyListView: FamilyListView{
         return FamilyListView(
-            familyListViewModel: viewModels.familyListViewModel,
+            familyListViewModel: ObservableViewModel(viewModel: viewModels.familyListViewModel),
             views: self
         )
     }

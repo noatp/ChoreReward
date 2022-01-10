@@ -38,6 +38,8 @@ struct User: Identifiable, Codable{
         role: .parent,
         familyId: nil
     )
+    
+    static let previewMembers = [User.previewBen, User.previewBen, User.previewBen, User.previewDavid, User.previewDavid, User.previewBen, User.previewTim]
 }
 
 enum Role: String, Codable{
