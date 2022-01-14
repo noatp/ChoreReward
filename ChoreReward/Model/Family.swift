@@ -18,7 +18,7 @@ struct Family: Identifiable, Codable{
         id: "tranfam",
         admin: User.previewDavid.id!,
         members: [User.previewDavid.id!, User.previewTim.id!, User.previewBen.id!],
-        chores: [Chore.preview.id, Chore.preview.id]
+        chores: [Chore.preview.id!, Chore.preview.id!]
     )
 }
 

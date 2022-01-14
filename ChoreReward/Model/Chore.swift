@@ -6,19 +6,19 @@
 //
 
 import Foundation
-import SwiftUI
+import FirebaseFirestoreSwift
 
 struct Chore: Identifiable, Codable{
-    var id: String
+    @DocumentID var id: String?
     var title: String
-    var assigner: User
-    var assignee: User
+    var assignerId: String
+    var assigneeId: String
     
     static let preview = Chore(
         id: UUID().uuidString,
         title: "Wash the dishes",
-        assigner: User.previewDavid,
-        assignee: User.previewTim
+        assignerId: User.previewDavid.id!,
+        assigneeId: User.previewTim.id!
     )
     
     enum RewardType: String, CaseIterable, Identifiable{
