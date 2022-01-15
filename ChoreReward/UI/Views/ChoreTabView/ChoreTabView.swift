@@ -8,11 +8,11 @@
 import SwiftUI
 
 struct ChoreTabView: View {
-    @ObservedObject var choreTabViewModel: ObservableViewModel<Void, ChoreTabAction>
+    @ObservedObject var choreTabViewModel: ObservableViewModel<ChoreTabState, ChoreTabAction>
     private var views: Dependency.Views
     
     init(
-        choreTabViewModel: ObservableViewModel<Void, ChoreTabAction>,
+        choreTabViewModel: ObservableViewModel<ChoreTabState, ChoreTabAction>,
         views: Dependency.Views
     ){
         self.choreTabViewModel = choreTabViewModel
@@ -21,7 +21,19 @@ struct ChoreTabView: View {
     
     var body: some View {
         VStack{
-            Text("ChoreTabView")
+            ScrollView{
+                Text("ChoreTabView")
+            }
+            if (choreTabViewModel.state.shouldRenderAddChoreButton){
+                ButtonView(
+                    action: {
+                        
+                    },
+                    buttonTitle: "Add Chore",
+                    buttonImage: "plus",
+                    buttonColor: .accentColor
+                )
+            }
         }
         .padding()
         .navigationTitle("Chores")
@@ -34,7 +46,7 @@ struct ChoreTabView_Previews: PreviewProvider {
         NavigationView{
             ChoreTabView(
                 choreTabViewModel: ObservableViewModel(
-                    staticState: ()
+                    staticState: .init(shouldRenderAddChoreButton: true)
                 ),
                 views: Dependency.preview.views()
             )
