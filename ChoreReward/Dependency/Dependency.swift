@@ -10,20 +10,24 @@ import UIKit
 
 class Dependency{
     let userService: UserService
+    let familyService: FamilyService
+    let choreService: ChoreService
+    
     let currentUserRepository: UserRepository
     let currentFamilyRepository: FamilyRepository
-    let familyService: FamilyService
     
     init(
         userService: UserService = MockUserService(),
+        familyService: FamilyService = MockFamilyService(),
+        choreService: ChoreService = MockChoreService(),
         currentUserRepository: UserRepository = MockUserRepository(),
-        currentFamilyRepository: FamilyRepository = MockFamilyRepository(),
-        familyService: FamilyService = MockFamilyService()
+        currentFamilyRepository: FamilyRepository = MockFamilyRepository()
     ){
         self.userService = userService
+        self.familyService = familyService
+        self.choreService = choreService
         self.currentUserRepository = currentUserRepository
         self.currentFamilyRepository = currentFamilyRepository
-        self.familyService = familyService
     }
     
     static let preview = Dependency()
@@ -48,6 +52,7 @@ class Dependency{
         let dependency: Dependency
         let userService: UserService
         let familyService: FamilyService
+        let choreService: ChoreService
         let repositories: Repositories
         
         init(dependency: Dependency){
@@ -55,6 +60,7 @@ class Dependency{
             self.repositories = self.dependency.repositories()
             self.userService = self.dependency.userService
             self.familyService = self.dependency.familyService
+            self.choreService = self.dependency.choreService
         }
     }
     
@@ -112,6 +118,18 @@ class MockFamilyService: FamilyService{
         super.init(
             currentUserRepository: currentUserRepository,
             currentFamilyRepository: currentFamilyRepository
+        )
+    }
+}
+
+class MockChoreService: ChoreService{
+    override init(
+        currentUserRepository: UserRepository = MockUserRepository(),
+        familyRepository: FamilyRepository = MockFamilyRepository()
+    ) {
+        super.init(
+            currentUserRepository: currentUserRepository,
+            familyRepository: familyRepository
         )
     }
 }

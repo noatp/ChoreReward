@@ -62,6 +62,14 @@ class FamilyRepository: ObservableObject{
         }
     }
     
+    func updateChoreOfFamily(familyId: String, choreId: String){
+        database.collection("families").document(familyId).updateData([
+            "chores" : FieldValue.arrayUnion([choreId])
+        ]){ [weak self] err in
+            self?.onWriteCompletion(err: err, familyId: familyId)
+        }
+    }
+    
     //split completion into a separate function to ensure readFamily is called on all write operation
     private func onWriteCompletion(err: Error?, familyId: String) -> Void{
         if let err = err {

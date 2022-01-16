@@ -13,12 +13,12 @@ import Combine
 class ChoreRepository: ObservableObject{
     private let database = Firestore.firestore()
     
-    func createChore(newChore: Chore){
-        database.collection("chores").addDocument(data:[
+    func createChore(newChore: Chore) -> String{
+        return database.collection("chores").addDocument(data:[
             "title" : newChore.title,
             "assignerId": newChore.assignerId,
             "assigneeId": newChore.assigneeId
-        ])
+        ]).documentID
     }
         
     func readChore(choreId: String) async -> Chore?{
@@ -31,6 +31,7 @@ class ChoreRepository: ObservableObject{
             return nil
         }
     }
+    
     
 //    //split completion into a separate function to ensure readUser is called on all write operation
 //    private func onWriteCompletion(err: Error?, userId: String) -> Void{

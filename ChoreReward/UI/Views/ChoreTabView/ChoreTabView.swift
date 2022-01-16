@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ChoreTabView: View {
     @ObservedObject var choreTabViewModel: ObservableViewModel<ChoreTabState, ChoreTabAction>
+    @State var presentedSheet = false
     private var views: Dependency.Views
     
     init(
@@ -27,7 +28,7 @@ struct ChoreTabView: View {
             if (choreTabViewModel.state.shouldRenderAddChoreButton){
                 ButtonView(
                     action: {
-                        
+                        presentedSheet = true
                     },
                     buttonTitle: "Add Chore",
                     buttonImage: "plus",
@@ -38,6 +39,9 @@ struct ChoreTabView: View {
         .padding()
         .navigationTitle("Chores")
         .navigationBarTitleDisplayMode(.inline)
+        .sheet(isPresented: $presentedSheet, onDismiss: {}) {
+            views.addChoreView(presentedSheet: $presentedSheet)
+        }
     }
 }
 

@@ -16,25 +16,40 @@ class ChoreTabViewModel: StatefulViewModel{
     }
     
     private let userService: UserService
+    private let choreService: ChoreService
     
-    init(userService: UserService) {
+    init(
+        userService: UserService,
+        choreService: ChoreService
+    ) {
         self.userService = userService
+        self.choreService = choreService
         self._state = .init(shouldRenderAddChoreButton: userService.isCurrentUserParent())
     }
     
     
 
-    func performAction(_ action: ChoreTabAction) {}
+    func performAction(_ action: ChoreTabAction) {
+        switch action {
+        case .createChore(let choreTitle):
+            choreService.createChore(choreTitle: choreTitle)
+        }
+    }
 }
 
 struct ChoreTabState{
     let shouldRenderAddChoreButton: Bool
 }
 
-enum ChoreTabAction{}
+enum ChoreTabAction{
+    case createChore(choreTitle: String)
+}
 
 extension Dependency.ViewModels{
     var choreTabViewModel: ChoreTabViewModel{
-        ChoreTabViewModel(userService: services.userService)
+        ChoreTabViewModel(
+            userService: services.userService,
+            choreService: services.choreService
+        )
     }
 }
