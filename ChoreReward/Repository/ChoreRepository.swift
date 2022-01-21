@@ -11,6 +11,7 @@ import FirebaseFirestoreSwift
 import Combine
 
 class ChoreRepository: ObservableObject{
+    @Published var choreList: [Chore] = []
     private let database = Firestore.firestore()
     
     func createChore(newChore: Chore) -> String{
@@ -32,16 +33,36 @@ class ChoreRepository: ObservableObject{
         }
     }
     
+    func readMultipleChores(choreIds: [String]){
+        guard choreIds.count > 0 else{
+            return
+        }
+        database.collection("chores").whereField(FieldPath.documentID(), in: choreIds)
+            .getDocuments { [weak self] querySnapshot, err in
+                if let err = err {
+                    print("UserRepository: readMultipleUser: Error getting documents: \(err)")
+                } else {
+                    self?.choreList = querySnapshot!.documents.compactMap({ document in
+                        let result = Result{
+                            try document.data(as: Chore.self)
+                        }
+                        switch result{
+                        case .success(let receivedChore):
+                            guard let chore = receivedChore else{
+                                return nil
+                            }
+                            return chore
+                        case .failure(let error):
+                            print("UserRepository: readMultipleUser: Error decoding user: \(error)")
+                            return nil
+                        }
+                    })
+                }
+            }
+    }
     
-//    //split completion into a separate function to ensure readUser is called on all write operation
-//    private func onWriteCompletion(err: Error?, userId: String) -> Void{
-//        if let err = err {
-//            print("UserRepository: onWriteCompletion: Error writing to user: \(err)")
-//        } else {
-//            readUser(userId: userId)
-//            print("UserRepository: onWriteCompletion: Successfully write to user with ID \(userId)")
-//        }
-//    }
-        
+    func resetCache(){
+        choreList = []
+    }
 }
 

@@ -23,7 +23,9 @@ struct ChoreTabView: View {
     var body: some View {
         VStack{
             ScrollView{
-                Text("ChoreTabView")
+                ForEach(choreTabViewModel.state.choreList) {chore in
+                    Text("\(chore.title)")
+                }
             }
             if (choreTabViewModel.state.shouldRenderAddChoreButton){
                 ButtonView(
@@ -50,7 +52,10 @@ struct ChoreTabView_Previews: PreviewProvider {
         NavigationView{
             ChoreTabView(
                 choreTabViewModel: ObservableViewModel(
-                    staticState: .init(shouldRenderAddChoreButton: true)
+                    staticState: .init(
+                        shouldRenderAddChoreButton: true,
+                        choreList: []
+                    )
                 ),
                 views: Dependency.preview.views()
             )

@@ -15,24 +15,20 @@ class AddChoreViewModel: StatefulViewModel{
         return $_state.eraseToAnyPublisher()
     }
     
-    //private let something: SomeType
-    //private var something: AnyCancellable?
+    private let choreService: ChoreService
     
     init(
-        //some services
+        choreService: ChoreService
     ){
         self._state = .init()
-        //addSubscription()
-    }
-    
-    func addSubscription(){
+        self.choreService = choreService
     }
 
     func performAction(_ action: AddChoreAction) {
-        // switch action {
-        // case .createChore(let choreTitle):
-        //     choreService.createChore(choreTitle: choreTitle)
-        // }
+         switch action {
+         case .createChore(let choreTitle):
+             choreService.createChore(choreTitle: choreTitle)
+         }
     }
 }
 
@@ -41,11 +37,11 @@ struct AddChoreState{
 }
 
 enum AddChoreAction{
-    //case someAction(parameter: ParameterType)
+    case createChore(choreTitle: String)
 }
 
 extension Dependency.ViewModels{
     var addChoreViewModel: AddChoreViewModel{
-        AddChoreViewModel()
+        AddChoreViewModel(choreService: services.choreService)
     }
 }

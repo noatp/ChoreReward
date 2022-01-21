@@ -6,17 +6,41 @@
 //
 
 import Foundation
+import Combine
 
-class ChoreService{
+class ChoreService: ObservableObject{
+    @Published var choreList: [Chore] = []
+    
     private let currentUserRepository: UserRepository
-    private let familyRepository: FamilyRepository
+    private let currentFamilyRepository: FamilyRepository
+    private let currentChoreRepository: ChoreRepository
+    
+    private var currentFamilySubscription: AnyCancellable?
+    private var choreListSubscription: AnyCancellable?
     
     init(
         currentUserRepository: UserRepository,
-        familyRepository: FamilyRepository
+        currentFamilyRepository: FamilyRepository,
+        currentChoreRepository: ChoreRepository
     ) {
         self.currentUserRepository = currentUserRepository
-        self.familyRepository = familyRepository
+        self.currentFamilyRepository = currentFamilyRepository
+        self.currentChoreRepository = currentChoreRepository
+        addSubscription()
+    }
+    
+    func addSubscription(){
+        currentFamilySubscription = currentFamilyRepository.$family
+            .sink(receiveValue: { [weak self] receivedFamily in
+                guard let currentFamily = receivedFamily else{
+                    return
+                }
+                self?.getChoresOfCurrentFamily(currentFamily: currentFamily)
+            })
+        choreListSubscription = currentChoreRepository.$choreList
+            .sink(receiveValue: { [weak self] receivedChoreList in
+                self?.choreList = receivedChoreList
+            })
     }
     
     func createChore(
@@ -34,7 +58,11 @@ class ChoreService{
             assigneeId: ""
         )
         let newChoreId = ChoreRepository().createChore(newChore: newChore)
-        familyRepository.updateChoreOfFamily(familyId: currentFamilyId, choreId: newChoreId)
+        currentFamilyRepository.updateChoreOfFamily(familyId: currentFamilyId, choreId: newChoreId)
+    }
+    
+    func getChoresOfCurrentFamily(currentFamily: Family){
+        currentChoreRepository.readMultipleChores(choreIds: currentFamily.chores)
     }
     
 }

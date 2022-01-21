@@ -85,7 +85,7 @@ class UserRepository: ObservableObject{
     
     func readMultipleUsers(userIds: [String]){
         database.collection("users").whereField(FieldPath.documentID(), in: userIds)
-            .getDocuments() { [weak self] (querySnapshot, err) in
+            .getDocuments { [weak self] (querySnapshot, err) in
                 if let err = err {
                     print("Error getting documents: \(err)")
                 } else {

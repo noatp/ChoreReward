@@ -10,13 +10,14 @@ import Combine
 
 class ChoreTabViewModel: StatefulViewModel{
     @Published var _state: ChoreTabState = empty
-    static var empty: ChoreTabState = .init(shouldRenderAddChoreButton: false)
+    static var empty: ChoreTabState = .init(shouldRenderAddChoreButton: false, choreList: [])
     var state: AnyPublisher<ChoreTabState, Never>{
         return $_state.eraseToAnyPublisher()
     }
     
     private let userService: UserService
     private let choreService: ChoreService
+    private var choreListSubscription: AnyCancellable?
     
     init(
         userService: UserService,
@@ -24,26 +25,36 @@ class ChoreTabViewModel: StatefulViewModel{
     ) {
         self.userService = userService
         self.choreService = choreService
-        self._state = .init(shouldRenderAddChoreButton: userService.isCurrentUserParent())
+        self._state = .init(
+            shouldRenderAddChoreButton: userService.isCurrentUserParent(),
+            choreList: []
+        )
+        addSubscription()
     }
     
-    
+    func addSubscription(){
+        choreListSubscription = choreService.$choreList
+            .sink(receiveValue: { [weak self] receivedChoreList in
+                guard let oldState = self?._state else{
+                    return
+                }
+                self?._state = .init(
+                    shouldRenderAddChoreButton: oldState.shouldRenderAddChoreButton,
+                    choreList: receivedChoreList
+                )
+            })
+    }
 
-    func performAction(_ action: ChoreTabAction) {
-        switch action {
-        case .createChore(let choreTitle):
-            choreService.createChore(choreTitle: choreTitle)
-        }
-    }
+    
+    func performAction(_ action: ChoreTabAction) {}
 }
 
 struct ChoreTabState{
     let shouldRenderAddChoreButton: Bool
+    let choreList: [Chore]
 }
 
-enum ChoreTabAction{
-    case createChore(choreTitle: String)
-}
+enum ChoreTabAction{}
 
 extension Dependency.ViewModels{
     var choreTabViewModel: ChoreTabViewModel{

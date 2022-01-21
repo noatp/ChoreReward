@@ -32,6 +32,7 @@ struct AddChoreView: View {
             ButtonView(
                 action: {
                     dismiss()
+                    addChoreViewModel.perform(action: .createChore(choreTitle: choreTitle))
                 },
                 buttonTitle: "Create Chore",
                 buttonImage: "plus",
