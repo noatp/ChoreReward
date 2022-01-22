@@ -17,19 +17,22 @@ struct UserCardView: View {
     }
     
     var body: some View {
-        VStack{
-            HStack{
-                Image(systemName: "person.fill")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 50, height: 50)
-                    .clipped()
-                Text(user.name)
-                Spacer()
-                Text(user.role.rawValue)
-            }
+        HStack{
+            Image(systemName: "person.fill")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 50, height: 50)
+                .clipped()
+            Text(user.name)
+            Spacer()
+            Text(user.role.rawValue)
         }
         .padding()
+        .background(content: {
+            RoundedRectangle(cornerRadius: 32)
+                .stroke(lineWidth: 2)
+                .padding(2)
+        })
     }
 }
 

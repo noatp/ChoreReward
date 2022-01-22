@@ -24,6 +24,7 @@
 		453CC1A827880047002996AF /* ChoreTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453CC1A727880047002996AF /* ChoreTabView.swift */; };
 		453CC1AA278807AA002996AF /* AddFamilyMemberViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453CC1A9278807AA002996AF /* AddFamilyMemberViewModel.swift */; };
 		453CC1AC2788D936002996AF /* AddFamilyMemberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453CC1AB2788D936002996AF /* AddFamilyMemberView.swift */; };
+		45429DB1279B608C00FA9670 /* ChoreCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45429DB0279B608C00FA9670 /* ChoreCardView.swift */; };
 		455ECC86275DA7A100438A43 /* RolePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 455ECC85275DA7A100438A43 /* RolePickerView.swift */; };
 		4569AD54278A6C17008B54D9 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 4569AD53278A6C17008B54D9 /* FirebaseAuth */; };
 		4569AD56278A6C17008B54D9 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 4569AD55278A6C17008B54D9 /* FirebaseFirestore */; };
@@ -93,6 +94,7 @@
 		453CC1A727880047002996AF /* ChoreTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoreTabView.swift; sourceTree = "<group>"; };
 		453CC1A9278807AA002996AF /* AddFamilyMemberViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFamilyMemberViewModel.swift; sourceTree = "<group>"; };
 		453CC1AB2788D936002996AF /* AddFamilyMemberView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFamilyMemberView.swift; sourceTree = "<group>"; };
+		45429DB0279B608C00FA9670 /* ChoreCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoreCardView.swift; sourceTree = "<group>"; };
 		455ECC85275DA7A100438A43 /* RolePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RolePickerView.swift; sourceTree = "<group>"; };
 		456EA4B5278A127E00ADA2CD /* ButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonView.swift; sourceTree = "<group>"; };
 		45A47549279215A100322BCE /* ChoreRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoreRepository.swift; sourceTree = "<group>"; };
@@ -331,6 +333,7 @@
 				456EA4B5278A127E00ADA2CD /* ButtonView.swift */,
 				45D7AE8B27346E9900A53812 /* TextFieldView.swift */,
 				45243EF5276E87DF00D2EACB /* UserCard */,
+				45429DB0279B608C00FA9670 /* ChoreCardView.swift */,
 			);
 			path = ComponentViews;
 			sourceTree = "<group>";
@@ -557,6 +560,7 @@
 				453CC1AA278807AA002996AF /* AddFamilyMemberViewModel.swift in Sources */,
 				453CC1A22787B41F002996AF /* ObservableViewModel.swift in Sources */,
 				45ACB4DE2724AEBE000E04A0 /* Reward.swift in Sources */,
+				45429DB1279B608C00FA9670 /* ChoreCardView.swift in Sources */,
 				45F784982793D86F00C8B197 /* AddChoreViewModel.swift in Sources */,
 				45D7AE952735B4A100A53812 /* Family.swift in Sources */,
 				45C1FA672767ABBB00BF11E3 /* FamilyService.swift in Sources */,

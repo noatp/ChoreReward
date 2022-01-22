@@ -24,7 +24,7 @@ struct ChoreTabView: View {
         VStack{
             ScrollView{
                 ForEach(choreTabViewModel.state.choreList) {chore in
-                    Text("\(chore.title)")
+                    ChoreCardView(chore: chore)
                 }
             }
             if (choreTabViewModel.state.shouldRenderAddChoreButton){
