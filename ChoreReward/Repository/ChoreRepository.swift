@@ -11,7 +11,6 @@ import FirebaseFirestoreSwift
 import Combine
 
 class ChoreRepository: ObservableObject{
-    @Published var choreList: [Chore] = []
     private let database = Firestore.firestore()
     
     func createChore(newChore: Chore) -> String{
@@ -33,36 +32,50 @@ class ChoreRepository: ObservableObject{
         }
     }
     
-    func readMultipleChores(choreIds: [String]){
-        guard choreIds.count > 0 else{
-            return
+    func readMultipleChores(choreIds: [String]) async -> [Chore]?{
+        guard choreIds.count > 0, choreIds.count < 10 else{
+            return nil
         }
-        database.collection("chores").whereField(FieldPath.documentID(), in: choreIds)
-            .getDocuments { [weak self] querySnapshot, err in
-                if let err = err {
-                    print("UserRepository: readMultipleUser: Error getting documents: \(err)")
-                } else {
-                    self?.choreList = querySnapshot!.documents.compactMap({ document in
-                        let result = Result{
-                            try document.data(as: Chore.self)
-                        }
-                        switch result{
-                        case .success(let receivedChore):
-                            guard let chore = receivedChore else{
-                                return nil
-                            }
-                            return chore
-                        case .failure(let error):
-                            print("UserRepository: readMultipleUser: Error decoding user: \(error)")
-                            return nil
-                        }
-                    })
-                }
-            }
-    }
-    
-    func resetCache(){
-        choreList = []
+        do{
+            let querySnapshot = try await database.collection("chores")
+                .whereField(FieldPath.documentID(), in: choreIds)
+                .getDocuments()
+            return try querySnapshot.documents.compactMap({ document in
+                try document.data(as: Chore.self)
+            })
+        }
+        catch{
+            print("ChoreRepository: readMultipleChores: \(error)")
+            return nil
+        }
+        
+        
+        
+//        guard choreIds.count > 0 else{
+//            return
+//        }
+//        database.collection("chores").whereField(FieldPath.documentID(), in: choreIds)
+//            .getDocuments { [weak self] querySnapshot, err in
+//                if let err = err {
+//                    print("UserRepository: readMultipleUser: Error getting documents: \(err)")
+//                } else {
+//                    self?.choreList = querySnapshot!.documents.compactMap({ document in
+//                        let result = Result{
+//                            try document.data(as: Chore.self)
+//                        }
+//                        switch result{
+//                        case .success(let receivedChore):
+//                            guard let chore = receivedChore else{
+//                                return nil
+//                            }
+//                            return chore
+//                        case .failure(let error):
+//                            print("UserRepository: readMultipleUser: Error decoding user: \(error)")
+//                            return nil
+//                        }
+//                    })
+//                }
+//            }
     }
 }
 

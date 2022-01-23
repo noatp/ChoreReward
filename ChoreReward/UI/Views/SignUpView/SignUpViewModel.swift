@@ -45,15 +45,13 @@ class SignUpViewModel: StatefulViewModel{
         roleSelection: Role
     ){
         let newUser = User(
-            id: "",
             email: emailInput,
             name: nameInput,
             role: roleSelection
         )
-        userService.signUp(
-            newUser: newUser,
-            password: passwordInput
-        )
+        Task{
+            await userService.signUp(newUser: newUser, password: passwordInput)
+        }
     }
     
     func performAction(_ action: SignUpAction) {

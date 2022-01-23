@@ -11,77 +11,52 @@ import FirebaseFirestoreSwift
 import Combine
 
 class FamilyRepository: ObservableObject{
-    @Published var family: Family? = nil
-        
     private let database = Firestore.firestore()
     
-    init(initFamily: Family? = nil){
-        self.family = initFamily
+    func createFamily(currentUserId: String, newFamilyId: String) async {
+        do{
+            try await database.collection("families").document(newFamilyId).setData([
+                "admin": currentUserId,
+                "members": [currentUserId],
+                "chores": []
+            ])
+        }
+        catch{
+            print("FamilyRepository: createFamily: \(error)")
+        }
+        
     }
     
-    func createFamily(currentUserId: String, newFamilyId: String){
-        database.collection("families").document(newFamilyId).setData([
-            "admin": currentUserId,
-            "members": [currentUserId],
-            "chores": []
-        ]){ [weak self] err in
-            self?.onWriteCompletion(err: err, familyId: currentUserId)
+    func readFamily(familyId: String) async -> Family?{
+        do{
+            let documentSnapshot = try await database.collection("families").document(familyId).getDocument()
+            return try documentSnapshot.data(as: Family.self)
+        }
+        catch{
+            print("FamilyRepository: readFamily: \(error)")
+            return nil
         }
     }
     
-    func readFamily(familyId: String){
-        database.collection("families").document(familyId)
-            .addSnapshotListener { [weak self] documentSnapshot, error in
-                guard let document = documentSnapshot else {
-                    print("Error fetching document: \(error!)")
-                    return
-                }
-            
-                let result = Result {
-                    try document.data(as: Family.self)
-                }
-                switch result {
-                case .success(let receivedFamily):
-                    if let currentFamily = receivedFamily {
-                        print("FamilyRepository: readCurrentFamily: Received new data ", currentFamily)
-                        self?.family = currentFamily
-                    } else {
-                        print("FamilyRepository: readCurrentFamily: Family does not exist")
-                    }
-                case .failure(let error):
-                    print("FamilyRepository: readCurrentFamily: Error decoding family: \(error)")
-                }
-            }
-    }
-    
-    func updateMemberOfFamily(familyId: String, userId: String){
-        database.collection("families").document(familyId).updateData([
-            "members" : FieldValue.arrayUnion([userId])
-        ]){ [weak self] err in
-            self?.onWriteCompletion(err: err, familyId: familyId)
+    func updateMemberOfFamily(familyId: String, userId: String) async {
+        do{
+            try await database.collection("families").document(familyId).updateData([
+                "members" : FieldValue.arrayUnion([userId])
+            ])
+        }
+        catch{
+            print("FamilyRepository: updateMemberOfFamily: \(error)")
         }
     }
     
-    func updateChoreOfFamily(familyId: String, choreId: String){
-        database.collection("families").document(familyId).updateData([
-            "chores" : FieldValue.arrayUnion([choreId])
-        ]){ [weak self] err in
-            self?.onWriteCompletion(err: err, familyId: familyId)
+    func updateChoreOfFamily(familyId: String, choreId: String) async {
+        do{
+            try await database.collection("families").document(familyId).updateData([
+                "chores" : FieldValue.arrayUnion([choreId])
+            ])
         }
-    }
-    
-    //split completion into a separate function to ensure readFamily is called on all write operation
-    private func onWriteCompletion(err: Error?, familyId: String) -> Void{
-        if let err = err {
-            print("FamilyRepository: onWriteCompletion: Error writing to family: \(err)")
-        } else {
-            readFamily(familyId: familyId)
-            print("FamilyRepository: onWriteCompletion: Successfully write to family with ID: \(familyId)")
+        catch{
+            print("FamilyRepository: updateChoreOfFamily: \(error)")
         }
-    }
-
-    
-    func resetCache(){
-        family = nil
     }
 }

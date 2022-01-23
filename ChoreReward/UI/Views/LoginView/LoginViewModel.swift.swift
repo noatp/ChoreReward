@@ -39,14 +39,15 @@ class LoginViewModel: StatefulViewModel{
     }
     
     func signIn(emailInput: String, passwordInput: String){
-        userService.signIn(
-            email: emailInput,
-            password: passwordInput
-        )
+        Task{
+            await userService.signIn(email: emailInput, password: passwordInput)
+        }
     }
     
     func silentSignIn(){
-        userService.signInIfCurrentUserExist()
+        Task{
+            await userService.silentSignIn()
+        }
     }
     
     func performAction(_ action: LoginViewAction) {

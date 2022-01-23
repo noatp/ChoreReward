@@ -117,26 +117,26 @@ class MockUserService: UserService{
 
 class MockFamilyService: FamilyService{
     override init(
-        currentUserRepository: UserRepository = MockUserRepository(),
-        currentFamilyRepository: FamilyRepository = MockFamilyRepository()
+        userRepository currentUserRepository: UserRepository = MockUserRepository(),
+        familyRepository currentFamilyRepository: FamilyRepository = MockFamilyRepository()
     ) {
         super.init(
-            currentUserRepository: currentUserRepository,
-            currentFamilyRepository: currentFamilyRepository
+            userRepository: currentUserRepository,
+            familyRepository: currentFamilyRepository
         )
     }
 }
 
 class MockChoreService: ChoreService{
     override init(
-        currentUserRepository: UserRepository = MockUserRepository(),
-        currentFamilyRepository: FamilyRepository = MockFamilyRepository(),
-        currentChoreRepository: ChoreRepository = MockChoreRepository()
+        userRepository: UserRepository = MockUserRepository(),
+        familyRepository: FamilyRepository = MockFamilyRepository(),
+        choreRepository: ChoreRepository = MockChoreRepository()
     ){
         super.init(
-            currentUserRepository: currentUserRepository,
-            currentFamilyRepository: currentFamilyRepository,
-            currentChoreRepository: currentChoreRepository
+            userRepository: userRepository,
+            familyRepository: familyRepository,
+            choreRepository: choreRepository
         )
     }
 }
