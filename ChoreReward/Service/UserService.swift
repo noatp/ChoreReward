@@ -88,7 +88,10 @@ class UserService: ObservableObject{
             print("UserService: silentSignIn: trying to read current user but currentUserId is nil within this service instance")
             return
         }
-        currentUser = await userRepository.readUser(userId: currentUserId)
+        currentUserSubscription = userRepository.readUser(userId: currentUserId)
+            .sink(receiveValue: {[weak self] receivedUser in
+                self?.currentUser = receivedUser
+            })
         authState = .signedIn
     }
     
