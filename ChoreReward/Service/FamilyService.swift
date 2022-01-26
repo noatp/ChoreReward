@@ -15,6 +15,8 @@ class FamilyService: ObservableObject{
     private let userRepository: UserRepository
     private let familyRepository: FamilyRepository
     
+    private var currentFamilySubscription: AnyCancellable?
+    
     init(
         userRepository: UserRepository,
         familyRepository: FamilyRepository
@@ -59,10 +61,18 @@ class FamilyService: ObservableObject{
         await userRepository.updateFamilyForUser(familyId: newFamilyId, userId: currentUserId)
     }
     
-    func readCurrentFamily(currentFamilyId: String) async {
-        currentFamily = await familyRepository.readFamily(familyId: currentFamilyId)
+    func readCurrentFamily(currentUser: User) {
+        guard let currentFamilyId = currentUser.familyId else{
+            print("FamilyService: readCurrentFamily: currentUser does not have a family")
+            return
+        }
+        print("FamilyService: readCurrentFamily: initiate reading")
+        currentFamilySubscription = familyRepository.readFamily(familyId: currentFamilyId)
+            .sink(receiveValue: { [weak self] receivedFamily in
+                print("FamilyService: readCurrentFamily: received new family")
+                self?.currentFamily = receivedFamily
+            })
     }
-    
     
     func addUserToCurrentFamily(userId: String) async {
         guard let currentFamilyId = currentFamily?.id else{

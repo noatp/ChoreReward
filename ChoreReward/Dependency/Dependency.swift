@@ -17,13 +17,16 @@ class Dependency{
     let currentFamilyRepository: FamilyRepository
     let currentChoreRepository: ChoreRepository
     
+    let serviceManager: ServiceManager
+    
     init(
         userService: UserService = MockUserService(),
         familyService: FamilyService = MockFamilyService(),
         choreService: ChoreService = MockChoreService(),
         currentUserRepository: UserRepository = MockUserRepository(),
         currentFamilyRepository: FamilyRepository = MockFamilyRepository(),
-        currentChoreRepository: ChoreRepository = MockChoreRepository()
+        currentChoreRepository: ChoreRepository = MockChoreRepository(),
+        serviceManager: ServiceManager = MockServiceManager()
     ){
         self.userService = userService
         self.familyService = familyService
@@ -31,6 +34,7 @@ class Dependency{
         self.currentUserRepository = currentUserRepository
         self.currentFamilyRepository = currentFamilyRepository
         self.currentChoreRepository = currentChoreRepository
+        self.serviceManager = serviceManager
     }
     
     static let preview = Dependency()
@@ -138,6 +142,15 @@ class MockChoreService: ChoreService{
             familyRepository: familyRepository,
             choreRepository: choreRepository
         )
+    }
+}
+
+class MockServiceManager: ServiceManager{
+    override init(userSerivce: UserService = MockUserService(),
+                  familyService: FamilyService = MockFamilyService(),
+                  choreService: ChoreService = MockChoreService()
+    ) {
+        super.init(userSerivce: userSerivce, familyService: familyService, choreService: choreService)
     }
 }
 
