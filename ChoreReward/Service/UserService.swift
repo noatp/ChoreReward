@@ -44,6 +44,19 @@ class UserService: ObservableObject{
         self.userRepository = currentUserRepository
     }
     
+    func silentSignIn() async {
+        guard let currentUserId = currentUserId else{
+            print("UserService: silentSignIn: trying to read current user but currentUserId is nil within this service instance")
+            return
+        }
+        currentUserSubscription = userRepository.readUser(userId: currentUserId)
+            .sink(receiveValue: {[weak self] receivedUser in
+                print("UserService: silentSignIn: received new user \(receivedUser)")
+                self?.currentUser = receivedUser
+            })
+        authState = .signedIn
+    }
+    
     func signIn(email: String, password: String) async {
         do{
             try await auth.signIn(withEmail: email, password: password)
@@ -76,27 +89,21 @@ class UserService: ObservableObject{
     func signOut(){
         do {
             try self.auth.signOut()
-            currentUser = nil
-            authState = .signedOut(error: nil)
+            resetCache()
         } catch let signOutError as NSError {
             print("Error signing out: %@", signOutError)
         }
     }
     
-    func silentSignIn() async {
-        guard let currentUserId = currentUserId else{
-            print("UserService: silentSignIn: trying to read current user but currentUserId is nil within this service instance")
-            return
-        }
-        currentUserSubscription = userRepository.readUser(userId: currentUserId)
-            .sink(receiveValue: {[weak self] receivedUser in
-                self?.currentUser = receivedUser
-            })
-        authState = .signedIn
-    }
-    
     func isCurrentUserParent() -> Bool{
         return currentUser?.role == .parent
+    }
+    
+    func resetCache(){
+        currentUserSubscription?.cancel()
+        currentUser = nil
+        authState = .signedOut(error: nil)
+        currentUserSubscription = nil
     }
     
     enum AuthState{

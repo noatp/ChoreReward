@@ -14,6 +14,7 @@ class ServiceManager{
     private let choreService: ChoreService
     
     private var currentUserSubscription: AnyCancellable?
+    private var currentFamilySubscription: AnyCancellable?
     
     init(
         userSerivce: UserService,
@@ -32,12 +33,29 @@ class ServiceManager{
             .sink(receiveValue: { [weak self] receivedUser in
                 guard let currentUser = receivedUser else{
                     print("ServiceManager: currentUserSubscription: received nil")
+                    self?.familyService.resetCache()
                     return
                 }
                 print("ServiceManager: currentUserSubscription: received a new user record")
                 self?.familyService.readCurrentFamily(currentUser: currentUser)
             })
         
+        currentFamilySubscription = familyService.$currentFamily
+            .sink(receiveValue: { [weak self] receivedFamily in
+                guard let currentFamily = receivedFamily else{
+                    print("ServiceManager: currentFamily: nil")
+                    return
+                }
+                print("ServiceManager: currentFamilySubscription: received a new family")
+                self?.getMembersOfCurrentFamily(currentFamily: currentFamily)
+                
+            })
+    }
+    
+    private func getMembersOfCurrentFamily(currentFamily: Family) {
+        Task{
+            await familyService.getMembersOfCurrentFamily(currentFamily: currentFamily)
+        }
     }
     
 }

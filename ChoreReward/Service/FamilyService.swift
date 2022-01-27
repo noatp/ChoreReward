@@ -99,4 +99,11 @@ class FamilyService: ObservableObject{
 //        return adminId == currentUserId
         return true
     }
+    
+    func resetCache(){
+        currentFamilySubscription?.cancel()
+        currentFamily = nil
+        currentFamilyMembers = []
+        currentFamilySubscription = nil
+    }
 }
