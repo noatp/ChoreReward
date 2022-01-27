@@ -32,36 +32,66 @@ class UserRepository: ObservableObject{
     }
     
     func readUser(userId: String) -> AnyPublisher<User, Never>{
-        return Future<User, Never>{ [weak self] promise in
-            self?.database.collection("users").document(userId).addSnapshotListener { documentSnapshot, error in
-                if let error = error {
-                    print("UserRepository: readUser: \(error)")
-                    return
-                }
-                
-                guard let document = documentSnapshot else {
-                    print("UserRepository: readUser: bad snapshot")
-                    return
-                }
-                
-                let decodeResult = Result{
-                    try document.data(as: User.self)
-                }
-                switch decodeResult{
-                case .success(let receivedUser):
-                    if let user = receivedUser{
-                        print("UserRepository: readUser: received new data ", user)
-                        promise(.success(user))
-                    }
-                    else{
-                        print("UserRepository: readUser: user does not exist")
-                    }
-                case .failure(let error):
-                    print("UserRepository: readUser: \(error)")
-                }
+//        return Future<User, Never>{ [weak self] promise in
+//            self?.database.collection("users").document(userId).addSnapshotListener { documentSnapshot, error in
+//                if let error = error {
+//                    print("UserRepository: readUser: \(error)")
+//                    return
+//                }
+//
+//                guard let document = documentSnapshot else {
+//                    print("UserRepository: readUser: bad snapshot")
+//                    return
+//                }
+//
+//                let decodeResult = Result{
+//                    try document.data(as: User.self)
+//                }
+//                switch decodeResult{
+//                case .success(let receivedUser):
+//                    if let user = receivedUser{
+//                        print("UserRepository: readUser: received new data ", user)
+//                        promise(.success(user))
+//                    }
+//                    else{
+//                        print("UserRepository: readUser: user does not exist")
+//                    }
+//                case .failure(let error):
+//                    print("UserRepository: readUser: \(error)")
+//                }
+//            }
+//        }
+//        .eraseToAnyPublisher()
+        let publisher = PassthroughSubject<User, Never>()
+        database.collection("users").document(userId).addSnapshotListener { documentSnapshot, error in
+            if let error = error {
+                print("UserRepository: readUser: \(error)")
+                return
             }
+
+            guard let document = documentSnapshot else {
+                print("UserRepository: readUser: bad snapshot")
+                return
+            }
+
+            let decodeResult = Result{
+                try document.data(as: User.self)
+            }
+            switch decodeResult{
+            case .success(let receivedUser):
+                if let user = receivedUser{
+                    print("UserRepository: readUser: received new data ", user)
+                    publisher.send(user)
+                }
+                else{
+                    print("UserRepository: readUser: user does not exist")
+                }
+            case .failure(let error):
+                print("UserRepository: readUser: \(error)")
+            }
+
         }
-        .eraseToAnyPublisher()
+        return publisher.eraseToAnyPublisher()
     }
     
 //    func readUser(userId: String) -> AnyPublisher<User, Error>{
