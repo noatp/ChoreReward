@@ -13,6 +13,8 @@ struct ChoreRewardApp: App {
     let dependency: Dependency
     
     init(){
+        UserDefaults.standard.set(false, forKey: "_UIConstraintBasedLayoutLogUnsatisfiable")
+        
         FirebaseApp.configure()
         let userRepository = UserRepository()
         let familyRepository = FamilyRepository()
