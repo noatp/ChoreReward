@@ -34,6 +34,7 @@ class ServiceManager{
                 guard let currentUser = receivedUser else{
                     print("ServiceManager: currentUserSubscription: received nil")
                     self?.familyService.resetCache()
+                    self?.choreService.resetCache()
                     return
                 }
                 print("ServiceManager: currentUserSubscription: received a new user record")
@@ -48,13 +49,19 @@ class ServiceManager{
                 }
                 print("ServiceManager: currentFamilySubscription: received a new family")
                 self?.getMembersOfCurrentFamily(currentFamily: currentFamily)
-                
+                self?.getChoresOfCurrentFamily(currentFamily: currentFamily)
             })
     }
     
     private func getMembersOfCurrentFamily(currentFamily: Family) {
         Task{
             await familyService.getMembersOfCurrentFamily(currentFamily: currentFamily)
+        }
+    }
+    
+    private func getChoresOfCurrentFamily(currentFamily: Family){
+        Task{
+            await choreService.getChoresOfCurrentFamily(currentFamily: currentFamily)
         }
     }
     

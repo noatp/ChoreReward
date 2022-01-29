@@ -59,4 +59,7 @@ class ChoreService: ObservableObject{
         choreList = await choreRepository.readMultipleChores(choreIds: currentFamily.chores) ?? []
     }
     
+    func resetCache(){
+        choreList = []
+    }
 }
