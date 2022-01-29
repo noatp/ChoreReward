@@ -96,6 +96,7 @@ class UserService: ObservableObject{
     }
     
     func isCurrentUserParent() -> Bool{
+        print("here \(currentUser?.role)")
         return currentUser?.role == .parent || currentUser?.role == .admin
     }
     
