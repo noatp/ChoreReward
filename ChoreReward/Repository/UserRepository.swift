@@ -93,6 +93,19 @@ class UserRepository: ObservableObject{
         }
     }
     
+    func updateRoleToAdminForUser(userId: String) async {
+        do {
+            try await database.collection("users").document(userId).updateData([
+                "role" : "admin"
+            ])
+        }
+        catch{
+            print("UserRepository updateRoleToAdminForUser: \(error)")
+        }
+    }
+    
+    
+    
     enum RepositoryError: Error{
         case badSnapshot
     }

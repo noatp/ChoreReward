@@ -96,7 +96,11 @@ class UserService: ObservableObject{
     }
     
     func isCurrentUserParent() -> Bool{
-        return currentUser?.role == .parent
+        return currentUser?.role == .parent || currentUser?.role == .admin
+    }
+    
+    func isCurrentUserAdmin() -> Bool{
+        return currentUser?.role == .admin
     }
     
     func resetCache(){

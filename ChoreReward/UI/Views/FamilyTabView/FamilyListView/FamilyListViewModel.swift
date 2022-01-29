@@ -31,7 +31,7 @@ class FamilyListViewModel: StatefulViewModel{
         self.userService = userService
         self._state = .init(
             members: [],
-            shouldRenderAddMemberButton: familyService.isCurrentUserAdminOfCurrentFamily()
+            shouldRenderAddMemberButton: userService.isCurrentUserAdmin()
         )
         addSubscription()
     }

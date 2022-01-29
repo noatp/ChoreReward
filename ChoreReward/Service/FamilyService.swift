@@ -59,6 +59,7 @@ class FamilyService: ObservableObject{
         let newFamilyId = UUID().uuidString
         await familyRepository.createFamily(currentUserId: currentUserId, newFamilyId: newFamilyId)
         await userRepository.updateFamilyForUser(familyId: newFamilyId, userId: currentUserId)
+        await userRepository.updateRoleToAdminForUser(userId: currentUserId)
     }
     
     func readCurrentFamily(currentUser: User) {
@@ -88,16 +89,6 @@ class FamilyService: ObservableObject{
     
     func getMembersOfCurrentFamily(currentFamily: Family) async {
         currentFamilyMembers = await userRepository.readMultipleUsers(userIds: currentFamily.members) ?? []
-    }
-    
-    func isCurrentUserAdminOfCurrentFamily() -> Bool{
-//        guard let adminId = currentFamily?.admin,
-//              let currentUserId = currentUserRepository.user?.id else{
-//                  print ("FamilyService: isCurrentUserAdminOfCurrentFamily: can't get adminId or currentUserId")
-//                  return false
-//              }
-//        return adminId == currentUserId
-        return true
     }
     
     func resetCache(){
