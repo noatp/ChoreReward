@@ -39,39 +39,38 @@ class FamilyRepository: ObservableObject{
 //    }
     
     func readFamily(familyId: String) -> AnyPublisher<Family, Never>{
-        return Future<Family, Never>{ [weak self] promise in
-            self?.database.collection("families").document(familyId)
-                .addSnapshotListener({ documentSnapshot, error in
-                    if let error = error {
-                        print("FamilyRepository: readFamily: \(error)")
-                        return
+        let publisher = PassthroughSubject<Family, Never>()
+        database.collection("families").document(familyId).addSnapshotListener({ documentSnapshot, error in
+                if let error = error {
+                    print("FamilyRepository: readFamily: \(error)")
+                    return
+                }
+                
+                guard let document = documentSnapshot else {
+                    print("UserRepository: readuser: bad snapshot")
+                    return
+                }
+                
+                let decodeResult = Result{
+                    try document.data(as: Family.self)
+                }
+                switch decodeResult{
+                case .success(let receivedFamily):
+                    if let family = receivedFamily{
+                        print("FamilyRepository: readFamily: received new data ", family)
+                        publisher.send(family)
+                    }
+                    else{
+                        print("FamilyRepository: readFaily: family does not exist")
                     }
                     
-                    guard let document = documentSnapshot else {
-                        print("UserRepository: readuser: bad snapshot")
-                        return
-                    }
-                    
-                    let decodeResult = Result{
-                        try document.data(as: Family.self)
-                    }
-                    switch decodeResult{
-                    case .success(let receivedFamily):
-                        if let family = receivedFamily{
-                            print("FamilyRepository: readFamily: received new data ", family)
-                            promise(.success(family))
-                        }
-                        else{
-                            print("FamilyRepository: readFaily: family does not exist")
-                        }
-                        
-                    case .failure(let error):
-                        print("FamilyRepository: readFamily: \(error)")
-                    }
-                })
-        }
-        .eraseToAnyPublisher()
+                case .failure(let error):
+                    print("FamilyRepository: readFamily: \(error)")
+                }
+            })
+        return publisher.eraseToAnyPublisher()
     }
+    
     
     func updateMemberOfFamily(familyId: String, userId: String) async {
         do{
