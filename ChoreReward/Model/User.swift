@@ -45,4 +45,5 @@ struct User: Identifiable, Codable{
 enum Role: String, Codable{
     case parent
     case child
+    case admin
 }

@@ -30,7 +30,7 @@ class UserService: ObservableObject{
     @Published var currentUser: User?
     
     private let auth = Auth.auth()
-    private let currentUserRepository: UserRepository
+    private let userRepository: UserRepository
 
     private var currentUserSubscription: AnyCancellable?
     
@@ -41,87 +41,66 @@ class UserService: ObservableObject{
     init(
         currentUserRepository: UserRepository
     ){
-        self.currentUserRepository = currentUserRepository
-        addSubscription()
+        self.userRepository = currentUserRepository
     }
     
-    func addSubscription(){
-        currentUserSubscription = currentUserRepository.$user
+    func silentSignIn() async {
+        guard let currentUserId = currentUserId else{
+            print("UserService: silentSignIn: trying to read current user but currentUserId is nil within this service instance")
+            return
+        }
+        currentUserSubscription = userRepository.readUser(userId: currentUserId)
             .sink(receiveValue: {[weak self] receivedUser in
+                print("UserService: silentSignIn: received new user \(receivedUser)")
                 self?.currentUser = receivedUser
-                guard receivedUser != nil else{
-                    return
-                }
-                self?.authState = .signedIn
             })
+        authState = .signedIn
     }
     
-    func signIn(email: String, password: String){
-        auth.signIn(
-            withEmail: email,
-            password: password
-        ) {result, error in
-            if (error != nil){
-                self.authState = AuthState.signedOut(error: error)
-            }
-            else if (result != nil){
-                self.signInIfCurrentUserExist()
-            }
+    func signIn(email: String, password: String) async {
+        do{
+            try await auth.signIn(withEmail: email, password: password)
+            await silentSignIn()
+        }
+        catch{
+            print("UserService: signIn: \(error)")
+            authState = .signedOut(error: error)
         }
     }
     
-    func signUp(newUser: User, password: String){
-        auth.createUser(
-            withEmail: newUser.email,
-            password: password
-        ) { result, error in
-            if (error != nil){
-                self.authState = AuthState.signedOut(error: error)
-            }
-            else if (result != nil){
-                let newUserWithId = User(
-                    id: self.currentUserId!,
-                    email: newUser.email,
-                    name: newUser.name,
-                    role: newUser.role
-                )
-                self.currentUserRepository.createUser(newUser: newUserWithId)
-                self.signInIfCurrentUserExist()
-            }
+    func signUp(newUser: User, password: String) async {
+        do{
+            try await auth.createUser(withEmail: newUser.email, password: password)
+            let user = User(
+                id: currentUserId,
+                email: newUser.email,
+                name: newUser.name,
+                role: newUser.role
+            )
+            await userRepository.createUser(newUser: user)
+            await silentSignIn()
+        }
+        catch{
+            print("UserService: signUp: \(error)")
+            authState = .signedOut(error: error)
         }
     }
     
     func signOut(){
         do {
             try self.auth.signOut()
-            resetUserCache()
-            authState = .signedOut(error: nil)
+            resetCache()
         } catch let signOutError as NSError {
             print("Error signing out: %@", signOutError)
         }
     }
-    
-    func signInIfCurrentUserExist(){
-        guard self.auth.currentUser != nil else{
-            return
-        }
-        readCurrentUser()
-    }
-    
-    func readCurrentUser(){
-        guard let currentUserId = currentUserId else{
-            print("UserService: readCurrentUser: trying to read current user but currentUserId is nil within this service instance")
-            return
-        }
-        currentUserRepository.readUser(userId: currentUserId)
-    }
-    
-    private func resetUserCache(){
-        currentUserRepository.resetCache()
-    }
-    
-    func isCurrentUserParent() -> Bool{
-        return currentUser?.role == .parent
+
+    func resetCache(){
+        currentUserSubscription?.cancel()
+        currentUser = nil
+        authState = .signedOut(error: nil)
+        currentUserSubscription = nil
+        userRepository.removeListener()
     }
     
     enum AuthState{

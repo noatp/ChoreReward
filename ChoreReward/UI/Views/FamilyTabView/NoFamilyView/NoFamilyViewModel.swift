@@ -43,7 +43,12 @@ class NoFamilyViewModel: StatefulViewModel{
     }
     
     func createFamily(){
-        familyService.createFamily()
+        guard let currentUser = userService.currentUser else{
+            return
+        }
+        Task{
+            await familyService.createFamily(currentUser: currentUser)
+        }
     }
     
     func performAction(_ action: NoFamilyAction) {

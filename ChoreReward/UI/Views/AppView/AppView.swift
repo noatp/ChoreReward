@@ -22,7 +22,7 @@ struct AppView: View {
     var body: some View {
         TabView {
             NavigationView{
-                views.choreTabView
+                views.choreTabView()
             }
             .tabItem {
                 Image(systemName: "checkmark.seal.fill")

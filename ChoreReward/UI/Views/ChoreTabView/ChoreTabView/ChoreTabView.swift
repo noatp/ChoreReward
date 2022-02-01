@@ -24,7 +24,12 @@ struct ChoreTabView: View {
         VStack{
             ScrollView{
                 ForEach(choreTabViewModel.state.choreList) {chore in
-                    ChoreCardView(chore: chore)
+                    NavigationLink {
+                        views.choreDetailView(chore: chore)
+                    } label: {
+                        ChoreCardView(chore: chore)
+                    }
+                    .foregroundColor(.black)
                 }
             }
             if (choreTabViewModel.state.shouldRenderAddChoreButton){
@@ -42,7 +47,7 @@ struct ChoreTabView: View {
         .navigationTitle("Chores")
         .navigationBarTitleDisplayMode(.inline)
         .sheet(isPresented: $presentedSheet, onDismiss: {}) {
-            views.addChoreView(presentedSheet: $presentedSheet)
+            views.addChoreView()
         }
     }
 }
@@ -64,7 +69,7 @@ struct ChoreTabView_Previews: PreviewProvider {
 }
 
 extension Dependency.Views{
-    var choreTabView: ChoreTabView{
+    func choreTabView() -> ChoreTabView{
         return ChoreTabView(
             choreTabViewModel: ObservableViewModel(
                 viewModel: viewModels.choreTabViewModel

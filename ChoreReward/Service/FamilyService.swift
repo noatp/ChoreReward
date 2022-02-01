@@ -12,115 +12,90 @@ class FamilyService: ObservableObject{
     @Published var currentFamily: Family? = nil
     @Published var currentFamilyMembers: [User] = []
     
-    private let currentUserRepository: UserRepository
-    private let currentFamilyRepository: FamilyRepository
+    private let userRepository: UserRepository
+    private let familyRepository: FamilyRepository
     
     private var currentFamilySubscription: AnyCancellable?
-    private var currentUserSubscription: AnyCancellable?
-    private var familyMemberSubscription: AnyCancellable?
     
     init(
-        currentUserRepository: UserRepository,
-        currentFamilyRepository: FamilyRepository
+        userRepository: UserRepository,
+        familyRepository: FamilyRepository
     ){
-        self.currentUserRepository = currentUserRepository
-        self.currentFamilyRepository = currentFamilyRepository
-        addSubscription()
+        self.userRepository = userRepository
+        self.familyRepository = familyRepository
     }
     
-    func addSubscription(){
-        currentFamilySubscription = currentFamilyRepository.$family
-            .sink(receiveValue: {[weak self] receivedFamily in
-                self?.currentFamily = receivedFamily
-                guard let currentFamily = receivedFamily else{
-                    return
-                }
-                self?.getMembersOfCurrentFamily(currentFamily: currentFamily)
-            })
-        currentUserSubscription = currentUserRepository.$user
-            .sink(receiveValue: { [weak self] receivedUser in
-                guard receivedUser != nil else{
-                    self?.resetFamilyCache()
-                    return
-                }
-                guard let currentFamilyId = receivedUser?.familyId else{
-                    return
-                }
-                self?.readCurrentFamily(currentFamilyId: currentFamilyId)
-            })
-        familyMemberSubscription = currentUserRepository.$users
-            .sink(receiveValue: {[weak self] receivedFamilyMembers in
-                self?.currentFamilyMembers = receivedFamilyMembers
-            })
-        
-    }
+//    func addSubscription(){
+//        currentFamilySubscription = currentFamilyRepository.$family
+//            .sink(receiveValue: {[weak self] receivedFamily in
+//                self?.currentFamily = receivedFamily
+//                guard let currentFamily = receivedFamily else{
+//                    return
+//                }
+//                self?.getMembersOfCurrentFamily(currentFamily: currentFamily)
+//            })
+//        currentUserSubscription = currentUserRepository.$user
+//            .sink(receiveValue: { [weak self] receivedUser in
+//                guard receivedUser != nil else{
+//                    self?.resetFamilyCache()
+//                    return
+//                }
+//                guard let currentFamilyId = receivedUser?.familyId else{
+//                    return
+//                }
+//                self?.readCurrentFamily(currentFamilyId: currentFamilyId)
+//            })
+//        familyMemberSubscription = currentUserRepository.$users
+//            .sink(receiveValue: {[weak self] receivedFamilyMembers in
+//                self?.currentFamilyMembers = receivedFamilyMembers
+//            })
+//
+//    }
     
-    func createFamily(){
-        guard let currentUserId = currentUserRepository.user?.id else{
-            print("FamilyService: createFamily: cannot retrieve currentUserId")
+    func createFamily(currentUser: User) async {
+        guard let currentUserId = currentUser.id else{
             return
         }
-        guard currentUserRepository.user?.role == .parent else{
-            print("FamilyService: createFamily: user is not a parent")
-            return
-        }
-        
         let newFamilyId = UUID().uuidString
-        currentFamilyRepository.createFamily(currentUserId: currentUserId, newFamilyId: newFamilyId)
-        currentUserRepository.updateFamilyForUser(
-            familyId: newFamilyId,
-            userId: currentUserId
-        ) 
+        await familyRepository.createFamily(currentUserId: currentUserId, newFamilyId: newFamilyId)
+        await userRepository.updateFamilyForUser(familyId: newFamilyId, userId: currentUserId)
+        await userRepository.updateRoleToAdminForUser(userId: currentUserId)
     }
     
-    private func readCurrentFamily(currentFamilyId: String){
-        currentFamilyRepository.readFamily(familyId: currentFamilyId)
-    }
-    
-    func addCurrentUserToFamilyWithId(familyId: String){
-        guard let currentUserId = currentUserRepository.user?.id else{
-            print("FamilyService: addCurrentUserToFamilyWithId: cannot retrieve currentUserId")
+    func readCurrentFamily(currentUser: User) {
+        guard let currentFamilyId = currentUser.familyId else{
+            print("FamilyService: readCurrentFamily: currentUser does not have a family")
             return
         }
-        currentFamilyRepository.updateMemberOfFamily(
-            familyId: familyId,
-            userId: currentUserId
-        )
-        currentUserRepository.updateFamilyForUser(
-            familyId: familyId,
-            userId: currentUserId
-        )
+        print("FamilyService: readCurrentFamily: initiate reading")
+        currentFamilySubscription = familyRepository.readFamily(familyId: currentFamilyId)
+            .sink(receiveValue: { [weak self] receivedFamily in
+                print("FamilyService: readCurrentFamily: received new family")
+                self?.currentFamily = receivedFamily
+            })
     }
     
-    func addUserByIdToFamily(userId: String){
-        guard let currentFamilyId = currentFamily?.id else {
-            print ("FamilyService: addUserByIdToFamily: cannot retrieve currentFamilyId")
+    func addUserToCurrentFamily(userId: String) async {
+        guard let currentFamilyId = currentFamily?.id else{
             return
         }
-        
         guard userId != "" else{
             return
         }
         
-        currentFamilyRepository.updateMemberOfFamily(familyId: currentFamilyId, userId: userId)
-        let userRepository = UserRepository()
-        userRepository.updateFamilyForUser(familyId: currentFamilyId, userId: userId)
+        await familyRepository.updateMemberOfFamily(familyId: currentFamilyId, userId: userId)
+        await userRepository.updateFamilyForUser(familyId: currentFamilyId, userId: userId)
     }
     
-    func getMembersOfCurrentFamily(currentFamily: Family){
-        currentUserRepository.readMultipleUsers(userIds: currentFamily.members)
+    func getMembersOfCurrentFamily(currentFamily: Family) async {
+        currentFamilyMembers = await userRepository.readMultipleUsers(userIds: currentFamily.members) ?? []
     }
     
-    func isCurrentUserAdminOfCurrentFamily() -> Bool{
-        guard let adminId = currentFamily?.admin,
-              let currentUserId = currentUserRepository.user?.id else{
-                  print ("FamilyService: isCurrentUserAdminOfCurrentFamily: can't get adminId or currentUserId")
-                  return false
-              }
-        return adminId == currentUserId
-    }
-    
-    func resetFamilyCache(){
-        currentFamilyRepository.resetCache()
+    func resetCache(){
+        currentFamilySubscription?.cancel()
+        currentFamily = nil
+        currentFamilyMembers = []
+        currentFamilySubscription = nil
+        familyRepository.removeListener()
     }
 }

@@ -10,17 +10,14 @@ import SwiftUI
 struct AddChoreView: View {
     @ObservedObject var addChoreViewModel: ObservableViewModel<AddChoreState, AddChoreAction>
     @State var choreTitle = ""
-    @Binding var presentedSheet: Bool
     @Environment(\.dismiss) var dismiss
     private var views: Dependency.Views
     
     init(
         addChoreViewModel: ObservableViewModel<AddChoreState, AddChoreAction>,
-        presentedSheet: Binding<Bool>,
         views: Dependency.Views
     ){
         self.addChoreViewModel = addChoreViewModel
-        self._presentedSheet = presentedSheet
         self.views = views
     }
     
@@ -40,7 +37,9 @@ struct AddChoreView: View {
             
             )
             ButtonView(
-                action: {presentedSheet = false},
+                action: {
+                    dismiss()
+                },
                 buttonTitle: "Cancel",
                 buttonImage: "xmark.app",
                 buttonColor: .red
@@ -55,7 +54,6 @@ struct AddChoreView_Previews: PreviewProvider {
             addChoreViewModel: ObservableViewModel(
                 staticState: AddChoreState()
             ),
-            presentedSheet: .constant(false),
             views: Dependency.preview.views()
         )
 
@@ -63,12 +61,11 @@ struct AddChoreView_Previews: PreviewProvider {
 }
 
 extension Dependency.Views{
-    func addChoreView(presentedSheet: Binding<Bool>) -> AddChoreView{
+    func addChoreView() -> AddChoreView{
         return AddChoreView(
             addChoreViewModel: ObservableViewModel(
                 viewModel: viewModels.addChoreViewModel
             ),
-            presentedSheet: presentedSheet,
             views: self
         )
     }

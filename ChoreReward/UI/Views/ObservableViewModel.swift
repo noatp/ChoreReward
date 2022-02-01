@@ -26,6 +26,7 @@ class ObservableViewModel<State, Action>: ObservableObject{
         self.state = VM.empty
         self.actionExecutor = {action in viewModel.performAction(action)}
         self.cancellable = viewModel.state
+            .receive(on: DispatchQueue.main)
             .sink(receiveValue: { [weak self] state in
                 self?.state = state
             })

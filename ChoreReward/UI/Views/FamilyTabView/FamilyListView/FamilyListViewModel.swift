@@ -31,7 +31,7 @@ class FamilyListViewModel: StatefulViewModel{
         self.userService = userService
         self._state = .init(
             members: [],
-            shouldRenderAddMemberButton: familyService.isCurrentUserAdminOfCurrentFamily()
+            shouldRenderAddMemberButton: false
         )
         addSubscription()
     }
@@ -45,6 +45,16 @@ class FamilyListViewModel: StatefulViewModel{
                 self?._state = .init(
                     members: receivedFamilyMembers,
                     shouldRenderAddMemberButton: oldState.shouldRenderAddMemberButton
+                )
+            })
+        currentUserSubscription = userService.$currentUser
+            .sink(receiveValue: { [weak self] receivedUser in
+                guard let oldState = self?._state else{
+                    return
+                }
+                self?._state = .init(
+                    members: oldState.members,
+                    shouldRenderAddMemberButton: receivedUser?.role == .admin
                 )
             })
     }

@@ -23,7 +23,9 @@ class AddFamilyMemberViewModel: StatefulViewModel{
     }
     
     private func addMember(userId: String){
-        familyService.addUserByIdToFamily(userId: userId)
+        Task{
+            await familyService.addUserToCurrentFamily(userId: userId)
+        }
     }
     
     func performAction(_ action: AddFamilyMemberAction) {

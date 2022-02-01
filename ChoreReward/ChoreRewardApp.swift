@@ -13,31 +13,40 @@ struct ChoreRewardApp: App {
     let dependency: Dependency
     
     init(){
+        UserDefaults.standard.set(false, forKey: "_UIConstraintBasedLayoutLogUnsatisfiable")
+        
         FirebaseApp.configure()
-        let currentUserRepository = UserRepository()
-        let currentFamilyRepository = FamilyRepository()
-        let currentChoreRepository = ChoreRepository()
+        let userRepository = UserRepository()
+        let familyRepository = FamilyRepository()
+        let choreRepository = ChoreRepository()
         
         let userService = UserService(
-            currentUserRepository: currentUserRepository
+            currentUserRepository: userRepository
         )
         let familyService = FamilyService(
-            currentUserRepository: currentUserRepository,
-            currentFamilyRepository: currentFamilyRepository
+            userRepository: userRepository,
+            familyRepository: familyRepository
         )
         let choreService = ChoreService(
-            currentUserRepository: currentUserRepository,
-            currentFamilyRepository: currentFamilyRepository,
-            currentChoreRepository: currentChoreRepository
+            userRepository: userRepository,
+            familyRepository: familyRepository,
+            choreRepository: choreRepository
         )
+        let serviceManager = ServiceManager(
+            userSerivce: userService,
+            familyService: familyService,
+            choreService: choreService
+        )
+        
         
         self.dependency = Dependency(
             userService: userService,
             familyService: familyService,
             choreService: choreService,
-            currentUserRepository: currentUserRepository,
-            currentFamilyRepository: currentFamilyRepository,
-            currentChoreRepository: currentChoreRepository
+            currentUserRepository: userRepository,
+            currentFamilyRepository: familyRepository,
+            currentChoreRepository: choreRepository,
+            serviceManager: serviceManager
         )
     }
 

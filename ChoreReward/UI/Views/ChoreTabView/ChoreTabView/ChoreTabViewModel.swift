@@ -18,6 +18,7 @@ class ChoreTabViewModel: StatefulViewModel{
     private let userService: UserService
     private let choreService: ChoreService
     private var choreListSubscription: AnyCancellable?
+    private var currentUserSubscription: AnyCancellable?
     
     init(
         userService: UserService,
@@ -26,7 +27,7 @@ class ChoreTabViewModel: StatefulViewModel{
         self.userService = userService
         self.choreService = choreService
         self._state = .init(
-            shouldRenderAddChoreButton: userService.isCurrentUserParent(),
+            shouldRenderAddChoreButton: false,
             choreList: []
         )
         addSubscription()
@@ -43,10 +44,21 @@ class ChoreTabViewModel: StatefulViewModel{
                     choreList: receivedChoreList
                 )
             })
+        currentUserSubscription = userService.$currentUser
+            .sink(receiveValue: { [weak self] receivedUser in
+                guard let oldState = self?._state else{
+                    return
+                }
+                self?._state = .init(
+                    shouldRenderAddChoreButton: receivedUser?.role == .parent || receivedUser?.role == .admin,
+                    choreList: oldState.choreList
+                )
+                
+            })
     }
-
     
-    func performAction(_ action: ChoreTabAction) {}
+    func performAction(_ action: ChoreTabAction) {
+    }
 }
 
 struct ChoreTabState{
@@ -54,7 +66,8 @@ struct ChoreTabState{
     let choreList: [Chore]
 }
 
-enum ChoreTabAction{}
+enum ChoreTabAction{
+}
 
 extension Dependency.ViewModels{
     var choreTabViewModel: ChoreTabViewModel{

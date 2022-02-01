@@ -25,6 +25,9 @@
 		453CC1AA278807AA002996AF /* AddFamilyMemberViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453CC1A9278807AA002996AF /* AddFamilyMemberViewModel.swift */; };
 		453CC1AC2788D936002996AF /* AddFamilyMemberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453CC1AB2788D936002996AF /* AddFamilyMemberView.swift */; };
 		45429DB1279B608C00FA9670 /* ChoreCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45429DB0279B608C00FA9670 /* ChoreCardView.swift */; };
+		45429DB727A1F6A600FA9670 /* ServiceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45429DB627A1F6A600FA9670 /* ServiceManager.swift */; };
+		45429DC227A518B600FA9670 /* ChoreDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45429DC127A518B600FA9670 /* ChoreDetailViewModel.swift */; };
+		45429DC427A518CC00FA9670 /* ChoreDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45429DC327A518CC00FA9670 /* ChoreDetailView.swift */; };
 		455ECC86275DA7A100438A43 /* RolePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 455ECC85275DA7A100438A43 /* RolePickerView.swift */; };
 		4569AD54278A6C17008B54D9 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 4569AD53278A6C17008B54D9 /* FirebaseAuth */; };
 		4569AD56278A6C17008B54D9 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 4569AD55278A6C17008B54D9 /* FirebaseFirestore */; };
@@ -95,6 +98,9 @@
 		453CC1A9278807AA002996AF /* AddFamilyMemberViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFamilyMemberViewModel.swift; sourceTree = "<group>"; };
 		453CC1AB2788D936002996AF /* AddFamilyMemberView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFamilyMemberView.swift; sourceTree = "<group>"; };
 		45429DB0279B608C00FA9670 /* ChoreCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoreCardView.swift; sourceTree = "<group>"; };
+		45429DB627A1F6A600FA9670 /* ServiceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceManager.swift; sourceTree = "<group>"; };
+		45429DC127A518B600FA9670 /* ChoreDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoreDetailViewModel.swift; sourceTree = "<group>"; };
+		45429DC327A518CC00FA9670 /* ChoreDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoreDetailView.swift; sourceTree = "<group>"; };
 		455ECC85275DA7A100438A43 /* RolePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RolePickerView.swift; sourceTree = "<group>"; };
 		456EA4B5278A127E00ADA2CD /* ButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonView.swift; sourceTree = "<group>"; };
 		45A47549279215A100322BCE /* ChoreRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoreRepository.swift; sourceTree = "<group>"; };
@@ -186,6 +192,7 @@
 		453147692751FF91000A85D7 /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				45429DB627A1F6A600FA9670 /* ServiceManager.swift */,
 				4531476A2751FFBD000A85D7 /* UserService.swift */,
 				45C1FA662767ABBB00BF11E3 /* FamilyService.swift */,
 				45A4754B27931F1C00322BCE /* ChoreService.swift */,
@@ -213,6 +220,7 @@
 		45395C54272A253E00F50B70 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				45429DC027A5187E00FA9670 /* ChoreDetailView */,
 				45D8D395275E77670026ABE3 /* ChoreTabView */,
 				45D8D394275E77500026ABE3 /* FamilyTabView */,
 				45D8D393275E77250026ABE3 /* UserTabView */,
@@ -232,6 +240,33 @@
 				45395C5A272B20F600F50B70 /* Dependency.swift */,
 			);
 			path = Dependency;
+			sourceTree = "<group>";
+		};
+		45429DBE27A5135D00FA9670 /* ChoreTabView */ = {
+			isa = PBXGroup;
+			children = (
+				453CC1A52787FBFB002996AF /* ChoreTabViewModel.swift */,
+				453CC1A727880047002996AF /* ChoreTabView.swift */,
+			);
+			path = ChoreTabView;
+			sourceTree = "<group>";
+		};
+		45429DBF27A5136B00FA9670 /* AddChoreView */ = {
+			isa = PBXGroup;
+			children = (
+				45F784952793D84400C8B197 /* AddChoreView.swift */,
+				45F784972793D86F00C8B197 /* AddChoreViewModel.swift */,
+			);
+			path = AddChoreView;
+			sourceTree = "<group>";
+		};
+		45429DC027A5187E00FA9670 /* ChoreDetailView */ = {
+			isa = PBXGroup;
+			children = (
+				45429DC127A518B600FA9670 /* ChoreDetailViewModel.swift */,
+				45429DC327A518CC00FA9670 /* ChoreDetailView.swift */,
+			);
+			path = ChoreDetailView;
 			sourceTree = "<group>";
 		};
 		45553389277C1CBF00375927 /* AddFamilyMemberView */ = {
@@ -362,10 +397,8 @@
 		45D8D395275E77670026ABE3 /* ChoreTabView */ = {
 			isa = PBXGroup;
 			children = (
-				453CC1A52787FBFB002996AF /* ChoreTabViewModel.swift */,
-				453CC1A727880047002996AF /* ChoreTabView.swift */,
-				45F784952793D84400C8B197 /* AddChoreView.swift */,
-				45F784972793D86F00C8B197 /* AddChoreViewModel.swift */,
+				45429DBF27A5136B00FA9670 /* AddChoreView */,
+				45429DBE27A5135D00FA9670 /* ChoreTabView */,
 			);
 			path = ChoreTabView;
 			sourceTree = "<group>";
@@ -541,9 +574,11 @@
 				456EA4B6278A127E00ADA2CD /* ButtonView.swift in Sources */,
 				45DCD52C277965E900A1037B /* NoFamilyViewModel.swift in Sources */,
 				45ACB4AE2724AD1A000E04A0 /* ContentView.swift in Sources */,
+				45429DB727A1F6A600FA9670 /* ServiceManager.swift in Sources */,
 				45395C5B272B20F600F50B70 /* Dependency.swift in Sources */,
 				45C1FA652767163F00BF11E3 /* FamilyRepository.swift in Sources */,
 				45243EFF276E9F9000D2EACB /* UserCardView.swift in Sources */,
+				45429DC227A518B600FA9670 /* ChoreDetailViewModel.swift in Sources */,
 				45A4754A279215A100322BCE /* ChoreRepository.swift in Sources */,
 				45D8D39F275ED2BE0026ABE3 /* FamilyTabViewModel.swift in Sources */,
 				45ACB4DC2724AE00000E04A0 /* Chore.swift in Sources */,
@@ -573,6 +608,7 @@
 				45243F0E276EB5DA00D2EACB /* FamilyListView.swift in Sources */,
 				453CC1A827880047002996AF /* ChoreTabView.swift in Sources */,
 				453147682751CC53000A85D7 /* LoginViewModel.swift.swift in Sources */,
+				45429DC427A518CC00FA9670 /* ChoreDetailView.swift in Sources */,
 				45D7AE8C27346E9900A53812 /* TextFieldView.swift in Sources */,
 				45F784962793D84400C8B197 /* AddChoreView.swift in Sources */,
 				45E483CC27540305009DA543 /* RootViewModel.swift in Sources */,

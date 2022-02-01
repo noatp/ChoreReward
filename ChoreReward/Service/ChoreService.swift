@@ -11,43 +11,37 @@ import Combine
 class ChoreService: ObservableObject{
     @Published var choreList: [Chore] = []
     
-    private let currentUserRepository: UserRepository
-    private let currentFamilyRepository: FamilyRepository
-    private let currentChoreRepository: ChoreRepository
-    
-    private var currentFamilySubscription: AnyCancellable?
-    private var choreListSubscription: AnyCancellable?
+    private let userRepository: UserRepository
+    private let familyRepository: FamilyRepository
+    private let choreRepository: ChoreRepository
     
     init(
-        currentUserRepository: UserRepository,
-        currentFamilyRepository: FamilyRepository,
-        currentChoreRepository: ChoreRepository
+        userRepository: UserRepository,
+        familyRepository: FamilyRepository,
+        choreRepository: ChoreRepository
     ) {
-        self.currentUserRepository = currentUserRepository
-        self.currentFamilyRepository = currentFamilyRepository
-        self.currentChoreRepository = currentChoreRepository
-        addSubscription()
+        self.userRepository = userRepository
+        self.familyRepository = familyRepository
+        self.choreRepository = choreRepository
     }
     
-    func addSubscription(){
-        currentFamilySubscription = currentFamilyRepository.$family
-            .sink(receiveValue: { [weak self] receivedFamily in
-                guard let currentFamily = receivedFamily else{
-                    return
-                }
-                self?.getChoresOfCurrentFamily(currentFamily: currentFamily)
-            })
-        choreListSubscription = currentChoreRepository.$choreList
-            .sink(receiveValue: { [weak self] receivedChoreList in
-                self?.choreList = receivedChoreList
-            })
-    }
+//    func addSubscription(){
+//        currentFamilySubscription = currentFamilyRepository.$family
+//            .sink(receiveValue: { [weak self] receivedFamily in
+//                guard let currentFamily = receivedFamily else{
+//                    return
+//                }
+//                self?.getChoresOfCurrentFamily(currentFamily: currentFamily)
+//            })
+//        choreListSubscription = currentChoreRepository.$choreList
+//            .sink(receiveValue: { [weak self] receivedChoreList in
+//                self?.choreList = receivedChoreList
+//            })
+//    }
     
-    func createChore(
-        choreTitle: String
-    ){
-        guard let currentUserId = currentUserRepository.user?.id,
-              let currentFamilyId = currentUserRepository.user?.familyId
+    func createChore(choreTitle: String, currentUser: User) async {
+        guard let currentUserId = currentUser.id,
+              let currentFamilyId = currentUser.familyId
         else{
             return
         }
@@ -55,14 +49,24 @@ class ChoreService: ObservableObject{
         let newChore = Chore(
             title: choreTitle,
             assignerId: currentUserId,
-            assigneeId: ""
+            assigneeId: "",
+            completed: false
         )
         let newChoreId = ChoreRepository().createChore(newChore: newChore)
-        currentFamilyRepository.updateChoreOfFamily(familyId: currentFamilyId, choreId: newChoreId)
+        await familyRepository.updateChoreOfFamily(familyId: currentFamilyId, choreId: newChoreId)
     }
     
-    func getChoresOfCurrentFamily(currentFamily: Family){
-        currentChoreRepository.readMultipleChores(choreIds: currentFamily.chores)
+    func getChoresOfCurrentFamily(currentFamily: Family) async {
+        let choreIds = currentFamily.chores
+        guard choreIds.count > 0, choreIds.count < 10 else{
+            return
+        }
+        
+        //        choreList = await choreRepository.readMultipleChores(choreIds: currentFamily.chores) ?? []
     }
     
+    
+    func resetCache(){
+        choreList = []
+    }
 }

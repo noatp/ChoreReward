@@ -11,105 +11,106 @@ import FirebaseFirestoreSwift
 import Combine
 
 class UserRepository: ObservableObject{
-    @Published var user: User?
-    @Published var users: [User] = []
-        
     private let database = Firestore.firestore()
+    private var currentUserListener: ListenerRegistration?
     
-    init(
-        initUser: User? = nil,
-        initUsers: [User] = []
-    ){
-        self.user = initUser
-        self.users = initUsers
-    }
-    
-    func createUser(newUser: User){
+    func createUser(newUser: User) async {
         guard let newUserId = newUser.id else{
             print("UserRepository: createUser: new user does not have an id")
             return
         }
         
-        database.collection("users").document(newUserId).setData([
-            "email": newUser.email,
-            "name": newUser.name,
-            "role": newUser.role.rawValue
-        ]) { [weak self] err in
-            self?.onWriteCompletion(err: err, userId: newUserId)
+        do{
+            try await database.collection("users").document(newUserId).setData([
+                "email": newUser.email,
+                "name": newUser.name,
+                "role": newUser.role.rawValue
+            ])
+        }
+        catch{
+            print("UserRepository: createUser: \(error)")
         }
     }
     
-    func readUser(userId: String){
-        database.collection("users").document(userId)
-            .addSnapshotListener { [weak self] documentSnapshot, error in
-                guard let document = documentSnapshot else {
-                    print("Error fetching document: \(error!)")
-                    return
-                }
-                let result = Result {
-                    try document.data(as: User.self)
-                }
-                switch result {
-                case .success(let receivedUser):
-                    if let user = receivedUser {
-                        print("UserRepository: readUser: Received new data ", user)
-                        self?.user = user
-                    } else {
-                        print("UserRepository: readUser: User does not exist")
-                    }
-                case .failure(let error):
-                    print("UserRepository: readUser: Error decoding user: \(error)")
-                }
+    func readUser(userId: String) -> AnyPublisher<User, Never>{
+        let publisher = PassthroughSubject<User, Never>()
+        currentUserListener = database.collection("users").document(userId).addSnapshotListener { documentSnapshot, error in
+            if let error = error {
+                print("UserRepository: readUser: \(error)")
+                return
             }
-        
-        
-    }
-    
-    func updateFamilyForUser(familyId: String, userId: String){
-        database.collection("users").document(userId).updateData([
-            "familyId" : familyId
-        ]){ [weak self] err in
-            self?.onWriteCompletion(err: err, userId: userId)
-        }
-    }
-    
-    //split completion into a separate function to ensure readUser is called on all write operation
-    private func onWriteCompletion(err: Error?, userId: String) -> Void{
-        if let err = err {
-            print("UserRepository: onWriteCompletion: Error writing to user: \(err)")
-        } else {
-            readUser(userId: userId)
-            print("UserRepository: onWriteCompletion: Successfully write to user with ID \(userId)")
-        }
-    }
-    
-    func readMultipleUsers(userIds: [String]){
-        database.collection("users").whereField(FieldPath.documentID(), in: userIds)
-            .getDocuments { [weak self] (querySnapshot, err) in
-                if let err = err {
-                    print("Error getting documents: \(err)")
-                } else {
-                    self?.users = querySnapshot!.documents.compactMap({ document in
-                        let result = Result{
-                            try document.data(as: User.self)
-                        }
-                        switch result{
-                        case .success(let receivedUser):
-                            guard let user = receivedUser else{
-                                return nil
-                            }
-                            return user
-                        case .failure(let error):
-                            print("UserRepository: readMultipleUser: Error decoding user: \(error)")
-                            return nil
-                        }
-                    })
-                }
+
+            guard let document = documentSnapshot else {
+                print("UserRepository: readUser: bad snapshot")
+                return
             }
+
+            let decodeResult = Result{
+                try document.data(as: User.self)
+            }
+            switch decodeResult{
+            case .success(let receivedUser):
+                if let user = receivedUser{
+                    print("UserRepository: readUser: received new data ", user)
+                    publisher.send(user)
+                }
+                else{
+                    print("UserRepository: readUser: user does not exist")
+                }
+            case .failure(let error):
+                print("UserRepository: readUser: \(error)")
+            }
+
+        }
+        return publisher.eraseToAnyPublisher()
     }
     
-    func resetCache(){
-        user = nil
-        users = []
+    func readMultipleUsers(userIds: [String]) async -> [User]?{
+        guard userIds.count > 0, userIds.count < 10 else {
+            return nil
+        }
+        do {
+            let querySnapshot = try await database.collection("users")
+                .whereField(FieldPath.documentID(), in: userIds)
+                .getDocuments()
+            return try querySnapshot.documents.compactMap { document in
+                try document.data(as: User.self)
+            }
+        }
+        catch{
+            print("UserRepository: readMultipleUsers: \(error)")
+            return nil
+        }
+    }
+    
+    func updateFamilyForUser(familyId: String, userId: String) async {
+        do {
+            try await database.collection("users").document(userId).updateData([
+                "familyId" : familyId
+            ])
+        }
+        catch{
+            print("UserRepository: updateFamilyForUser: \(error)")
+        }
+    }
+    
+    func updateRoleToAdminForUser(userId: String) async {
+        do {
+            try await database.collection("users").document(userId).updateData([
+                "role" : "admin"
+            ])
+        }
+        catch{
+            print("UserRepository updateRoleToAdminForUser: \(error)")
+        }
+    }
+    
+    func removeListener(){
+        currentUserListener?.remove()
+        currentUserListener = nil
+    }
+    
+    enum RepositoryError: Error{
+        case badSnapshot
     }
 }

@@ -9,8 +9,9 @@ import SwiftUI
 
 struct AddFamilyMemberView: View {
     @ObservedObject var addFamilyMemberViewModel: ObservableViewModel<Void, AddFamilyMemberAction>
-    private var views: Dependency.Views
     @State var userIdInput = ""
+    @Environment(\.dismiss) var dismiss
+    private var views: Dependency.Views
     init(
         addFamilyMemberViewModel: ObservableViewModel<Void, AddFamilyMemberAction>,
         views: Dependency.Views
@@ -21,17 +22,30 @@ struct AddFamilyMemberView: View {
     
     var body: some View {
         VStack(spacing: 16){
-            Text("You need the UserID to add them to your family")
+            Spacer()
+            Text("Please input the UserID of the new member")
                 .font(.footnote)
             TextFieldView(
                 textInput: $userIdInput,
                 title: "UserID"
             )
+            Spacer()
             ButtonView(
-                action: {addFamilyMemberViewModel.perform(action: .addMember(userId: self.userIdInput))},
+                action: {
+                    dismiss()
+                    addFamilyMemberViewModel.perform(action: .addMember(userId: self.userIdInput))
+                },
                 buttonTitle: "Add member",
                 buttonImage: "person.badge.plus",
                 buttonColor: .accentColor
+            )
+            ButtonView(
+                action: {
+                    dismiss()
+                },
+                buttonTitle: "Cancel",
+                buttonImage: "xmark.app",
+                buttonColor: .red
             )
         }
         .navigationTitle("Add new member")
@@ -55,7 +69,7 @@ struct AddFamilyMemberView_Previews: PreviewProvider {
 }
 
 extension Dependency.Views{
-    var addFamilyMemberView: AddFamilyMemberView{
+    func addFamilyMemberView() -> AddFamilyMemberView{
         return AddFamilyMemberView(
             addFamilyMemberViewModel: ObservableViewModel(
                 viewModel: viewModels.addFamilyMemberViewModel

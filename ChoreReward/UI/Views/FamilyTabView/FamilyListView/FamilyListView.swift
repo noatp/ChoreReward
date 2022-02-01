@@ -9,6 +9,7 @@ import SwiftUI
 
 struct FamilyListView: View {
     @ObservedObject var familyListViewModel: ObservableViewModel<FamilyListState, Void>
+    @State var presentedSheet = false
     private var views: Dependency.Views
     
     init(
@@ -27,15 +28,22 @@ struct FamilyListView: View {
                 }
             }
             if (familyListViewModel.state.shouldRenderAddMemberButton){
-                NavigationLink (destination: views.addFamilyMemberView) {
-                    Label("Add new member", systemImage: "person.badge.plus")
-                }
-                .padding()
+                ButtonView(
+                    action: {
+                        presentedSheet = true
+                    },
+                    buttonTitle: "Add new member",
+                    buttonImage: "person.badge.plus",
+                    buttonColor: .accentColor
+                )
             }
         }
         .padding()
         .navigationTitle("Family Members")
         .navigationBarTitleDisplayMode(.inline)
+        .sheet(isPresented: $presentedSheet) {
+            views.addFamilyMemberView()
+        }
     }
 }
 
