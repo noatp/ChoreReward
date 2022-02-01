@@ -18,7 +18,6 @@ struct ChoreTabView: View {
     ){
         self.choreTabViewModel = choreTabViewModel
         self.views = views
-        print("new ")
     }
     
     var body: some View {

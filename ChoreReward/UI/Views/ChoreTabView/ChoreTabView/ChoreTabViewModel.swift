@@ -31,7 +31,6 @@ class ChoreTabViewModel: StatefulViewModel{
             choreList: []
         )
         addSubscription()
-        print("new choretabviewmodel here")
     }
     
     func addSubscription(){
@@ -51,7 +50,7 @@ class ChoreTabViewModel: StatefulViewModel{
                     return
                 }
                 self?._state = .init(
-                    shouldRenderAddChoreButton: self?.userService.isCurrentUserParent() ?? false,
+                    shouldRenderAddChoreButton: receivedUser?.role == .parent || receivedUser?.role == .admin,
                     choreList: oldState.choreList
                 )
                 

@@ -94,16 +94,7 @@ class UserService: ObservableObject{
             print("Error signing out: %@", signOutError)
         }
     }
-    
-    func isCurrentUserParent() -> Bool{
-        print("here \(currentUser?.role)")
-        return currentUser?.role == .parent || currentUser?.role == .admin
-    }
-    
-    func isCurrentUserAdmin() -> Bool{
-        return currentUser?.role == .admin
-    }
-    
+
     func resetCache(){
         currentUserSubscription?.cancel()
         currentUser = nil
