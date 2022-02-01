@@ -109,6 +109,7 @@ class UserService: ObservableObject{
         currentUser = nil
         authState = .signedOut(error: nil)
         currentUserSubscription = nil
+        userRepository.removeListener()
     }
     
     enum AuthState{

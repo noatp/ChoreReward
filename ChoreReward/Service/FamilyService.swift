@@ -96,5 +96,6 @@ class FamilyService: ObservableObject{
         currentFamily = nil
         currentFamilyMembers = []
         currentFamilySubscription = nil
+        familyRepository.removeListener()
     }
 }

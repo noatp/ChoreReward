@@ -18,6 +18,7 @@ struct ChoreTabView: View {
     ){
         self.choreTabViewModel = choreTabViewModel
         self.views = views
+        print("new ")
     }
     
     var body: some View {
@@ -25,7 +26,7 @@ struct ChoreTabView: View {
             ScrollView{
                 ForEach(choreTabViewModel.state.choreList) {chore in
                     NavigationLink {
-                        views.choreDetailView
+                        views.choreDetailView(chore: chore)
                     } label: {
                         ChoreCardView(chore: chore)
                     }

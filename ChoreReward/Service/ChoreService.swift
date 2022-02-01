@@ -49,15 +49,22 @@ class ChoreService: ObservableObject{
         let newChore = Chore(
             title: choreTitle,
             assignerId: currentUserId,
-            assigneeId: ""
+            assigneeId: "",
+            completed: false
         )
         let newChoreId = ChoreRepository().createChore(newChore: newChore)
         await familyRepository.updateChoreOfFamily(familyId: currentFamilyId, choreId: newChoreId)
     }
     
     func getChoresOfCurrentFamily(currentFamily: Family) async {
-        choreList = await choreRepository.readMultipleChores(choreIds: currentFamily.chores) ?? []
+        let choreIds = currentFamily.chores
+        guard choreIds.count > 0, choreIds.count < 10 else{
+            return
+        }
+        
+        //        choreList = await choreRepository.readMultipleChores(choreIds: currentFamily.chores) ?? []
     }
+    
     
     func resetCache(){
         choreList = []

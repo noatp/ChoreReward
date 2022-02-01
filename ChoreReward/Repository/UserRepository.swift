@@ -12,6 +12,7 @@ import Combine
 
 class UserRepository: ObservableObject{
     private let database = Firestore.firestore()
+    private var currentUserListener: ListenerRegistration?
     
     func createUser(newUser: User) async {
         guard let newUserId = newUser.id else{
@@ -33,7 +34,7 @@ class UserRepository: ObservableObject{
     
     func readUser(userId: String) -> AnyPublisher<User, Never>{
         let publisher = PassthroughSubject<User, Never>()
-        database.collection("users").document(userId).addSnapshotListener { documentSnapshot, error in
+        currentUserListener = database.collection("users").document(userId).addSnapshotListener { documentSnapshot, error in
             if let error = error {
                 print("UserRepository: readUser: \(error)")
                 return
@@ -104,7 +105,10 @@ class UserRepository: ObservableObject{
         }
     }
     
-    
+    func removeListener(){
+        currentUserListener?.remove()
+        currentUserListener = nil
+    }
     
     enum RepositoryError: Error{
         case badSnapshot

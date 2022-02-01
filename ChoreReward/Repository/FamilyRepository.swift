@@ -12,6 +12,7 @@ import Combine
 
 class FamilyRepository: ObservableObject{
     private let database = Firestore.firestore()
+    private var currentFamilyListener: ListenerRegistration?
     
     func createFamily(currentUserId: String, newFamilyId: String) async {
         do{
@@ -27,20 +28,9 @@ class FamilyRepository: ObservableObject{
         
     }
     
-//    func readFamily(familyId: String) async -> Family?{
-//        do{
-//            let documentSnapshot = try await database.collection("families").document(familyId).getDocument()
-//            return try documentSnapshot.data(as: Family.self)
-//        }
-//        catch{
-//            print("FamilyRepository: readFamily: \(error)")
-//            return nil
-//        }
-//    }
-    
     func readFamily(familyId: String) -> AnyPublisher<Family, Never>{
         let publisher = PassthroughSubject<Family, Never>()
-        database.collection("families").document(familyId).addSnapshotListener({ documentSnapshot, error in
+        currentFamilyListener = database.collection("families").document(familyId).addSnapshotListener({ documentSnapshot, error in
                 if let error = error {
                     print("FamilyRepository: readFamily: \(error)")
                     return
@@ -71,7 +61,6 @@ class FamilyRepository: ObservableObject{
         return publisher.eraseToAnyPublisher()
     }
     
-    
     func updateMemberOfFamily(familyId: String, userId: String) async {
         do{
             try await database.collection("families").document(familyId).updateData([
@@ -92,5 +81,10 @@ class FamilyRepository: ObservableObject{
         catch{
             print("FamilyRepository: updateChoreOfFamily: \(error)")
         }
+    }
+    
+    func removeListener(){
+        currentFamilyListener?.remove()
+        currentFamilyListener = nil
     }
 }
