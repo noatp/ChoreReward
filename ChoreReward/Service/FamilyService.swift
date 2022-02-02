@@ -88,7 +88,11 @@ class FamilyService: ObservableObject{
     }
     
     func getMembersOfCurrentFamily(currentFamily: Family) async {
-        currentFamilyMembers = await userRepository.readMultipleUsers(userIds: currentFamily.members) ?? []
+        let memberIds = currentFamily.members
+        guard memberIds.count > 0, memberIds.count < 10 else{
+            return
+        }
+        currentFamilyMembers = await userRepository.readMultipleUsers(userIds: memberIds) ?? []
     }
     
     func resetCache(){

@@ -66,9 +66,6 @@ class UserRepository: ObservableObject{
     }
     
     func readMultipleUsers(userIds: [String]) async -> [User]?{
-        guard userIds.count > 0, userIds.count < 10 else {
-            return nil
-        }
         do {
             let querySnapshot = try await database.collection("users")
                 .whereField(FieldPath.documentID(), in: userIds)

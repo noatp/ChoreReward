@@ -14,6 +14,10 @@ class FamilyRepository: ObservableObject{
     private let database = Firestore.firestore()
     private var currentFamilyListener: ListenerRegistration?
     
+    init(){
+        print("FUCK")
+    }
+    
     func createFamily(currentUserId: String, newFamilyId: String) async {
         do{
             try await database.collection("families").document(newFamilyId).setData([

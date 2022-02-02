@@ -17,7 +17,8 @@ class ChoreRepository: ObservableObject{
         return database.collection("chores").addDocument(data:[
             "title" : newChore.title,
             "assignerId": newChore.assignerId,
-            "assigneeId": newChore.assigneeId
+            "assigneeId": newChore.assigneeId,
+            "completed": newChore.completed
         ]).documentID
     }
         

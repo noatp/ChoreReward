@@ -62,7 +62,7 @@ class ChoreService: ObservableObject{
             return
         }
         
-        //        choreList = await choreRepository.readMultipleChores(choreIds: currentFamily.chores) ?? []
+        choreList = await choreRepository.readMultipleChores(choreIds: choreIds) ?? []
     }
     
     

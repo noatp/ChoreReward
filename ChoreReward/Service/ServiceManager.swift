@@ -37,14 +37,14 @@ class ServiceManager{
                     self?.choreService.resetCache()
                     return
                 }
-                print("ServiceManager: currentUserSubscription: received a new user record")
+                print("ServiceManager: currentUserSubscription: received a new user")
                 self?.familyService.readCurrentFamily(currentUser: currentUser)
             })
         
         currentFamilySubscription = familyService.$currentFamily
             .sink(receiveValue: { [weak self] receivedFamily in
                 guard let currentFamily = receivedFamily else{
-                    print("ServiceManager: currentFamily: nil")
+                    print("ServiceManager: currentFamilySubscription: received nil")
                     return
                 }
                 print("ServiceManager: currentFamilySubscription: received a new family")
