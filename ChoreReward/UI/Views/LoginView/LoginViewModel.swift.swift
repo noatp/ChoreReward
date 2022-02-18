@@ -23,7 +23,6 @@ class LoginViewModel: StatefulViewModel{
     init(userService: UserService) {
         self.userService = userService
         addSubscription()
-        self.silentSignIn()
     }
     
     func addSubscription(){
@@ -54,7 +53,10 @@ class LoginViewModel: StatefulViewModel{
         switch action{
         case .signIn(let emailInput, let passwordInput):
             signIn(emailInput: emailInput, passwordInput: passwordInput)
+        case .silentSignIn:
+            silentSignIn()
         }
+
     }
 }
 
@@ -64,6 +66,7 @@ struct LoginViewState{
 
 enum LoginViewAction{
     case signIn(emailInput: String, passwordInput: String)
+    case silentSignIn
 }
 
 extension Dependency.ViewModels{

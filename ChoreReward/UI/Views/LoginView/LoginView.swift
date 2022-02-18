@@ -50,6 +50,7 @@ struct LoginView: View {
             .navigationBarTitleDisplayMode(.automatic)
         }
         .navigationViewStyle(.stack)
+        .onAppear(perform: {loginViewModel.perform(action: .silentSignIn)})
     }
 }
 
