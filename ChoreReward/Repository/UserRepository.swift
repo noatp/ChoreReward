@@ -10,9 +10,52 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 import Combine
 
+class UserDatabase {
+    static let shared = UserDatabase()
+    
+    let userPublisher = PassthroughSubject<User, Never>()
+    
+    private let database = Firestore.firestore()
+    var currentUserListener: ListenerRegistration?
+    
+    func readUser(userId: String) {
+        guard currentUserListener == nil else {
+            return
+        }
+        
+        currentUserListener = database.collection("users").document(userId).addSnapshotListener { [weak self] documentSnapshot, error in
+            if let error = error {
+                print("UserRepository: readUser: \(error)")
+                return
+            }
+
+            guard let document = documentSnapshot else {
+                print("UserRepository: readUser: bad snapshot")
+                return
+            }
+
+            let decodeResult = Result{
+                try document.data(as: User.self)
+            }
+            switch decodeResult{
+            case .success(let receivedUser):
+                if let user = receivedUser{
+                    print("UserRepository: readUser: received new data ", user)
+                    self?.userPublisher.send(user)
+                }
+                else{
+                    print("UserRepository: readUser: user does not exist")
+                }
+            case .failure(let error):
+                print("UserRepository: readUser: \(error)")
+            }
+        }
+    }
+}
+
 class UserRepository: ObservableObject{
     private let database = Firestore.firestore()
-    private var currentUserListener: ListenerRegistration?
+    private let userDatabase = UserDatabase.shared
     
     func createUser(newUser: User) async {
         guard let newUserId = newUser.id else{
@@ -33,36 +76,8 @@ class UserRepository: ObservableObject{
     }
     
     func readUser(userId: String) -> AnyPublisher<User, Never>{
-        let publisher = PassthroughSubject<User, Never>()
-        currentUserListener = database.collection("users").document(userId).addSnapshotListener { documentSnapshot, error in
-            if let error = error {
-                print("UserRepository: readUser: \(error)")
-                return
-            }
-
-            guard let document = documentSnapshot else {
-                print("UserRepository: readUser: bad snapshot")
-                return
-            }
-
-            let decodeResult = Result{
-                try document.data(as: User.self)
-            }
-            switch decodeResult{
-            case .success(let receivedUser):
-                if let user = receivedUser{
-                    print("UserRepository: readUser: received new data ", user)
-                    publisher.send(user)
-                }
-                else{
-                    print("UserRepository: readUser: user does not exist")
-                }
-            case .failure(let error):
-                print("UserRepository: readUser: \(error)")
-            }
-
-        }
-        return publisher.eraseToAnyPublisher()
+        userDatabase.readUser(userId: userId)
+        return userDatabase.userPublisher.eraseToAnyPublisher()
     }
     
     func readMultipleUsers(userIds: [String]) async -> [User]?{
@@ -103,8 +118,8 @@ class UserRepository: ObservableObject{
     }
     
     func removeListener(){
-        currentUserListener?.remove()
-        currentUserListener = nil
+        userDatabase.currentUserListener?.remove()
+        userDatabase.currentUserListener = nil
     }
     
     enum RepositoryError: Error{
