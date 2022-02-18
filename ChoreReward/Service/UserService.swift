@@ -33,6 +33,7 @@ class UserService: ObservableObject{
     private let userRepository: UserRepository
 
     private var currentUserSubscription: AnyCancellable?
+    private var isLoginPending: Bool = false
     
     var currentUserId: String?{
         auth.currentUser?.uid
@@ -44,7 +45,7 @@ class UserService: ObservableObject{
         self.userRepository = currentUserRepository
     }
     
-    func silentSignIn() async {
+    private func performSignIn(){
         guard let currentUserId = currentUserId else{
             print("UserService: silentSignIn: trying to read current user but currentUserId is nil within this service instance")
             return
@@ -53,14 +54,22 @@ class UserService: ObservableObject{
             .sink(receiveValue: {[weak self] receivedUser in
                 print("UserService: silentSignIn: received new user \(receivedUser)")
                 self?.currentUser = receivedUser
+                self?.authState = .signedIn
             })
-        authState = .signedIn
+    }
+    
+    func silentSignIn() async {
+        if isLoginPending == true {
+            return
+        }
+        isLoginPending = true
+        performSignIn()
     }
     
     func signIn(email: String, password: String) async {
         do{
             try await auth.signIn(withEmail: email, password: password)
-            await silentSignIn()
+            performSignIn()
         }
         catch{
             print("UserService: signIn: \(error)")
@@ -78,7 +87,7 @@ class UserService: ObservableObject{
                 role: newUser.role
             )
             await userRepository.createUser(newUser: user)
-            await silentSignIn()
+            performSignIn()
         }
         catch{
             print("UserService: signUp: \(error)")
@@ -96,7 +105,7 @@ class UserService: ObservableObject{
     }
 
     func resetCache(){
-        currentUserSubscription?.cancel()
+//        currentUserSubscription?.cancel()
         currentUser = nil
         authState = .signedOut(error: nil)
         currentUserSubscription = nil
