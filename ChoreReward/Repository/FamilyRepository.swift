@@ -10,27 +10,20 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 import Combine
 
-class FamilyRepository: ObservableObject{
-    private let database = Firestore.firestore()
-    private var currentFamilyListener: ListenerRegistration?
+class FamilyDatabase {
+    static let shared = FamilyDatabase()
     
-    func createFamily(currentUserId: String, newFamilyId: String) async {
-        do{
-            try await database.collection("families").document(newFamilyId).setData([
-                "admin": currentUserId,
-                "members": [currentUserId],
-                "chores": []
-            ])
-        }
-        catch{
-            print("FamilyRepository: createFamily: \(error)")
+    let familyPublisher = PassthroughSubject<Family, Never>()
+    
+    private let database = Firestore.firestore()
+    var currentFamilyListener: ListenerRegistration?
+    
+    func readFamily(familyId: String){
+        guard currentFamilyListener == nil else{
+            return
         }
         
-    }
-    
-    func readFamily(familyId: String) -> AnyPublisher<Family, Never>{
-        let publisher = PassthroughSubject<Family, Never>()
-        currentFamilyListener = database.collection("families").document(familyId).addSnapshotListener({ documentSnapshot, error in
+        currentFamilyListener = database.collection("families").document(familyId).addSnapshotListener({ [weak self] documentSnapshot, error in
                 if let error = error {
                     print("FamilyRepository: readFamily: \(error)")
                     return
@@ -48,7 +41,7 @@ class FamilyRepository: ObservableObject{
                 case .success(let receivedFamily):
                     if let family = receivedFamily{
                         print("FamilyRepository: readFamily: received new data ", family)
-                        publisher.send(family)
+                        self?.familyPublisher.send(family)
                     }
                     else{
                         print("FamilyRepository: readFaily: family does not exist")
@@ -57,8 +50,35 @@ class FamilyRepository: ObservableObject{
                 case .failure(let error):
                     print("FamilyRepository: readFamily: \(error)")
                 }
-            })
-        return publisher.eraseToAnyPublisher()
+            }
+        )
+    }
+}
+
+
+class FamilyRepository: ObservableObject{
+    private let database = Firestore.firestore()
+    private let familyDatabase = FamilyDatabase.shared
+    
+    func createFamily(currentUserId: String, newFamilyId: String) async {
+        do{
+            try await database.collection("families").document(newFamilyId).setData([
+                "admin": currentUserId,
+                "members": [currentUserId],
+                "chores": []
+            ])
+        }
+        catch{
+            print("FamilyRepository: createFamily: \(error)")
+        }
+        
+    }
+    
+    func readFamily(familyId: String? = nil) -> AnyPublisher<Family, Never>{
+        if let familyId = familyId {
+            familyDatabase.readFamily(familyId: familyId)
+        }
+        return familyDatabase.familyPublisher.eraseToAnyPublisher()
     }
     
     func updateMemberOfFamily(familyId: String, userId: String) async {
@@ -84,7 +104,7 @@ class FamilyRepository: ObservableObject{
     }
     
     func removeListener(){
-        currentFamilyListener?.remove()
-        currentFamilyListener = nil
+        familyDatabase.currentFamilyListener?.remove()
+        familyDatabase.currentFamilyListener = nil
     }
 }

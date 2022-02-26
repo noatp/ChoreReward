@@ -10,10 +10,13 @@ import Combine
 
 class ChoreService: ObservableObject{
     @Published var choreList: [Chore] = []
+    @Published var chore: Chore? = nil
     
     private let userRepository: UserRepository
     private let familyRepository: FamilyRepository
     private let choreRepository: ChoreRepository
+    
+    private var choreSubscription: AnyCancellable?
     
     init(
         userRepository: UserRepository,
@@ -24,20 +27,6 @@ class ChoreService: ObservableObject{
         self.familyRepository = familyRepository
         self.choreRepository = choreRepository
     }
-    
-//    func addSubscription(){
-//        currentFamilySubscription = currentFamilyRepository.$family
-//            .sink(receiveValue: { [weak self] receivedFamily in
-//                guard let currentFamily = receivedFamily else{
-//                    return
-//                }
-//                self?.getChoresOfCurrentFamily(currentFamily: currentFamily)
-//            })
-//        choreListSubscription = currentChoreRepository.$choreList
-//            .sink(receiveValue: { [weak self] receivedChoreList in
-//                self?.choreList = receivedChoreList
-//            })
-//    }
     
     func createChore(choreTitle: String, currentUser: User) async {
         guard let currentUserId = currentUser.id,
@@ -65,6 +54,13 @@ class ChoreService: ObservableObject{
         choreList = await choreRepository.readMultipleChores(choreIds: choreIds) ?? []
     }
     
+    func readChore(choreId: String) {
+        choreSubscription = choreRepository.readChore(choreId: choreId)
+            .sink(receiveValue: { [weak self] receivedChore in
+                print("ChoreService: readChore: received new chore")
+                self?.chore = receivedChore
+            })
+    }
     
     func resetCache(){
         choreList = []

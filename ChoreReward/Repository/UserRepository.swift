@@ -75,8 +75,10 @@ class UserRepository: ObservableObject{
         }
     }
     
-    func readUser(userId: String) -> AnyPublisher<User, Never>{
-        userDatabase.readUser(userId: userId)
+    func readUser(userId: String? = nil) -> AnyPublisher<User, Never>{
+        if let userId = userId {
+            userDatabase.readUser(userId: userId)
+        }
         return userDatabase.userPublisher.eraseToAnyPublisher()
     }
     
