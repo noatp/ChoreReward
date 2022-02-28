@@ -25,12 +25,12 @@ class FamilyDatabase {
         
         currentFamilyListener = database.collection("families").document(familyId).addSnapshotListener({ [weak self] documentSnapshot, error in
                 if let error = error {
-                    print("FamilyRepository: readFamily: \(error)")
+                    print("FamilyDatabase: readFamily: \(error)")
                     return
                 }
                 
                 guard let document = documentSnapshot else {
-                    print("UserRepository: readuser: bad snapshot")
+                    print("FamilyDatabase: readFamily: bad snapshot")
                     return
                 }
                 
@@ -40,15 +40,15 @@ class FamilyDatabase {
                 switch decodeResult{
                 case .success(let receivedFamily):
                     if let family = receivedFamily{
-                        print("FamilyRepository: readFamily: received new data ", family)
+                        print("FamilyDatabase: readFamily: received new data from Firebase")
                         self?.familyPublisher.send(family)
                     }
                     else{
-                        print("FamilyRepository: readFaily: family does not exist")
+                        print("FamilyDatabase: readFaily: family does not exist")
                     }
                     
                 case .failure(let error):
-                    print("FamilyRepository: readFamily: \(error)")
+                    print("FamilyDatabase: readFamily: \(error)")
                 }
             }
         )

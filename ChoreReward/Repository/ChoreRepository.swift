@@ -53,7 +53,7 @@ class ChoreRepository: ObservableObject{
                 switch decodeResult{
                 case .success(let receivedChore):
                     if let chore = receivedChore{
-                        print("ChoreRepository: readChore: received new data ", chore)
+                        print("ChoreRepository: readChore: received new data")
                         publisher.send(chore)
                     }
                     else{

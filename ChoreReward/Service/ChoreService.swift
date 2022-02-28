@@ -8,6 +8,8 @@
 import Foundation
 import Combine
 
+
+
 class ChoreService: ObservableObject{
     @Published var choreList: [Chore] = []
     @Published var chore: Chore? = nil
@@ -17,6 +19,7 @@ class ChoreService: ObservableObject{
     private let choreRepository: ChoreRepository
     
     private var choreSubscription: AnyCancellable?
+    private var currentFamilySubscription: AnyCancellable?
     
     init(
         userRepository: UserRepository,
@@ -26,6 +29,15 @@ class ChoreService: ObservableObject{
         self.userRepository = userRepository
         self.familyRepository = familyRepository
         self.choreRepository = choreRepository
+        addSubscription()
+    }
+    
+    private func addSubscription(){
+        currentFamilySubscription = familyRepository.readFamily()
+            .sink(receiveValue: { [weak self] receivedFamily in
+                print("ChoreSerivce: addSubscription: received new family from FamilyDatabse through FamilyRepository")
+                self?.getChoresOfCurrentFamily(currentFamily: receivedFamily)
+            })
     }
     
     func createChore(choreTitle: String, currentUser: User) async {
@@ -45,13 +57,14 @@ class ChoreService: ObservableObject{
         await familyRepository.updateChoreOfFamily(familyId: currentFamilyId, choreId: newChoreId)
     }
     
-    func getChoresOfCurrentFamily(currentFamily: Family) async {
+    private func getChoresOfCurrentFamily(currentFamily: Family) {
         let choreIds = currentFamily.chores
         guard choreIds.count > 0, choreIds.count < 10 else{
             return
         }
-        
-        choreList = await choreRepository.readMultipleChores(choreIds: choreIds) ?? []
+        Task{
+            choreList = await choreRepository.readMultipleChores(choreIds: choreIds) ?? []
+        }
     }
     
     func readChore(choreId: String) {

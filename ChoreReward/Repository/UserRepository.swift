@@ -25,12 +25,12 @@ class UserDatabase {
         
         currentUserListener = database.collection("users").document(userId).addSnapshotListener { [weak self] documentSnapshot, error in
             if let error = error {
-                print("UserRepository: readUser: \(error)")
+                print("UserDatabase: readUser: \(error)")
                 return
             }
 
             guard let document = documentSnapshot else {
-                print("UserRepository: readUser: bad snapshot")
+                print("UserDatabase: readUser: bad snapshot")
                 return
             }
 
@@ -40,14 +40,14 @@ class UserDatabase {
             switch decodeResult{
             case .success(let receivedUser):
                 if let user = receivedUser{
-                    print("UserRepository: readUser: received new data ", user)
+                    print("UserDatabase: readUser: received new data from Firebase")
                     self?.userPublisher.send(user)
                 }
                 else{
-                    print("UserRepository: readUser: user does not exist")
+                    print("UserDatabase: readUser: user does not exist")
                 }
             case .failure(let error):
-                print("UserRepository: readUser: \(error)")
+                print("UserDatabase: readUser: \(error)")
             }
         }
     }

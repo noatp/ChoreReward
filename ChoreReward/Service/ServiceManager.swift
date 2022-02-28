@@ -51,12 +51,5 @@ class ServiceManager{
 //                self?.getChoresOfCurrentFamily(currentFamily: currentFamily)
 //            })
 //    }
-
-    
-    private func getChoresOfCurrentFamily(currentFamily: Family){
-        Task{
-            await choreService.getChoresOfCurrentFamily(currentFamily: currentFamily)
-        }
-    }
     
 }

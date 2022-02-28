@@ -52,7 +52,7 @@ class UserService: ObservableObject{
         }
         currentUserSubscription = userRepository.readUser(userId: currentUserId)
             .sink(receiveValue: {[weak self] receivedUser in
-                print("UserService: silentSignIn: received new user \(receivedUser)")
+                print("UserService: silentSignIn: received new user from UserDatabse through UserRepository")
                 self?.currentUser = receivedUser
                 self?.authState = .signedIn
             })

@@ -30,7 +30,7 @@ class FamilyService: ObservableObject{
     func addSubscription(){
         currentUserSubscription = userRepository.readUser()
             .sink(receiveValue: { [weak self] receivedUser in
-                print("FamilyService: addSubscription: received new user from userRepository")
+                print("FamilyService: addSubscription: received new user from UserDatabase through UserRepository")
                 self?.readCurrentFamily(currentUser: receivedUser)
             })
     }
@@ -52,7 +52,7 @@ class FamilyService: ObservableObject{
         }
         currentFamilySubscription = familyRepository.readFamily(familyId: currentFamilyId)
             .sink(receiveValue: { [weak self] receivedFamily in
-                print("FamilyService: readCurrentFamily: received new family")
+                print("FamilyService: readCurrentFamily: received new family from FamilyDatabse through FamilyRepository")
                 self?.currentFamily = receivedFamily
                 self?.getMembersOfCurrentFamily(currentFamily: receivedFamily)
             })
