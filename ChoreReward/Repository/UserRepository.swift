@@ -13,7 +13,7 @@ import Combine
 class UserDatabase {
     static let shared = UserDatabase()
     
-    let userPublisher = PassthroughSubject<User, Never>()
+    let userPublisher = PassthroughSubject<User?, Never>()
     
     private let database = Firestore.firestore()
     var currentUserListener: ListenerRegistration?
@@ -51,6 +51,10 @@ class UserDatabase {
             }
         }
     }
+    
+    func resetPublisher(){
+        self.userPublisher.send(nil)
+    }
 }
 
 class UserRepository: ObservableObject{
@@ -75,7 +79,7 @@ class UserRepository: ObservableObject{
         }
     }
     
-    func readUser(userId: String? = nil) -> AnyPublisher<User, Never>{
+    func readUser(userId: String? = nil) -> AnyPublisher<User?, Never>{
         if let userId = userId {
             userDatabase.readUser(userId: userId)
         }
@@ -119,9 +123,10 @@ class UserRepository: ObservableObject{
         }
     }
     
-    func removeListener(){
+    func resetRepository(){
         userDatabase.currentUserListener?.remove()
         userDatabase.currentUserListener = nil
+        userDatabase.resetPublisher()
     }
     
     enum RepositoryError: Error{

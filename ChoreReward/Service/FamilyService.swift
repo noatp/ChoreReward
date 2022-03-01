@@ -30,8 +30,13 @@ class FamilyService: ObservableObject{
     func addSubscription(){
         currentUserSubscription = userRepository.readUser()
             .sink(receiveValue: { [weak self] receivedUser in
+                guard let currentUser = receivedUser else{
+                    //logged out
+                    self?.resetService()
+                    return
+                }
                 print("FamilyService: addSubscription: received new user from UserDatabase through UserRepository")
-                self?.readCurrentFamily(currentUser: receivedUser)
+                self?.readCurrentFamily(currentUser: currentUser)
             })
     }
     
@@ -52,9 +57,12 @@ class FamilyService: ObservableObject{
         }
         currentFamilySubscription = familyRepository.readFamily(familyId: currentFamilyId)
             .sink(receiveValue: { [weak self] receivedFamily in
+                guard let currentFamily = receivedFamily else{
+                    return
+                }
                 print("FamilyService: readCurrentFamily: received new family from FamilyDatabse through FamilyRepository")
                 self?.currentFamily = receivedFamily
-                self?.getMembersOfCurrentFamily(currentFamily: receivedFamily)
+                self?.getMembersOfCurrentFamily(currentFamily: currentFamily)
             })
     }
     
@@ -80,11 +88,11 @@ class FamilyService: ObservableObject{
         }
     }
     
-    func resetCache(){
+    private func resetService(){
         currentFamilySubscription?.cancel()
+        currentFamilySubscription = nil
         currentFamily = nil
         currentFamilyMembers = []
-        currentFamilySubscription = nil
-        familyRepository.removeListener()
+        familyRepository.resetRepository()
     }
 }

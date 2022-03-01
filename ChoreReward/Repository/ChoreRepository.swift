@@ -22,17 +22,6 @@ class ChoreRepository: ObservableObject{
             "completed": newChore.completed
         ]).documentID
     }
-        
-//    func readChore(choreId: String) async -> Chore?{
-//        do {
-//            let snapshot = try await database.collection("chores").document(choreId).getDocument()
-//            return try snapshot.data(as: Chore.self)
-//        }
-//        catch{
-//            print(error)
-//            return nil
-//        }
-//    }
     
     func readChore(choreId: String) -> AnyPublisher<Chore, Never>{
         let publisher = PassthroughSubject<Chore, Never>()
@@ -66,7 +55,6 @@ class ChoreRepository: ObservableObject{
             })
         return publisher.eraseToAnyPublisher()
     }
-
     
     func readMultipleChores(choreIds: [String]) async -> [Chore]?{
         do{
@@ -81,6 +69,11 @@ class ChoreRepository: ObservableObject{
             print("ChoreRepository: readMultipleChores: \(error)")
             return nil
         }
+    }
+    
+    func resetRepository(){
+        self.currentChoreListener?.remove()
+        self.currentChoreListener = nil
     }
 }
 

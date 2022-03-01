@@ -35,8 +35,12 @@ class ChoreService: ObservableObject{
     private func addSubscription(){
         currentFamilySubscription = familyRepository.readFamily()
             .sink(receiveValue: { [weak self] receivedFamily in
+                guard let currentFamily = receivedFamily else{
+                    self?.resetService()
+                    return
+                }
                 print("ChoreSerivce: addSubscription: received new family from FamilyDatabse through FamilyRepository")
-                self?.getChoresOfCurrentFamily(currentFamily: receivedFamily)
+                self?.getChoresOfCurrentFamily(currentFamily: currentFamily)
             })
     }
     
@@ -75,7 +79,7 @@ class ChoreService: ObservableObject{
             })
     }
     
-    func resetCache(){
+    private func resetService(){
         choreList = []
     }
 }

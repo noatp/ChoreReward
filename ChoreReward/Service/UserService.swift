@@ -98,18 +98,18 @@ class UserService: ObservableObject{
     func signOut(){
         do {
             try self.auth.signOut()
-            resetCache()
+            resetService()
         } catch let signOutError as NSError {
             print("Error signing out: %@", signOutError)
         }
     }
 
-    func resetCache(){
+    private func resetService(){
 //        currentUserSubscription?.cancel()
         currentUser = nil
         authState = .signedOut(error: nil)
         currentUserSubscription = nil
-        userRepository.removeListener()
+        userRepository.resetRepository()
     }
     
     enum AuthState{

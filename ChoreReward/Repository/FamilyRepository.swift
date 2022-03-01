@@ -13,7 +13,7 @@ import Combine
 class FamilyDatabase {
     static let shared = FamilyDatabase()
     
-    let familyPublisher = PassthroughSubject<Family, Never>()
+    let familyPublisher = PassthroughSubject<Family?, Never>()
     
     private let database = Firestore.firestore()
     var currentFamilyListener: ListenerRegistration?
@@ -53,6 +53,10 @@ class FamilyDatabase {
             }
         )
     }
+    
+    func resetPublisher(){
+        self.familyPublisher.send(nil)
+    }
 }
 
 
@@ -74,7 +78,7 @@ class FamilyRepository: ObservableObject{
         
     }
     
-    func readFamily(familyId: String? = nil) -> AnyPublisher<Family, Never>{
+    func readFamily(familyId: String? = nil) -> AnyPublisher<Family?, Never>{
         if let familyId = familyId {
             familyDatabase.readFamily(familyId: familyId)
         }
@@ -103,8 +107,9 @@ class FamilyRepository: ObservableObject{
         }
     }
     
-    func removeListener(){
+    func resetRepository(){
         familyDatabase.currentFamilyListener?.remove()
         familyDatabase.currentFamilyListener = nil
+        familyDatabase.resetPublisher()
     }
 }
