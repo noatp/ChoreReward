@@ -36,7 +36,7 @@ struct ChoreDetailView: View {
                 if (chore.assigneeId == ""){
                     ButtonView(
                         action: {
-                            
+                            choreDetailViewModel.perform(action: .takeChore)
                         },
                         buttonTitle: "Take chore",
                         buttonImage: "figure.wave",

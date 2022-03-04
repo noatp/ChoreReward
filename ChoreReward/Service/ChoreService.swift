@@ -12,7 +12,6 @@ import Combine
 
 class ChoreService: ObservableObject{
     @Published var choreList: [Chore] = []
-    @Published var chore: Chore? = nil
     
     private let userRepository: UserRepository
     private let familyRepository: FamilyRepository
@@ -71,12 +70,29 @@ class ChoreService: ObservableObject{
         }
     }
     
-    func readChore(choreId: String) {
-        choreSubscription = choreRepository.readChore(choreId: choreId)
-            .sink(receiveValue: { [weak self] receivedChore in
-                print("ChoreService: readChore: received new chore")
-                self?.chore = receivedChore
-            })
+//    func readChore(choreId: String) {
+//        choreSubscription = choreRepository.readChore(choreId: choreId)
+//            .sink(receiveValue: { [weak self] receivedChore in
+//                print("ChoreService: readChore: received new chore")
+//                self?.chore = receivedChore
+//            })
+//    }
+    
+    func readChore (choreId: String) -> Chore{
+        return choreList.first { chore in
+            chore.id == choreId
+        }!
+    }
+    
+    func takeChore (choreId: String?, currentUserId: String?){
+        guard let choreId = choreId,
+              let currentUserId = currentUserId else{
+                  print("ChoreService: takeChore: missing choreId and/or currentUserId")
+                  return
+              }
+        Task{
+            await choreRepository.updateAssigneeForChore(choreId: choreId, assigneeId: currentUserId)
+        }
     }
     
     private func resetService(){

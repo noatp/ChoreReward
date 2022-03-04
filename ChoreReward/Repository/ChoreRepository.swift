@@ -71,6 +71,17 @@ class ChoreRepository: ObservableObject{
         }
     }
     
+    func updateAssigneeForChore(choreId: String, assigneeId: String) async {
+        do {
+            try await database.collection("chores").document(choreId).updateData([
+                "assigneeId" : assigneeId
+            ])
+        }
+        catch{
+            print("ChoreRepository: updateAssigneeForChore: \(error)")
+        }
+    }
+    
     func resetRepository(){
         self.currentChoreListener?.remove()
         self.currentChoreListener = nil
