@@ -60,6 +60,17 @@ class ChoreRepository: ObservableObject{
         }
     }
     
+    func updateCompletionForChore(choreId: String) async {
+        do{
+            try await database.collection("chores").document(choreId).updateData([
+                "completed" : true
+            ])
+        }
+        catch{
+            print("ChoreRepository: updateCompletionForChore: \(error)")
+        }
+    }
+    
     func resetRepository(){
         self.currentChoreListener?.remove()
         self.currentChoreListener = nil

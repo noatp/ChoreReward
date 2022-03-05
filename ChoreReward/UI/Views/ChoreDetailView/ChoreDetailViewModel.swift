@@ -34,14 +34,20 @@ class ChoreDetailViewModel: StatefulViewModel{
         switch action{
         case .takeChore:
             self.takeChore()
+        case .completeChore:
+            self.completeChore()
         }
     }
     
-    func takeChore(){
+    private func takeChore(){
         choreSerivce.takeChore(
             choreId: chore.id,
             currentUserId: userService.currentUserId 
         )
+    }
+    
+    private func completeChore(){
+        choreSerivce.completeChore(choreId: chore.id)
     }
 }
 
@@ -52,6 +58,7 @@ struct choreDetailState{
 enum choreDetailAction{
     //case someAction(parameter: ParameterType)
     case takeChore
+    case completeChore
 }
 
 extension Dependency.ViewModels{

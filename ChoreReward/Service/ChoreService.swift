@@ -70,14 +70,6 @@ class ChoreService: ObservableObject{
         }
     }
     
-//    func readChore(choreId: String) {
-//        choreSubscription = choreRepository.readChore(choreId: choreId)
-//            .sink(receiveValue: { [weak self] receivedChore in
-//                print("ChoreService: readChore: received new chore")
-//                self?.chore = receivedChore
-//            })
-//    }
-    
     func readChore (choreId: String) -> Chore{
         return choreList.first { chore in
             chore.id == choreId
@@ -92,21 +84,35 @@ class ChoreService: ObservableObject{
               }
         Task{
             await choreRepository.updateAssigneeForChore(choreId: choreId, assigneeId: currentUserId)
-            let choreIndex = choreList.firstIndex { chore in
-                chore.id == choreId
-            }
-            guard let choreIndex = choreIndex else{
-                print("ChoreService: takeChore: could not find chore with provided choreId in choreList")
-                return
-            }
-            let updatedChore = await choreRepository.readChore(choreId: choreId)
-            guard let updatedChore = updatedChore else{
-                print("ChoreService: takeChore: could not find chore with provided choreId after update")
-                return
-            }
-            choreList[choreIndex] = updatedChore
+            await readUpdatedChore(choreId: choreId)
         }
-        
+    }
+    
+    func completeChore (choreId: String?){
+        guard let choreId = choreId else{
+            print("ChoreService: completeChore: missing choreId")
+            return
+        }
+        Task{
+            await choreRepository.updateCompletionForChore(choreId: choreId)
+            await readUpdatedChore(choreId: choreId)
+        }
+    }
+    
+    private func readUpdatedChore(choreId: String) async {
+        let choreIndex = choreList.firstIndex { chore in
+            chore.id == choreId
+        }
+        guard let choreIndex = choreIndex else{
+            print("ChoreService: takeChore: could not find chore with provided choreId in choreList")
+            return
+        }
+        let updatedChore = await choreRepository.readChore(choreId: choreId)
+        guard let updatedChore = updatedChore else{
+            print("ChoreService: takeChore: could not find chore with provided choreId after update")
+            return
+        }
+        choreList[choreIndex] = updatedChore
     }
     
     private func resetService(){

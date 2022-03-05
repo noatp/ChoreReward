@@ -52,14 +52,16 @@ struct ChoreDetailView: View {
                 }
                 
                 if (chore.assigneeId != ""){
-                    ButtonView(
-                        action: {
-                            
-                        },
-                        buttonTitle: "Complete chore",
-                        buttonImage: "checkmark.seal.fill",
-                        buttonColor: .green
-                    )
+                    if (!chore.completed){
+                        ButtonView(
+                            action: {
+                                choreDetailViewModel.perform(action: .completeChore)
+                            },
+                            buttonTitle: "Complete chore",
+                            buttonImage: "checkmark.seal.fill",
+                            buttonColor: .green
+                        )
+                    }
                 }
                 
             }
