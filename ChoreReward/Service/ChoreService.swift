@@ -92,7 +92,21 @@ class ChoreService: ObservableObject{
               }
         Task{
             await choreRepository.updateAssigneeForChore(choreId: choreId, assigneeId: currentUserId)
+            let choreIndex = choreList.firstIndex { chore in
+                chore.id == choreId
+            }
+            guard let choreIndex = choreIndex else{
+                print("ChoreService: takeChore: could not find chore with provided choreId in choreList")
+                return
+            }
+            let updatedChore = await choreRepository.readChore(choreId: choreId)
+            guard let updatedChore = updatedChore else{
+                print("ChoreService: takeChore: could not find chore with provided choreId after update")
+                return
+            }
+            choreList[choreIndex] = updatedChore
         }
+        
     }
     
     private func resetService(){

@@ -23,37 +23,15 @@ class ChoreRepository: ObservableObject{
         ]).documentID
     }
     
-    func readChore(choreId: String) -> AnyPublisher<Chore, Never>{
-        let publisher = PassthroughSubject<Chore, Never>()
-        currentChoreListener = database.collection("chores").document(choreId).addSnapshotListener({ documentSnapshot, error in
-                if let error = error {
-                    print("ChoreRepository: readChore: \(error)")
-                    return
-                }
-                
-                guard let document = documentSnapshot else {
-                    print("ChoreRepository: readChore: bad snapshot")
-                    return
-                }
-                
-                let decodeResult = Result{
-                    try document.data(as: Chore.self)
-                }
-                switch decodeResult{
-                case .success(let receivedChore):
-                    if let chore = receivedChore{
-                        print("ChoreRepository: readChore: received new data")
-                        publisher.send(chore)
-                    }
-                    else{
-                        print("ChoreRepository: readChore: chore does not exist")
-                    }
-                    
-                case .failure(let error):
-                    print("ChoreRepository: readChore: \(error)")
-                }
-            })
-        return publisher.eraseToAnyPublisher()
+    func readChore(choreId: String) async -> Chore?{
+        do{
+            let documentSnapshot = try await database.collection("chores").document(choreId).getDocument()
+            return try documentSnapshot.data(as: Chore.self)
+        }
+        catch{
+            print("ChoreRepository: readChore: \(error)")
+            return nil
+        }
     }
     
     func readMultipleChores(choreIds: [String]) async -> [Chore]?{
