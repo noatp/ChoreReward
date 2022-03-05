@@ -15,12 +15,11 @@ struct ChoreCardView: View {
     }
     
     var body: some View {
-        HStack{
+        VStack{
             Text(chore.title)
-            Spacer()
-            Text(chore.assignerId)
+            Text(chore.id ?? "")
         }
-        .frame(height: 50)
+        .frame(maxWidth: .infinity, maxHeight: 50)
         .padding()
         .background(content: {
             RoundedRectangle(cornerRadius: 16)

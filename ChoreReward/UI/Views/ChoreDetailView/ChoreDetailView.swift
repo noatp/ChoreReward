@@ -24,14 +24,21 @@ struct ChoreDetailView: View {
             VStack{
                 Text("\(chore.title)")
                 Spacer()
-
                 Text("Chore put up by: ")
                 Text("\(chore.assignerId)")
+                Spacer()
                 if (chore.assigneeId != ""){
                     Text("Chore taken by: ")
                     Text("\(chore.assigneeId)")
+                    Spacer()
+                    if (chore.completed){
+                        Text("Chore is completed")
+                    }
+                    else{
+                        Text("Chore is not completed")
+                    }
                 }
-                Spacer()
+                
                 
                 if (chore.assigneeId == ""){
                     ButtonView(
