@@ -8,8 +8,6 @@
 import Foundation
 import Combine
 
-
-
 class ChoreService: ObservableObject{
     @Published var choreList: [Chore] = []
     
@@ -61,12 +59,15 @@ class ChoreService: ObservableObject{
     }
     
     private func getChoresOfCurrentFamily(currentFamily: Family) {
-        let choreIds = currentFamily.chores
-        guard choreIds.count > 0, choreIds.count < 10 else{
-            return
-        }
-        Task{
-            choreList = await choreRepository.readMultipleChores(choreIds: choreIds) ?? []
+        choreList = []
+        var choreIds = currentFamily.chores
+        while (!choreIds.isEmpty){
+            let batchSize = (choreIds.count > 10) ? 10 : choreIds.count
+            let idBatch = Array(choreIds[0...(batchSize - 1)])
+            choreIds = Array(choreIds.dropFirst(batchSize))
+            Task{
+                choreList += await choreRepository.readMultipleChores(choreIds: idBatch) ?? []
+            }
         }
     }
     
