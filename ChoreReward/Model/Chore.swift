@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import FirebaseFirestore
 import FirebaseFirestoreSwift
 
 struct Chore: Identifiable, Codable{
@@ -13,14 +14,14 @@ struct Chore: Identifiable, Codable{
     var title: String
     var assignerId: String
     var assigneeId: String
-    var completed: Bool
+    @ServerTimestamp var completed: Timestamp?
+    @ServerTimestamp var created: Timestamp?
     
     static let preview = Chore(
         id: UUID().uuidString,
         title: "Wash the dishes",
         assignerId: User.previewDavid.id!,
-        assigneeId: User.previewTim.id!,
-        completed: false
+        assigneeId: User.previewTim.id!
     )
     
     enum RewardType: String, CaseIterable, Identifiable{

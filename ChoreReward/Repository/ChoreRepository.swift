@@ -19,7 +19,8 @@ class ChoreRepository: ObservableObject{
             "title" : newChore.title,
             "assignerId": newChore.assignerId,
             "assigneeId": newChore.assigneeId,
-            "completed": newChore.completed
+            "completed": newChore.completed as Any,
+            "created": newChore.created ?? FieldValue.serverTimestamp()
         ]).documentID
     }
     
@@ -38,7 +39,7 @@ class ChoreRepository: ObservableObject{
         do{
             let querySnapshot = try await database.collection("chores")
                 .whereField(FieldPath.documentID(), in: choreIds)
-                .getDocuments()
+                .getDocuments() //return at most 10
             return try querySnapshot.documents.compactMap({ document in
                 try document.data(as: Chore.self)
             })

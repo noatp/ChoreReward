@@ -31,7 +31,7 @@ struct ChoreDetailView: View {
                     Text("Chore taken by: ")
                     Text("\(chore.assigneeId)")
                     Spacer()
-                    if (chore.completed){
+                    if (chore.completed != nil){
                         Text("Chore is completed")
                     }
                     else{
@@ -52,7 +52,7 @@ struct ChoreDetailView: View {
                 }
                 
                 if (chore.assigneeId != ""){
-                    if (!chore.completed){
+                    if (chore.completed == nil){
                         ButtonView(
                             action: {
                                 choreDetailViewModel.perform(action: .completeChore)

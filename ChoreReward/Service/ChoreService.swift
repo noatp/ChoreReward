@@ -52,7 +52,9 @@ class ChoreService: ObservableObject{
             title: choreTitle,
             assignerId: currentUserId,
             assigneeId: "",
-            completed: false
+            completed: nil,
+            created: nil
+            
         )
         let newChoreId = ChoreRepository().createChore(newChore: newChore)
         await familyRepository.updateChoreOfFamily(familyId: currentFamilyId, choreId: newChoreId)
@@ -67,6 +69,7 @@ class ChoreService: ObservableObject{
             choreIds = Array(choreIds.dropFirst(batchSize))
             Task{
                 choreList += await choreRepository.readMultipleChores(choreIds: idBatch) ?? []
+                print("HERE \(batchSize)")
             }
         }
     }
