@@ -19,8 +19,7 @@ class ChoreRepository: ObservableObject{
             "title" : newChore.title,
             "assignerId": newChore.assignerId,
             "assigneeId": newChore.assigneeId,
-            "completed": newChore.completed as Any,
-            "created": newChore.created ?? FieldValue.serverTimestamp()
+            "created": Timestamp(date: newChore.created)
         ]).documentID
     }
     
@@ -64,7 +63,7 @@ class ChoreRepository: ObservableObject{
     func updateCompletionForChore(choreId: String) async {
         do{
             try await database.collection("chores").document(choreId).updateData([
-                "completed" : true
+                "completed" : FieldValue.serverTimestamp()
             ])
         }
         catch{

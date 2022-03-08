@@ -53,7 +53,7 @@ class ChoreService: ObservableObject{
             assignerId: currentUserId,
             assigneeId: "",
             completed: nil,
-            created: nil
+            created: Date()
             
         )
         let newChoreId = ChoreRepository().createChore(newChore: newChore)

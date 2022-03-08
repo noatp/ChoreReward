@@ -26,6 +26,7 @@ struct ChoreDetailView: View {
                 Spacer()
                 Text("Chore put up by: ")
                 Text("\(chore.assignerId)")
+                Text(" on \(chore.created.formatted(date: .abbreviated, time: .omitted))")
                 Spacer()
                 if (chore.assigneeId != ""){
                     Text("Chore taken by: ")
@@ -33,14 +34,16 @@ struct ChoreDetailView: View {
                     Spacer()
                     if (chore.completed != nil){
                         Text("Chore is completed")
+                        Text("on \(chore.completed!.formatted(date: .abbreviated, time: .omitted))")
                     }
                     else{
                         Text("Chore is not completed")
                     }
                 }
-                
+                Spacer()
                 
                 if (chore.assigneeId == ""){
+                    
                     ButtonView(
                         action: {
                             choreDetailViewModel.perform(action: .takeChore)
@@ -76,7 +79,15 @@ struct ChoreDetailView_Previews: PreviewProvider {
     static var previews: some View {
         ChoreDetailView(
             choreDetailViewModel: ObservableViewModel(
-                staticState: choreDetailState(chore: Chore.preview)
+                staticState: choreDetailState(chore: Chore(
+                    id: "preview id",
+                    title: "preview title",
+                    assignerId: "preview assignerId",
+                    assigneeId: "preview assigneeId",
+                    completed: Date(),
+                    created: Date()
+                )
+                                             )
             ),
             views: Dependency.preview.views()
         )
