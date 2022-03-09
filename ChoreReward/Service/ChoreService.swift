@@ -52,7 +52,6 @@ class ChoreService: ObservableObject{
             title: choreTitle,
             assignerId: currentUserId,
             assigneeId: "",
-            completed: nil,
             created: Date()
             
         )
