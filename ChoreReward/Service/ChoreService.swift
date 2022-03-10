@@ -71,6 +71,9 @@ class ChoreService: ObservableObject{
                 print("HERE \(batchSize)")
             }
         }
+        choreList = choreList.sorted { chore1, chore2 in
+            chore1.created < chore2.created
+        }
     }
     
     func readChore (choreId: String) -> Chore{
