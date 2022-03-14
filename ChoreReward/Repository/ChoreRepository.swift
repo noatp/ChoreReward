@@ -19,7 +19,8 @@ class ChoreRepository: ObservableObject{
             "title" : newChore.title,
             "assignerId": newChore.assignerId,
             "assigneeId": newChore.assigneeId,
-            "created": Timestamp(date: newChore.created)
+            "created": Timestamp(date: newChore.created),
+            "description": newChore.description
         ]).documentID
     }
     

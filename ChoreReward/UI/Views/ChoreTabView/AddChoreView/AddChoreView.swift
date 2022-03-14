@@ -10,6 +10,7 @@ import SwiftUI
 struct AddChoreView: View {
     @ObservedObject var addChoreViewModel: ObservableViewModel<AddChoreState, AddChoreAction>
     @State var choreTitle = ""
+    @State var choreDescription = ""
     @Environment(\.dismiss) var dismiss
     private var views: Dependency.Views
     
@@ -26,10 +27,12 @@ struct AddChoreView: View {
             Spacer()
             TextFieldView(textInput: $choreTitle, title: "What chore?")
             Spacer()
+            TextFieldView(textInput: $choreDescription, title: "Description")
+            Spacer()
             ButtonView(
                 action: {
                     dismiss()
-                    addChoreViewModel.perform(action: .createChore(choreTitle: choreTitle))
+                    addChoreViewModel.perform(action: .createChore(choreTitle: choreTitle, choreDescription: choreDescription))
                 },
                 buttonTitle: "Create Chore",
                 buttonImage: "plus",

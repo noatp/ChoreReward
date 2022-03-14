@@ -16,7 +16,7 @@ struct Chore: Identifiable, Codable{
     var assigneeId: String
     var completed: Date?
     var created: Date
-    var description: String?
+    var description: String
     
     static let preview = Chore(
         id: UUID().uuidString,

@@ -85,7 +85,8 @@ struct ChoreDetailView_Previews: PreviewProvider {
                     assignerId: "preview assignerId",
                     assigneeId: "preview assigneeId",
                     completed: Date(),
-                    created: Date()
+                    created: Date(),
+                    description: ""
                 )
                                              )
             ),

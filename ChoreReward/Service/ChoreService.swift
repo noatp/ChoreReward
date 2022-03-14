@@ -41,7 +41,7 @@ class ChoreService: ObservableObject{
             })
     }
     
-    func createChore(choreTitle: String, currentUser: User) async {
+    func createChore(choreTitle: String, choreDescription: String, currentUser: User) async {
         guard let currentUserId = currentUser.id,
               let currentFamilyId = currentUser.familyId
         else{
@@ -52,8 +52,8 @@ class ChoreService: ObservableObject{
             title: choreTitle,
             assignerId: currentUserId,
             assigneeId: "",
-            created: Date()
-            
+            created: Date(),
+            description: choreDescription
         )
         let newChoreId = ChoreRepository().createChore(newChore: newChore)
         await familyRepository.updateChoreOfFamily(familyId: currentFamilyId, choreId: newChoreId)
