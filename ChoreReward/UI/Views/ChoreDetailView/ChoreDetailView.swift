@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ChoreDetailView: View {
     @ObservedObject var choreDetailViewModel: ObservableViewModel<choreDetailState, choreDetailAction>
+    @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     private var views: Dependency.Views
         
     init(
@@ -80,14 +81,17 @@ struct ChoreDetailView: View {
             }
             .edgesIgnoringSafeArea(.top)
             .navigationBarBackButtonHidden(true)
-            .toolbar {
+            .navigationBarItems(leading:
                 Button {
-                    
+                    self.mode.wrappedValue.dismiss()
                 } label: {
                     Image(systemName: "xmark")
+                        .frame(width: 40, height: 40)
+                        .foregroundColor(Color.black)
+                        .background(Color.white)
+                        .clipShape(Circle())
                 }
-
-            }
+            )
         }
     }
 }
@@ -135,13 +139,15 @@ struct ChoreDetailView_Previews: PreviewProvider {
 //            ),
 //            views: Dependency.preview.views()
 //        )
-        ChoreDetailView(
-            choreDetailViewModel: ObservableViewModel(
-                staticState: choreDetailState(chore: previewChoreFinished)
-            ),
-            views: Dependency.preview.views()
-        )
         
+        NavigationView{
+            ChoreDetailView(
+                choreDetailViewModel: ObservableViewModel(
+                    staticState: choreDetailState(chore: previewChoreFinished)
+                ),
+                views: Dependency.preview.views()
+            )
+        }
     }
 }
 
