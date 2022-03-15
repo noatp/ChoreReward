@@ -21,29 +21,40 @@ struct ChoreDetailView: View {
     
     var body: some View {
         if let chore = choreDetailViewModel.state.chore {
-            VStack{
-                Text("\(chore.title)")
-                Spacer()
-                Text("Chore put up by: ")
-                Text("\(chore.assignerId)")
-                Text(" on \(chore.created.formatted(date: .abbreviated, time: .omitted))")
-                Spacer()
-                if (chore.assigneeId != ""){
-                    Text("Chore taken by: ")
-                    Text("\(chore.assigneeId)")
-                    Spacer()
-                    if (chore.completed != nil){
-                        Text("Chore is completed")
-                        Text("on \(chore.completed!.formatted(date: .abbreviated, time: .omitted))")
-                    }
-                    else{
-                        Text("Chore is not completed")
+            ScrollView{
+                Image("unfinishedDishes")
+                    .resizable()
+                    .scaledToFill()
+                    .frame(maxWidth: .infinity, maxHeight: 400)
+                    .clipped()
+
+                VStack(alignment: .leading){
+                    Text("\(chore.title)")
+                        .font(.title)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    Text("Chore put up by: \(chore.assignerId)")
+                        .font(.footnote)
+                    Text("on \(chore.created.formatted(date: .abbreviated, time: .omitted))")
+                        .font(.footnote)
+                        .padding(.bottom)
+                    
+                    Text("Detail")
+                        .font(.headline)
+                    Text(chore.description)
+                        .padding(.bottom)
+                                        
+                    if (chore.assigneeId != ""){
+                        Text("Chore taken by: \(chore.assigneeId)")
+                        if (chore.completed != nil){
+                            Text("Chore is completed on \(chore.completed!.formatted(date: .abbreviated, time: .omitted))")
+                        }
+                        else{
+                            Text("Chore is not completed")
+                        }
                     }
                 }
-                Spacer()
-                
+                .padding(.horizontal)
                 if (chore.assigneeId == ""){
-                    
                     ButtonView(
                         action: {
                             choreDetailViewModel.perform(action: .takeChore)
@@ -66,32 +77,71 @@ struct ChoreDetailView: View {
                         )
                     }
                 }
-                
             }
-            .padding()        }
-        else{
-            Text("No chore")
+            .edgesIgnoringSafeArea(.top)
+            .navigationBarBackButtonHidden(true)
+            .toolbar {
+                Button {
+                    
+                } label: {
+                    Image(systemName: "xmark")
+                }
+
+            }
         }
     }
 }
 
 struct ChoreDetailView_Previews: PreviewProvider {
     static var previews: some View {
+//        let previewChoreNotTaken = Chore(
+//            id: "id",
+//            title: "Wash the dishes",
+//            assignerId: "preview assignerId",
+//            assigneeId: "",
+//            completed: nil,
+//            created: Date(),
+//            description: "The dishes has been here for a couple of days now, please wash them"
+//        )
+//
+//        let previewChoreTaken = Chore(
+//            id: "id",
+//            title: "Wash the dishes",
+//            assignerId: "preview assignerId",
+//            assigneeId: "preview assigneeId",
+//            completed: nil,
+//            created: Date(),
+//            description: "The dishes has been here for a couple of days now"
+//        )
+
+        let previewChoreFinished = Chore(
+            id: "id",
+            title: "Wash the dishes",
+            assignerId: "preview assignerId",
+            assigneeId: "preview assigneeId",
+            completed: Date(),
+            created: Date(),
+            description: "The dishes has been here for a couple of days now, please wash them"
+        )
+//        ChoreDetailView(
+//            choreDetailViewModel: ObservableViewModel(
+//                staticState: choreDetailState(chore: previewChoreNotTaken)
+//            ),
+//            views: Dependency.preview.views()
+//        )
+//        ChoreDetailView(
+//            choreDetailViewModel: ObservableViewModel(
+//                staticState: choreDetailState(chore: previewChoreTaken)
+//            ),
+//            views: Dependency.preview.views()
+//        )
         ChoreDetailView(
             choreDetailViewModel: ObservableViewModel(
-                staticState: choreDetailState(chore: Chore(
-                    id: "preview id",
-                    title: "preview title",
-                    assignerId: "preview assignerId",
-                    assigneeId: "preview assigneeId",
-                    completed: Date(),
-                    created: Date(),
-                    description: ""
-                )
-                                             )
+                staticState: choreDetailState(chore: previewChoreFinished)
             ),
             views: Dependency.preview.views()
         )
+        
     }
 }
 
