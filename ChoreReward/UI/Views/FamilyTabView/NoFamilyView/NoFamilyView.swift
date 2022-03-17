@@ -32,8 +32,6 @@ struct NoFamilyView: View {
             }
         }
         .padding()
-        .navigationTitle("Join a family")
-        .navigationBarTitleDisplayMode(.inline)
     }
 }
 

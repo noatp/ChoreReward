@@ -39,8 +39,6 @@ struct FamilyListView: View {
             }
         }
         .padding()
-        .navigationTitle("Family Members")
-        .navigationBarTitleDisplayMode(.inline)
         .sheet(isPresented: $presentedSheet) {
             views.addFamilyMemberView()
         }

@@ -52,8 +52,6 @@ struct UserTabView: View {
             )
         }
         .padding()
-        .navigationTitle("Hello, \(userTabViewModel.state.currentUserName)")
-        .navigationBarTitleDisplayMode(.inline)
     }
 }
 

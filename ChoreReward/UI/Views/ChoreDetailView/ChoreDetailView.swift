@@ -92,6 +92,8 @@ struct ChoreDetailView: View {
                         .clipShape(Circle())
                 }
             )
+            .navigationTitle(chore.title)
+            .navigationBarTitleDisplayMode(.inline)
         }
     }
 }

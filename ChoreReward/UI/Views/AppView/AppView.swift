@@ -7,8 +7,15 @@
 
 import SwiftUI
 
+enum Tabs: String{
+    case choreTab = "Chores"
+    case familyTab = "Family Members"
+    case userTab = "Your Profile"
+}
+
 struct AppView: View {
     @ObservedObject var appViewModel: ObservableViewModel<Void, Void>
+    @State var selectedTab: Tabs = .choreTab
     private var views: Dependency.Views
     
     init(
@@ -20,37 +27,33 @@ struct AppView: View {
     }
     
     var body: some View {
-        TabView {
-            NavigationView{
+        NavigationView{
+            TabView(selection: $selectedTab) {
                 views.choreTabView()
-            }
-            .tabItem {
-                Image(systemName: "checkmark.seal.fill")
-                Text("Chore")
-            }
-            .navigationViewStyle(.automatic)
+                .tabItem {
+                    Image(systemName: "checkmark.seal.fill")
+                    Text("Chore")
+                }
+                .tag(Tabs.choreTab)
 
-            
-            NavigationView{
                 views.familyTabView
-            }
-            .tabItem {
-                Image(systemName: "house")
-                Text("Family")
-            }
-            .navigationViewStyle(.automatic)
-
-            
-            NavigationView{
+                .tabItem {
+                    Image(systemName: "house")
+                    Text("Family")
+                }
+                .tag(Tabs.familyTab)
+ 
                 views.userTabView
+                .tabItem {
+                    Image(systemName: "person.crop.circle")
+                    Text("Profile")
+                }
+                .tag(Tabs.userTab)
             }
-            .tabItem {
-                Image(systemName: "person.crop.circle")
-                Text("Profile")
-            }
-            .navigationViewStyle(.automatic)
+            .font(.headline)
+            .navigationTitle(selectedTab.rawValue)
+            .navigationBarTitleDisplayMode(.large)
         }
-        .font(.headline)
     }
 }
 

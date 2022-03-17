@@ -48,8 +48,6 @@ struct AddFamilyMemberView: View {
                 buttonColor: .red
             )
         }
-        .navigationTitle("Add new member")
-        .navigationBarTitleDisplayMode(.inline)
         .padding()
     }
 }

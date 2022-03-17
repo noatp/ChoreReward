@@ -33,7 +33,14 @@ struct ChoreCardView_Previews: PreviewProvider {
     
     
     static var previews: some View {
-        ChoreCardView(chore: Chore(id: "previewChore", title: "Preview Chore", assignerId: "123", assigneeId: "456", created: Date(), description: ""))
+        ChoreCardView(
+            chore: Chore(id: "previewChoreID",
+                         title: "Preview Chore",
+                         assignerId: "123",
+                         assigneeId: "456",
+                         created: Date(),
+                         description: ""
+                        ))
             .previewLayout(.sizeThatFits)
     }
 }
