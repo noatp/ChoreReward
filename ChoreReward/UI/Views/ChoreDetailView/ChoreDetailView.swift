@@ -87,8 +87,8 @@ struct ChoreDetailView: View {
                 } label: {
                     Image(systemName: "xmark")
                         .frame(width: 40, height: 40)
-                        .foregroundColor(Color.black)
-                        .background(Color.white)
+                        .foregroundColor(Color.fg)
+                        .background(Color.bg)
                         .clipShape(Circle())
                 }
             )
@@ -100,26 +100,6 @@ struct ChoreDetailView: View {
 
 struct ChoreDetailView_Previews: PreviewProvider {
     static var previews: some View {
-//        let previewChoreNotTaken = Chore(
-//            id: "id",
-//            title: "Wash the dishes",
-//            assignerId: "preview assignerId",
-//            assigneeId: "",
-//            completed: nil,
-//            created: Date(),
-//            description: "The dishes has been here for a couple of days now, please wash them"
-//        )
-//
-//        let previewChoreTaken = Chore(
-//            id: "id",
-//            title: "Wash the dishes",
-//            assignerId: "preview assignerId",
-//            assigneeId: "preview assigneeId",
-//            completed: nil,
-//            created: Date(),
-//            description: "The dishes has been here for a couple of days now"
-//        )
-
         let previewChoreFinished = Chore(
             id: "id",
             title: "Wash the dishes",
@@ -129,18 +109,6 @@ struct ChoreDetailView_Previews: PreviewProvider {
             created: Date(),
             description: "The dishes has been here for a couple of days now, please wash them"
         )
-//        ChoreDetailView(
-//            choreDetailViewModel: ObservableViewModel(
-//                staticState: choreDetailState(chore: previewChoreNotTaken)
-//            ),
-//            views: Dependency.preview.views()
-//        )
-//        ChoreDetailView(
-//            choreDetailViewModel: ObservableViewModel(
-//                staticState: choreDetailState(chore: previewChoreTaken)
-//            ),
-//            views: Dependency.preview.views()
-//        )
         
         NavigationView{
             ChoreDetailView(
@@ -150,6 +118,16 @@ struct ChoreDetailView_Previews: PreviewProvider {
                 views: Dependency.preview.views()
             )
         }
+        
+        NavigationView{
+            ChoreDetailView(
+                choreDetailViewModel: ObservableViewModel(
+                    staticState: choreDetailState(chore: previewChoreFinished)
+                ),
+                views: Dependency.preview.views()
+            )
+        }
+        .preferredColorScheme(.dark)
     }
 }
 
