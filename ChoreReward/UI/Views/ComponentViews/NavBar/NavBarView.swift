@@ -27,6 +27,7 @@ struct NavBarView: View {
             
             Text(title)
                 .font(.title2)
+                .opacity(opacity)
             
             Spacer()
             

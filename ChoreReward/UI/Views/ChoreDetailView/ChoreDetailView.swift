@@ -11,6 +11,8 @@ struct ChoreDetailView: View {
     @ObservedObject var choreDetailViewModel: ObservableViewModel<choreDetailState, choreDetailAction>
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     @State private var navBarOpacity: Double = 0
+    @State private var scrollPos: Double = 0
+    private var chore: Chore{choreDetailViewModel.state.chore}
     private var views: Dependency.Views
         
     init(
@@ -22,67 +24,35 @@ struct ChoreDetailView: View {
     }
     
     var body: some View {
-        if let chore = choreDetailViewModel.state.chore {
-            NavBarContainerView(navBarTitle: chore.title, navBarOpacity: navBarOpacity) {
-                ScrollView{
+        NavBarContainerView(navBarTitle: chore.title, navBarOpacity: navBarOpacity) {
+            ScrollView{
+                ZStack(alignment: .top){
+                    GeometryReader { geoProxy in
+                        ExecuteCode {
+                            print("E")
+                            navBarOpacity = -(geoProxy.frame(in: .global).minY / 100)
+                        }
+                    }
                     Image("unfinishedDishes")
                         .resizable()
                         .scaledToFill()
                         .frame(maxWidth: .infinity, maxHeight: 400)
                         .clipped()
-                    VStack(alignment: .leading){
-                        Text("\(chore.title)")
-                            .font(.title)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                        Text("Chore put up by: \(chore.assignerId)")
-                            .font(.footnote)
-                        Text("on \(chore.created.formatted(date: .abbreviated, time: .omitted))")
-                            .font(.footnote)
-                            .padding(.bottom)
-                        
-                        Text("Detail")
-                            .font(.headline)
-                        Text(chore.description)
-                            .padding(.bottom)
-                                            
-                        if (chore.assigneeId != ""){
-                            Text("Chore taken by: \(chore.assigneeId)")
-                            if (chore.completed != nil){
-                                Text("Chore is completed on \(chore.completed!.formatted(date: .abbreviated, time: .omitted))")
-                            }
-                            else{
-                                Text("Chore is not completed")
-                            }
-                        }
-                    }
-                    .padding(.horizontal)
-                    if (chore.assigneeId == ""){
-                        ButtonView(
-                            action: {
-                                choreDetailViewModel.perform(action: .takeChore)
-                            },
-                            buttonTitle: "Take chore",
-                            buttonImage: "figure.wave",
-                            buttonColor: .accentColor
-                        )
-                    }
-                    
-                    if (chore.assigneeId != ""){
-                        if (chore.completed == nil){
-                            ButtonView(
-                                action: {
-                                    choreDetailViewModel.perform(action: .completeChore)
-                                },
-                                buttonTitle: "Complete chore",
-                                buttonImage: "checkmark.seal.fill",
-                                buttonColor: .green
-                            )
-                        }
+                }
+                
+                ChoreDetailText
+                
+                if (chore.assigneeId == ""){
+                    takeChoreButton
+                }
+                
+                if (chore.assigneeId != ""){
+                    if (chore.completed == nil){
+                        completeChoreButton
                     }
                 }
-                .ignoresSafeArea(edges: .top)
-
             }
+            .ignoresSafeArea(edges: .top)
         }
     }
 }
@@ -107,7 +77,6 @@ struct ChoreDetailView_Previews: PreviewProvider {
                 views: Dependency.preview.views()
             )
         }
-        .preferredColorScheme(.dark)
     }
 }
 
@@ -118,6 +87,59 @@ extension Dependency.Views{
                 viewModel: viewModels.choreDetailViewModel(chore: chore)
             ),
             views: self
+        )
+    }
+}
+
+extension ChoreDetailView{
+    private var ChoreDetailText: some View{
+        VStack(alignment: .leading){
+            Text("\(chore.title)")
+                .font(.title)
+                .frame(maxWidth: .infinity, alignment: .leading)
+            Text("Chore put up by: \(chore.assignerId)")
+                .font(.footnote)
+            Text("on \(chore.created.formatted(date: .abbreviated, time: .omitted))")
+                .font(.footnote)
+                .padding(.bottom)
+            
+            Text("Detail")
+                .font(.headline)
+            Text(chore.description)
+                .padding(.bottom)
+                                
+            if (chore.assigneeId != ""){
+                Text("Chore taken by: \(chore.assigneeId)")
+                if (chore.completed != nil){
+                    Text("Chore is completed on \(chore.completed!.formatted(date: .abbreviated, time: .omitted))")
+                }
+                else{
+                    Text("Chore is not completed")
+                }
+            }
+        }
+        .padding(.horizontal)
+    }
+    
+    private var takeChoreButton: some View{
+        ButtonView(
+            action: {
+                choreDetailViewModel.perform(action: .takeChore)
+            },
+            buttonTitle: "Take chore",
+            buttonImage: "figure.wave",
+            buttonColor: .accentColor
+        )
+    }
+    
+    private var completeChoreButton: some View{
+        ButtonView(
+            action: {
+                choreDetailViewModel.perform(action: .completeChore)
+            },
+            buttonTitle: "Complete chore",
+            buttonImage: "checkmark.seal.fill",
+            buttonColor: .green
         )
     }
 }

@@ -7,19 +7,18 @@
 
 import SwiftUI
 
-struct ExecuteCodeView: View {
-    
-    init(_ action: () -> Void){
-        action()
+struct ExecuteCode : View {
+    init( _ codeToExec: () -> () ) {
+        codeToExec()
     }
     
     var body: some View {
-        EmptyView()
+        return EmptyView()
     }
 }
 
 struct ExecuteCodeView_Previews: PreviewProvider {
     static var previews: some View {
-        ExecuteCodeView {}
+        ExecuteCode{}
     }
 }
