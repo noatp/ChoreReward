@@ -17,8 +17,20 @@ struct NavBarTitlePrefKey: PreferenceKey{
     static var defaultValue: String = ""
 }
 
+struct NavBarOpacityPrefKey: PreferenceKey{
+    static func reduce(value: inout Double, nextValue: () -> Double) {
+        value = nextValue()
+    }
+    
+    static var defaultValue: Double = 0.0
+}
+
 extension View{
     func navBarTitle(_ title: String) -> some View{
         preference(key: NavBarTitlePrefKey.self, value: title)
+    }
+    
+    func navBarOpacity(_ opacity: Double) -> some View{
+        preference(key: NavBarOpacityPrefKey.self, value: opacity)
     }
 }

@@ -26,6 +26,8 @@ struct NavBarView: View {
             Spacer()
             
             Text(title)
+                .lineLimit(1)
+                .truncationMode(.tail)
                 .font(.title2)
                 .opacity(opacity)
             
@@ -46,7 +48,7 @@ struct NavBarView_Previews: PreviewProvider {
             Text("This is NavBarView")
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .background(.gray)
-            NavBarView(title: "NavBarView", opacity: 1)
+            NavBarView(title: "NavBarViewWithAVeryVeryLongname", opacity: 1)
         }
     }
 }

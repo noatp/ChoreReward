@@ -7,14 +7,6 @@
 
 import SwiftUI
 
-struct ScrollViewOffsetPreferenceKey: PreferenceKey{
-    static func reduce(value: inout Double, nextValue: () -> Double) {
-        value = nextValue()
-    }
-    
-    static var defaultValue: Double = 0.0
-}
-
 struct ChoreDetailView: View {
     @ObservedObject var choreDetailViewModel: ObservableViewModel<choreDetailState, choreDetailAction>
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
@@ -34,21 +26,19 @@ struct ChoreDetailView: View {
     var body: some View {
         NavBarContainerView(navBarTitle: chore.title, navBarOpacity: navBarOpacity) {
             ScrollView{
-                VStack{
-                    Image("unfinishedDishes")
-                        .resizable()
-                        .scaledToFill()
-                        .frame(maxWidth: .infinity, maxHeight: 400)
-                        .clipped()
-                }
-                .background(GeometryReader { geoProxy in
-                    let offset = geoProxy.frame(in: .global).minY / 100 * -1
-                    Color.clear.preference(key: ScrollViewOffsetPreferenceKey.self, value: offset)
-                })
-                .onPreferenceChange(ScrollViewOffsetPreferenceKey.self) { value in
-                    print(value)
-                    navBarOpacity = value
-                }
+                Image("unfinishedDishes")
+                    .resizable()
+                    .scaledToFill()
+                    .frame(maxWidth: .infinity, maxHeight: 400)
+                    .clipped()
+                    .background(GeometryReader { geoProxy in
+                        let offset = geoProxy.frame(in: .global).minY / -100
+                        Color.clear
+                            .navBarOpacity(offset)
+                    })
+                    .onPreferenceChange(NavBarOpacityPrefKey.self) { value in
+                        navBarOpacity = value
+                    }
                 
                 ChoreDetailText
                 
