@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ExecuteCode : View {
     init( _ codeToExec: () -> () ) {
+        print("init")
         codeToExec()
     }
     

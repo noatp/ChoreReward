@@ -7,6 +7,14 @@
 
 import SwiftUI
 
+struct ScrollViewOffsetPreferenceKey: PreferenceKey{
+    static func reduce(value: inout Double, nextValue: () -> Double) {
+        value = nextValue()
+    }
+    
+    static var defaultValue: Double = 0.0
+}
+
 struct ChoreDetailView: View {
     @ObservedObject var choreDetailViewModel: ObservableViewModel<choreDetailState, choreDetailAction>
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
@@ -26,18 +34,20 @@ struct ChoreDetailView: View {
     var body: some View {
         NavBarContainerView(navBarTitle: chore.title, navBarOpacity: navBarOpacity) {
             ScrollView{
-                ZStack(alignment: .top){
-                    GeometryReader { geoProxy in
-                        ExecuteCode {
-                            print("E")
-                            navBarOpacity = -(geoProxy.frame(in: .global).minY / 100)
-                        }
-                    }
+                VStack{
                     Image("unfinishedDishes")
                         .resizable()
                         .scaledToFill()
                         .frame(maxWidth: .infinity, maxHeight: 400)
                         .clipped()
+                }
+                .background(GeometryReader { geoProxy in
+                    let offset = geoProxy.frame(in: .global).minY / 100 * -1
+                    Color.clear.preference(key: ScrollViewOffsetPreferenceKey.self, value: offset)
+                })
+                .onPreferenceChange(ScrollViewOffsetPreferenceKey.self) { value in
+                    print(value)
+                    navBarOpacity = value
                 }
                 
                 ChoreDetailText
@@ -52,6 +62,7 @@ struct ChoreDetailView: View {
                     }
                 }
             }
+            
             .ignoresSafeArea(edges: .top)
         }
     }
@@ -66,7 +77,7 @@ struct ChoreDetailView_Previews: PreviewProvider {
             assigneeId: "preview assigneeId",
             completed: Date(),
             created: Date(),
-            description: "The dishes has been here for a couple of days now, please wash them"
+            description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Interdum posuere lorem ipsum dolor sit amet consectetur. Amet consectetur adipiscing elit pellentesque. Id venenatis a con"
         )
         
         NavigationView{
