@@ -22,20 +22,21 @@ struct NavBarView: View {
     var body: some View {
         HStack{
             NavBarButton
-            
             Spacer()
-            
-            Text(title)
-                .lineLimit(1)
-                .truncationMode(.tail)
-                .font(.title2)
-                .opacity(opacity)
-            
-            Spacer()
-            
             NavBarButton
             .opacity(0)
         }
+        .background(
+            HStack{
+                Spacer(minLength: 50)
+                Text(title)
+                    .lineLimit(1)
+                    .truncationMode(.tail)
+                    .font(.title2)
+                    .opacity(opacity)
+                Spacer(minLength: 50)
+            }
+        )
         .padding(.horizontal)
         .foregroundColor(.fg)
         .background(Color.bg.ignoresSafeArea(edges: .top).opacity(opacity))

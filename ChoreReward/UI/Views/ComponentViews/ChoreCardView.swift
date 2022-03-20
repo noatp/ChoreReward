@@ -15,17 +15,20 @@ struct ChoreCardView: View {
     }
     
     var body: some View {
-        VStack{
-            Text(chore.title)
-            Text(chore.id ?? "")
+        HStack{
+            Image("unfinishedDishes")
+                .resizable()
+                .scaledToFill()
+                .frame(width: 100, height: 100)
+                .clipped()
+            
+            VStack{
+                Text(chore.title)
+                Text(chore.id ?? "")
+            }
+            Spacer()
         }
-        .frame(maxWidth: .infinity, maxHeight: 50)
-        .padding()
-        .background(content: {
-            RoundedRectangle(cornerRadius: 16)
-                .stroke()
-                .padding(2)
-        })
+        .foregroundColor(.fg)
     }
 }
 

@@ -27,7 +27,6 @@
 		45429DB1279B608C00FA9670 /* ChoreCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45429DB0279B608C00FA9670 /* ChoreCardView.swift */; };
 		45429DC227A518B600FA9670 /* ChoreDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45429DC127A518B600FA9670 /* ChoreDetailViewModel.swift */; };
 		45429DC427A518CC00FA9670 /* ChoreDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45429DC327A518CC00FA9670 /* ChoreDetailView.swift */; };
-		455013A627E5D0C40070EB06 /* ExecuteCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 455013A527E5D0C30070EB06 /* ExecuteCodeView.swift */; };
 		455ECC86275DA7A100438A43 /* RolePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 455ECC85275DA7A100438A43 /* RolePickerView.swift */; };
 		4569AD54278A6C17008B54D9 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 4569AD53278A6C17008B54D9 /* FirebaseAuth */; };
 		4569AD56278A6C17008B54D9 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 4569AD55278A6C17008B54D9 /* FirebaseFirestore */; };
@@ -104,7 +103,6 @@
 		45429DB0279B608C00FA9670 /* ChoreCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoreCardView.swift; sourceTree = "<group>"; };
 		45429DC127A518B600FA9670 /* ChoreDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoreDetailViewModel.swift; sourceTree = "<group>"; };
 		45429DC327A518CC00FA9670 /* ChoreDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoreDetailView.swift; sourceTree = "<group>"; };
-		455013A527E5D0C30070EB06 /* ExecuteCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExecuteCodeView.swift; sourceTree = "<group>"; };
 		455ECC85275DA7A100438A43 /* RolePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RolePickerView.swift; sourceTree = "<group>"; };
 		456EA4B5278A127E00ADA2CD /* ButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonView.swift; sourceTree = "<group>"; };
 		45A31BFA27E2CB340060B8AB /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
@@ -238,7 +236,6 @@
 				453147642751C823000A85D7 /* LoginView */,
 				45D7AE8A27346E7600A53812 /* ComponentViews */,
 				453CC1A12787B41F002996AF /* ObservableViewModel.swift */,
-				455013A527E5D0C30070EB06 /* ExecuteCodeView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -606,7 +603,6 @@
 				45C1FA652767163F00BF11E3 /* FamilyRepository.swift in Sources */,
 				45243EFF276E9F9000D2EACB /* UserCardView.swift in Sources */,
 				45429DC227A518B600FA9670 /* ChoreDetailViewModel.swift in Sources */,
-				455013A627E5D0C40070EB06 /* ExecuteCodeView.swift in Sources */,
 				45A4754A279215A100322BCE /* ChoreRepository.swift in Sources */,
 				45D8D39F275ED2BE0026ABE3 /* FamilyTabViewModel.swift in Sources */,
 				45ACB4DC2724AE00000E04A0 /* Chore.swift in Sources */,

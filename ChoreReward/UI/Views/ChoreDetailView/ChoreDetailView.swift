@@ -12,6 +12,7 @@ struct ChoreDetailView: View {
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     @State private var navBarOpacity: Double = 0
     @State private var scrollPos: Double = 0
+    
     private var chore: Chore{choreDetailViewModel.state.chore}
     private var views: Dependency.Views
         
@@ -31,16 +32,9 @@ struct ChoreDetailView: View {
                     .scaledToFill()
                     .frame(maxWidth: .infinity, maxHeight: 400)
                     .clipped()
-                    .background(GeometryReader { geoProxy in
-                        let offset = geoProxy.frame(in: .global).minY / -100
-                        Color.clear
-                            .navBarOpacity(offset)
-                    })
-                    .onPreferenceChange(NavBarOpacityPrefKey.self) { value in
-                        navBarOpacity = value
-                    }
+                    .scrollViewOffset($navBarOpacity)
                 
-                ChoreDetailText
+                choreDetailText
                 
                 if (chore.assigneeId == ""){
                     takeChoreButton
@@ -52,7 +46,6 @@ struct ChoreDetailView: View {
                     }
                 }
             }
-            
             .ignoresSafeArea(edges: .top)
         }
     }
@@ -93,7 +86,7 @@ extension Dependency.Views{
 }
 
 extension ChoreDetailView{
-    private var ChoreDetailText: some View{
+    private var choreDetailText: some View{
         VStack(alignment: .leading){
             Text("\(chore.title)")
                 .font(.title)

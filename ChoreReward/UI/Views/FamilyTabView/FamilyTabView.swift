@@ -19,13 +19,11 @@ struct FamilyTabView: View {
         self.views = views
     }
     var body: some View {
-        HStack{
-            if familyTabViewModel.state.hasCurrentFamily {
-                views.familyListView
-            }
-            else{
-                views.noFamilyView
-            }
+        if familyTabViewModel.state.hasCurrentFamily {
+            views.familyListView
+        }
+        else{
+            views.noFamilyView
         }
     }
 }
