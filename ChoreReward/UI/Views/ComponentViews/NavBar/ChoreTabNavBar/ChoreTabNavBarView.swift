@@ -7,7 +7,14 @@
 
 import SwiftUI
 
+enum FinishedPickerState{
+    case finished, unfinished
+}
+
 struct ChoreTabNavBarView: View {
+    @State private var finishedPickerState: FinishedPickerState = .finished
+    @Namespace private var animation
+    
     var body: some View {
         VStack(alignment: .leading){
             Text("Chore")
@@ -15,10 +22,52 @@ struct ChoreTabNavBarView: View {
                 .truncationMode(.tail)
                 .font(.title2)
             HStack{
+                HStack(spacing: 0){
+                    Button {
+                        withAnimation {
+                            finishedPickerState = .finished
+                        }
+                    } label: {
+                        Text("Finished")
+                    }
+                    .padding(.horizontal)
+                    .padding(.vertical, 5)
+                    .background{
+                        if (finishedPickerState == .finished){
+                            RoundedRectangle(cornerRadius: .infinity)
+                                .foregroundColor(.bg3)
+                                .matchedGeometryEffect(id: "pickerBackground", in: animation)
+                        }
+                    }
+                    
+                    Button {
+                        withAnimation {
+                            finishedPickerState = .unfinished
+                        }
+                    } label: {
+                        Text("Unfinished")
+                    }
+                    .padding(.horizontal)
+                    .padding(.vertical, 5)
+                    .background{
+                        if (finishedPickerState == .unfinished){
+                            RoundedRectangle(cornerRadius: .infinity)
+                                .foregroundColor(.bg3)
+                                .matchedGeometryEffect(id: "pickerBackground", in: animation)
+                        }
+                    }
+                }
+                .background{
+                    RoundedRectangle(cornerRadius: .infinity)
+                        .foregroundColor(.bg2)
+                }
                 
+                Spacer()
             }
+           
 
         }
+        .background(Color.bg.ignoresSafeArea(edges: .top))
     }
 }
 
@@ -30,5 +79,6 @@ struct ChoreTabNavBarView_Previews: PreviewProvider {
                 .background(.gray)
             ChoreTabNavBarView()
         }
+        .preferredColorScheme(.dark)
     }
 }
