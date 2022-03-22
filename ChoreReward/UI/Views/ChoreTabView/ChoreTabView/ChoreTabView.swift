@@ -21,33 +21,35 @@ struct ChoreTabView: View {
     }
     
     var body: some View {
-        VStack{
-            ScrollView{
-                ForEach(choreTabViewModel.state.choreList) {chore in
-                    VStack{
-                        NavigationLink {
-                            views.choreDetailView(chore: chore)
-                        } label: {
-                            ChoreCardView(chore: chore)
+        ChoreTabNavBarContainer{
+            VStack{
+                ScrollView{
+                    ForEach(choreTabViewModel.state.choreList) {chore in
+                        VStack{
+                            NavigationLink {
+                                views.choreDetailView(chore: chore)
+                            } label: {
+                                ChoreCardView(chore: chore)
+                            }
                         }
                     }
                 }
+                
+                if (choreTabViewModel.state.shouldRenderAddChoreButton){
+                    ButtonView(
+                        action: {
+                            presentedSheet = true
+                        },
+                        buttonTitle: "Add Chore",
+                        buttonImage: "plus",
+                        buttonColor: .accentColor
+                    )
+                }
             }
-            
-            if (choreTabViewModel.state.shouldRenderAddChoreButton){
-                ButtonView(
-                    action: {
-                        presentedSheet = true
-                    },
-                    buttonTitle: "Add Chore",
-                    buttonImage: "plus",
-                    buttonColor: .accentColor
-                )
+            .padding()
+            .sheet(isPresented: $presentedSheet, onDismiss: {}) {
+                views.addChoreView()
             }
-        }
-        .padding()
-        .sheet(isPresented: $presentedSheet, onDismiss: {}) {
-            views.addChoreView()
         }
     }
 }

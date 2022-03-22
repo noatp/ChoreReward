@@ -29,6 +29,7 @@ struct ChoreTabNavBarView: View {
                         }
                     } label: {
                         Text("Finished")
+                            .foregroundColor(.fg)
                     }
                     .padding(.horizontal)
                     .padding(.vertical, 5)
@@ -46,6 +47,7 @@ struct ChoreTabNavBarView: View {
                         }
                     } label: {
                         Text("Unfinished")
+                            .foregroundColor(.fg)
                     }
                     .padding(.horizontal)
                     .padding(.vertical, 5)
@@ -67,6 +69,8 @@ struct ChoreTabNavBarView: View {
            
 
         }
+        .padding(.horizontal)
+        .padding(.bottom)
         .background(Color.bg.ignoresSafeArea(edges: .top))
     }
 }
