@@ -15,10 +15,10 @@ struct ChoreTabNavBarContainer<Content: View>: View {
     }
     
     var body: some View {
-        ZStack(alignment: .top){
+        VStack(spacing: 0){
+            ChoreTabNavBarView()
             content
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
-            ChoreTabNavBarView()
         }
         .navigationBarHidden(true)
     }
