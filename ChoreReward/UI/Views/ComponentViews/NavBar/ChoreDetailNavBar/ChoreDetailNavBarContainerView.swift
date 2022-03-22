@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct NavBarContainerView<Content: View>: View {
+struct ChoreDetailNavBarContainerView<Content: View>: View {
     private var navBarTitle: String
     private var navBarOpacity: Double
     let content: Content
@@ -22,15 +22,15 @@ struct NavBarContainerView<Content: View>: View {
         ZStack(alignment: .top){
             content
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
-            NavBarView(title: navBarTitle, opacity: navBarOpacity)
+            ChoreDetailNavBarView(title: navBarTitle, opacity: navBarOpacity)
         }
         .navigationBarHidden(true)
     }
 }
 
-struct NavBarContainerView_Previews: PreviewProvider {
+struct ChoreDetailNavBarContainerView_Previews: PreviewProvider {
     static var previews: some View {
-        NavBarContainerView(navBarTitle: "NavBarContainerView", navBarOpacity: 1) {
+        ChoreDetailNavBarContainerView(navBarTitle: "NavBarContainerView", navBarOpacity: 1) {
             Text("This is NavBarContainerView")
         }
     }

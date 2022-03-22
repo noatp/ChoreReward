@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-struct NavBarView: View {
+struct ChoreDetailNavBarView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     let title: String
@@ -43,18 +43,18 @@ struct NavBarView: View {
     }
 }
 
-struct NavBarView_Previews: PreviewProvider {
+struct ChoreDetailNavBarView_Previews: PreviewProvider {
     static var previews: some View {
         ZStack(alignment: .top){
             Text("This is NavBarView")
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .background(.gray)
-            NavBarView(title: "NavBarViewWithAVeryVeryLongname", opacity: 1)
+            ChoreDetailNavBarView(title: "NavBarViewWithAVeryVeryLongname", opacity: 1)
         }
     }
 }
 
-extension NavBarView{
+extension ChoreDetailNavBarView{
     private var NavBarButton: some View{
         Button {
             presentationMode.wrappedValue.dismiss()
