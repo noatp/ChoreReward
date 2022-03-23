@@ -23,49 +23,44 @@ struct ChoreTabView: View {
     
     var body: some View {
         ChoreTabNavBarContainer(pickerStateBinding: $finishedPickerState){
-            VStack{
-                ScrollView{
-                    if (finishedPickerState == .unfinished){
-                        ForEach(choreTabViewModel.state.unfinishedChoreList) {chore in
-                            VStack{
-                                NavigationLink {
-                                    views.choreDetailView(chore: chore)
-                                } label: {
-                                    ChoreCardView(chore: chore)
+            ZStack{
+                VStack{
+                    ScrollView(showsIndicators: false){
+                        if (finishedPickerState == .unfinished){
+                            ForEach(choreTabViewModel.state.unfinishedChoreList) {chore in
+                                VStack{
+                                    NavigationLink {
+                                        views.choreDetailView(chore: chore)
+                                    } label: {
+                                        ChoreCardView(chore: chore)
+                                    }
                                 }
                             }
+                            .transition(.move(edge: .leading))
                         }
-                        .transition(.move(edge: .leading))
-                    }
-                    else{
-                        ForEach(choreTabViewModel.state.finishedChoreList) {chore in
-                            VStack{
-                                NavigationLink {
-                                    views.choreDetailView(chore: chore)
-                                } label: {
-                                    ChoreCardView(chore: chore)
+                        else{
+                            ForEach(choreTabViewModel.state.finishedChoreList) {chore in
+                                VStack{
+                                    NavigationLink {
+                                        views.choreDetailView(chore: chore)
+                                    } label: {
+                                        ChoreCardView(chore: chore)
+                                    }
                                 }
                             }
+                            .transition(.move(edge: .trailing))
                         }
-                        .transition(.move(edge: .trailing))
+                        
                     }
-                    
+                }
+                .padding()
+                .sheet(isPresented: $presentedSheet, onDismiss: {}) {
+                    views.addChoreView()
                 }
                 
                 if (choreTabViewModel.state.shouldRenderAddChoreButton){
-                    ButtonView(
-                        action: {
-                            presentedSheet = true
-                        },
-                        buttonTitle: "Add Chore",
-                        buttonImage: "plus",
-                        buttonColor: .accentColor
-                    )
+                    addChoreButton
                 }
-            }
-            .padding()
-            .sheet(isPresented: $presentedSheet, onDismiss: {}) {
-                views.addChoreView()
             }
         }
     }
@@ -113,5 +108,28 @@ extension Dependency.Views{
             ),
             views: self
         )
+    }
+}
+
+extension ChoreTabView{
+    private var addChoreButton: some View{
+        VStack{
+            Spacer()
+            HStack{
+                Spacer()
+                Button {
+                    presentedSheet = true
+
+                } label: {
+                    Image(systemName: "plus")
+                        .frame(width: 50, height: 50)
+                        .foregroundColor(Color.fg)
+                        .background(Color.accentColor)
+                        .clipShape(Circle())
+                        .padding()
+                        .padding(.bottom, 15)
+                }
+            }
+        }
     }
 }

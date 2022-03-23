@@ -41,7 +41,7 @@ struct ChoreCardView: View {
             }
             Spacer()
         }
-        .foregroundColor(.fg)
+        .foregroundColor(.fg2)
     }
 }
 

@@ -21,6 +21,7 @@ struct ChoreTabNavBarView: View {
                 .lineLimit(1)
                 .truncationMode(.tail)
                 .font(.title)
+                .foregroundColor(.fg)
             HStack{
                 HStack(spacing: 0){
                     Button {
