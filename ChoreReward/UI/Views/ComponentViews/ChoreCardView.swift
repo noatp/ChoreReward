@@ -22,9 +22,22 @@ struct ChoreCardView: View {
                 .frame(width: 100, height: 100)
                 .clipped()
             
-            VStack{
-                Text(chore.title)
-                Text(chore.id ?? "")
+            VStack(alignment: .leading){
+                HStack{
+                    Text(chore.title)
+                        .multilineTextAlignment(.leading)
+                        .lineLimit(1)
+                        .truncationMode(.tail)
+                        .font(.headline.weight(.semibold))
+                    Spacer()
+                    Text(chore.created.formatted(date: .numeric, time: .omitted))
+                        .font(.caption.weight(.thin))
+                }
+                Text(chore.description)
+                    .multilineTextAlignment(.leading)
+                    .lineLimit(3)
+                    .truncationMode(.tail)
+                    .font(.body.weight(.light))
             }
             Spacer()
         }
@@ -42,7 +55,7 @@ struct ChoreCardView_Previews: PreviewProvider {
                          assignerId: "123",
                          assigneeId: "456",
                          created: Date(),
-                         description: ""
+                         description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
                         ))
             .previewLayout(.sizeThatFits)
     }

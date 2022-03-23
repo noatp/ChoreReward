@@ -35,6 +35,7 @@ struct ChoreTabView: View {
                                 }
                             }
                         }
+                        .transition(.move(edge: .leading))
                     }
                     else{
                         ForEach(choreTabViewModel.state.finishedChoreList) {chore in
@@ -46,6 +47,7 @@ struct ChoreTabView: View {
                                 }
                             }
                         }
+                        .transition(.move(edge: .trailing))
                     }
                     
                 }

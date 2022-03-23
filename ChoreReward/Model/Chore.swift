@@ -18,13 +18,13 @@ struct Chore: Identifiable, Codable{
     var created: Date
     var description: String
     
-    static let preview = Chore(
-        id: UUID().uuidString,
-        title: "Wash the dishes",
-        assignerId: User.previewDavid.id!,
-        assigneeId: User.previewTim.id!,
+    static let empty = Chore(
+        id: "",
+        title: "",
+        assignerId: "",
+        assigneeId: "",
         created: Date(),
-        description: "Please wash the dishes carefully"
+        description: ""
     )
     
     enum RewardType: String, CaseIterable, Identifiable{

@@ -36,12 +36,11 @@ struct ChoreDetailView: View {
                 
                 choreDetailText
                 
-                if (chore.assigneeId == ""){
+                if (!choreDetailViewModel.state.choreTaken){
                     takeChoreButton
                 }
-                
-                if (chore.assigneeId != ""){
-                    if (chore.completed == nil){
+                else{
+                    if (!choreDetailViewModel.state.choreCompleted){
                         completeChoreButton
                     }
                 }
@@ -102,9 +101,9 @@ extension ChoreDetailView{
             Text(chore.description)
                 .padding(.bottom)
                                 
-            if (chore.assigneeId != ""){
+            if (choreDetailViewModel.state.choreTaken){
                 Text("Chore taken by: \(chore.assigneeId)")
-                if (chore.completed != nil){
+                if (choreDetailViewModel.state.choreCompleted){
                     Text("Chore is completed on \(chore.completed!.formatted(date: .abbreviated, time: .omitted))")
                 }
                 else{

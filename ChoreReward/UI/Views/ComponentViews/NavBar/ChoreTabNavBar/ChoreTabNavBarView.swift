@@ -20,11 +20,11 @@ struct ChoreTabNavBarView: View {
             Text("Chore")
                 .lineLimit(1)
                 .truncationMode(.tail)
-                .font(.title2)
+                .font(.title)
             HStack{
                 HStack(spacing: 0){
                     Button {
-                        withAnimation {
+                        withAnimation(.easeInOut(duration: 0.2)) {
                             pickerStateBinding = .unfinished
                         }
                     } label: {
@@ -42,7 +42,7 @@ struct ChoreTabNavBarView: View {
                     }
                     
                     Button {
-                        withAnimation {
+                        withAnimation(.easeInOut(duration: 0.2)) {
                             pickerStateBinding = .finished
                         }
                     } label: {

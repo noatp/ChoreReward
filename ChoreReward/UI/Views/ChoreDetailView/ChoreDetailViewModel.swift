@@ -10,7 +10,7 @@ import Combine
 
 class ChoreDetailViewModel: StatefulViewModel{
     @Published var _state: choreDetailState = empty
-    static let empty: choreDetailState = .init(chore: Chore.preview)
+    static let empty: choreDetailState = .init(chore: Chore.empty)
     var state: AnyPublisher<choreDetailState, Never>{
         return $_state.eraseToAnyPublisher()
     }
@@ -53,6 +53,14 @@ class ChoreDetailViewModel: StatefulViewModel{
 
 struct choreDetailState{
     let chore: Chore
+    let choreTaken: Bool
+    let choreCompleted: Bool
+    
+    init(chore: Chore) {
+        self.chore = chore
+        self.choreTaken = chore.assigneeId != ""
+        self.choreCompleted = chore.completed != nil
+    }
 }
 
 enum choreDetailAction{
