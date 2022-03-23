@@ -12,7 +12,7 @@ enum FinishedPickerState{
 }
 
 struct ChoreTabNavBarView: View {
-    @State private var finishedPickerState: FinishedPickerState = .finished
+    @Binding var pickerStateBinding: FinishedPickerState
     @Namespace private var animation
     
     var body: some View {
@@ -25,25 +25,7 @@ struct ChoreTabNavBarView: View {
                 HStack(spacing: 0){
                     Button {
                         withAnimation {
-                            finishedPickerState = .finished
-                        }
-                    } label: {
-                        Text("Finished")
-                            .foregroundColor(.fg)
-                    }
-                    .padding(.horizontal)
-                    .padding(.vertical, 5)
-                    .background{
-                        if (finishedPickerState == .finished){
-                            RoundedRectangle(cornerRadius: .infinity)
-                                .foregroundColor(.bg3)
-                                .matchedGeometryEffect(id: "pickerBackground", in: animation)
-                        }
-                    }
-                    
-                    Button {
-                        withAnimation {
-                            finishedPickerState = .unfinished
+                            pickerStateBinding = .unfinished
                         }
                     } label: {
                         Text("Unfinished")
@@ -52,7 +34,25 @@ struct ChoreTabNavBarView: View {
                     .padding(.horizontal)
                     .padding(.vertical, 5)
                     .background{
-                        if (finishedPickerState == .unfinished){
+                        if (pickerStateBinding == .unfinished){
+                            RoundedRectangle(cornerRadius: .infinity)
+                                .foregroundColor(.bg3)
+                                .matchedGeometryEffect(id: "pickerBackground", in: animation)
+                        }
+                    }
+                    
+                    Button {
+                        withAnimation {
+                            pickerStateBinding = .finished
+                        }
+                    } label: {
+                        Text("Finished")
+                            .foregroundColor(.fg)
+                    }
+                    .padding(.horizontal)
+                    .padding(.vertical, 5)
+                    .background{
+                        if (pickerStateBinding == .finished){
                             RoundedRectangle(cornerRadius: .infinity)
                                 .foregroundColor(.bg3)
                                 .matchedGeometryEffect(id: "pickerBackground", in: animation)
@@ -81,7 +81,7 @@ struct ChoreTabNavBarView_Previews: PreviewProvider {
             Text("This is NavBarView")
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .background(.gray)
-            ChoreTabNavBarView()
+            ChoreTabNavBarView(pickerStateBinding: .constant(.unfinished))
         }
         .preferredColorScheme(.dark)
     }

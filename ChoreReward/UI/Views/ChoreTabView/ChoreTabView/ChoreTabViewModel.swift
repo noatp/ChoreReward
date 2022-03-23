@@ -9,8 +9,13 @@ import Foundation
 import Combine
 
 class ChoreTabViewModel: StatefulViewModel{
-    @Published var _state: ChoreTabState = empty
-    static var empty: ChoreTabState = .init(shouldRenderAddChoreButton: false, choreList: [])
+    @Published private var _state: ChoreTabState = empty
+    static var empty: ChoreTabState = .init(
+        shouldRenderAddChoreButton: false,
+        unfinishedChoreList: [],
+        finishedChoreList: []
+    )
+    
     var state: AnyPublisher<ChoreTabState, Never>{
         return $_state.eraseToAnyPublisher()
     }
@@ -26,10 +31,6 @@ class ChoreTabViewModel: StatefulViewModel{
     ) {
         self.userService = userService
         self.choreService = choreService
-        self._state = .init(
-            shouldRenderAddChoreButton: false,
-            choreList: []
-        )
         addSubscription()
     }
     
@@ -41,7 +42,12 @@ class ChoreTabViewModel: StatefulViewModel{
                 }
                 self?._state = .init(
                     shouldRenderAddChoreButton: oldState.shouldRenderAddChoreButton,
-                    choreList: receivedChoreList
+                    unfinishedChoreList: receivedChoreList.compactMap({ chore in
+                        chore.completed == nil ? chore : nil
+                    }),
+                    finishedChoreList: receivedChoreList.compactMap({ chore in
+                        chore.completed != nil ? chore : nil
+                    })
                 )
             })
         currentUserSubscription = userService.$currentUser
@@ -51,7 +57,8 @@ class ChoreTabViewModel: StatefulViewModel{
                 }
                 self?._state = .init(
                     shouldRenderAddChoreButton: receivedUser?.role == .parent || receivedUser?.role == .admin,
-                    choreList: oldState.choreList
+                    unfinishedChoreList: oldState.unfinishedChoreList,
+                    finishedChoreList: oldState.finishedChoreList
                 )
                 
             })
@@ -63,7 +70,8 @@ class ChoreTabViewModel: StatefulViewModel{
 
 struct ChoreTabState{
     let shouldRenderAddChoreButton: Bool
-    let choreList: [Chore]
+    let unfinishedChoreList: [Chore]
+    let finishedChoreList: [Chore]
 }
 
 enum ChoreTabAction{

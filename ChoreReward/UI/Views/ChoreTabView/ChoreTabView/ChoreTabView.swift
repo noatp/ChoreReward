@@ -10,6 +10,7 @@ import SwiftUI
 struct ChoreTabView: View {
     @ObservedObject var choreTabViewModel: ObservableViewModel<ChoreTabState, ChoreTabAction>
     @State var presentedSheet = false
+    @State private var finishedPickerState: FinishedPickerState = .unfinished
     private var views: Dependency.Views
     
     init(
@@ -21,18 +22,32 @@ struct ChoreTabView: View {
     }
     
     var body: some View {
-        ChoreTabNavBarContainer{
+        ChoreTabNavBarContainer(pickerStateBinding: $finishedPickerState){
             VStack{
                 ScrollView{
-                    ForEach(choreTabViewModel.state.choreList) {chore in
-                        VStack{
-                            NavigationLink {
-                                views.choreDetailView(chore: chore)
-                            } label: {
-                                ChoreCardView(chore: chore)
+                    if (finishedPickerState == .unfinished){
+                        ForEach(choreTabViewModel.state.unfinishedChoreList) {chore in
+                            VStack{
+                                NavigationLink {
+                                    views.choreDetailView(chore: chore)
+                                } label: {
+                                    ChoreCardView(chore: chore)
+                                }
                             }
                         }
                     }
+                    else{
+                        ForEach(choreTabViewModel.state.finishedChoreList) {chore in
+                            VStack{
+                                NavigationLink {
+                                    views.choreDetailView(chore: chore)
+                                } label: {
+                                    ChoreCardView(chore: chore)
+                                }
+                            }
+                        }
+                    }
+                    
                 }
                 
                 if (choreTabViewModel.state.shouldRenderAddChoreButton){
@@ -61,12 +76,30 @@ struct ChoreTabView_Previews: PreviewProvider {
                 choreTabViewModel: ObservableViewModel(
                     staticState: .init(
                         shouldRenderAddChoreButton: true,
-                        choreList: []
+                        unfinishedChoreList: [Chore(
+                            id: "previewId1",
+                            title: "unfinished chore",
+                            assignerId: "",
+                            assigneeId: "",
+                            completed: nil,
+                            created: Date(),
+                            description: "unfinished chore"
+                        )],
+                        finishedChoreList: [Chore(
+                            id: "previewId2",
+                            title: "finished chore",
+                            assignerId: "",
+                            assigneeId: "",
+                            completed: Date(),
+                            created: Date(),
+                            description: "finished chore")
+                        ]
                     )
                 ),
                 views: Dependency.preview.views()
             )
         }
+        .preferredColorScheme(.dark)
     }
 }
 
