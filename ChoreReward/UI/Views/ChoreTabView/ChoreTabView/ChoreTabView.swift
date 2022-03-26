@@ -10,6 +10,7 @@ import SwiftUI
 struct ChoreTabView: View {
     @ObservedObject var choreTabViewModel: ObservableViewModel<ChoreTabState, ChoreTabAction>
     @State var presentedSheet = false
+    @State var presentDrawer = false
     @State private var finishedPickerState: FinishedPickerState = .unfinished
     private var views: Dependency.Views
     
@@ -22,7 +23,7 @@ struct ChoreTabView: View {
     }
     
     var body: some View {
-        ChoreTabNavBarContainer(pickerStateBinding: $finishedPickerState){
+        ChoreTabNavBarContainerView(pickerStateBinding: $finishedPickerState, drawerStateBinding: $presentDrawer){
             ZStack{
                 VStack{
                     ScrollView(showsIndicators: false){
@@ -63,6 +64,7 @@ struct ChoreTabView: View {
                 }
             }
         }
+
     }
 }
 

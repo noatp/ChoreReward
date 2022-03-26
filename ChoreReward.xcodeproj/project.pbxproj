@@ -32,7 +32,8 @@
 		4569AD56278A6C17008B54D9 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 4569AD55278A6C17008B54D9 /* FirebaseFirestore */; };
 		4569AD58278A6C17008B54D9 /* FirebaseFirestoreSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = 4569AD57278A6C17008B54D9 /* FirebaseFirestoreSwift-Beta */; };
 		456D46E427EA389C00B2AC07 /* ChoreTabNavBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456D46E327EA389C00B2AC07 /* ChoreTabNavBarView.swift */; };
-		456D46E627EA4AB100B2AC07 /* ChoreTabNavBarContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456D46E527EA4AB100B2AC07 /* ChoreTabNavBarContainer.swift */; };
+		456D46E627EA4AB100B2AC07 /* ChoreTabNavBarContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456D46E527EA4AB100B2AC07 /* ChoreTabNavBarContainerView.swift */; };
+		456D46E927EBFFE800B2AC07 /* SideMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456D46E827EBFFE800B2AC07 /* SideMenuView.swift */; };
 		456EA4B6278A127E00ADA2CD /* ButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456EA4B5278A127E00ADA2CD /* ButtonView.swift */; };
 		45A31BFB27E2CB340060B8AB /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A31BFA27E2CB340060B8AB /* Color.swift */; };
 		45A4754A279215A100322BCE /* ChoreRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A47549279215A100322BCE /* ChoreRepository.swift */; };
@@ -63,6 +64,7 @@
 		45E483CC27540305009DA543 /* RootViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E483CB27540305009DA543 /* RootViewModel.swift */; };
 		45E5FB1427E5A65C008B20A8 /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E5FB1327E5A65C008B20A8 /* View.swift */; };
 		45E5FB1727E5A732008B20A8 /* ChoreDetailNavBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E5FB1627E5A732008B20A8 /* ChoreDetailNavBarView.swift */; };
+		45EAF0BA27EE6F8B005655D4 /* CircularButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45EAF0B927EE6F8B005655D4 /* CircularButton.swift */; };
 		45F784962793D84400C8B197 /* AddChoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F784952793D84400C8B197 /* AddChoreView.swift */; };
 		45F784982793D86F00C8B197 /* AddChoreViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F784972793D86F00C8B197 /* AddChoreViewModel.swift */; };
 /* End PBXBuildFile section */
@@ -107,7 +109,8 @@
 		45429DC327A518CC00FA9670 /* ChoreDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoreDetailView.swift; sourceTree = "<group>"; };
 		455ECC85275DA7A100438A43 /* RolePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RolePickerView.swift; sourceTree = "<group>"; };
 		456D46E327EA389C00B2AC07 /* ChoreTabNavBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoreTabNavBarView.swift; sourceTree = "<group>"; };
-		456D46E527EA4AB100B2AC07 /* ChoreTabNavBarContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoreTabNavBarContainer.swift; sourceTree = "<group>"; };
+		456D46E527EA4AB100B2AC07 /* ChoreTabNavBarContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoreTabNavBarContainerView.swift; sourceTree = "<group>"; };
+		456D46E827EBFFE800B2AC07 /* SideMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuView.swift; sourceTree = "<group>"; };
 		456EA4B5278A127E00ADA2CD /* ButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonView.swift; sourceTree = "<group>"; };
 		45A31BFA27E2CB340060B8AB /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		45A47549279215A100322BCE /* ChoreRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoreRepository.swift; sourceTree = "<group>"; };
@@ -141,6 +144,7 @@
 		45E483CB27540305009DA543 /* RootViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewModel.swift; sourceTree = "<group>"; };
 		45E5FB1327E5A65C008B20A8 /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
 		45E5FB1627E5A732008B20A8 /* ChoreDetailNavBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoreDetailNavBarView.swift; sourceTree = "<group>"; };
+		45EAF0B927EE6F8B005655D4 /* CircularButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularButton.swift; sourceTree = "<group>"; };
 		45F784952793D84400C8B197 /* AddChoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddChoreView.swift; sourceTree = "<group>"; };
 		45F784972793D86F00C8B197 /* AddChoreViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddChoreViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -173,14 +177,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		45243EF5276E87DF00D2EACB /* UserCard */ = {
-			isa = PBXGroup;
-			children = (
-				45243EFE276E9F9000D2EACB /* UserCardView.swift */,
-			);
-			path = UserCard;
-			sourceTree = "<group>";
-		};
 		45243F0C276EB5B900D2EACB /* FamilyListView */ = {
 			isa = PBXGroup;
 			children = (
@@ -301,9 +297,17 @@
 			isa = PBXGroup;
 			children = (
 				456D46E327EA389C00B2AC07 /* ChoreTabNavBarView.swift */,
-				456D46E527EA4AB100B2AC07 /* ChoreTabNavBarContainer.swift */,
+				456D46E527EA4AB100B2AC07 /* ChoreTabNavBarContainerView.swift */,
 			);
 			path = ChoreTabNavBar;
+			sourceTree = "<group>";
+		};
+		456D46E727EBFFDA00B2AC07 /* SideMenu */ = {
+			isa = PBXGroup;
+			children = (
+				456D46E827EBFFE800B2AC07 /* SideMenuView.swift */,
+			);
+			path = SideMenu;
 			sourceTree = "<group>";
 		};
 		45A31BF927E2CB290060B8AB /* Extention */ = {
@@ -401,12 +405,14 @@
 		45D7AE8A27346E7600A53812 /* ComponentViews */ = {
 			isa = PBXGroup;
 			children = (
+				456D46E727EBFFDA00B2AC07 /* SideMenu */,
 				45E5FB1527E5A722008B20A8 /* NavBar */,
 				455ECC85275DA7A100438A43 /* RolePickerView.swift */,
 				456EA4B5278A127E00ADA2CD /* ButtonView.swift */,
 				45D7AE8B27346E9900A53812 /* TextFieldView.swift */,
-				45243EF5276E87DF00D2EACB /* UserCard */,
+				45243EFE276E9F9000D2EACB /* UserCardView.swift */,
 				45429DB0279B608C00FA9670 /* ChoreCardView.swift */,
+				45EAF0B927EE6F8B005655D4 /* CircularButton.swift */,
 			);
 			path = ComponentViews;
 			sourceTree = "<group>";
@@ -632,6 +638,7 @@
 				45A31BFB27E2CB340060B8AB /* Color.swift in Sources */,
 				45B6BB39272FC72100F89D74 /* AppView.swift in Sources */,
 				4531476B2751FFBD000A85D7 /* UserService.swift in Sources */,
+				45EAF0BA27EE6F8B005655D4 /* CircularButton.swift in Sources */,
 				452AFECE275443720060BD43 /* SignUpView.swift in Sources */,
 				45243F10276EB5F700D2EACB /* FamilyListViewModel.swift in Sources */,
 				4531476E2752FBFC000A85D7 /* AppViewModel.swift in Sources */,
@@ -648,13 +655,14 @@
 				45C1FA672767ABBB00BF11E3 /* FamilyService.swift in Sources */,
 				45E5FB1727E5A732008B20A8 /* ChoreDetailNavBarView.swift in Sources */,
 				453CC1A62787FBFB002996AF /* ChoreTabViewModel.swift in Sources */,
+				456D46E927EBFFE800B2AC07 /* SideMenuView.swift in Sources */,
 				45ACB4AC2724AD1A000E04A0 /* ChoreRewardApp.swift in Sources */,
 				456D46E427EA389C00B2AC07 /* ChoreTabNavBarView.swift in Sources */,
 				45E5FB1427E5A65C008B20A8 /* View.swift in Sources */,
 				452AFED0275444020060BD43 /* SignUpViewModel.swift in Sources */,
 				45A4754C27931F1C00322BCE /* ChoreService.swift in Sources */,
 				453147662751C83E000A85D7 /* LoginView.swift in Sources */,
-				456D46E627EA4AB100B2AC07 /* ChoreTabNavBarContainer.swift in Sources */,
+				456D46E627EA4AB100B2AC07 /* ChoreTabNavBarContainerView.swift in Sources */,
 				453CC1AC2788D936002996AF /* AddFamilyMemberView.swift in Sources */,
 				45243F0E276EB5DA00D2EACB /* FamilyListView.swift in Sources */,
 				453CC1A827880047002996AF /* ChoreTabView.swift in Sources */,

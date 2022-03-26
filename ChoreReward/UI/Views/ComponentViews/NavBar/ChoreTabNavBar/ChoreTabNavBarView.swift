@@ -13,15 +13,28 @@ enum FinishedPickerState{
 
 struct ChoreTabNavBarView: View {
     @Binding var pickerStateBinding: FinishedPickerState
+    @Binding var drawerStateBinding: Bool
     @Namespace private var animation
     
     var body: some View {
         VStack(alignment: .leading){
-            Text("Chore")
-                .lineLimit(1)
-                .truncationMode(.tail)
-                .font(.title)
+            HStack{
+                Button {
+                    withAnimation {
+                        drawerStateBinding = true 
+                    }
+                } label: {
+                    Image(systemName: "line.3.horizontal")
+                }
                 .foregroundColor(.fg)
+
+                Text("Chore")
+                    .lineLimit(1)
+                    .truncationMode(.tail)
+                    .font(.title)
+                    .foregroundColor(.fg)
+            }
+            
             HStack{
                 HStack(spacing: 0){
                     Button {
@@ -82,7 +95,10 @@ struct ChoreTabNavBarView_Previews: PreviewProvider {
             Text("This is NavBarView")
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .background(.gray)
-            ChoreTabNavBarView(pickerStateBinding: .constant(.unfinished))
+            ChoreTabNavBarView(
+                pickerStateBinding: .constant(.unfinished),
+                drawerStateBinding: .constant(true)
+            )
         }
         .preferredColorScheme(.dark)
     }

@@ -23,8 +23,6 @@ struct ChoreDetailNavBarView: View {
         HStack{
             NavBarButton
             Spacer()
-            NavBarButton
-            .opacity(0)
         }
         .background(
             HStack{
@@ -56,14 +54,8 @@ struct ChoreDetailNavBarView_Previews: PreviewProvider {
 
 extension ChoreDetailNavBarView{
     private var NavBarButton: some View{
-        Button {
+        CircularButton(action: {
             presentationMode.wrappedValue.dismiss()
-        } label: {
-            Image(systemName: "xmark")
-                .frame(width: 40, height: 40)
-                .foregroundColor(Color.fg)
-                .background(Color.bg)
-                .clipShape(Circle())
-        }
+        }, icon: "xmark")
     }
 }
