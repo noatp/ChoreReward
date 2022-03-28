@@ -7,18 +7,21 @@
 
 import SwiftUI
 
-struct SideMenuView: View {
-    @Binding var drawerStateBinding: Bool
-    
+struct SideDrawerView: View {
+    @Environment(\.presentingSideDrawer) @Binding var presentingSideDrawer: Bool
+
     var body: some View {
         GeometryReader { geoProxy in
             HStack(spacing: 0){
                 VStack{
-                    CircularButton(action: {
+                    Button {
                         withAnimation {
-                            drawerStateBinding = false
+                            presentingSideDrawer = false
                         }
-                    }, icon: "xmark")
+                    } label: {
+                        Image(systemName: "xmark")
+                    }
+                    .foregroundColor(.fg)
                     Spacer()
                 }
                 .padding(.horizontal)
@@ -41,11 +44,8 @@ struct SideMenuView: View {
     }
 }
 
-struct SideMenuView_Previews: PreviewProvider {
+struct SideDrawerView_Previews: PreviewProvider {
     static var previews: some View {
-        SideMenuView(drawerStateBinding: .constant(true))
-            .preferredColorScheme(.dark)
-        
-        SideMenuView(drawerStateBinding: .constant(false))
+        SideDrawerView()
     }
 }

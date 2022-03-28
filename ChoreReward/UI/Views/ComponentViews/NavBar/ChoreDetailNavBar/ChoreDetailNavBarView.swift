@@ -9,8 +9,8 @@ import Foundation
 import SwiftUI
 
 struct ChoreDetailNavBarView: View {
-    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-    
+    @Environment(\.dismiss) private var dismiss
+
     let title: String
     let opacity: Double
     
@@ -55,7 +55,7 @@ struct ChoreDetailNavBarView_Previews: PreviewProvider {
 extension ChoreDetailNavBarView{
     private var NavBarButton: some View{
         CircularButton(action: {
-            presentationMode.wrappedValue.dismiss()
+            dismiss()
         }, icon: "xmark")
     }
 }

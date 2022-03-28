@@ -16,6 +16,7 @@ enum Tabs: String{
 struct AppView: View {
     @ObservedObject var appViewModel: ObservableViewModel<Void, Void>
     @State var selectedTab: Tabs = .choreTab
+    @State var presentingSideDrawer: Bool = false
     private var views: Dependency.Views
     
     init(
@@ -27,34 +28,38 @@ struct AppView: View {
     }
     
     var body: some View {
-        NavigationView{
-            TabView(selection: $selectedTab) {
-                views.choreTabView()
-                .tabItem {
-                    Image(systemName: "checkmark.seal.fill")
-                    Text("Chore")
-                }
-                .tag(Tabs.choreTab)
+        SideDrawerContainerView{
+            NavigationView{
+                TabView(selection: $selectedTab) {
+                    views.choreTabView()
+                    .tabItem {
+                        Image(systemName: "checkmark.seal.fill")
+                        Text("Chore")
+                    }
+                    .tag(Tabs.choreTab)
 
-                views.familyTabView
-                .tabItem {
-                    Image(systemName: "house")
-                    Text("Family")
+                    views.familyTabView
+                    .tabItem {
+                        Image(systemName: "house")
+                        Text("Family")
+                    }
+                    .tag(Tabs.familyTab)
+     
+                    views.userTabView
+                    .tabItem {
+                        Image(systemName: "person.crop.circle")
+                        Text("Profile")
+                    }
+                    .tag(Tabs.userTab)
                 }
-                .tag(Tabs.familyTab)
- 
-                views.userTabView
-                .tabItem {
-                    Image(systemName: "person.crop.circle")
-                    Text("Profile")
-                }
-                .tag(Tabs.userTab)
+                .font(.headline)
+                .navigationTitle(selectedTab.rawValue)
+                .navigationBarTitleDisplayMode(.large)
             }
-            .font(.headline)
-            .navigationTitle(selectedTab.rawValue)
-            .navigationBarTitleDisplayMode(.large)
         }
+        .environment(\.presentingSideDrawer, $presentingSideDrawer)
     }
+        
 }
 
 struct AppView_Previews: PreviewProvider {

@@ -12,8 +12,8 @@ enum FinishedPickerState{
 }
 
 struct ChoreTabNavBarView: View {
+    @Environment(\.presentingSideDrawer) @Binding var presentingSideDrawer: Bool
     @Binding var pickerStateBinding: FinishedPickerState
-    @Binding var drawerStateBinding: Bool
     @Namespace private var animation
     
     var body: some View {
@@ -21,7 +21,7 @@ struct ChoreTabNavBarView: View {
             HStack{
                 Button {
                     withAnimation {
-                        drawerStateBinding = true 
+                        presentingSideDrawer = true
                     }
                 } label: {
                     Image(systemName: "line.3.horizontal")
@@ -96,8 +96,7 @@ struct ChoreTabNavBarView_Previews: PreviewProvider {
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .background(.gray)
             ChoreTabNavBarView(
-                pickerStateBinding: .constant(.unfinished),
-                drawerStateBinding: .constant(true)
+                pickerStateBinding: .constant(.unfinished)
             )
         }
         .preferredColorScheme(.dark)

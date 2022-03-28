@@ -42,12 +42,12 @@ class ChoreTabViewModel: StatefulViewModel{
                 }
                 self?._state = .init(
                     shouldRenderAddChoreButton: oldState.shouldRenderAddChoreButton,
-                    unfinishedChoreList: receivedChoreList.compactMap({ chore in
+                    unfinishedChoreList: receivedChoreList.compactMap{ chore in
                         chore.completed == nil ? chore : nil
-                    }),
-                    finishedChoreList: receivedChoreList.compactMap({ chore in
+                    },
+                    finishedChoreList: receivedChoreList.compactMap{ chore in
                         chore.completed != nil ? chore : nil
-                    })
+                    }
                 )
             })
         currentUserSubscription = userService.$currentUser

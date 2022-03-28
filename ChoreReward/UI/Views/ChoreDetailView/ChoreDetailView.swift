@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ChoreDetailView: View {
     @ObservedObject var choreDetailViewModel: ObservableViewModel<choreDetailState, choreDetailAction>
-    @Environment(\.presentationMode) var mode: Binding<PresentationMode>
+    @Environment(\.dismiss) private var dismiss
     @State private var navBarOpacity: Double = 0
     @State private var scrollPos: Double = 0
     
