@@ -20,7 +20,7 @@ struct SideDrawerContainerView<Content: View>: View {
             content
             if presentingSideDrawer{
                 SideDrawerView()
-                    .transition(.move(edge: .leading))
+                    .transition(.asymmetric(insertion: .move(edge: .leading), removal: .scale))
             }
         }
         

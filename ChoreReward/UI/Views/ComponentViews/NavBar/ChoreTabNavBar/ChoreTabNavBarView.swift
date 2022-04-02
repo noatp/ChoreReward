@@ -20,9 +20,7 @@ struct ChoreTabNavBarView: View {
         VStack(alignment: .leading){
             HStack{
                 Button {
-                    withAnimation {
-                        presentingSideDrawer = true
-                    }
+                    presentingSideDrawer = true
                 } label: {
                     Image(systemName: "line.3.horizontal")
                 }

@@ -26,34 +26,32 @@ struct ChoreTabView: View {
             pickerStateBinding: $finishedPickerState
         ){
             ZStack{
-                VStack{
-                    ScrollView(showsIndicators: false){
-                        if (finishedPickerState == .unfinished){
-                            ForEach(choreTabViewModel.state.unfinishedChoreList) {chore in
-                                VStack{
-                                    NavigationLink {
-                                        views.choreDetailView(chore: chore)
-                                    } label: {
-                                        ChoreCardView(chore: chore)
-                                    }
+                ScrollView(showsIndicators: false){
+                    if (finishedPickerState == .unfinished){
+                        ForEach(choreTabViewModel.state.unfinishedChoreList) {chore in
+                            VStack{
+                                NavigationLink {
+                                    views.choreDetailView(chore: chore)
+                                } label: {
+                                    ChoreCardView(chore: chore)
                                 }
                             }
-                            .transition(.move(edge: .leading))
                         }
-                        else{
-                            ForEach(choreTabViewModel.state.finishedChoreList) {chore in
-                                VStack{
-                                    NavigationLink {
-                                        views.choreDetailView(chore: chore)
-                                    } label: {
-                                        ChoreCardView(chore: chore)
-                                    }
-                                }
-                            }
-                            .transition(.move(edge: .trailing))
-                        }
-                        
+                        .transition(.move(edge: .leading))
                     }
+                    else{
+                        ForEach(choreTabViewModel.state.finishedChoreList) {chore in
+                            VStack{
+                                NavigationLink {
+                                    views.choreDetailView(chore: chore)
+                                } label: {
+                                    ChoreCardView(chore: chore)
+                                }
+                            }
+                        }
+                        .transition(.move(edge: .trailing))
+                    }
+                    
                 }
                 .padding()
                 .sheet(isPresented: $presentedSheet, onDismiss: {}) {

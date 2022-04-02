@@ -28,11 +28,6 @@ struct UserCardView: View {
             Text(user.role.rawValue)
         }
         .padding()
-        .background(content: {
-            RoundedRectangle(cornerRadius: 32)
-                .stroke(lineWidth: 2)
-                .padding(2)
-        })
     }
 }
 
