@@ -18,14 +18,19 @@ struct UserCardView: View {
     
     var body: some View {
         HStack{
-            Image(systemName: "person.fill")
+            Image("cook")
                 .resizable()
-                .scaledToFit()
+                .scaledToFill()
                 .frame(width: 50, height: 50)
-                .clipped()
+                .clipShape(Circle())
+                .shadow(radius: 5)
+                .overlay(Circle().stroke(Color.fg, lineWidth: 0.5))
+                .padding(.trailing)
             Text(user.name)
+                .font(.headline)
             Spacer()
             Text(user.role.rawValue)
+                .font(.caption)
         }
         .padding()
     }
