@@ -7,10 +7,15 @@
 
 import SwiftUI
 
+enum FinishedPickerState{
+    case finished, unfinished
+}
+
 struct ChoreTabView: View {
     @ObservedObject var choreTabViewModel: ObservableViewModel<ChoreTabState, ChoreTabAction>
     @State var presentedSheet = false
     @State private var finishedPickerState: FinishedPickerState = .unfinished
+    @Namespace private var animation
     private var views: Dependency.Views
     
     init(
@@ -22,10 +27,54 @@ struct ChoreTabView: View {
     }
     
     var body: some View {
-        ChoreTabNavBarContainerView(
-            pickerStateBinding: $finishedPickerState
-        ){
-            ZStack{
+        ZStack{
+            VStack{
+                HStack{
+                    HStack(spacing: 0){
+                        Button {
+                            withAnimation(.easeInOut(duration: 0.2)) {
+                                finishedPickerState = .unfinished
+                            }
+                        } label: {
+                            Text("Unfinished")
+                                .foregroundColor(.fg)
+                        }
+                        .padding(.horizontal)
+                        .padding(.vertical, 5)
+                        .background{
+                            if (finishedPickerState == .unfinished){
+                                RoundedRectangle(cornerRadius: .infinity)
+                                    .foregroundColor(.bg3)
+                                    .matchedGeometryEffect(id: "pickerBackground", in: animation)
+                            }
+                        }
+                        
+                        Button {
+                            withAnimation(.easeInOut(duration: 0.2)) {
+                                finishedPickerState = .finished
+                            }
+                        } label: {
+                            Text("Finished")
+                                .foregroundColor(.fg)
+                        }
+                        .padding(.horizontal)
+                        .padding(.vertical, 5)
+                        .background{
+                            if (finishedPickerState == .finished){
+                                RoundedRectangle(cornerRadius: .infinity)
+                                    .foregroundColor(.bg3)
+                                    .matchedGeometryEffect(id: "pickerBackground", in: animation)
+                            }
+                        }
+                    }
+                    .background{
+                        RoundedRectangle(cornerRadius: .infinity)
+                            .foregroundColor(.bg2)
+                    }
+                    Spacer()
+                }
+                .padding(.bottom)
+                
                 ScrollView(showsIndicators: false){
                     if (finishedPickerState == .unfinished){
                         ForEach(choreTabViewModel.state.unfinishedChoreList) {chore in
@@ -53,17 +102,16 @@ struct ChoreTabView: View {
                     }
                     
                 }
-                .padding()
-                .sheet(isPresented: $presentedSheet, onDismiss: {}) {
-                    views.addChoreView()
-                }
-                
-                if (choreTabViewModel.state.shouldRenderAddChoreButton){
-                    addChoreButton
-                }
+            }
+            
+            if (choreTabViewModel.state.shouldRenderAddChoreButton){
+                addChoreButton
             }
         }
-
+        .padding()
+        .sheet(isPresented: $presentedSheet, onDismiss: {}) {
+            views.addChoreView()
+        }
     }
 }
 
@@ -96,6 +144,7 @@ struct ChoreTabView_Previews: PreviewProvider {
                 ),
                 views: Dependency.preview.views()
             )
+            .navigationBarHidden(true)
         }
         .preferredColorScheme(.dark)
     }
@@ -127,8 +176,6 @@ extension ChoreTabView{
                         .foregroundColor(Color.fg)
                         .background(Color.accentColor)
                         .clipShape(Circle())
-                        .padding()
-                        .padding(.bottom, 15)
                 }
             }
         }

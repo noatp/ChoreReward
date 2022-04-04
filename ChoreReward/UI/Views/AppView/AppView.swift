@@ -28,7 +28,7 @@ struct AppView: View {
     }
     
     var body: some View {
-        SideDrawerContainerView{
+        SideDrawerView{
             NavigationView{
                 TabView(selection: $selectedTab) {
                     views.choreTabView()
