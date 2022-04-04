@@ -7,39 +7,23 @@
 
 import SwiftUI
 
-struct SideDrawerView<Content: View>: View {
+struct NavDrawerView<Content: View>: View {
     @State var presentingSideDrawer: Bool = false
     
-    let content: Content
+    private let content: Content
+    private let navTitle: String
     
-    init(content: () -> Content) {
+    init(navTitle: String, content: () -> Content) {
+        self.navTitle = navTitle
         self.content = content()
     }
 
     var body: some View {
         ZStack{
-            VStack(alignment: .leading){
-                HStack{
-                    Button {
-                        withAnimation {
-                            presentingSideDrawer = true
-                        }
-                    } label: {
-                        Image(systemName: "line.3.horizontal")
-                    }
-                    .foregroundColor(.fg)
-
-                    Text("Chore")
-                        .lineLimit(1)
-                        .truncationMode(.tail)
-                        .font(.title)
-                        .foregroundColor(.fg)
-                    Spacer()
-                }
-                .padding([.leading, .bottom])
-                .background(Color.bg.ignoresSafeArea(edges: .top))
-
+            VStack(alignment: .leading, spacing: 0){
+                TabNavBarView(presentingSideDrawer: $presentingSideDrawer, navTitle: navTitle)
                 content
+                Spacer(minLength: 0)
             }
             if (presentingSideDrawer){
                 GeometryReader { geoProxy in
@@ -118,7 +102,7 @@ struct SideDrawerView<Content: View>: View {
 
 struct SideDrawerView_Previews: PreviewProvider {
     static var previews: some View {
-        SideDrawerView {
+        NavDrawerView(navTitle: "Preview") {
             Text("This is a preview")
         }
     }

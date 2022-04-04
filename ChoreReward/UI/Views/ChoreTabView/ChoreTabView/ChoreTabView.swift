@@ -27,91 +27,95 @@ struct ChoreTabView: View {
     }
     
     var body: some View {
-        ZStack{
-            VStack{
-                HStack{
-                    HStack(spacing: 0){
-                        Button {
-                            withAnimation(.easeInOut(duration: 0.2)) {
-                                finishedPickerState = .unfinished
+        NavDrawerView(navTitle: "Chores") {
+            ZStack{
+                VStack{
+                    HStack{
+                        HStack(spacing: 0){
+                            Button {
+                                withAnimation(.easeInOut(duration: 0.2)) {
+                                    finishedPickerState = .unfinished
+                                }
+                            } label: {
+                                Text("Unfinished")
+                                    .foregroundColor(.fg)
                             }
-                        } label: {
-                            Text("Unfinished")
-                                .foregroundColor(.fg)
+                            .padding(.horizontal)
+                            .padding(.vertical, 5)
+                            .background{
+                                if (finishedPickerState == .unfinished){
+                                    RoundedRectangle(cornerRadius: .infinity)
+                                        .foregroundColor(.bg3)
+                                        .matchedGeometryEffect(id: "pickerBackground", in: animation)
+                                }
+                            }
+                            
+                            Button {
+                                withAnimation(.easeInOut(duration: 0.2)) {
+                                    finishedPickerState = .finished
+                                }
+                            } label: {
+                                Text("Finished")
+                                    .foregroundColor(.fg)
+                            }
+                            .padding(.horizontal)
+                            .padding(.vertical, 5)
+                            .background{
+                                if (finishedPickerState == .finished){
+                                    RoundedRectangle(cornerRadius: .infinity)
+                                        .foregroundColor(.bg3)
+                                        .matchedGeometryEffect(id: "pickerBackground", in: animation)
+                                }
+                            }
                         }
-                        .padding(.horizontal)
-                        .padding(.vertical, 5)
                         .background{
-                            if (finishedPickerState == .unfinished){
-                                RoundedRectangle(cornerRadius: .infinity)
-                                    .foregroundColor(.bg3)
-                                    .matchedGeometryEffect(id: "pickerBackground", in: animation)
+                            RoundedRectangle(cornerRadius: .infinity)
+                                .foregroundColor(.bg2)
+                        }
+                        Spacer()
+                    }
+                    .padding([.leading, .bottom, .trailing])
+                    .background(Color.bg)
+                    
+                    ScrollView(showsIndicators: false){
+                        if (finishedPickerState == .unfinished){
+                            ForEach(choreTabViewModel.state.unfinishedChoreList) {chore in
+                                VStack{
+                                    NavigationLink {
+                                        views.choreDetailView(chore: chore)
+                                    } label: {
+                                        ChoreCardView(chore: chore)
+                                    }
+                                }
                             }
+                            .transition(.move(edge: .leading))
+                        }
+                        else{
+                            ForEach(choreTabViewModel.state.finishedChoreList) {chore in
+                                VStack{
+                                    NavigationLink {
+                                        views.choreDetailView(chore: chore)
+                                    } label: {
+                                        ChoreCardView(chore: chore)
+                                    }
+                                }
+                            }
+                            .transition(.move(edge: .trailing))
                         }
                         
-                        Button {
-                            withAnimation(.easeInOut(duration: 0.2)) {
-                                finishedPickerState = .finished
-                            }
-                        } label: {
-                            Text("Finished")
-                                .foregroundColor(.fg)
-                        }
-                        .padding(.horizontal)
-                        .padding(.vertical, 5)
-                        .background{
-                            if (finishedPickerState == .finished){
-                                RoundedRectangle(cornerRadius: .infinity)
-                                    .foregroundColor(.bg3)
-                                    .matchedGeometryEffect(id: "pickerBackground", in: animation)
-                            }
-                        }
                     }
-                    .background{
-                        RoundedRectangle(cornerRadius: .infinity)
-                            .foregroundColor(.bg2)
-                    }
-                    Spacer()
+                    .padding(.horizontal)
                 }
-                .padding(.bottom)
                 
-                ScrollView(showsIndicators: false){
-                    if (finishedPickerState == .unfinished){
-                        ForEach(choreTabViewModel.state.unfinishedChoreList) {chore in
-                            VStack{
-                                NavigationLink {
-                                    views.choreDetailView(chore: chore)
-                                } label: {
-                                    ChoreCardView(chore: chore)
-                                }
-                            }
-                        }
-                        .transition(.move(edge: .leading))
-                    }
-                    else{
-                        ForEach(choreTabViewModel.state.finishedChoreList) {chore in
-                            VStack{
-                                NavigationLink {
-                                    views.choreDetailView(chore: chore)
-                                } label: {
-                                    ChoreCardView(chore: chore)
-                                }
-                            }
-                        }
-                        .transition(.move(edge: .trailing))
-                    }
-                    
+                if (choreTabViewModel.state.shouldRenderAddChoreButton){
+                    addChoreButton
                 }
             }
-            
-            if (choreTabViewModel.state.shouldRenderAddChoreButton){
-                addChoreButton
+            .sheet(isPresented: $presentedSheet, onDismiss: {}) {
+                views.addChoreView()
             }
         }
-        .padding()
-        .sheet(isPresented: $presentedSheet, onDismiss: {}) {
-            views.addChoreView()
-        }
+        
     }
 }
 
@@ -176,6 +180,7 @@ extension ChoreTabView{
                         .foregroundColor(Color.fg)
                         .background(Color.accentColor)
                         .clipShape(Circle())
+                        .padding()
                 }
             }
         }

@@ -28,40 +28,94 @@ struct AppView: View {
     }
     
     var body: some View {
-        SideDrawerView{
-            NavigationView{
-                TabView(selection: $selectedTab) {
+//        NavDrawerView(navTitle: selectedTab.rawValue){
+//            NavigationView{
+//                TabView(selection: $selectedTab) {
+//                    views.choreTabView()
+//                        .navigationBarHidden(true)
+//                        .tabItem {
+//                            Image(systemName: "checkmark.seal.fill")
+//                            Text("Chore")
+//                        }
+//                        .tag(Tabs.choreTab)
+//
+//                    views.familyTabView
+//                        .navigationBarHidden(true)
+//                        .tabItem {
+//                            Image(systemName: "house")
+//                            Text("Family")
+//                        }
+//                        .tag(Tabs.familyTab)
+//
+//                    views.userTabView
+//                        .navigationBarHidden(true)
+//                        .tabItem {
+//                            Image(systemName: "person.crop.circle")
+//                            Text("Profile")
+//                        }
+//                        .tag(Tabs.userTab)
+//                }
+//                .font(.headline)
+//                .navigationTitle(selectedTab.rawValue)
+//            }
+//        }
+        NavigationView{
+            VStack{
+                switch selectedTab {
+                case .choreTab:
                     views.choreTabView()
-                        .navigationBarHidden(true)
-                        .tabItem {
-                            Image(systemName: "checkmark.seal.fill")
-                            Text("Chore")
-                        }
-                        .tag(Tabs.choreTab)
-
+                case .familyTab:
                     views.familyTabView
-                        .navigationBarHidden(true)
-                        .tabItem {
-                            Image(systemName: "house")
-                            Text("Family")
-                        }
-                        .tag(Tabs.familyTab)
-     
+                case .userTab:
                     views.userTabView
-                        .navigationBarHidden(true)
-                        .tabItem {
-                            Image(systemName: "person.crop.circle")
-                            Text("Profile")
-                        }
-                        .tag(Tabs.userTab)
                 }
-                .font(.headline)
-                .navigationTitle(selectedTab.rawValue)
+                Spacer(minLength: 0)
+                HStack{
+                    Spacer()
+                    Button {
+                        selectedTab = .choreTab
+                    } label: {
+                        VStack {
+                            Image(systemName: (selectedTab == .choreTab ? "checkmark.seal.fill" : "checkmark.seal"))
+                            Text("Chores")
+                                .font(.footnote)
+                                .fontWeight(.light)
+                        }
+                        .foregroundColor(selectedTab == .choreTab ? Color.accLight : Color.accDark)
+                    }
+                    Spacer()
+                    Button {
+                        
+                    } label: {
+                        VStack {
+                            Image(systemName: "plus.app.fill")
+                                .font(.system(size: 34, weight: .bold))
+                                .foregroundColor(.acc)
+                            Text("New Chore")
+                                .font(.footnote)
+                                .fontWeight(.light)
+                        }
+                    }
+                    Spacer()
+                    Button {
+                        selectedTab = .familyTab
+                    } label: {
+                        VStack {
+                            Image(systemName: (selectedTab == .familyTab ? "house.fill" : "house"))
+                            Text("Family")
+                                .font(.footnote)
+                                .fontWeight(.light)
+                        }
+                        .foregroundColor(selectedTab == .familyTab ? Color.accLight : Color.accDark)
+                    }
+                    Spacer()
+                }
             }
+            .navigationBarHidden(true)
         }
-        .environment(\.presentingSideDrawer, $presentingSideDrawer)
+        .padding(.vertical)
+        .ignoresSafeArea()
     }
-        
 }
 
 struct AppView_Previews: PreviewProvider {
@@ -70,6 +124,7 @@ struct AppView_Previews: PreviewProvider {
             appViewModel: .init(staticState: ()),
             views: Dependency.preview.views()
         )
+        .preferredColorScheme(.light)
     }
 }
 
