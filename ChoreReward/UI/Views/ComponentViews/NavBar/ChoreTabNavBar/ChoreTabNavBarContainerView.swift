@@ -25,7 +25,6 @@ struct ChoreTabNavBarContainerView<Content: View>: View {
             content
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
-        .navigationBarHidden(true)
     }
 }
 

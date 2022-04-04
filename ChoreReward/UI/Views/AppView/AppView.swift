@@ -32,27 +32,31 @@ struct AppView: View {
             NavigationView{
                 TabView(selection: $selectedTab) {
                     views.choreTabView()
-                    .tabItem {
-                        Image(systemName: "checkmark.seal.fill")
-                        Text("Chore")
-                    }
-                    .tag(Tabs.choreTab)
+                        .navigationBarHidden(true)
+                        .tabItem {
+                            Image(systemName: "checkmark.seal.fill")
+                            Text("Chore")
+                        }
+                        .tag(Tabs.choreTab)
 
                     views.familyTabView
-                    .tabItem {
-                        Image(systemName: "house")
-                        Text("Family")
-                    }
-                    .tag(Tabs.familyTab)
+                        .navigationBarHidden(true)
+                        .tabItem {
+                            Image(systemName: "house")
+                            Text("Family")
+                        }
+                        .tag(Tabs.familyTab)
      
                     views.userTabView
-                    .tabItem {
-                        Image(systemName: "person.crop.circle")
-                        Text("Profile")
-                    }
-                    .tag(Tabs.userTab)
+                        .navigationBarHidden(true)
+                        .tabItem {
+                            Image(systemName: "person.crop.circle")
+                            Text("Profile")
+                        }
+                        .tag(Tabs.userTab)
                 }
                 .font(.headline)
+                .navigationTitle(selectedTab.rawValue)
             }
         }
         .environment(\.presentingSideDrawer, $presentingSideDrawer)
