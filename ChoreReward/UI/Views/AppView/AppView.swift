@@ -53,8 +53,6 @@ struct AppView: View {
                     .tag(Tabs.userTab)
                 }
                 .font(.headline)
-                .navigationTitle(selectedTab.rawValue)
-                .navigationBarTitleDisplayMode(.large)
             }
         }
         .environment(\.presentingSideDrawer, $presentingSideDrawer)
