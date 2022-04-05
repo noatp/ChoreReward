@@ -7,15 +7,17 @@
 
 import SwiftUI
 
-struct NavDrawerView<Content: View>: View {
+struct NavDrawerView<MainContent: View, DrawerContent: View>: View {
     @State var presentingSideDrawer: Bool = false
     
-    private let content: Content
+    private let mainContent: MainContent
+    private let drawerContent: DrawerContent
     private let navTitle: String
     
-    init(navTitle: String, content: () -> Content) {
+    init(navTitle: String, mainContent: () -> MainContent, drawerContent: () -> DrawerContent) {
         self.navTitle = navTitle
-        self.content = content()
+        self.mainContent = mainContent()
+        self.drawerContent = drawerContent()
     }
 
     var body: some View {
@@ -23,7 +25,7 @@ struct NavDrawerView<Content: View>: View {
             //main content: nav bar on top of content
             VStack(alignment: .leading, spacing: 0){
                 TabNavBarView(presentingSideDrawer: $presentingSideDrawer, navTitle: navTitle)
-                content
+                mainContent
                 Spacer(minLength: 0)
             }
             
@@ -57,28 +59,10 @@ struct NavDrawerView<Content: View>: View {
                             .padding(.horizontal)
                             Divider()
                             VStack(alignment: .leading){
-                                Button {
-                                } label: {
-                                    HStack{
-                                        Image(systemName: "person.3")
-                                            .frame(width: 40, height: 40)
-                                        Text("Family Chores")
-                                    }
-                                }
-                                
-                                Button {
-                                } label: {
-                                    HStack{
-                                        Image(systemName: "person")
-                                            .frame(width: 40, height: 40)
-                                        Text("Your Chores")
-                                    }
-                                }
-
-                                
-                                
+                                drawerContent
                                 Spacer()
                                     .frame(maxWidth: .infinity)
+                                
                                 Button {
                                 } label: {
                                     HStack{
@@ -107,7 +91,12 @@ struct NavDrawerView<Content: View>: View {
 struct SideDrawerView_Previews: PreviewProvider {
     static var previews: some View {
         NavDrawerView(navTitle: "Preview") {
-            Text("This is a preview")
+            VStack{
+                Text("Placeholder")
+            }
+        } drawerContent: {
+            ChoreTabDrawerView()
         }
+
     }
 }

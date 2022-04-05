@@ -10,7 +10,6 @@ import SwiftUI
 enum Tabs: String{
     case choreTab = "Chores"
     case familyTab = "Family Members"
-    case userTab = "Your Profile"
 }
 
 struct AppView: View {
@@ -28,49 +27,18 @@ struct AppView: View {
     }
     
     var body: some View {
-//        NavDrawerView(navTitle: selectedTab.rawValue){
-//            NavigationView{
-//                TabView(selection: $selectedTab) {
-//                    views.choreTabView()
-//                        .navigationBarHidden(true)
-//                        .tabItem {
-//                            Image(systemName: "checkmark.seal.fill")
-//                            Text("Chore")
-//                        }
-//                        .tag(Tabs.choreTab)
-//
-//                    views.familyTabView
-//                        .navigationBarHidden(true)
-//                        .tabItem {
-//                            Image(systemName: "house")
-//                            Text("Family")
-//                        }
-//                        .tag(Tabs.familyTab)
-//
-//                    views.userTabView
-//                        .navigationBarHidden(true)
-//                        .tabItem {
-//                            Image(systemName: "person.crop.circle")
-//                            Text("Profile")
-//                        }
-//                        .tag(Tabs.userTab)
-//                }
-//                .font(.headline)
-//                .navigationTitle(selectedTab.rawValue)
-//            }
-//        }
         NavigationView{
             NavDrawerView(navTitle: selectedTab.rawValue) {
                 VStack{
+                    //main view
                     switch selectedTab {
                     case .choreTab:
                         views.choreTabView()
                     case .familyTab:
                         views.familyTabView
-                    case .userTab:
-                        views.userTabView
                     }
                     Spacer(minLength: 0)
+                    //tab bar
                     HStack{
                         Spacer()
                         Button {
@@ -86,7 +54,7 @@ struct AppView: View {
                         }
                         Spacer()
                         Button {
-                            
+
                         } label: {
                             VStack {
                                 Image(systemName: "plus.app.fill")
@@ -111,6 +79,16 @@ struct AppView: View {
                         }
                         Spacer()
                     }
+                }
+            } drawerContent: {
+                VStack{
+                    switch selectedTab {
+                    case .choreTab:
+                        ChoreTabDrawerView()
+                    case .familyTab:
+                        FamilyTabDrawerView()
+                    }
+                    Spacer(minLength: 0)
                 }
             }
             .navigationBarHidden(true)
