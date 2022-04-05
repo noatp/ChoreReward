@@ -60,55 +60,57 @@ struct AppView: View {
 //            }
 //        }
         NavigationView{
-            VStack{
-                switch selectedTab {
-                case .choreTab:
-                    views.choreTabView()
-                case .familyTab:
-                    views.familyTabView
-                case .userTab:
-                    views.userTabView
-                }
-                Spacer(minLength: 0)
-                HStack{
-                    Spacer()
-                    Button {
-                        selectedTab = .choreTab
-                    } label: {
-                        VStack {
-                            Image(systemName: (selectedTab == .choreTab ? "checkmark.seal.fill" : "checkmark.seal"))
-                            Text("Chores")
-                                .font(.footnote)
-                                .fontWeight(.light)
-                        }
-                        .foregroundColor(selectedTab == .choreTab ? Color.accLight : Color.accDark)
+            NavDrawerView(navTitle: selectedTab.rawValue) {
+                VStack{
+                    switch selectedTab {
+                    case .choreTab:
+                        views.choreTabView()
+                    case .familyTab:
+                        views.familyTabView
+                    case .userTab:
+                        views.userTabView
                     }
-                    Spacer()
-                    Button {
-                        
-                    } label: {
-                        VStack {
-                            Image(systemName: "plus.app.fill")
-                                .font(.system(size: 34, weight: .bold))
-                                .foregroundColor(.acc)
-                            Text("New Chore")
-                                .font(.footnote)
-                                .fontWeight(.light)
+                    Spacer(minLength: 0)
+                    HStack{
+                        Spacer()
+                        Button {
+                            selectedTab = .choreTab
+                        } label: {
+                            VStack {
+                                Image(systemName: (selectedTab == .choreTab ? "checkmark.seal.fill" : "checkmark.seal"))
+                                Text("Chores")
+                                    .font(.footnote)
+                                    .fontWeight(.light)
+                            }
+                            .foregroundColor(selectedTab == .choreTab ? Color.accLight : Color.accDark)
                         }
-                    }
-                    Spacer()
-                    Button {
-                        selectedTab = .familyTab
-                    } label: {
-                        VStack {
-                            Image(systemName: (selectedTab == .familyTab ? "house.fill" : "house"))
-                            Text("Family")
-                                .font(.footnote)
-                                .fontWeight(.light)
+                        Spacer()
+                        Button {
+                            
+                        } label: {
+                            VStack {
+                                Image(systemName: "plus.app.fill")
+                                    .font(.system(size: 34, weight: .bold))
+                                    .foregroundColor(.acc)
+                                Text("New Chore")
+                                    .font(.footnote)
+                                    .fontWeight(.light)
+                            }
                         }
-                        .foregroundColor(selectedTab == .familyTab ? Color.accLight : Color.accDark)
+                        Spacer()
+                        Button {
+                            selectedTab = .familyTab
+                        } label: {
+                            VStack {
+                                Image(systemName: (selectedTab == .familyTab ? "house.fill" : "house"))
+                                Text("Family")
+                                    .font(.footnote)
+                                    .fontWeight(.light)
+                            }
+                            .foregroundColor(selectedTab == .familyTab ? Color.accLight : Color.accDark)
+                        }
+                        Spacer()
                     }
-                    Spacer()
                 }
             }
             .navigationBarHidden(true)

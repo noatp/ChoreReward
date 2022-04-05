@@ -20,20 +20,28 @@ struct NavDrawerView<Content: View>: View {
 
     var body: some View {
         ZStack{
+            //main content: nav bar on top of content
             VStack(alignment: .leading, spacing: 0){
                 TabNavBarView(presentingSideDrawer: $presentingSideDrawer, navTitle: navTitle)
                 content
                 Spacer(minLength: 0)
             }
-            if (presentingSideDrawer){
-                GeometryReader { geoProxy in
-                    ZStack(alignment: .leading){
-                        Color.bg.opacity(0.2).ignoresSafeArea()
+            
+            //side drawer content
+            GeometryReader { geoProxy in
+                ZStack(alignment: .leading){
+                    //transparent layer to prevent interaction with main content
+                    if (presentingSideDrawer){
+                        Color.bg2.opacity(0.4)
+                            .ignoresSafeArea()
                             .onTapGesture {
-                                withAnimation {
+                                withAnimation(.spring()) {
                                     presentingSideDrawer = false
                                 }
                             }
+                            .transition(.opacity)
+
+                        //side menu
                         HStack(spacing: 0){
                             VStack{
                                 Button {
@@ -50,7 +58,6 @@ struct NavDrawerView<Content: View>: View {
                             Divider()
                             VStack(alignment: .leading){
                                 Button {
-                                    presentingSideDrawer = false
                                 } label: {
                                     HStack{
                                         Image(systemName: "person.3")
@@ -60,7 +67,6 @@ struct NavDrawerView<Content: View>: View {
                                 }
                                 
                                 Button {
-                                    presentingSideDrawer = false
                                 } label: {
                                     HStack{
                                         Image(systemName: "person")
@@ -74,7 +80,6 @@ struct NavDrawerView<Content: View>: View {
                                 Spacer()
                                     .frame(maxWidth: .infinity)
                                 Button {
-                                    presentingSideDrawer = false
                                 } label: {
                                     HStack{
                                         Image(systemName: "gearshape")
@@ -88,12 +93,11 @@ struct NavDrawerView<Content: View>: View {
                         }
                         .frame(width: geoProxy.size.width * 0.75)
                         .background(Color.bg2.ignoresSafeArea())
+                        .transition(.move(edge: .leading))
                     }
                     
                 }
-                .transition(.move(edge: .leading))
             }
-           
         }
         
         
