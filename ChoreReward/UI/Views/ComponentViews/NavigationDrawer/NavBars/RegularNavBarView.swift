@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct RegularNavBarView<Content: View>: View {
+    @Environment(\.dismiss) private var dismiss
+
     private let navTitle: String
     private let content: Content
     
@@ -18,17 +20,32 @@ struct RegularNavBarView<Content: View>: View {
     
     var body: some View {
         VStack{
-            HStack{
-                Spacer(minLength: 0)
-                Text(navTitle)
-                    .lineLimit(1)
-                    .truncationMode(.tail)
-                    .font(.title2)
-                    .foregroundColor(.fg)
-                Spacer()
+            ZStack{
+                HStack{
+                    Button {
+                        dismiss()
+                    } label: {
+                        Image(systemName: "chevron.left")
+                    }
+                    Spacer()
+                }
+                
+                HStack{
+                    
+
+                    Spacer(minLength: 50)
+                    Text(navTitle)
+                        .lineLimit(1)
+                        .truncationMode(.tail)
+                        .font(.title2)
+                    Spacer(minLength: 50)
+                    
+                }
             }
-            .padding([.leading, .bottom])
+            
+            .padding([.leading, .bottom, .trailing])
             .background(Color.bg.ignoresSafeArea(edges: .top))
+            .foregroundColor(.fg)
             
             content
             Spacer(minLength: 0)

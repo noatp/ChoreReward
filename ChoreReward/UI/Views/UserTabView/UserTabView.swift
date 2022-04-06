@@ -95,6 +95,7 @@ struct UserTabView_Previews: PreviewProvider {
                 views: Dependency.preview.views()
             )
         }
+        .preferredColorScheme(.dark)
     }
 }
 
