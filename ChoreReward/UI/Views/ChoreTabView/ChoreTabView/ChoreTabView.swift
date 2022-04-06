@@ -106,13 +106,13 @@ struct ChoreTabView: View {
                 .padding(.horizontal)
             }
             
-            if (choreTabViewModel.state.shouldRenderAddChoreButton){
-                addChoreButton
-            }
+//            if (choreTabViewModel.state.shouldRenderAddChoreButton){
+//                addChoreButton
+//            }
         }
-        .sheet(isPresented: $presentedSheet, onDismiss: {}) {
-            views.addChoreView()
-        }
+//        .sheet(isPresented: $presentedSheet, onDismiss: {}) {
+//            views.addChoreView()
+//        }
         
     }
 }

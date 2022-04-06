@@ -13,13 +13,14 @@ enum Tabs: String{
 }
 
 struct AppView: View {
-    @ObservedObject var appViewModel: ObservableViewModel<Void, Void>
+    @ObservedObject var appViewModel: ObservableViewModel<AppViewState, Void>
     @State var selectedTab: Tabs = .choreTab
     @State var presentingSideDrawer: Bool = false
+    @State var presentedSheet: Bool = false
     private var views: Dependency.Views
     
     init(
-        appViewModel: ObservableViewModel<Void, Void>,
+        appViewModel: ObservableViewModel<AppViewState, Void>,
         views: Dependency.Views
     ){
         self.appViewModel = appViewModel
@@ -53,18 +54,22 @@ struct AppView: View {
                             .foregroundColor(selectedTab == .choreTab ? Color.accLight : Color.accDark)
                         }
                         Spacer()
-                        Button {
 
-                        } label: {
-                            VStack {
-                                Image(systemName: "plus.app.fill")
-                                    .font(.system(size: 34, weight: .bold))
-                                    .foregroundColor(.acc)
-                                Text("New Chore")
-                                    .font(.footnote)
-                                    .fontWeight(.light)
+                        if (appViewModel.state.shouldRenderAddChoreButton){
+                            Button {
+                                presentedSheet = true
+                            } label: {
+                                VStack {
+                                    Image(systemName: "plus.app.fill")
+                                        .font(.system(size: 34, weight: .bold))
+                                        .foregroundColor(.acc)
+                                    Text("New Chore")
+                                        .font(.footnote)
+                                        .fontWeight(.light)
+                                }
                             }
                         }
+                        
                         Spacer()
                         Button {
                             selectedTab = .familyTab
@@ -95,13 +100,16 @@ struct AppView: View {
         }
         .padding(.vertical)
         .ignoresSafeArea()
+        .sheet(isPresented: $presentedSheet, onDismiss: {}) {
+            views.addChoreView()
+        }
     }
 }
 
 struct AppView_Previews: PreviewProvider {
     static var previews: some View {
         AppView(
-            appViewModel: .init(staticState: ()),
+            appViewModel: .init(staticState: .empty),
             views: Dependency.preview.views()
         )
         .preferredColorScheme(.light)
