@@ -24,7 +24,7 @@ struct ChoreDetailView: View {
     }
     
     var body: some View {
-        ChoreDetailNavBarContainerView(navBarTitle: chore.title, navBarOpacity: navBarOpacity) {
+        ChoreDetailNavBarView(navTitle: chore.title, opacity: navBarOpacity) {
             ScrollView{
                 Image("unfinishedDishes")
                     .resizable()
