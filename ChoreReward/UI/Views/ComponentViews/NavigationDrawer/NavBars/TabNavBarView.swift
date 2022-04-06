@@ -43,5 +43,6 @@ struct TabNavBarView: View {
 struct TabNavBarView_Previews: PreviewProvider {
     static var previews: some View {
         TabNavBarView(presentingSideDrawer: .constant(false), navTitle: "Preview")
+            .previewLayout(.sizeThatFits)
     }
 }

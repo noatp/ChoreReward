@@ -10,14 +10,21 @@ import SwiftUI
 struct NavDrawerView<MainContent: View, DrawerContent: View>: View {
     @State var presentingSideDrawer: Bool = false
     
+    private var views: Dependency.Views
     private let mainContent: MainContent
     private let drawerContent: DrawerContent
     private let navTitle: String
     
-    init(navTitle: String, mainContent: () -> MainContent, drawerContent: () -> DrawerContent) {
+    init(
+        navTitle: String,
+        views: Dependency.Views,
+        mainContent: () -> MainContent,
+        drawerContent: () -> DrawerContent
+    ) {
         self.navTitle = navTitle
         self.mainContent = mainContent()
         self.drawerContent = drawerContent()
+        self.views = views
     }
 
     var body: some View {
@@ -54,23 +61,18 @@ struct NavDrawerView<MainContent: View, DrawerContent: View>: View {
                                     Image(systemName: "xmark")
                                 }
                                 .foregroundColor(.fg)
+                                
                                 Spacer()
                             }
                             .padding(.horizontal)
+                            
                             Divider()
+                            
                             VStack(alignment: .leading){
                                 drawerContent
                                 Spacer()
                                     .frame(maxWidth: .infinity)
-                                
-                                Button {
-                                } label: {
-                                    HStack{
-                                        Image(systemName: "gearshape")
-                                            .frame(width: 40, height: 40)
-                                        Text("Settings")
-                                    }
-                                }
+                                basicDrawerContent
                             }
                             .foregroundColor(.fg)
                             .padding(.horizontal)
@@ -79,24 +81,61 @@ struct NavDrawerView<MainContent: View, DrawerContent: View>: View {
                         .background(Color.bg2.ignoresSafeArea())
                         .transition(.move(edge: .leading))
                     }
-                    
                 }
             }
         }
-        
-        
     }
 }
 
 struct SideDrawerView_Previews: PreviewProvider {
     static var previews: some View {
-        NavDrawerView(navTitle: "Preview") {
-            VStack{
-                Text("Placeholder")
-            }
+        NavDrawerView(
+            navTitle: "Preview",
+            views: Dependency.preview.views()
+        ){
+            Text("This is a Preview of NavDrawerView")
         } drawerContent: {
             ChoreTabDrawerView()
         }
+    }
+}
 
+extension Dependency.Views{
+    func navDrawerView<MainContent: View, DrawerContent: View>(
+        navTitle: String,
+        mainContent: () -> MainContent,
+        drawerContent: () -> DrawerContent
+    ) -> NavDrawerView<MainContent, DrawerContent>{
+        return NavDrawerView(
+            navTitle: navTitle,
+            views: self,
+            mainContent: mainContent,
+            drawerContent: drawerContent
+        )
+    }
+}
+
+extension NavDrawerView{
+    var basicDrawerContent: some View {
+        VStack(alignment: .leading){
+            NavigationLink {
+                views.userTabView
+            } label: {
+                HStack{
+                    Image(systemName: "person.crop.circle")
+                        .frame(width: 40, height: 40)
+                    Text("Your Profile")
+                }
+            }
+
+            Button {
+            } label: {
+                HStack{
+                    Image(systemName: "gearshape")
+                        .frame(width: 40, height: 40)
+                    Text("Settings")
+                }
+            }
+        }
     }
 }

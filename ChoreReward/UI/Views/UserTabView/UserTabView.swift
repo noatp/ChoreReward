@@ -22,59 +22,62 @@ struct UserTabView: View {
     }
     
     var body: some View {
-        VStack(spacing: 16){
-            Button {
-                shouldShowImagePicker = true
-            } label: {
-                if let userImage = userImage {
-                    Image(uiImage: userImage)
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: 200, height: 200)
-                        .clipShape(Circle())
-                        .shadow(radius: 5)
-                }
-                else{
-                    ZStack{
-                        Circle()
+        RegularNavBarView(navTitle: userTabViewModel.state.currentUserName) {
+            VStack(spacing: 16){
+                Button {
+                    shouldShowImagePicker = true
+                } label: {
+                    if let userImage = userImage {
+                        Image(uiImage: userImage)
+                            .resizable()
+                            .scaledToFill()
                             .frame(width: 200, height: 200)
-                            .foregroundColor(.fg)
+                            .clipShape(Circle())
                             .shadow(radius: 5)
-                        Text("Add profile picture")
                     }
+                    else{
+                        ZStack{
+                            Circle()
+                                .frame(width: 200, height: 200)
+                                .foregroundColor(.fg)
+                                .shadow(radius: 5)
+                            Text("Add profile picture")
+                        }
+                    }
+                       
                 }
-                   
-            }
 
-            
-            
-            Text(userTabViewModel.state.currentUserName)
-                .font(.title)
+                
+                
+                Text(userTabViewModel.state.currentUserName)
+                    .font(.title)
 
 
-            HStack{
-                Text("Email:")
-                Text(userTabViewModel.state.currentUserEmail)
+                HStack{
+                    Text("Email:")
+                    Text(userTabViewModel.state.currentUserEmail)
+                }
+                HStack{
+                    Text("Role:")
+                    Text(userTabViewModel.state.currentUserRole)
+                }
+                
+                Spacer()
+                
+                ButtonView(
+                    action: {userTabViewModel.perform(action: .signOut)},
+                    buttonTitle: "Log Out",
+                    buttonImage: "arrow.backward.to.line",
+                    buttonColor: .red
+                )
             }
-            HStack{
-                Text("Role:")
-                Text(userTabViewModel.state.currentUserRole)
-            }
-            
-            Spacer()
-            
-            ButtonView(
-                action: {userTabViewModel.perform(action: .signOut)},
-                buttonTitle: "Log Out",
-                buttonImage: "arrow.backward.to.line",
-                buttonColor: .red
-            )
+            .padding()
+            .fullScreenCover(isPresented: $shouldShowImagePicker, onDismiss: nil) {
+                        ImagePicker(image: $userImage)
+                            .ignoresSafeArea()
+                    }
         }
-        .padding()
-        .fullScreenCover(isPresented: $shouldShowImagePicker, onDismiss: nil) {
-                    ImagePicker(image: $userImage)
-                        .ignoresSafeArea()
-                }
+        .navigationBarHidden(true)
     }
 }
 

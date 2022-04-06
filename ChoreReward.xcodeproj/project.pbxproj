@@ -36,6 +36,7 @@
 		45750CD927FB938100274617 /* TabNavBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45750CD827FB938100274617 /* TabNavBarView.swift */; };
 		45750CDC27FC075300274617 /* ChoreTabDrawerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45750CDB27FC075300274617 /* ChoreTabDrawerView.swift */; };
 		45750CDE27FCE4B700274617 /* FamilyTabDrawerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45750CDD27FCE4B700274617 /* FamilyTabDrawerView.swift */; };
+		45750CE027FD270A00274617 /* RegularNavBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45750CDF27FD270A00274617 /* RegularNavBarView.swift */; };
 		45A31BFB27E2CB340060B8AB /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A31BFA27E2CB340060B8AB /* Color.swift */; };
 		45A4754A279215A100322BCE /* ChoreRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A47549279215A100322BCE /* ChoreRepository.swift */; };
 		45A4754C27931F1C00322BCE /* ChoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A4754B27931F1C00322BCE /* ChoreService.swift */; };
@@ -116,6 +117,7 @@
 		45750CD827FB938100274617 /* TabNavBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabNavBarView.swift; sourceTree = "<group>"; };
 		45750CDB27FC075300274617 /* ChoreTabDrawerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoreTabDrawerView.swift; sourceTree = "<group>"; };
 		45750CDD27FCE4B700274617 /* FamilyTabDrawerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyTabDrawerView.swift; sourceTree = "<group>"; };
+		45750CDF27FD270A00274617 /* RegularNavBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegularNavBarView.swift; sourceTree = "<group>"; };
 		45A31BFA27E2CB340060B8AB /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		45A47549279215A100322BCE /* ChoreRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoreRepository.swift; sourceTree = "<group>"; };
 		45A4754B27931F1C00322BCE /* ChoreService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoreService.swift; sourceTree = "<group>"; };
@@ -302,8 +304,8 @@
 		456D46E727EBFFDA00B2AC07 /* NavigationDrawer */ = {
 			isa = PBXGroup;
 			children = (
-				45750CDA27FC073900274617 /* Drawers */,
 				456D46E827EBFFE800B2AC07 /* NavDrawerView.swift */,
+				45750CDA27FC073900274617 /* Drawers */,
 				45E5FB1527E5A722008B20A8 /* NavBars */,
 			);
 			path = NavigationDrawer;
@@ -488,6 +490,7 @@
 			children = (
 				456D46E127EA348000B2AC07 /* ChoreDetailNavBar */,
 				45750CD827FB938100274617 /* TabNavBarView.swift */,
+				45750CDF27FD270A00274617 /* RegularNavBarView.swift */,
 			);
 			path = NavBars;
 			sourceTree = "<group>";
@@ -672,6 +675,7 @@
 				45ACB4AC2724AD1A000E04A0 /* ChoreRewardApp.swift in Sources */,
 				45E5FB1427E5A65C008B20A8 /* View.swift in Sources */,
 				45750CD927FB938100274617 /* TabNavBarView.swift in Sources */,
+				45750CE027FD270A00274617 /* RegularNavBarView.swift in Sources */,
 				452AFED0275444020060BD43 /* SignUpViewModel.swift in Sources */,
 				45A4754C27931F1C00322BCE /* ChoreService.swift in Sources */,
 				453147662751C83E000A85D7 /* LoginView.swift in Sources */,

@@ -28,7 +28,7 @@ struct AppView: View {
     
     var body: some View {
         NavigationView{
-            NavDrawerView(navTitle: selectedTab.rawValue) {
+            views.navDrawerView(navTitle: selectedTab.rawValue) {
                 VStack{
                     //main view
                     switch selectedTab {
