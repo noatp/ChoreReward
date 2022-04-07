@@ -11,6 +11,7 @@ struct ChoreTabView: View {
     @ObservedObject var choreTabViewModel: ObservableViewModel<ChoreTabState, ChoreTabAction>
     @State private var presentedSheet = false
     @State private var presentFilterMenu = false
+    @State private var onUnfinishedTab = true
     @Namespace private var animation
     private var views: Dependency.Views
     
@@ -41,11 +42,12 @@ struct ChoreTabView: View {
                             } label: {
                                 ChoreCardView(chore: chore)
                             }
-                        }
+                        }.transition(.move(edge: onUnfinishedTab ? .leading : .trailing))
                     }
-                    .transition(.move(edge: .leading))
+                    
                 }
                 .padding(.horizontal)
+                .animation(.easeInOut(duration: 0.2), value: choreTabViewModel.state.chorePickerState)
                 if (presentFilterMenu){
                     filterMenu
                 }
@@ -84,9 +86,8 @@ extension ChoreTabView{
     private var choreStatusPicker: some View{
         HStack(spacing: 0){
             Button {
-                withAnimation(.easeInOut(duration: 0.2)) {
-                    choreTabViewModel.perform(action: .updatePickerState(.unfinished))
-                }
+                choreTabViewModel.perform(action: .updatePickerState(.unfinished))
+                onUnfinishedTab = true
             } label: {
                 Text("Unfinished")
                     .foregroundColor(.fg)
@@ -102,9 +103,8 @@ extension ChoreTabView{
             }
             
             Button {
-                withAnimation(.easeInOut(duration: 0.2)) {
-                    choreTabViewModel.perform(action: .updatePickerState(.finished))
-                }
+                choreTabViewModel.perform(action: .updatePickerState(.finished))
+                onUnfinishedTab = false
             } label: {
                 Text("Finished")
                     .foregroundColor(.fg)
@@ -123,6 +123,7 @@ extension ChoreTabView{
             RoundedRectangle(cornerRadius: .infinity)
                 .foregroundColor(.bg2)
         }
+        .animation(.easeInOut(duration: 0.2), value: choreTabViewModel.state.chorePickerState)
     }
     
     private var filterButton: some View{
@@ -145,10 +146,11 @@ extension ChoreTabView{
             
             Button {
                 choreTabViewModel.perform(action: .updateFilterState(.all))
+                presentFilterMenu.toggle()
             } label: {
                 HStack{
                     Image(systemName: "house")
-                    Text("All chores")
+                    Text("All")
                     Spacer()
                 }
             }
@@ -157,10 +159,11 @@ extension ChoreTabView{
             Divider()
             Button {
                 choreTabViewModel.perform(action: .updateFilterState(.takenByCurrentUser))
+                presentFilterMenu.toggle()
             } label: {
                 HStack{
                     Image(systemName: "person")
-                    Text("Chores you took")
+                    Text("Yours")
                     Spacer()
                 }
             }
