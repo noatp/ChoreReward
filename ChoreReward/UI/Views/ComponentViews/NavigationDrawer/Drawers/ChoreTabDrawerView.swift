@@ -9,24 +9,28 @@ import SwiftUI
 
 struct ChoreTabDrawerView: View {
     var body: some View {
+//        VStack(alignment: .leading){
+//            Button {
+//            } label: {
+//                HStack{
+//                    Image(systemName: "person.3")
+//                        .frame(width: 40, height: 40)
+//                    Text("Family Chores")
+//                }
+//            }
+//
+//            Button {
+//            } label: {
+//                HStack{
+//                    Image(systemName: "person")
+//                        .frame(width: 40, height: 40)
+//                    Text("Your Chores")
+//                }
+//            }
+//        }
         VStack(alignment: .leading){
-            Button {
-            } label: {
-                HStack{
-                    Image(systemName: "person.3")
-                        .frame(width: 40, height: 40)
-                    Text("Family Chores")
-                }
-            }
-
-            Button {
-            } label: {
-                HStack{
-                    Image(systemName: "person")
-                        .frame(width: 40, height: 40)
-                    Text("Your Chores")
-                }
-            }
+            Spacer()
+                .frame(maxWidth: .infinity)
         }
     }
 }
