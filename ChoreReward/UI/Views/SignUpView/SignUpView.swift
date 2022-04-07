@@ -15,6 +15,8 @@ struct SignUpView: View {
     @State var emailInput: String = ""
     @State var passwordInput: String = ""
     @State var roleSelection: Role = .parent
+    @State var shouldShowImagePicker: Bool = false
+    @State var userImage: UIImage? = nil
     
     init(
         signUpViewModel: ObservableViewModel<SignUpState, SignUpAction>,
@@ -26,8 +28,30 @@ struct SignUpView: View {
     
     var body: some View {
         VStack{
+            Button {
+                shouldShowImagePicker = true
+            } label: {
+                if let userImage = userImage {
+                    Image(uiImage: userImage)
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 200, height: 200)
+                        .clipShape(Circle())
+                        .shadow(radius: 5)
+                }
+                else{
+                    ZStack{
+                        Circle()
+                            .frame(width: 200, height: 200)
+                            .foregroundColor(.fg)
+                            .shadow(radius: 5)
+                        Text("Add profile picture")
+                    }
+                }
+                   
+            }
             Text(signUpViewModel.state.errorMessage)
-                .padding()
+            
             
             TextFieldView(textInput: $nameInput, title: "Full Name")
             TextFieldView(textInput: $emailInput, title: "Email")
@@ -49,6 +73,10 @@ struct SignUpView: View {
         }
         .navigationTitle("Sign Up")
         .navigationBarTitleDisplayMode(.automatic)
+        .fullScreenCover(isPresented: $shouldShowImagePicker, onDismiss: nil) {
+                    ImagePicker(image: $userImage)
+                        .ignoresSafeArea()
+                }
     }
 }
 

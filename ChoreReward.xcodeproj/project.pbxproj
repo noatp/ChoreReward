@@ -49,6 +49,7 @@
 		45ACB4DC2724AE00000E04A0 /* Chore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45ACB4DB2724AE00000E04A0 /* Chore.swift */; };
 		45ACB4DE2724AEBE000E04A0 /* Reward.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45ACB4DD2724AEBE000E04A0 /* Reward.swift */; };
 		45B012D7275495CF002C7A06 /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B012D6275495CF002C7A06 /* UserRepository.swift */; };
+		45B0902227FF927E00CD1597 /* StorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B0902127FF927E00CD1597 /* StorageService.swift */; };
 		45B6BB39272FC72100F89D74 /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B6BB38272FC72100F89D74 /* AppView.swift */; };
 		45C1FA652767163F00BF11E3 /* FamilyRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C1FA642767163F00BF11E3 /* FamilyRepository.swift */; };
 		45C1FA672767ABBB00BF11E3 /* FamilyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C1FA662767ABBB00BF11E3 /* FamilyService.swift */; };
@@ -132,6 +133,7 @@
 		45ACB4DB2724AE00000E04A0 /* Chore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chore.swift; sourceTree = "<group>"; };
 		45ACB4DD2724AEBE000E04A0 /* Reward.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reward.swift; sourceTree = "<group>"; };
 		45B012D6275495CF002C7A06 /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
+		45B0902127FF927E00CD1597 /* StorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageService.swift; sourceTree = "<group>"; };
 		45B6BB38272FC72100F89D74 /* AppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
 		45C1FA642767163F00BF11E3 /* FamilyRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyRepository.swift; sourceTree = "<group>"; };
 		45C1FA662767ABBB00BF11E3 /* FamilyService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyService.swift; sourceTree = "<group>"; };
@@ -207,6 +209,7 @@
 				4531476A2751FFBD000A85D7 /* UserService.swift */,
 				45C1FA662767ABBB00BF11E3 /* FamilyService.swift */,
 				45A4754B27931F1C00322BCE /* ChoreService.swift */,
+				45B0902127FF927E00CD1597 /* StorageService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -643,6 +646,7 @@
 				4531476B2751FFBD000A85D7 /* UserService.swift in Sources */,
 				45EAF0BA27EE6F8B005655D4 /* CircularButton.swift in Sources */,
 				452AFECE275443720060BD43 /* SignUpView.swift in Sources */,
+				45B0902227FF927E00CD1597 /* StorageService.swift in Sources */,
 				45243F10276EB5F700D2EACB /* FamilyListViewModel.swift in Sources */,
 				45750CDC27FC075300274617 /* ChoreTabDrawerView.swift in Sources */,
 				4531476E2752FBFC000A85D7 /* AppViewModel.swift in Sources */,
