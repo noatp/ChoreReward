@@ -13,8 +13,9 @@ enum FinishedPickerState{
 
 struct ChoreTabView: View {
     @ObservedObject var choreTabViewModel: ObservableViewModel<ChoreTabState, ChoreTabAction>
-    @State var presentedSheet = false
+    @State private var presentedSheet = false
     @State private var finishedPickerState: FinishedPickerState = .unfinished
+    @State private var presentFilterMenu = false
     @Namespace private var animation
     private var views: Dependency.Views
     
@@ -27,55 +28,69 @@ struct ChoreTabView: View {
     }
     
     var body: some View {
-        ZStack{
-            VStack{
-                HStack{
-                    HStack(spacing: 0){
-                        Button {
-                            withAnimation(.easeInOut(duration: 0.2)) {
-                                finishedPickerState = .unfinished
-                            }
-                        } label: {
-                            Text("Unfinished")
-                                .foregroundColor(.fg)
+        VStack(spacing: 0){
+            HStack{
+                HStack(spacing: 0){
+                    Button {
+                        withAnimation(.easeInOut(duration: 0.2)) {
+                            finishedPickerState = .unfinished
                         }
-                        .padding(.horizontal)
-                        .padding(.vertical, 5)
-                        .background{
-                            if (finishedPickerState == .unfinished){
-                                RoundedRectangle(cornerRadius: .infinity)
-                                    .foregroundColor(.bg3)
-                                    .matchedGeometryEffect(id: "pickerBackground", in: animation)
-                            }
-                        }
-                        
-                        Button {
-                            withAnimation(.easeInOut(duration: 0.2)) {
-                                finishedPickerState = .finished
-                            }
-                        } label: {
-                            Text("Finished")
-                                .foregroundColor(.fg)
-                        }
-                        .padding(.horizontal)
-                        .padding(.vertical, 5)
-                        .background{
-                            if (finishedPickerState == .finished){
-                                RoundedRectangle(cornerRadius: .infinity)
-                                    .foregroundColor(.bg3)
-                                    .matchedGeometryEffect(id: "pickerBackground", in: animation)
-                            }
-                        }
+                    } label: {
+                        Text("Unfinished")
+                            .foregroundColor(.fg)
                     }
+                    .padding(.horizontal)
+                    .padding(.vertical, 5)
                     .background{
-                        RoundedRectangle(cornerRadius: .infinity)
-                            .foregroundColor(.bg2)
+                        if (finishedPickerState == .unfinished){
+                            RoundedRectangle(cornerRadius: .infinity)
+                                .foregroundColor(.bg3)
+                                .matchedGeometryEffect(id: "pickerBackground", in: animation)
+                        }
                     }
-                    Spacer()
+                    
+                    Button {
+                        withAnimation(.easeInOut(duration: 0.2)) {
+                            finishedPickerState = .finished
+                        }
+                    } label: {
+                        Text("Finished")
+                            .foregroundColor(.fg)
+                    }
+                    .padding(.horizontal)
+                    .padding(.vertical, 5)
+                    .background{
+                        if (finishedPickerState == .finished){
+                            RoundedRectangle(cornerRadius: .infinity)
+                                .foregroundColor(.bg3)
+                                .matchedGeometryEffect(id: "pickerBackground", in: animation)
+                        }
+                    }
                 }
-                .padding([.leading, .bottom, .trailing])
-                .background(Color.bg)
+                .background{
+                    RoundedRectangle(cornerRadius: .infinity)
+                        .foregroundColor(.bg2)
+                }
                 
+                Spacer()
+                
+                Button {
+                    withAnimation(.easeInOut(duration: 0.1)) {
+                        presentFilterMenu.toggle()
+                    }
+                } label: {
+                    HStack{
+                        Image(systemName: "tray")
+                        Text("Filter")
+                    }
+                }
+                .foregroundColor(.white)
+
+            }
+            .padding([.leading, .bottom, .trailing])
+            .background(Color.bg)
+            
+            ZStack(alignment: .top){
                 ScrollView(showsIndicators: false){
                     if (finishedPickerState == .unfinished){
                         ForEach(choreTabViewModel.state.unfinishedChoreList) {chore in
@@ -104,16 +119,29 @@ struct ChoreTabView: View {
                     
                 }
                 .padding(.horizontal)
+                if (presentFilterMenu){
+                    VStack(alignment: .leading){
+                        Divider()
+                        HStack{
+                            Image(systemName: "house")
+                            Text("All chores")
+                            Spacer()
+                        }
+                        Divider()
+                        HStack{
+                            Image(systemName: "person")
+                            Text("Chores you took")
+                            Spacer()
+                        }
+                    }
+                    .padding([.leading, .bottom, .trailing])
+                    .background(Color.bg)
+                    .transition(.asymmetric(insertion: .move(edge: .trailing), removal: .opacity))
+                }
+               
             }
             
-//            if (choreTabViewModel.state.shouldRenderAddChoreButton){
-//                addChoreButton
-//            }
         }
-//        .sheet(isPresented: $presentedSheet, onDismiss: {}) {
-//            views.addChoreView()
-//        }
-        
     }
 }
 
