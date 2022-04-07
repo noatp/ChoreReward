@@ -38,7 +38,7 @@ class AppViewModel: StatefulViewModel{
 struct AppViewState{
     let shouldRenderAddChoreButton: Bool
     
-    static let empty: AppViewState = .init(shouldRenderAddChoreButton: false)
+    static let empty: AppViewState = .init(shouldRenderAddChoreButton: true)
 }
 
 extension Dependency.ViewModels{

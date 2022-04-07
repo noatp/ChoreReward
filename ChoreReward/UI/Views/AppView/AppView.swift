@@ -84,6 +84,7 @@ struct AppView: View {
                         }
                         Spacer()
                     }
+                    .overlay(Divider(), alignment: .top)
                 }
             } drawerContent: {
                 VStack{
