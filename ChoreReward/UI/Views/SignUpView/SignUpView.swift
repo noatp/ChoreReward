@@ -63,7 +63,8 @@ struct SignUpView: View {
                         emailInput: emailInput,
                         nameInput: nameInput,
                         passwordInput: passwordInput,
-                        roleSelection: roleSelection
+                        roleSelection: roleSelection,
+                        profileImage: userImage
                     )
                 )},
                 buttonTitle: "Sign Up",

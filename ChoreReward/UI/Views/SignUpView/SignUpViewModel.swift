@@ -7,6 +7,7 @@
 
 import Foundation
 import Combine
+import SwiftUI
 
 class SignUpViewModel: StatefulViewModel{
     @Published var _state: SignUpState = empty
@@ -42,26 +43,29 @@ class SignUpViewModel: StatefulViewModel{
         emailInput: String,
         nameInput: String,
         passwordInput: String,
-        roleSelection: Role
+        roleSelection: Role,
+        profileImage: UIImage?
     ){
         let newUser = User(
             email: emailInput,
             name: nameInput,
-            role: roleSelection
+            role: roleSelection,
+            profileImageUrl: ""
         )
         Task{
-            await userService.signUp(newUser: newUser, password: passwordInput)
+            await userService.signUp(newUser: newUser, password: passwordInput, profileImage: profileImage)
         }
     }
     
     func performAction(_ action: SignUpAction) {
         switch(action){
-        case .signUp(let emailInput, let nameInput, let passwordInput, let roleSelection):
+        case .signUp(let emailInput, let nameInput, let passwordInput, let roleSelection, let profileImage):
             signUp(
                 emailInput: emailInput,
                 nameInput: nameInput,
                 passwordInput: passwordInput,
-                roleSelection: roleSelection
+                roleSelection: roleSelection,
+                profileImage: profileImage
             )
         }
     }
@@ -76,7 +80,8 @@ enum SignUpAction{
         emailInput: String,
         nameInput: String,
         passwordInput: String,
-        roleSelection: Role
+        roleSelection: Role,
+        profileImage: UIImage?
     )
 }
 

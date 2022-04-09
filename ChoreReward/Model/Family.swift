@@ -16,8 +16,8 @@ struct Family: Identifiable, Codable{
     
     static let preview = Family(
         id: "tranfam",
-        admin: User.previewDavid.id!,
-        members: [User.previewDavid.id!, User.previewTim.id!, User.previewBen.id!],
+        admin: User.preview.id ?? "",
+        members: [User.preview.id ?? ""],
         chores: [Chore.empty.id!, Chore.empty.id!]
     )
 }

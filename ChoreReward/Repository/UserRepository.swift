@@ -71,7 +71,8 @@ class UserRepository: ObservableObject{
             try await database.collection("users").document(newUserId).setData([
                 "email": newUser.email,
                 "name": newUser.name,
-                "role": newUser.role.rawValue
+                "role": newUser.role.rawValue,
+                "profileImageUrl": newUser.profileImageUrl
             ])
         }
         catch{

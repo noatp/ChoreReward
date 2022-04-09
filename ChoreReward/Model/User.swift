@@ -7,6 +7,7 @@
 
 import Foundation
 import FirebaseFirestoreSwift
+import UIKit
 
 struct User: Identifiable, Codable{
     @DocumentID public var id: String?
@@ -14,32 +15,16 @@ struct User: Identifiable, Codable{
     var name: String
     var role: Role
     var familyId: String?
+    var profileImageUrl: String
     
-    static let previewTim = User(
-        id: "tim",
-        email: "test@gmail.com",
-        name: "Timothy Tran",
-        role: .child,
-        familyId: nil
-    )
-    
-    static let previewBen = User(
-        id: "ben",
-        email: "test1@gmail.com",
-        name: "Benjamin Tran",
-        role: .child,
-        familyId: nil
-    )
-    
-    static let previewDavid = User(
-        id: "david",
-        email: "test2@gmail.com",
-        name: "David Tran",
+    static let preview = User(
+        id: "previewID",
+        email: "preview@gmail.com",
+        name: "Preview name",
         role: .parent,
-        familyId: nil
+        familyId: nil,
+        profileImageUrl: ""
     )
-    
-    static let previewMembers = [User.previewBen, User.previewBen, User.previewBen, User.previewDavid, User.previewDavid, User.previewBen, User.previewTim]
 }
 
 enum Role: String, Codable{

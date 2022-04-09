@@ -38,7 +38,7 @@ struct UserCardView: View {
 
 struct UserCardView_Previews: PreviewProvider {
     static var previews: some View {
-        UserCardView(user: User.previewTim)
+        UserCardView(user: User.preview)
             .previewLayout(.sizeThatFits)
     }
 }

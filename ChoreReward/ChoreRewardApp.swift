@@ -19,9 +19,11 @@ struct ChoreRewardApp: App {
         let userRepository = UserRepository()
         let familyRepository = FamilyRepository()
         let choreRepository = ChoreRepository()
+        let storageRepository = StorageRepository()
         
         let userService = UserService(
-            currentUserRepository: userRepository
+            currentUserRepository: userRepository,
+            storageRepository:storageRepository
         )
         let familyService = FamilyService(
             userRepository: userRepository,

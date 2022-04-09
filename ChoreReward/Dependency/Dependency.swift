@@ -16,6 +16,7 @@ class Dependency{
     let currentUserRepository: UserRepository
     let currentFamilyRepository: FamilyRepository
     let currentChoreRepository: ChoreRepository
+    let storageRepository: StorageRepository
         
     init(
         userService: UserService = MockUserService(),
@@ -23,7 +24,8 @@ class Dependency{
         choreService: ChoreService = MockChoreService(),
         currentUserRepository: UserRepository = MockUserRepository(),
         currentFamilyRepository: FamilyRepository = MockFamilyRepository(),
-        currentChoreRepository: ChoreRepository = MockChoreRepository()
+        currentChoreRepository: ChoreRepository = MockChoreRepository(),
+        storageRepository: StorageRepository = StorageRepository()
     ){
         self.userService = userService
         self.familyService = familyService
@@ -31,6 +33,7 @@ class Dependency{
         self.currentUserRepository = currentUserRepository
         self.currentFamilyRepository = currentFamilyRepository
         self.currentChoreRepository = currentChoreRepository
+        self.storageRepository = storageRepository
     }
     
     static let preview = Dependency()
@@ -39,11 +42,15 @@ class Dependency{
         let dependency: Dependency
         let userRepository: UserRepository
         let familyRepository: FamilyRepository
+        let choreRepository: ChoreRepository
+        let storageRepository: StorageRepository
         
         init(dependency: Dependency){
             self.dependency = dependency
             self.userRepository = self.dependency.currentUserRepository
             self.familyRepository = self.dependency.currentFamilyRepository
+            self.choreRepository = self.dependency.currentChoreRepository
+            self.storageRepository = self.dependency.storageRepository
         }
     }
     
@@ -107,10 +114,12 @@ class MockChoreRepository: ChoreRepository{}
 
 class MockUserService: UserService{
     override init(
-        currentUserRepository: UserRepository = MockUserRepository()
+        currentUserRepository: UserRepository = MockUserRepository(),
+        storageRepository: StorageRepository = StorageRepository()
     ){
         super.init(
-            currentUserRepository: currentUserRepository
+            currentUserRepository: currentUserRepository,
+            storageRepository: storageRepository
         )
     }
 }

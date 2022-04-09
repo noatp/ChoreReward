@@ -8,6 +8,7 @@
 import Foundation
 import FirebaseAuth
 import Combine
+import SwiftUI
 
 
 /*
@@ -31,6 +32,7 @@ class UserService: ObservableObject{
     
     private let auth = Auth.auth()
     private let userRepository: UserRepository
+    private let storageRepository: StorageRepository
 
     private var currentUserSubscription: AnyCancellable?
     private var isLoginPending: Bool = false
@@ -40,9 +42,11 @@ class UserService: ObservableObject{
     }
     
     init(
-        currentUserRepository: UserRepository
+        currentUserRepository: UserRepository,
+        storageRepository: StorageRepository
     ){
         self.userRepository = currentUserRepository
+        self.storageRepository = storageRepository
     }
     
     private func performSignIn(){
@@ -77,14 +81,20 @@ class UserService: ObservableObject{
         }
     }
     
-    func signUp(newUser: User, password: String) async {
+    func signUp(newUser: User, password: String, profileImage: UIImage?) async {
         do{
             try await auth.createUser(withEmail: newUser.email, password: password)
+            var profileImageUrl = ""
+            if let profileImage = profileImage {
+                profileImageUrl = await storageRepository.uploadUserProfileImage(image: profileImage, userId: currentUserId ?? "")
+            }
+
             let user = User(
                 id: currentUserId,
                 email: newUser.email,
                 name: newUser.name,
-                role: newUser.role
+                role: newUser.role,
+                profileImageUrl: profileImageUrl
             )
             await userRepository.createUser(newUser: user)
             performSignIn()
