@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 import Combine
 
 class UserTabViewModel: StatefulViewModel{
@@ -13,7 +14,8 @@ class UserTabViewModel: StatefulViewModel{
     static let empty = UserTabState(
         currentUserEmail: "",
         currentUserName: "",
-        currentUserRole: ""
+        currentUserRole: "",
+        currentUserProfileImageUrl: ""
     )
     var state: AnyPublisher<UserTabState, Never>{
         return $_state.eraseToAnyPublisher()
@@ -35,12 +37,13 @@ class UserTabViewModel: StatefulViewModel{
                 self?._state = .init(
                     currentUserEmail: receivedUser?.email ?? "",
                     currentUserName: receivedUser?.name ?? "",
-                    currentUserRole: receivedUser?.role.rawValue ?? ""
+                    currentUserRole: receivedUser?.role.rawValue ?? "",
+                    currentUserProfileImageUrl: receivedUser?.profileImageUrl ?? ""
                 )
             })
     }
     
-    func signOut(){
+    private func signOut(){
         userService.signOut()
     }
     
@@ -56,6 +59,7 @@ struct UserTabState {
     let currentUserEmail: String
     let currentUserName: String
     let currentUserRole: String
+    let currentUserProfileImageUrl: String
 }
 
 enum UserTabAction{

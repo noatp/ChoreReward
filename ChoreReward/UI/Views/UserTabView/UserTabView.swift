@@ -24,28 +24,37 @@ struct UserTabView: View {
     var body: some View {
         RegularNavBarView(navTitle: userTabViewModel.state.currentUserName) {
             VStack(spacing: 16){
-                Button {
-                    shouldShowImagePicker = true
-                } label: {
-                    if let userImage = userImage {
-                        Image(uiImage: userImage)
+//                Button {
+//                    shouldShowImagePicker = true
+//                } label: {
+//                    if userImage != nil {
+//                        Image(uiImage: userImage)
+//
+//                    }
+//                    else{
+//                        ZStack{
+//                            Circle()
+//                                .frame(width: 200, height: 200)
+//                                .foregroundColor(.fg)
+//                                .shadow(radius: 5)
+//                            Text("Add profile picture")
+//                        }
+//                    }
+//
+//                }
+                AsyncImage(
+                    url: URL(string: userTabViewModel.state.currentUserProfileImageUrl),
+                    content: { image in
+                        image
                             .resizable()
                             .scaledToFill()
                             .frame(width: 200, height: 200)
                             .clipShape(Circle())
                             .shadow(radius: 5)
+
+                    }) {
+                        Text("Placeholder")
                     }
-                    else{
-                        ZStack{
-                            Circle()
-                                .frame(width: 200, height: 200)
-                                .foregroundColor(.fg)
-                                .shadow(radius: 5)
-                            Text("Add profile picture")
-                        }
-                    }
-                       
-                }
 
                 
                 
@@ -89,7 +98,8 @@ struct UserTabView_Previews: PreviewProvider {
                     staticState: UserTabState(
                         currentUserEmail: "toan.chpham@gmail.com",
                         currentUserName: "Toan Pham",
-                        currentUserRole: "Child"
+                        currentUserRole: "Child",
+                        currentUserProfileImageUrl: ""
                     )                    
                 ),
                 views: Dependency.preview.views()

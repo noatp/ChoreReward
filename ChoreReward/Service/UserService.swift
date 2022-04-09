@@ -113,6 +113,17 @@ class UserService: ObservableObject{
             print("Error signing out: %@", signOutError)
         }
     }
+    
+    
+    //have to optimize this
+    func getUserProfileImage() async -> UIImage{
+        guard let profileImageUrl = currentUser?.profileImageUrl else{
+            print("UserService: getUserProfileImage: failed to get currentUser")
+            return UIImage()
+        }
+        
+        return await storageRepository.downloadUserProfileImage(imageUrl: profileImageUrl) ?? UIImage()
+    }
 
     private func resetService(){
 //        currentUserSubscription?.cancel()
