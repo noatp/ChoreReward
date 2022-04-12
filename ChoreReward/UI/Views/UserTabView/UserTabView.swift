@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct UserTabView: View {
     @ObservedObject var userTabViewModel: ObservableViewModel<UserTabState, UserTabAction>
@@ -24,38 +25,27 @@ struct UserTabView: View {
     var body: some View {
         RegularNavBarView(navTitle: userTabViewModel.state.currentUserName) {
             VStack(spacing: 16){
-//                Button {
-//                    shouldShowImagePicker = true
-//                } label: {
-//                    if userImage != nil {
-//                        Image(uiImage: userImage)
-//
-//                    }
-//                    else{
-//                        ZStack{
-//                            Circle()
-//                                .frame(width: 200, height: 200)
-//                                .foregroundColor(.fg)
-//                                .shadow(radius: 5)
-//                            Text("Add profile picture")
-//                        }
-//                    }
-//
-//                }
-                AsyncImage(
-                    url: URL(string: userTabViewModel.state.currentUserProfileImageUrl),
-                    content: { image in
-                        image
+                Button {
+                    shouldShowImagePicker = true
+                } label: {
+                    if let userImageUrl = userTabViewModel.state.currentUserProfileImageUrl {
+                        KFImage(URL(string: userImageUrl))
                             .resizable()
                             .scaledToFill()
                             .frame(width: 200, height: 200)
                             .clipShape(Circle())
                             .shadow(radius: 5)
-
-                    }) {
-                        Text("Placeholder")
                     }
-
+                    else{
+                        ZStack{
+                            Circle()
+                                .frame(width: 200, height: 200)
+                                .foregroundColor(.fg)
+                                .shadow(radius: 5)
+                            Text("Add profile picture")
+                        }
+                    }
+                }
                 
                 
                 Text(userTabViewModel.state.currentUserName)
@@ -81,12 +71,18 @@ struct UserTabView: View {
                 )
             }
             .padding()
-            .fullScreenCover(isPresented: $shouldShowImagePicker, onDismiss: nil) {
-                        ImagePicker(image: $userImage)
-                            .ignoresSafeArea()
-                    }
         }
         .navigationBarHidden(true)
+        .fullScreenCover(isPresented: $shouldShowImagePicker, onDismiss: nil) {
+            ImagePicker(image: $userImage).ignoresSafeArea()
+        }
+        .onChange(of: userImage) { newValue in
+            guard let userImage = userImage else {
+                print("\(#function): cannot update with a nil image")
+                return
+            }
+            userTabViewModel.perform(action: .changeUserProfileImage(image: userImage))
+        }
     }
 }
 
@@ -99,7 +95,7 @@ struct UserTabView_Previews: PreviewProvider {
                         currentUserEmail: "toan.chpham@gmail.com",
                         currentUserName: "Toan Pham",
                         currentUserRole: "Child",
-                        currentUserProfileImageUrl: ""
+                        currentUserProfileImageUrl: nil
                     )                    
                 ),
                 views: Dependency.preview.views()

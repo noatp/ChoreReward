@@ -15,7 +15,7 @@ struct User: Identifiable, Codable{
     var name: String
     var role: Role
     var familyId: String?
-    var profileImageUrl: String
+    var profileImageUrl: String?
     
     static let preview = User(
         id: "previewID",
@@ -23,7 +23,7 @@ struct User: Identifiable, Codable{
         name: "Preview name",
         role: .parent,
         familyId: nil,
-        profileImageUrl: ""
+        profileImageUrl: nil
     )
 }
 

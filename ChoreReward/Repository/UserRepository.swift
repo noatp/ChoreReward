@@ -72,7 +72,7 @@ class UserRepository: ObservableObject{
                 "email": newUser.email,
                 "name": newUser.name,
                 "role": newUser.role.rawValue,
-                "profileImageUrl": newUser.profileImageUrl
+                "profileImageUrl": newUser.profileImageUrl ?? NSNull()
             ])
         }
         catch{
@@ -121,6 +121,17 @@ class UserRepository: ObservableObject{
         }
         catch{
             print("UserRepository updateRoleToAdminForUser: \(error)")
+        }
+    }
+    
+    func updateProfileImageForUser(userId: String, newImageUrl: String) async {
+        do {
+            try await database.collection("users").document(userId).updateData([
+                "profileImageUrl" : newImageUrl
+            ])
+        }
+        catch{
+            print("\(#function): \(error)")
         }
     }
     

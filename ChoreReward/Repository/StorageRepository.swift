@@ -13,12 +13,12 @@ import UIKit
 class StorageRepository{
     let storage = Storage.storage()
     
-    func uploadUserProfileImage(image: UIImage, userId: String) async -> String{
+    func uploadUserProfileImage(image: UIImage, userId: String) async -> String?{
         let imageRef = storage.reference().child("userImage/\(userId)")
         
         guard let imageData = image.jpegData(compressionQuality: 0.5) else{
             print("StorageRepository: uploadUserProfileImage: fail to compress image")
-            return ""
+            return nil
         }
         
         do{
@@ -28,20 +28,22 @@ class StorageRepository{
         }
         catch{
             print("StorageRepository: uploadUserProfileImage: \(error)")
-            return ""
+            return nil
         }
     }
     
-    func downloadUserProfileImage(imageUrl: String) async -> UIImage?{
-        let imageRef = storage.reference(forURL: imageUrl)
-        
-        do {
-            let imageData = try await imageRef.data(maxSize: 5 * 1024 * 1024)
-            return UIImage(data: imageData)
+    func updateUserProfileImage(newImage: UIImage, oldImageUrl: String?, userId: String) async -> String?{
+        if let oldImageUrl = oldImageUrl {
+            let oldImageRef = storage.reference(forURL: oldImageUrl)
+            
+            do{
+                try await oldImageRef.delete()
+            }
+            catch{
+                print("\(#function): \(error)")
+            }
         }
-        catch{
-            print("StorageRepository: downLoadUserProfileImage: \(error)")
-            return nil
-        }
+
+        return await uploadUserProfileImage(image: newImage, userId: userId)
     }
 }

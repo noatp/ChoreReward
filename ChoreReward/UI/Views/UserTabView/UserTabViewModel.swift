@@ -15,7 +15,7 @@ class UserTabViewModel: StatefulViewModel{
         currentUserEmail: "",
         currentUserName: "",
         currentUserRole: "",
-        currentUserProfileImageUrl: ""
+        currentUserProfileImageUrl: nil
     )
     var state: AnyPublisher<UserTabState, Never>{
         return $_state.eraseToAnyPublisher()
@@ -38,7 +38,7 @@ class UserTabViewModel: StatefulViewModel{
                     currentUserEmail: receivedUser?.email ?? "",
                     currentUserName: receivedUser?.name ?? "",
                     currentUserRole: receivedUser?.role.rawValue ?? "",
-                    currentUserProfileImageUrl: receivedUser?.profileImageUrl ?? ""
+                    currentUserProfileImageUrl: receivedUser?.profileImageUrl
                 )
             })
     }
@@ -47,10 +47,16 @@ class UserTabViewModel: StatefulViewModel{
         userService.signOut()
     }
     
+    private func changeUserProfileImage(image: UIImage){
+        userService.changeUserProfileImage(image: image)
+    }
+    
     func performAction(_ action: UserTabAction) {
         switch(action){
         case .signOut:
             signOut()
+        case .changeUserProfileImage(let image):
+            changeUserProfileImage(image: image)
         }
     }
 }
@@ -59,11 +65,12 @@ struct UserTabState {
     let currentUserEmail: String
     let currentUserName: String
     let currentUserRole: String
-    let currentUserProfileImageUrl: String
+    let currentUserProfileImageUrl: String?
 }
 
 enum UserTabAction{
     case signOut
+    case changeUserProfileImage(image: UIImage)
 }
 
 extension Dependency.ViewModels{

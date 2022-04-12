@@ -84,9 +84,12 @@ class UserService: ObservableObject{
     func signUp(newUser: User, password: String, profileImage: UIImage?) async {
         do{
             try await auth.createUser(withEmail: newUser.email, password: password)
-            var profileImageUrl = ""
+            guard let currentUserId = currentUserId else {
+                return
+            }
+            var profileImageUrl: String? = nil
             if let profileImage = profileImage {
-                profileImageUrl = await storageRepository.uploadUserProfileImage(image: profileImage, userId: currentUserId ?? "")
+                profileImageUrl = await storageRepository.uploadUserProfileImage(image: profileImage, userId: currentUserId)
             }
 
             let user = User(
@@ -114,15 +117,29 @@ class UserService: ObservableObject{
         }
     }
     
-    
-    //have to optimize this
-    func getUserProfileImage() async -> UIImage{
-        guard let profileImageUrl = currentUser?.profileImageUrl else{
-            print("UserService: getUserProfileImage: failed to get currentUser")
-            return UIImage()
+    func changeUserProfileImage(image: UIImage){
+        guard let currentUser = currentUser else {
+            print("\(#function): there is no currentUser")
+            return
+        }
+
+        Task{
+            guard let currentUserId = currentUserId else {
+                print("\(#function): could not retrieve currentUserId")
+                return
+            }
+            
+            let newImageUrl = await storageRepository.updateUserProfileImage(newImage: image, oldImageUrl: currentUser.profileImageUrl, userId: currentUserId)
+            
+            guard let newImageUrl = newImageUrl else {
+                print("\(#function): could not retrieve a newImageUrl")
+                return
+            }
+            
+            await userRepository.updateProfileImageForUser(userId: currentUserId, newImageUrl: newImageUrl)
         }
         
-        return await storageRepository.downloadUserProfileImage(imageUrl: profileImageUrl) ?? UIImage()
+        
     }
 
     private func resetService(){
