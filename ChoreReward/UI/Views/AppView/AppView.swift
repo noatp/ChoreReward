@@ -15,8 +15,7 @@ enum Tabs: String{
 struct AppView: View {
     @ObservedObject var appViewModel: ObservableViewModel<AppViewState, Void>
     @State var selectedTab: Tabs = .choreTab
-    @State var presentingSideDrawer: Bool = false
-    @State var presentedSheet: Bool = false
+    @State var presentingSheet: Bool = false
     private var views: Dependency.Views
     
     init(
@@ -57,7 +56,7 @@ struct AppView: View {
 
                         if (appViewModel.state.shouldRenderAddChoreButton){
                             Button {
-                                presentedSheet = true
+                                presentingSheet = true
                             } label: {
                                 VStack {
                                     Image(systemName: "plus.app.fill")
@@ -101,7 +100,7 @@ struct AppView: View {
         }
         .padding(.vertical)
         .ignoresSafeArea()
-        .sheet(isPresented: $presentedSheet, onDismiss: {}) {
+        .sheet(isPresented: $presentingSheet, onDismiss: {}) {
             views.addChoreView()
         }
     }

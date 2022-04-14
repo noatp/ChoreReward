@@ -9,6 +9,7 @@ import SwiftUI
 
 struct RootView: View {
     @ObservedObject var rootViewModel: ObservableViewModel<RootViewState, Void>
+    @State var presentingProgress: Bool = true
     
     private var views: Dependency.Views
     
@@ -21,12 +22,30 @@ struct RootView: View {
     }
     
     var body: some View {
-        if (rootViewModel.state.shouldRenderLoginView){
-            views.loginView
+        ZStack{
+            if rootViewModel.state.shouldRenderLoginView{
+                views.loginView
+            }
+            else{
+                views.appView
+                    .onAppear {
+                        presentingProgress = false
+                    }
+            }
+            if presentingProgress{
+                VStack{
+                    Spacer()
+                    ProgressView()
+                        .shadow(color: Color(red: 0, green: 0, blue: 0.6),
+                                            radius: 4.0, x: 1.0, y: 2.0)
+                        .frame(maxWidth: .infinity)
+                        
+                    Spacer()
+                }
+                .background(Color.bg.opacity(0.7))
+            }
         }
-        else{
-            views.appView
-        }
+        .environment(\.presentingProgressView, $presentingProgress)
     }
 }
 

@@ -9,6 +9,7 @@ import SwiftUI
 
 struct SignUpView: View {
     @ObservedObject var signUpViewModel: ObservableViewModel<SignUpState, SignUpAction>
+    @Environment(\.presentingProgressView) @Binding private var presentingProgress
     private var views: Dependency.Views
     
     @State var nameInput: String = ""
@@ -57,8 +58,9 @@ struct SignUpView: View {
             TextFieldView(textInput: $emailInput, title: "Email")
             TextFieldView(textInput: $passwordInput, secured: true, title: "Password")
             RolePickerView(roleSelection: $roleSelection)
-            ButtonView(
-                action: {signUpViewModel.perform(
+            ButtonView(action: {
+                presentingProgress = true
+                signUpViewModel.perform(
                     action: .signUp(
                         emailInput: emailInput,
                         nameInput: nameInput,
