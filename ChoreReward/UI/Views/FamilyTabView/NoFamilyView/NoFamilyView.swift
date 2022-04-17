@@ -6,6 +6,8 @@
 //
 
 import SwiftUI
+import CoreImage.CIFilterBuiltins
+import CoreImage
 
 struct NoFamilyView: View {
     @ObservedObject var noFamilyViewModel: ObservableViewModel<NoFamilyState, NoFamilyAction>
@@ -21,9 +23,13 @@ struct NoFamilyView: View {
     
     var body: some View {
         VStack(spacing: 16){
-            Text("Please ask your family's admin to invite you to the family")
+            Text("Please ask your family's admin to invite you to the family using the following QR code")
                 .multilineTextAlignment(.center)
-            Text("This is your user ID: ")
+            Image(uiImage: generateQRImage(from: noFamilyViewModel.state.currentUserId))
+                .resizable()
+                .interpolation(.none)
+                .scaledToFit()
+                .frame(width: 200, height: 200)
             Text(noFamilyViewModel.state.currentUserId)
             if (noFamilyViewModel.state.shouldRenderCreateFamilyButton){
                 Button("Create a new family") {
@@ -32,6 +38,21 @@ struct NoFamilyView: View {
             }
         }
         .padding()
+    }
+    
+    private func generateQRImage(from userId: String) -> UIImage{
+        let context = CIContext()
+        let filter = CIFilter.qrCodeGenerator()
+        
+        filter.message = Data(userId.utf8)
+
+            if let outputImage = filter.outputImage {
+                if let cgimg = context.createCGImage(outputImage, from: outputImage.extent) {
+                    return UIImage(cgImage: cgimg)
+                }
+            }
+
+            return UIImage(systemName: "xmark.circle") ?? UIImage()
     }
 }
 
