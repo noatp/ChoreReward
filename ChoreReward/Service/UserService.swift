@@ -102,15 +102,11 @@ class UserService: ObservableObject{
                 profileImageUrl: nil
             )
             await userRepository.createUser(newUser: user)
-            
+
             if let profileImage = profileImage {
-                //profileImageUrl = await storageRepository.uploadUserProfileImage(image: profileImage, userId: currentUserId)
-                storageRepository.uploadUserProfileImage(
-                    image: profileImage,
-                    userId: currentUserId) { url in
-                        self.changeUserProfileImage(imageUrl: url)
-                    }
+                changeUserProfileImage(image: profileImage)
             }
+            
             performSignIn()
         }
         catch{
@@ -130,35 +126,17 @@ class UserService: ObservableObject{
     }
     
     func changeUserProfileImage(image: UIImage){
-        guard let currentUser = currentUser else {
-            print("\(#function): there is no currentUser")
-            return
-        }
-
-        Task{
-            guard let currentUserId = currentUserId else {
-                print("\(#function): could not retrieve currentUserId")
-                return
-            }
-            let newImageUrl = await storageRepository.updateUserProfileImage(newImage: image, oldImageUrl: currentUser.profileImageUrl, userId: currentUserId)
-            
-            guard let newImageUrl = newImageUrl else {
-                print("\(#function): could not retrieve a newImageUrl")
-                return
-            }
-            changeUserProfileImage(imageUrl: newImageUrl)
-        }
-    }
-    
-    private func changeUserProfileImage(imageUrl: String){
-        print("start updating user image here")
         guard let currentUserId = currentUserId else {
             print("\(#function): could not retrieve currentUserId")
             return
         }
         
-        Task{
-            await userRepository.updateProfileImageForUser(userId: currentUserId, newImageUrl: imageUrl)
+        storageRepository.uploadUserProfileImage(image: image, userId: currentUserId) { [weak self] url in
+            if let userRepository = self?.userRepository {
+                Task{
+                    await userRepository.updateProfileImageForUser(userId: currentUserId, newImageUrl: url)
+                }
+            }
         }
     }
 
