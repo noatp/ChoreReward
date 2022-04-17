@@ -32,6 +32,35 @@ class StorageRepository{
         }
     }
     
+    func uploadUserProfileImage(image: UIImage, userId: String, completion: @escaping (_ url: String) -> Void){
+        print("start uploading image here")
+        let imageRef = storage.reference().child("userImage/\(userId)")
+        
+        guard let imageData = image.jpegData(compressionQuality: 0.5) else{
+            print("StorageRepository: uploadUserProfileImage: fail to compress image")
+            return
+        }
+        
+        imageRef.putData(imageData, metadata: nil) { storageMetadata, error in
+            if let error = error {
+                print("\(#function): \(error)")
+                return
+            }
+            imageRef.downloadURL { url, error in
+                if let error = error {
+                    print("\(#function): \(error)")
+                    return
+                }
+                
+                guard let url = url else{
+                    print("\(#function): failed to get url")
+                    return
+                }
+                completion(url.absoluteString)
+            }
+        }
+    }
+    
     func updateUserProfileImage(newImage: UIImage, oldImageUrl: String?, userId: String) async -> String?{
         if let oldImageUrl = oldImageUrl {
             let oldImageRef = storage.reference(forURL: oldImageUrl)

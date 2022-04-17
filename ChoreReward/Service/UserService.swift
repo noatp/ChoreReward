@@ -93,19 +93,24 @@ class UserService: ObservableObject{
             guard let currentUserId = currentUserId else {
                 return
             }
-            var profileImageUrl: String? = nil
-            if let profileImage = profileImage {
-                profileImageUrl = await storageRepository.uploadUserProfileImage(image: profileImage, userId: currentUserId)
-            }
 
             let user = User(
                 id: currentUserId,
                 email: newUser.email,
                 name: newUser.name,
                 role: newUser.role,
-                profileImageUrl: profileImageUrl
+                profileImageUrl: nil
             )
             await userRepository.createUser(newUser: user)
+            
+            if let profileImage = profileImage {
+                //profileImageUrl = await storageRepository.uploadUserProfileImage(image: profileImage, userId: currentUserId)
+                storageRepository.uploadUserProfileImage(
+                    image: profileImage,
+                    userId: currentUserId) { url in
+                        self.changeUserProfileImage(imageUrl: url)
+                    }
+            }
             performSignIn()
         }
         catch{
@@ -135,18 +140,26 @@ class UserService: ObservableObject{
                 print("\(#function): could not retrieve currentUserId")
                 return
             }
-            
             let newImageUrl = await storageRepository.updateUserProfileImage(newImage: image, oldImageUrl: currentUser.profileImageUrl, userId: currentUserId)
             
             guard let newImageUrl = newImageUrl else {
                 print("\(#function): could not retrieve a newImageUrl")
                 return
             }
-            
-            await userRepository.updateProfileImageForUser(userId: currentUserId, newImageUrl: newImageUrl)
+            changeUserProfileImage(imageUrl: newImageUrl)
+        }
+    }
+    
+    private func changeUserProfileImage(imageUrl: String){
+        print("start updating user image here")
+        guard let currentUserId = currentUserId else {
+            print("\(#function): could not retrieve currentUserId")
+            return
         }
         
-        
+        Task{
+            await userRepository.updateProfileImageForUser(userId: currentUserId, newImageUrl: imageUrl)
+        }
     }
 
     private func resetService(){
