@@ -29,13 +29,15 @@ import SwiftUI
 class UserService: ObservableObject{
     @Published var authState: AuthState = .signedOut(error: nil)
     @Published var currentUser: User?
+    @Published var isBusy: Bool = false
+
     
     private let auth = Auth.auth()
     private let userRepository: UserRepository
     private let storageRepository: StorageRepository
 
     private var currentUserSubscription: AnyCancellable?
-    private var isLoginPending: Bool = false
+    //private var isLoginPending: Bool = false
     
     var currentUserId: String?{
         auth.currentUser?.uid
@@ -51,7 +53,7 @@ class UserService: ObservableObject{
     
     private func performSignIn(){
         guard let currentUserId = currentUserId else{
-            print("UserService: silentSignIn: trying to read current user but currentUserId is nil within this service instance")
+            print("\(#function): currentUserId is nil")
             return
         }
         currentUserSubscription = userRepository.readUser(userId: currentUserId)
@@ -59,30 +61,34 @@ class UserService: ObservableObject{
                 print("UserService: silentSignIn: received new user from UserDatabse through UserRepository")
                 self?.currentUser = receivedUser
                 self?.authState = .signedIn
+                self?.isBusy = false
             })
     }
     
     func silentSignIn() async {
-        if isLoginPending == true {
-            return
-        }
-        isLoginPending = true
+//        if isLoginPending == true {
+//            return
+//        }
+//        isLoginPending = true
         performSignIn()
     }
     
     func signIn(email: String, password: String) async {
         do{
+            isBusy = true
             try await auth.signIn(withEmail: email, password: password)
             performSignIn()
         }
         catch{
             print("UserService: signIn: \(error)")
             authState = .signedOut(error: error)
+            isBusy = false
         }
     }
     
     func signUp(newUser: User, password: String, profileImage: UIImage?) async {
         do{
+            isBusy = true
             try await auth.createUser(withEmail: newUser.email, password: password)
             guard let currentUserId = currentUserId else {
                 return
@@ -105,6 +111,7 @@ class UserService: ObservableObject{
         catch{
             print("UserService: signUp: \(error)")
             authState = .signedOut(error: error)
+            isBusy = false
         }
     }
     

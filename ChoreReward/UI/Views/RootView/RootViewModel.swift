@@ -9,14 +9,15 @@ import Foundation
 import Combine
 
 class RootViewModel: StatefulViewModel{
-    @Published var _state: RootViewState = empty
-    static let empty = RootViewState(shouldRenderLoginView: false)
+    @Published var _state = empty
+    static let empty: RootViewState = .empty
     var state: AnyPublisher<RootViewState, Never>{
         return $_state.eraseToAnyPublisher()
     }
     
     private var userService: UserService
-    private var useCaseSubscription: AnyCancellable?
+    private var authStateSubscription: AnyCancellable?
+    private var userServiceBusyStatusSubscription: AnyCancellable?
     
     init(userService: UserService) {
         self.userService = userService
@@ -24,15 +25,35 @@ class RootViewModel: StatefulViewModel{
     }
     
     func addSubscription(){
-        useCaseSubscription = userService.$authState
+        authStateSubscription = userService.$authState
             .sink(receiveValue: {[weak self] authState in
+                guard let oldState = self?._state else{
+                    return
+                }
                 switch authState{
                 case .signedIn:
-                    self?._state = .init(shouldRenderLoginView: false)
+                    self?._state = .init(
+                        shouldRenderLoginView: false,
+                        shouldRenderProgressView: oldState.shouldRenderProgressView
+                    )
                 case .signedOut(_):
-                    self?._state = .init(shouldRenderLoginView: true)
+                    self?._state = .init(
+                        shouldRenderLoginView: true,
+                        shouldRenderProgressView: oldState.shouldRenderProgressView
+                    )
                 }
             })
+        userServiceBusyStatusSubscription = userService.$isBusy
+            .sink { [weak self] busyStatus in
+                guard let oldState = self?._state else{
+                    return
+                }
+                
+                self?._state = .init(
+                    shouldRenderLoginView: oldState.shouldRenderLoginView,
+                    shouldRenderProgressView: busyStatus
+                )
+            }
     }
     
     func performAction(_ action: Void) {}
@@ -40,6 +61,9 @@ class RootViewModel: StatefulViewModel{
 
 struct RootViewState{
     let shouldRenderLoginView: Bool
+    let shouldRenderProgressView: Bool
+    
+    static let empty: RootViewState = .init(shouldRenderLoginView: true, shouldRenderProgressView: false)
 }
 
 extension Dependency.ViewModels{

@@ -9,7 +9,6 @@ import SwiftUI
 
 struct RootView: View {
     @ObservedObject var rootViewModel: ObservableViewModel<RootViewState, Void>
-    @State var presentingProgress: Bool = true
     
     private var views: Dependency.Views
     
@@ -28,11 +27,8 @@ struct RootView: View {
             }
             else{
                 views.appView
-                    .onAppear {
-                        presentingProgress = false
-                    }
             }
-            if presentingProgress{
+            if rootViewModel.state.shouldRenderProgressView{
                 VStack{
                     Spacer()
                     ProgressView()
@@ -45,7 +41,6 @@ struct RootView: View {
                 .background(Color.bg.opacity(0.7))
             }
         }
-        .environment(\.presentingProgressView, $presentingProgress)
     }
 }
 
@@ -53,17 +48,7 @@ struct RootView_Previews: PreviewProvider {
     static var previews: some View {
         RootView(
             rootViewModel: .init(
-                staticState: .init(
-                    shouldRenderLoginView: true
-                )
-            ),
-            views: Dependency.preview.views()
-        )
-        RootView(
-            rootViewModel: .init(
-                staticState: .init(
-                    shouldRenderLoginView: false
-                )
+                staticState: .empty
             ),
             views: Dependency.preview.views()
         )

@@ -9,7 +9,6 @@ import SwiftUI
 
 struct LoginView: View {
     @ObservedObject var loginViewModel: ObservableViewModel<LoginViewState, LoginViewAction>
-    @Environment(\.presentingProgressView) @Binding private var presentingProgress
     private var views: Dependency.Views
     
     @State var emailInput: String = ""
@@ -34,7 +33,6 @@ struct LoginView: View {
                 
                 ButtonView(
                     action: {
-                        presentingProgress = true
                         loginViewModel.perform(action: .signIn(emailInput: emailInput, passwordInput: passwordInput))
                     },
                     buttonTitle: "Log In",
@@ -52,7 +50,9 @@ struct LoginView: View {
             .navigationBarTitleDisplayMode(.automatic)
         }
         .navigationViewStyle(.stack)
-        .onAppear(perform: {loginViewModel.perform(action: .silentSignIn)})
+        .onAppear(perform: {
+            loginViewModel.perform(action: .silentSignIn)
+        })
     }
 }
 
