@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 import Combine
 
-class UserTabViewModel: StatefulViewModel{
+class UserProfileViewModel: StatefulViewModel{
     @Published var _state: UserTabState = empty
     static let empty = UserTabState(
         currentUserEmail: "",
@@ -74,8 +74,8 @@ enum UserTabAction{
 }
 
 extension Dependency.ViewModels{
-    var userTabViewModel: UserTabViewModel{
-        UserTabViewModel(
+    var userProfileViewModel: UserProfileViewModel{
+        UserProfileViewModel(
             userService: services.userService
         )
     }

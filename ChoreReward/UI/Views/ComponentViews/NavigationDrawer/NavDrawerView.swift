@@ -119,7 +119,7 @@ extension NavDrawerView{
     var basicDrawerContent: some View {
         VStack(alignment: .leading){
             NavigationLink {
-                views.userTabView
+                views.userProfileView
             } label: {
                 HStack{
                     Image(systemName: "person.crop.circle")

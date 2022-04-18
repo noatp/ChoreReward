@@ -1,5 +1,5 @@
 //
-//  UserTabView.swift
+//  UserProfileView.swift
 //  ChoreReward
 //
 //  Created by Toan Pham on 12/6/21.
@@ -8,27 +8,27 @@
 import SwiftUI
 import Kingfisher
 
-struct UserTabView: View {
-    @ObservedObject var userTabViewModel: ObservableViewModel<UserTabState, UserTabAction>
+struct UserProfileView: View {
+    @ObservedObject var userProfileViewModel: ObservableViewModel<UserTabState, UserTabAction>
     @State var shouldShowImagePicker: Bool = false
     @State var userImage: UIImage? = nil
     private var views: Dependency.Views
     
     init(
-        userTabViewModel: ObservableViewModel<UserTabState, UserTabAction>,
+        userProfileViewModel: ObservableViewModel<UserTabState, UserTabAction>,
         views: Dependency.Views
     ){
-        self.userTabViewModel = userTabViewModel
+        self.userProfileViewModel = userProfileViewModel
         self.views = views
     }
     
     var body: some View {
-        RegularNavBarView(navTitle: userTabViewModel.state.currentUserName) {
+        RegularNavBarView(navTitle: userProfileViewModel.state.currentUserName) {
             VStack(spacing: 16){
                 Button {
                     shouldShowImagePicker = true
                 } label: {
-                    if let userImageUrl = userTabViewModel.state.currentUserProfileImageUrl {
+                    if let userImageUrl = userProfileViewModel.state.currentUserProfileImageUrl {
                         KFImage(URL(string: userImageUrl))
                             .resizable()
                             .scaledToFill()
@@ -48,23 +48,23 @@ struct UserTabView: View {
                 }
                 
                 
-                Text(userTabViewModel.state.currentUserName)
+                Text(userProfileViewModel.state.currentUserName)
                     .font(.title)
 
 
                 HStack{
                     Text("Email:")
-                    Text(userTabViewModel.state.currentUserEmail)
+                    Text(userProfileViewModel.state.currentUserEmail)
                 }
                 HStack{
                     Text("Role:")
-                    Text(userTabViewModel.state.currentUserRole)
+                    Text(userProfileViewModel.state.currentUserRole)
                 }
                 
                 Spacer()
                 
                 ButtonView(
-                    action: {userTabViewModel.perform(action: .signOut)},
+                    action: {userProfileViewModel.perform(action: .signOut)},
                     buttonTitle: "Log Out",
                     buttonImage: "arrow.backward.to.line",
                     buttonColor: .red
@@ -81,7 +81,7 @@ struct UserTabView: View {
                 print("\(#function): cannot update with a nil image")
                 return
             }
-            userTabViewModel.perform(action: .changeUserProfileImage(image: userImage))
+            userProfileViewModel.perform(action: .changeUserProfileImage(image: userImage))
         }
     }
 }
@@ -89,8 +89,8 @@ struct UserTabView: View {
 struct UserTabView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView{
-            UserTabView(
-                userTabViewModel: ObservableViewModel(
+            UserProfileView(
+                userProfileViewModel: ObservableViewModel(
                     staticState: UserTabState(
                         currentUserEmail: "toan.chpham@gmail.com",
                         currentUserName: "Toan Pham",
@@ -106,9 +106,9 @@ struct UserTabView_Previews: PreviewProvider {
 }
 
 extension Dependency.Views{
-    var userTabView: UserTabView{
-        return UserTabView(
-            userTabViewModel: ObservableViewModel(viewModel: viewModels.userTabViewModel),
+    var userProfileView: UserProfileView{
+        return UserProfileView(
+            userProfileViewModel: ObservableViewModel(viewModel: viewModels.userProfileViewModel),
             views: self
         )
     }
