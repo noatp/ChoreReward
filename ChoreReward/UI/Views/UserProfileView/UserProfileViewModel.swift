@@ -10,14 +10,14 @@ import SwiftUI
 import Combine
 
 class UserProfileViewModel: StatefulViewModel{
-    @Published var _state: UserTabState = empty
-    static let empty = UserTabState(
+    @Published var _state: UserProfileState = empty
+    static let empty = UserProfileState(
         currentUserEmail: "",
         currentUserName: "",
         currentUserRole: "",
         currentUserProfileImageUrl: nil
     )
-    var state: AnyPublisher<UserTabState, Never>{
+    var state: AnyPublisher<UserProfileState, Never>{
         return $_state.eraseToAnyPublisher()
     }
 
@@ -51,7 +51,7 @@ class UserProfileViewModel: StatefulViewModel{
         userService.changeUserProfileImage(image: image)
     }
     
-    func performAction(_ action: UserTabAction) {
+    func performAction(_ action: UserProfileAction) {
         switch(action){
         case .signOut:
             signOut()
@@ -61,14 +61,14 @@ class UserProfileViewModel: StatefulViewModel{
     }
 }
 
-struct UserTabState {
+struct UserProfileState {
     let currentUserEmail: String
     let currentUserName: String
     let currentUserRole: String
     let currentUserProfileImageUrl: String?
 }
 
-enum UserTabAction{
+enum UserProfileAction{
     case signOut
     case changeUserProfileImage(image: UIImage)
 }

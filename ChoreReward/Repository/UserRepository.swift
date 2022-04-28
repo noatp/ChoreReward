@@ -135,6 +135,31 @@ class UserRepository: ObservableObject{
         }
     }
     
+    func updateUserProfileWithImage(userId: String, newUserProfileWithImage: User) async {
+        do {
+            try await database.collection("users").document(userId).updateData([
+                "email": newUserProfileWithImage.email,
+                "name": newUserProfileWithImage.name,
+                "profileImageUrl": newUserProfileWithImage.profileImageUrl ?? NSNull()
+            ])
+        }
+        catch{
+            print("\(#function): \(error)")
+        }
+    }
+    
+    func updateUserProfileWithoutImage(userId: String, newUserProfileWithoutImage: User) async {
+        do {
+            try await database.collection("users").document(userId).updateData([
+                "email": newUserProfileWithoutImage.email,
+                "name": newUserProfileWithoutImage.name
+            ])
+        }
+        catch{
+            print("\(#function): \(error)")
+        }
+    }
+    
     func resetRepository(){
         userDatabase.currentUserListener?.remove()
         userDatabase.currentUserListener = nil

@@ -25,6 +25,8 @@ struct User: Identifiable, Codable{
         familyId: nil,
         profileImageUrl: nil
     )
+    
+    static let empty = User(email: "", name: "", role: .child)
 }
 
 enum Role: String, Codable{

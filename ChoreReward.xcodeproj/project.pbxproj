@@ -54,6 +54,8 @@
 		45B0903E2800DEF400CD1597 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 45B0903D2800DEF400CD1597 /* FirebaseStorage */; };
 		45B090402800DEF400CD1597 /* FirebaseStorageSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = 45B0903F2800DEF400CD1597 /* FirebaseStorageSwift-Beta */; };
 		45B090432803BF7800CD1597 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 45B090422803BF7800CD1597 /* Kingfisher */; };
+		45B2FF4328106A9800120921 /* EditUserProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B2FF4228106A9800120921 /* EditUserProfileViewModel.swift */; };
+		45B2FF4528106AAB00120921 /* EditUserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B2FF4428106AAB00120921 /* EditUserProfileView.swift */; };
 		45B6BB39272FC72100F89D74 /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B6BB38272FC72100F89D74 /* AppView.swift */; };
 		45C1FA652767163F00BF11E3 /* FamilyRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C1FA642767163F00BF11E3 /* FamilyRepository.swift */; };
 		45C1FA672767ABBB00BF11E3 /* FamilyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C1FA662767ABBB00BF11E3 /* FamilyService.swift */; };
@@ -138,6 +140,8 @@
 		45ACB4DD2724AEBE000E04A0 /* Reward.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reward.swift; sourceTree = "<group>"; };
 		45B012D6275495CF002C7A06 /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
 		45B090322800DE8800CD1597 /* StorageRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageRepository.swift; sourceTree = "<group>"; };
+		45B2FF4228106A9800120921 /* EditUserProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditUserProfileViewModel.swift; sourceTree = "<group>"; };
+		45B2FF4428106AAB00120921 /* EditUserProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditUserProfileView.swift; sourceTree = "<group>"; };
 		45B6BB38272FC72100F89D74 /* AppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
 		45C1FA642767163F00BF11E3 /* FamilyRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyRepository.swift; sourceTree = "<group>"; };
 		45C1FA662767ABBB00BF11E3 /* FamilyService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyService.swift; sourceTree = "<group>"; };
@@ -413,6 +417,15 @@
 			path = Repository;
 			sourceTree = "<group>";
 		};
+		45B2FF4128106A3600120921 /* EditUserProfileView */ = {
+			isa = PBXGroup;
+			children = (
+				45B2FF4228106A9800120921 /* EditUserProfileViewModel.swift */,
+				45B2FF4428106AAB00120921 /* EditUserProfileView.swift */,
+			);
+			path = EditUserProfileView;
+			sourceTree = "<group>";
+		};
 		45D7AE8A27346E7600A53812 /* ComponentViews */ = {
 			isa = PBXGroup;
 			children = (
@@ -431,6 +444,7 @@
 		45D8D393275E77250026ABE3 /* UserProfileView */ = {
 			isa = PBXGroup;
 			children = (
+				45B2FF4128106A3600120921 /* EditUserProfileView */,
 				45D8D39A275E77E20026ABE3 /* UserProfileView.swift */,
 				45D8D39C275E784E0026ABE3 /* UserProfileViewModel.swift */,
 			);
@@ -666,6 +680,7 @@
 				45B012D7275495CF002C7A06 /* UserRepository.swift in Sources */,
 				45D7AE9327347D2900A53812 /* User.swift in Sources */,
 				45D8D399275E77CA0026ABE3 /* FamilyTabView.swift in Sources */,
+				45B2FF4328106A9800120921 /* EditUserProfileViewModel.swift in Sources */,
 				45D8D39D275E784E0026ABE3 /* UserProfileViewModel.swift in Sources */,
 				453CC1AA278807AA002996AF /* AddFamilyMemberViewModel.swift in Sources */,
 				453CC1A22787B41F002996AF /* ObservableViewModel.swift in Sources */,
@@ -692,6 +707,7 @@
 				45429DC427A518CC00FA9670 /* ChoreDetailView.swift in Sources */,
 				45D7AE8C27346E9900A53812 /* TextFieldView.swift in Sources */,
 				45F784962793D84400C8B197 /* AddChoreView.swift in Sources */,
+				45B2FF4528106AAB00120921 /* EditUserProfileView.swift in Sources */,
 				45E483CC27540305009DA543 /* RootViewModel.swift in Sources */,
 				45D8D39B275E77E20026ABE3 /* UserProfileView.swift in Sources */,
 			);

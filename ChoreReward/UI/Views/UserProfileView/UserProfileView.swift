@@ -9,13 +9,11 @@ import SwiftUI
 import Kingfisher
 
 struct UserProfileView: View {
-    @ObservedObject var userProfileViewModel: ObservableViewModel<UserTabState, UserTabAction>
-    @State var shouldShowImagePicker: Bool = false
-    @State var userImage: UIImage? = nil
+    @ObservedObject var userProfileViewModel: ObservableViewModel<UserProfileState, UserProfileAction>
     private var views: Dependency.Views
     
     init(
-        userProfileViewModel: ObservableViewModel<UserTabState, UserTabAction>,
+        userProfileViewModel: ObservableViewModel<UserProfileState, UserProfileAction>,
         views: Dependency.Views
     ){
         self.userProfileViewModel = userProfileViewModel
@@ -25,27 +23,18 @@ struct UserProfileView: View {
     var body: some View {
         RegularNavBarView(navTitle: userProfileViewModel.state.currentUserName) {
             VStack(spacing: 16){
-                Button {
-                    shouldShowImagePicker = true
-                } label: {
+                Group{
                     if let userImageUrl = userProfileViewModel.state.currentUserProfileImageUrl {
-                        KFImage(URL(string: userImageUrl))
-                            .resizable()
-                            .scaledToFill()
-                            .frame(width: 200, height: 200)
-                            .clipShape(Circle())
-                            .shadow(radius: 5)
+                        KFImage(URL(string: userImageUrl)).resizable()
                     }
                     else{
-                        ZStack{
-                            Circle()
-                                .frame(width: 200, height: 200)
-                                .foregroundColor(.fg)
-                                .shadow(radius: 5)
-                            Text("Add profile picture")
-                        }
+                        Image(systemName: "person.fill").resizable()
                     }
                 }
+                .scaledToFill()
+                .frame(width: 200, height: 200)
+                .clipShape(Circle())
+                .shadow(radius: 5)
                 
                 
                 Text(userProfileViewModel.state.currentUserName)
@@ -63,6 +52,15 @@ struct UserProfileView: View {
                 
                 Spacer()
                 
+                NavigationLink {
+                    views.editUserProfileView
+                } label: {
+                    HStack{
+                        Image(systemName: "pencil")
+                        Text("Edit profile")
+                    }
+                }
+
                 ButtonView(
                     action: {userProfileViewModel.perform(action: .signOut)},
                     buttonTitle: "Log Out",
@@ -73,16 +71,6 @@ struct UserProfileView: View {
             .padding()
         }
         .navigationBarHidden(true)
-        .fullScreenCover(isPresented: $shouldShowImagePicker, onDismiss: nil) {
-            ImagePicker(image: $userImage).ignoresSafeArea()
-        }
-        .onChange(of: userImage) { newValue in
-            guard let userImage = userImage else {
-                print("\(#function): cannot update with a nil image")
-                return
-            }
-            userProfileViewModel.perform(action: .changeUserProfileImage(image: userImage))
-        }
     }
 }
 
@@ -91,7 +79,7 @@ struct UserTabView_Previews: PreviewProvider {
         NavigationView{
             UserProfileView(
                 userProfileViewModel: ObservableViewModel(
-                    staticState: UserTabState(
+                    staticState: UserProfileState(
                         currentUserEmail: "toan.chpham@gmail.com",
                         currentUserName: "Toan Pham",
                         currentUserRole: "Child",
