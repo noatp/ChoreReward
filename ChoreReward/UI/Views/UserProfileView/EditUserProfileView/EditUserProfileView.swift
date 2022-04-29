@@ -60,10 +60,12 @@ struct EditUserProfileView: View {
                         TextField("userName",
                                   text: $userName,
                                   prompt: Text(editUserProfileViewModel.state.currentUserName))
+                        .textInputAutocapitalization(.never)
                         Divider()
                         TextField("userEmail",
                                   text: $userEmail,
                                   prompt: Text(editUserProfileViewModel.state.currentUserEmail))
+                        .textInputAutocapitalization(.never)
                     }
                 }
                 
@@ -77,6 +79,7 @@ struct EditUserProfileView: View {
                 } label: {
                     Text("Apply changes")
                 }
+                .disabled(userName == "" && userEmail == "" && userImage == nil)
             }
             .padding()
         }

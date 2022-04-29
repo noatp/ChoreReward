@@ -156,6 +156,7 @@ class UserService: ObservableObject{
                     profileImageUrl: nil
                 )
                 Task{
+                    print("\(#function) calling userRepository with nil image link")
                     await userRepository.updateUserProfileWithImage(userId: currentUserId, newUserProfileWithImage: newUserProfileWithImage)
                 }
             }
@@ -169,6 +170,7 @@ class UserService: ObservableObject{
                             profileImageUrl: url
                         )
                         Task{
+                            print("\(#function) calling userRepository with image link")
                             await userRepository.updateUserProfileWithImage(userId: currentUserId, newUserProfileWithImage: userProfileWithImageUrl)
                         }
                     }
@@ -182,6 +184,7 @@ class UserService: ObservableObject{
                 role: newUserProfile.role
             )
             Task{
+                print("\(#function) calling userRepository without image link")
                 await userRepository.updateUserProfileWithoutImage(userId: currentUserId, newUserProfileWithoutImage: newUserProfileWithoutImage)
             }
         }

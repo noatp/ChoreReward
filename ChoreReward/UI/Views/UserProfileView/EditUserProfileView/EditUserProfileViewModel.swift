@@ -51,6 +51,7 @@ class EditUserProfileViewModel: StatefulViewModel{
             name: userName.isEmpty ? currentUser.name : userName,
             role: currentUser.role
         )
+        print("\(#function) calling userService")
         userService.updateUserProfile(newUserProfile: newUserProfile, newUserImage: newUserImage)
     }
     
