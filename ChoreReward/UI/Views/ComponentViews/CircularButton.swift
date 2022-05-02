@@ -26,6 +26,7 @@ struct CircularButton: View {
                 .background(Color.bg)
                 .clipShape(Circle())
         }
+        .buttonStyle(.plain)
     }
 }
 

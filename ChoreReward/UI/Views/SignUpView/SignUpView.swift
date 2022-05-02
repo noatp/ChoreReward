@@ -16,7 +16,7 @@ struct SignUpView: View {
     @State var passwordInput: String = ""
     @State var roleSelection: Role = .parent
     @State var shouldShowImagePicker: Bool = false
-    @State var userImage: UIImage? = nil
+    @State var userImage: UIImage?
     
     init(
         signUpViewModel: ObservableViewModel<SignUpState, SignUpAction>,
@@ -50,6 +50,8 @@ struct SignUpView: View {
                 }
                    
             }
+            .foregroundColor(.acc)
+            .buttonStyle(.plain)
             Text(signUpViewModel.state.errorMessage)
             
             
@@ -57,7 +59,8 @@ struct SignUpView: View {
             TextFieldView(textInput: $emailInput, title: "Email")
             TextFieldView(textInput: $passwordInput, secured: true, title: "Password")
             RolePickerView(roleSelection: $roleSelection)
-            ButtonView(action: {
+            
+            ButtonView(buttonTitle: "Sign up", buttonImage: "arrow.turn.right.up") {
                 signUpViewModel.perform(
                     action: .signUp(
                         emailInput: emailInput,
@@ -66,18 +69,14 @@ struct SignUpView: View {
                         roleSelection: roleSelection,
                         profileImage: userImage
                     )
-                )},
-                buttonTitle: "Sign Up",
-                buttonImage: "arrow.turn.right.up",
-                buttonColor: .accentColor
-            )
+                )
+            }
         }
         .navigationTitle("Sign Up")
         .navigationBarTitleDisplayMode(.automatic)
         .fullScreenCover(isPresented: $shouldShowImagePicker, onDismiss: nil) {
-                    ImagePicker(image: $userImage)
-                        .ignoresSafeArea()
-                }
+            ImagePicker(image: $userImage).ignoresSafeArea()
+        }
     }
 }
 

@@ -28,14 +28,9 @@ struct FamilyListView: View {
                 }
             }
             if (familyListViewModel.state.shouldRenderAddMemberButton){
-                ButtonView(
-                    action: {
-                        presentedSheet = true
-                    },
-                    buttonTitle: "Add new member",
-                    buttonImage: "person.badge.plus",
-                    buttonColor: .accentColor
-                )
+                ButtonView(buttonTitle: "Add new member", buttonImage: "person.badge.plus") {
+                    presentedSheet = true
+                }
             }
         }
         .padding()

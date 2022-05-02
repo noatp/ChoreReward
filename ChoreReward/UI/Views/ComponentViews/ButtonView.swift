@@ -9,34 +9,49 @@ import SwiftUI
 
 struct ButtonView: View {
     private var action: () -> Void
-    private var buttonTitle: String
-    private var buttonImage: String
-    private var buttonColor: Color
+    private var buttonTitle: String?
+    private var buttonImage: String?
     
     init(
-        action: @escaping () -> Void,
-        buttonTitle: String,
-        buttonImage: String,
-        buttonColor: Color
+        buttonTitle: String? = nil,
+        buttonImage: String? = nil,
+        action: @escaping () -> Void
     ) {
         self.action = action
         self.buttonImage = buttonImage
         self.buttonTitle = buttonTitle
-        self.buttonColor = buttonColor
     }
     
     var body: some View {
-        Button(action: action) {
-            Label(buttonTitle, systemImage: buttonImage)
-                .foregroundColor(buttonColor)
+        Button {
+            action()
+        } label: {
+            HStack{
+                if let buttonImage = buttonImage {
+                    Image(systemName: buttonImage)
+                }
+                if let buttonTitle = buttonTitle {
+                    Text(buttonTitle)
+                }
+            }
         }
-        .padding()
+        .buttonStyle(.plain)
     }
 }
 
 struct ButtonView_Previews: PreviewProvider {
     static var previews: some View {
-        ButtonView(action: {}, buttonTitle: "Preview Button", buttonImage: "person", buttonColor: Color.blue)
-            .previewLayout(.sizeThatFits)
+        Group{
+            ButtonView(buttonTitle: "Preview", buttonImage: "person") {
+                
+            }
+            ButtonView(buttonImage: "person") {
+                
+            }
+            ButtonView(buttonTitle: "Preview") {
+                
+            }
+        }
+        .previewLayout(.sizeThatFits)
     }
 }

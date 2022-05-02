@@ -61,12 +61,9 @@ struct UserProfileView: View {
                     }
                 }
 
-                ButtonView(
-                    action: {userProfileViewModel.perform(action: .signOut)},
-                    buttonTitle: "Log Out",
-                    buttonImage: "arrow.backward.to.line",
-                    buttonColor: .red
-                )
+                ButtonView(buttonTitle: "Log out", buttonImage: "arrow.backward.to.line") {
+                    userProfileViewModel.perform(action: .signOut)
+                }
             }
             .padding()
         }

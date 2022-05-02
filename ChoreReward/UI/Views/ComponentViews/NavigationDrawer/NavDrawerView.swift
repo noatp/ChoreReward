@@ -53,13 +53,11 @@ struct NavDrawerView<MainContent: View, DrawerContent: View>: View {
                         //side menu
                         HStack(spacing: 0){
                             VStack{
-                                Button {
+                                ButtonView(buttonImage: "xmark", action: {
                                     withAnimation {
                                         presentingSideDrawer = false
                                     }
-                                } label: {
-                                    Image(systemName: "xmark")
-                                }
+                                })
                                 .foregroundColor(.fg)
                                 
                                 Spacer()
@@ -123,19 +121,16 @@ extension NavDrawerView{
             } label: {
                 HStack{
                     Image(systemName: "person.crop.circle")
-                        .frame(width: 40, height: 40)
                     Text("Your Profile")
                 }
             }
+            .buttonStyle(.plain)
+            .padding([.horizontal, .top])
 
-            Button {
-            } label: {
-                HStack{
-                    Image(systemName: "gearshape")
-                        .frame(width: 40, height: 40)
-                    Text("Settings")
-                }
+            ButtonView(buttonTitle: "Settings", buttonImage: "gearshape") {
+                
             }
+            .padding([.horizontal, .top])
         }
     }
 }

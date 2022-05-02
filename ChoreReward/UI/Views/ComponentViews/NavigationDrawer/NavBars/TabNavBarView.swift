@@ -19,13 +19,11 @@ struct TabNavBarView: View {
     
     var body: some View {
         HStack{
-            Button {
+            ButtonView(buttonImage: "line.3.horizontal", action: {
                 withAnimation {
                     presentingSideDrawer = true
                 }
-            } label: {
-                Image(systemName: "line.3.horizontal")
-            }
+            })
             .foregroundColor(.fg)
 
             Text(navTitle)

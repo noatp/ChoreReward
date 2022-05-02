@@ -50,8 +50,9 @@ struct AppView: View {
                                     .font(.footnote)
                                     .fontWeight(.light)
                             }
-                            .foregroundColor(selectedTab == .choreTab ? Color.accLight : Color.accDark)
                         }
+                        .foregroundColor(selectedTab == .choreTab ? Color.accLight : Color.accDark)
+                        .buttonStyle(.plain)
                         Spacer()
 
                         if (appViewModel.state.shouldRenderAddChoreButton){
@@ -61,12 +62,13 @@ struct AppView: View {
                                 VStack {
                                     Image(systemName: "plus.app.fill")
                                         .font(.system(size: 34, weight: .bold))
-                                        .foregroundColor(.acc)
                                     Text("New Chore")
                                         .font(.footnote)
                                         .fontWeight(.light)
                                 }
                             }
+                            .foregroundColor(.acc)
+                            .buttonStyle(.plain)
                         }
                         
                         Spacer()
@@ -79,8 +81,9 @@ struct AppView: View {
                                     .font(.footnote)
                                     .fontWeight(.light)
                             }
-                            .foregroundColor(selectedTab == .familyTab ? Color.accLight : Color.accDark)
                         }
+                        .foregroundColor(selectedTab == .familyTab ? Color.accLight : Color.accDark)
+                        .buttonStyle(.plain)
                         Spacer()
                     }
                     .overlay(Divider(), alignment: .top)

@@ -31,14 +31,9 @@ struct LoginView: View {
                 TextFieldView(textInput: $emailInput, title: "Email")
                 TextFieldView(textInput: $passwordInput, secured: true, title: "Password")
                 
-                ButtonView(
-                    action: {
-                        loginViewModel.perform(action: .signIn(emailInput: emailInput, passwordInput: passwordInput))
-                    },
-                    buttonTitle: "Log In",
-                    buttonImage: "arrow.forward.to.line",
-                    buttonColor: Color.accentColor
-                )
+                ButtonView(buttonTitle: "Login", buttonImage: "arrow.forward.to.line") {
+                    loginViewModel.perform(action: .signIn(emailInput: emailInput, passwordInput: passwordInput))
+                }
             
                 NavigationLink(destination: views.signUpView) {
                     Label("Sign Up with Email", systemImage: "arrow.turn.right.up")

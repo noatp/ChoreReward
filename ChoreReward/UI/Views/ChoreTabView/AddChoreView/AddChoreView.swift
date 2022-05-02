@@ -29,24 +29,15 @@ struct AddChoreView: View {
             Spacer()
             TextFieldView(textInput: $choreDescription, title: "Description")
             Spacer()
-            ButtonView(
-                action: {
-                    dismiss()
-                    addChoreViewModel.perform(action: .createChore(choreTitle: choreTitle, choreDescription: choreDescription))
-                },
-                buttonTitle: "Create Chore",
-                buttonImage: "plus",
-                buttonColor: .accentColor
-            
-            )
-            ButtonView(
-                action: {
-                    dismiss()
-                },
-                buttonTitle: "Cancel",
-                buttonImage: "xmark.app",
-                buttonColor: .red
-            )
+            ButtonView(buttonTitle: "Create Chore", buttonImage: "plus") {
+                dismiss()
+                addChoreViewModel.perform(
+                    action: .createChore(choreTitle: choreTitle, choreDescription: choreDescription)
+                )
+            }
+            ButtonView(buttonTitle: "Cancel", buttonImage: "xmark.app") {
+                dismiss()
+            }
         }
     }
 }

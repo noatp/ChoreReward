@@ -62,6 +62,7 @@
 		45D7AE8C27346E9900A53812 /* TextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D7AE8B27346E9900A53812 /* TextFieldView.swift */; };
 		45D7AE9327347D2900A53812 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D7AE9227347D2900A53812 /* User.swift */; };
 		45D7AE952735B4A100A53812 /* Family.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D7AE942735B4A100A53812 /* Family.swift */; };
+		45D7B022281DBD2E00FAA86E /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = 45D7B021281DBD2E00FAA86E /* CodeScanner */; };
 		45D8D399275E77CA0026ABE3 /* FamilyTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D8D398275E77CA0026ABE3 /* FamilyTabView.swift */; };
 		45D8D39B275E77E20026ABE3 /* UserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D8D39A275E77E20026ABE3 /* UserProfileView.swift */; };
 		45D8D39D275E784E0026ABE3 /* UserProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D8D39C275E784E0026ABE3 /* UserProfileViewModel.swift */; };
@@ -170,6 +171,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				45D7B022281DBD2E00FAA86E /* CodeScanner in Frameworks */,
 				45B090362800DEF400CD1597 /* FirebaseAnalytics in Frameworks */,
 				45B0903C2800DEF400CD1597 /* FirebaseFirestoreSwift-Beta in Frameworks */,
 				45B090432803BF7800CD1597 /* Kingfisher in Frameworks */,
@@ -533,6 +535,7 @@
 				45B0903D2800DEF400CD1597 /* FirebaseStorage */,
 				45B0903F2800DEF400CD1597 /* FirebaseStorageSwift-Beta */,
 				45B090422803BF7800CD1597 /* Kingfisher */,
+				45D7B021281DBD2E00FAA86E /* CodeScanner */,
 			);
 			productName = ChoreReward;
 			productReference = 45ACB4A82724AD1A000E04A0 /* ChoreReward.app */;
@@ -609,6 +612,7 @@
 			packageReferences = (
 				45B090342800DEF400CD1597 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				45B090412803BF7800CD1597 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				45D7B020281DBD2E00FAA86E /* XCRemoteSwiftPackageReference "CodeScanner" */,
 			);
 			productRefGroup = 45ACB4A92724AD1A000E04A0 /* Products */;
 			projectDirPath = "";
@@ -873,6 +877,7 @@
 				DEVELOPMENT_TEAM = ZRF6QZUXP5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -903,6 +908,7 @@
 				DEVELOPMENT_TEAM = ZRF6QZUXP5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -1076,6 +1082,14 @@
 				minimumVersion = 7.0.0;
 			};
 		};
+		45D7B020281DBD2E00FAA86E /* XCRemoteSwiftPackageReference "CodeScanner" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/twostraws/CodeScanner";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1113,6 +1127,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 45B090412803BF7800CD1597 /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
+		};
+		45D7B021281DBD2E00FAA86E /* CodeScanner */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 45D7B020281DBD2E00FAA86E /* XCRemoteSwiftPackageReference "CodeScanner" */;
+			productName = CodeScanner;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -38,17 +38,24 @@ struct EditUserProfileView: View {
                     else{
                         Image(systemName: "person.fill").resizable()
                     }
+            
+//                    if let userImage = userImage {
+//
+//                    }
+//                    else if let userImageUrl = editUserProfileViewModel.state.currentUserProfileImageUrl {
+//                    }
+//                    else{
+//                    }
                 }
                 .scaledToFill()
                 .frame(width: 200, height: 200)
                 .clipShape(Circle())
                 .shadow(radius: 5)
                
-                Button {
+                ButtonView(buttonTitle: "Change profile picture", action: {
                     shouldShowActionSheet = true
-                } label: {
-                    Text("Change profile picture")
-                }
+                })
+                .foregroundColor(.acc)
                 Divider()
                 HStack{
                     VStack{

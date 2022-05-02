@@ -85,15 +85,13 @@ extension Dependency.Views{
 extension ChoreTabView{
     private var choreStatusPicker: some View{
         HStack(spacing: 0){
-            Button {
+            ButtonView(buttonTitle: "Unfinished") {
                 choreTabViewModel.perform(action: .updatePickerState(.unfinished))
                 onUnfinishedTab = true
-            } label: {
-                Text("Unfinished")
-                    .foregroundColor(.fg)
             }
             .padding(.horizontal)
             .padding(.vertical, 5)
+            .foregroundColor(.fg)
             .background{
                 if (choreTabViewModel.state.chorePickerState == .unfinished){
                     RoundedRectangle(cornerRadius: .infinity)
@@ -101,16 +99,13 @@ extension ChoreTabView{
                         .matchedGeometryEffect(id: "pickerBackground", in: animation)
                 }
             }
-            
-            Button {
+            ButtonView(buttonTitle: "Finished", action: {
                 choreTabViewModel.perform(action: .updatePickerState(.finished))
                 onUnfinishedTab = false
-            } label: {
-                Text("Finished")
-                    .foregroundColor(.fg)
-            }
+            })
             .padding(.horizontal)
             .padding(.vertical, 5)
+            .foregroundColor(.fg)
             .background{
                 if (choreTabViewModel.state.chorePickerState == .finished){
                     RoundedRectangle(cornerRadius: .infinity)
@@ -127,14 +122,9 @@ extension ChoreTabView{
     }
     
     private var filterButton: some View{
-        Button {
+        ButtonView(buttonTitle: "Filter", buttonImage: "tray") {
             withAnimation(.easeInOut(duration: 0.2)) {
                 presentFilterMenu.toggle()
-            }
-        } label: {
-            HStack{
-                Image(systemName: "tray")
-                Text("Filter")
             }
         }
         .foregroundColor(.white)
@@ -143,31 +133,15 @@ extension ChoreTabView{
     private var filterMenu: some View{
         VStack(alignment: .leading){
             Divider()
-            
-            Button {
+            ButtonView(buttonTitle: "All", buttonImage: "house") {
                 choreTabViewModel.perform(action: .updateFilterState(.all))
                 presentFilterMenu.toggle()
-            } label: {
-                HStack{
-                    Image(systemName: "house")
-                    Text("All")
-                    Spacer()
-                }
             }
-
-            
             Divider()
-            Button {
+            ButtonView(buttonTitle: "Yours", buttonImage: "person") {
                 choreTabViewModel.perform(action: .updateFilterState(.takenByCurrentUser))
                 presentFilterMenu.toggle()
-            } label: {
-                HStack{
-                    Image(systemName: "person")
-                    Text("Yours")
-                    Spacer()
-                }
             }
-
             
         }
         .padding([.leading, .bottom, .trailing])

@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CodeScanner
 
 struct AddFamilyMemberView: View {
     @ObservedObject var addFamilyMemberViewModel: ObservableViewModel<Void, AddFamilyMemberAction>
@@ -21,35 +22,35 @@ struct AddFamilyMemberView: View {
     }
     
     var body: some View {
-        VStack(spacing: 16){
-            Spacer()
-            Text("Please input the UserID of the new member")
-                .font(.footnote)
-            TextFieldView(
-                textInput: $userIdInput,
-                title: "UserID"
-            )
-            Spacer()
-            ButtonView(
-                action: {
-                    dismiss()
-                    addFamilyMemberViewModel.perform(action: .addMember(userId: self.userIdInput))
-                },
-                buttonTitle: "Add member",
-                buttonImage: "person.badge.plus",
-                buttonColor: .accentColor
-            )
-            ButtonView(
-                action: {
-                    dismiss()
-                },
-                buttonTitle: "Cancel",
-                buttonImage: "xmark.app",
-                buttonColor: .red
-            )
+        ZStack{
+            Button {
+                
+            } label: {
+                Text("TEST")
+            }
+
         }
-        .padding()
+        VStack(spacing: 16){
+            CodeScannerView(codeTypes: [.qr]) { result in
+                handleScan(result: result)
+            }
+            ButtonView(buttonTitle: "Cancel", buttonImage: "xmark.app") {
+                dismiss()
+            }
+        }
     }
+    
+    func handleScan(result: Result<ScanResult, ScanError>) {
+        switch result {
+        case .success(let result):
+            let userId = result.string
+            dismiss()
+            addFamilyMemberViewModel.perform(action: .addMember(userId: userId))
+        case .failure(let error):
+            print("Scanning failed: \(error.localizedDescription)")
+        }
+    }
+
 }
 
 struct AddFamilyMemberView_Previews: PreviewProvider {

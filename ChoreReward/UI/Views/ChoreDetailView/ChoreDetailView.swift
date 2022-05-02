@@ -114,24 +114,14 @@ extension ChoreDetailView{
     }
     
     private var takeChoreButton: some View{
-        ButtonView(
-            action: {
-                choreDetailViewModel.perform(action: .takeChore)
-            },
-            buttonTitle: "Take chore",
-            buttonImage: "figure.wave",
-            buttonColor: .accentColor
-        )
+        ButtonView(buttonTitle: "Take chore", buttonImage: "figure.wave") {
+            choreDetailViewModel.perform(action: .takeChore)
+        }
     }
     
     private var completeChoreButton: some View{
-        ButtonView(
-            action: {
-                choreDetailViewModel.perform(action: .completeChore)
-            },
-            buttonTitle: "Complete chore",
-            buttonImage: "checkmark.seal.fill",
-            buttonColor: .green
-        )
+        ButtonView(buttonTitle: "Complete chore", buttonImage: "checkmark.seal.fill") {
+            choreDetailViewModel.perform(action: .completeChore)
+        }
     }
 }

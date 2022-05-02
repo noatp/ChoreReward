@@ -8,6 +8,19 @@
 import Foundation
 import SwiftUI
 
+//enum ImageState{
+//    case empty, local(uiImage: UIImage), remote(url: String)
+//
+//    var localImage: UIImage?{
+//        switch self{
+//        case .empty, .remote:
+//            return nil
+//        case .local(let uiImage):
+//            return uiImage
+//        }
+//    }
+//}
+
 struct ImagePicker: UIViewControllerRepresentable {
 
     @Binding var image: UIImage?
@@ -27,7 +40,9 @@ struct ImagePicker: UIViewControllerRepresentable {
         }
 
         func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-            parent.image = info[.originalImage] as? UIImage
+            if let uiImage = info[.originalImage] as? UIImage{
+                parent.image = uiImage
+            }
             picker.dismiss(animated: true)
         }
 

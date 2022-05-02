@@ -22,10 +22,8 @@ struct RegularNavBarView<Content: View>: View {
         VStack{
             ZStack{
                 HStack{
-                    Button {
+                    ButtonView(buttonImage: "chevron.left") {
                         dismiss()
-                    } label: {
-                        Image(systemName: "chevron.left")
                     }
                     Spacer()
                 }
