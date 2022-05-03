@@ -24,6 +24,7 @@ import SwiftUI
 struct ImagePicker: UIViewControllerRepresentable {
 
     @Binding var image: UIImage?
+    @Binding var didChangeProfileImage: Bool
 
     private let controller = UIImagePickerController()
 
@@ -42,6 +43,7 @@ struct ImagePicker: UIViewControllerRepresentable {
         func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
             if let uiImage = info[.originalImage] as? UIImage{
                 parent.image = uiImage
+                parent.didChangeProfileImage = true
             }
             picker.dismiss(animated: true)
         }

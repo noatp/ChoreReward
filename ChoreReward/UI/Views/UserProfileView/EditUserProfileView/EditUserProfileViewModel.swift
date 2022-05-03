@@ -41,7 +41,12 @@ class EditUserProfileViewModel: StatefulViewModel{
                 )
             })
     }
-    private func updateUserProfile(userName: String, userEmail: String, newUserImage: UIImage?){
+    private func updateUserProfile(
+        userName: String,
+        userEmail: String,
+        newUserImage: UIImage?,
+        didChangeProfileImage: Bool
+    ){
         guard let currentUser = userService.currentUser else{
             print("\(#function): currentuser is nil")
             return
@@ -51,14 +56,23 @@ class EditUserProfileViewModel: StatefulViewModel{
             name: userName.isEmpty ? currentUser.name : userName,
             role: currentUser.role
         )
-        print("\(#function) calling userService")
-        userService.updateUserProfile(newUserProfile: newUserProfile, newUserImage: newUserImage)
+        if didChangeProfileImage{
+            userService.updateUserProfileWithImage(newUserProfile: newUserProfile, newUserImage: newUserImage)
+        }
+        else{
+            userService.updateUserProfileWithoutImage(newUserProfile: newUserProfile)
+        }
     }
     
     func performAction(_ action: EditUserProfileAction) {
         switch(action){
-        case .updateUserProfile(let userName, let userEmail, let userImage):
-            updateUserProfile(userName: userName, userEmail: userEmail, newUserImage: userImage)
+        case .updateUserProfile(let userName, let userEmail, let userImage, let didChangeProfileImage):
+            updateUserProfile(
+                userName: userName,
+                userEmail: userEmail,
+                newUserImage: userImage,
+                didChangeProfileImage: didChangeProfileImage
+            )
         }
     }
 }
@@ -85,7 +99,7 @@ struct EditUserProfileState {
 }
 
 enum EditUserProfileAction{
-    case updateUserProfile(userName: String, userEmail: String, userImage: UIImage?)
+    case updateUserProfile(userName: String, userEmail: String, userImage: UIImage?, didChangeProfileImage: Bool)
 }
 
 extension Dependency.ViewModels{

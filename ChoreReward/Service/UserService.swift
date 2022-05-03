@@ -139,54 +139,56 @@ class UserService: ObservableObject{
             }
         }
     }
-    //3 cases: person.fill, actual new image, nil
-
-    func updateUserProfile(newUserProfile: User, newUserImage: UIImage?){
+    func updateUserProfileWithImage(newUserProfile: User, newUserImage: UIImage?){
         guard let currentUserId = currentUserId else {
             print("\(#function): could not retrieve currentUserId")
             return
         }
-                
+        
         if let newUserImage = newUserImage {
-            if newUserImage == UIImage(systemName: "person.fill"){
-                let newUserProfileWithImage = User(
-                    email: newUserProfile.email,
-                    name: newUserProfile.name,
-                    role: newUserProfile.role,
-                    profileImageUrl: nil
-                )
-                Task{
-                    print("\(#function) calling userRepository with nil image link")
-                    await userRepository.updateUserProfileWithImage(userId: currentUserId, newUserProfileWithImage: newUserProfileWithImage)
-                }
-            }
-            else{
-                storageRepository.uploadUserProfileImage(image: newUserImage, userId: currentUserId) { [weak self] url in
-                    if let userRepository = self?.userRepository {
-                        let userProfileWithImageUrl = User(
-                            email: newUserProfile.email,
-                            name: newUserProfile.name,
-                            role: newUserProfile.role,
-                            profileImageUrl: url
-                        )
-                        Task{
-                            print("\(#function) calling userRepository with image link")
-                            await userRepository.updateUserProfileWithImage(userId: currentUserId, newUserProfileWithImage: userProfileWithImageUrl)
-                        }
+            storageRepository.uploadUserProfileImage(image: newUserImage, userId: currentUserId) { [weak self] url in
+                if let userRepository = self?.userRepository {
+                    let userProfileWithImage = User(
+                        email: newUserProfile.email,
+                        name: newUserProfile.name,
+                        role: newUserProfile.role,
+                        profileImageUrl: url
+                    )
+                    Task{
+                        print("\(#function) calling userRepository with image link")
+                        await userRepository.updateUserProfileWithImage(userId: currentUserId, newUserProfileWithImage: userProfileWithImage)
                     }
                 }
             }
         }
         else{
-            let newUserProfileWithoutImage = User(
+            let newUserProfileWithImage = User(
                 email: newUserProfile.email,
                 name: newUserProfile.name,
-                role: newUserProfile.role
+                role: newUserProfile.role,
+                profileImageUrl: nil
             )
             Task{
-                print("\(#function) calling userRepository without image link")
-                await userRepository.updateUserProfileWithoutImage(userId: currentUserId, newUserProfileWithoutImage: newUserProfileWithoutImage)
+                print("\(#function) calling userRepository with nil image link")
+                await userRepository.updateUserProfileWithImage(userId: currentUserId, newUserProfileWithImage: newUserProfileWithImage)
             }
+        }
+    }
+    
+    func updateUserProfileWithoutImage(newUserProfile: User){
+        guard let currentUserId = currentUserId else {
+            print("\(#function): could not retrieve currentUserId")
+            return
+        }
+                
+        let newUserProfileWithoutImage = User(
+            email: newUserProfile.email,
+            name: newUserProfile.name,
+            role: newUserProfile.role
+        )
+        Task{
+            print("\(#function) calling userRepository without image link")
+            await userRepository.updateUserProfileWithoutImage(userId: currentUserId, newUserProfileWithoutImage: newUserProfileWithoutImage)
         }
     }
 
