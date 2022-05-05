@@ -33,25 +33,34 @@ struct ChoreTabView: View {
             .padding([.leading, .bottom, .trailing])
             .background(Color.bg)
             
-            ZStack(alignment: .top){
-                ScrollView(showsIndicators: false){
-                    ForEach(choreTabViewModel.state.displayingChoreList) {chore in
-                        VStack{
-                            NavigationLink {
-                                views.choreDetailView(chore: chore)
-                            } label: {
-                                ChoreCardView(chore: chore)
-                            }
-                        }.transition(.move(edge: onUnfinishedTab ? .leading : .trailing))
+            if choreTabViewModel.state.displayingChoreList.isEmpty{
+                Spacer()
+                Text("No chores")
+                Spacer()
+                
+            }
+            else{
+                ZStack(alignment: .top){
+                    ScrollView(showsIndicators: false){
+                        ForEach(choreTabViewModel.state.displayingChoreList) {chore in
+                            VStack{
+                                NavigationLink {
+                                    views.choreDetailView(chore: chore)
+                                } label: {
+                                    ChoreCardView(chore: chore)
+                                }
+                            }.transition(.move(edge: onUnfinishedTab ? .leading : .trailing))
+                        }
                     }
-                    
-                }
-                .padding(.horizontal)
-                .animation(.easeInOut(duration: 0.2), value: choreTabViewModel.state.chorePickerState)
-                if (presentFilterMenu){
-                    filterMenu
+                    .animation(.easeInOut(duration: 0.2), value: choreTabViewModel.state.chorePickerState)
+                    if (presentFilterMenu){
+                        filterMenu
+                    }
                 }
             }
+            
+            
+            
         }
     }
 }

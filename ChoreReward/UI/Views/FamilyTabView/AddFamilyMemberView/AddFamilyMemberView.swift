@@ -23,20 +23,20 @@ struct AddFamilyMemberView: View {
     
     var body: some View {
         ZStack{
-            Button {
-                
-            } label: {
-                Text("TEST")
-            }
-
-        }
-        VStack(spacing: 16){
             CodeScannerView(codeTypes: [.qr]) { result in
                 handleScan(result: result)
             }
-            ButtonView(buttonTitle: "Cancel", buttonImage: "xmark.app") {
-                dismiss()
+            VStack{
+                HStack{
+                    CircularButton(action: {
+                        dismiss()
+                    }, icon: "xmark")
+                    .padding()
+                    Spacer()
+                }
+                Spacer()
             }
+            
         }
     }
     
