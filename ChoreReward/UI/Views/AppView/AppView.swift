@@ -27,84 +27,23 @@ struct AppView: View {
     }
     
     var body: some View {
-        NavigationView{
-            views.navDrawerView(navTitle: selectedTab.rawValue) {
-                VStack{
-                    //main view
-                    switch selectedTab {
-                    case .choreTab:
-                        views.choreTabView()
-                    case .familyTab:
-                        views.familyTabView
-                    }
-                    Spacer(minLength: 0)
-                    //tab bar
-                    HStack{
-                        Spacer()
-                        Button {
-                            selectedTab = .choreTab
-                        } label: {
-                            VStack {
-                                Image(systemName: (selectedTab == .choreTab ? "checkmark.seal.fill" : "checkmark.seal"))
-                                Text("Chores")
-                                    .font(.footnote)
-                                    .fontWeight(.light)
-                            }
-                        }
-                        .foregroundColor(selectedTab == .choreTab ? Color.accLight : Color.accDark)
-                        .buttonStyle(.plain)
-                        Spacer()
-
-                        if (appViewModel.state.shouldRenderAddChoreButton){
-                            Button {
-                                presentingSheet = true
-                            } label: {
-                                VStack {
-                                    Image(systemName: "plus.app.fill")
-                                        .font(.system(size: 34, weight: .bold))
-                                    Text("New Chore")
-                                        .font(.footnote)
-                                        .fontWeight(.light)
-                                }
-                            }
-                            .foregroundColor(.acc)
-                            .buttonStyle(.plain)
-                        }
-                        
-                        Spacer()
-                        Button {
-                            selectedTab = .familyTab
-                        } label: {
-                            VStack {
-                                Image(systemName: (selectedTab == .familyTab ? "house.fill" : "house"))
-                                Text("Family")
-                                    .font(.footnote)
-                                    .fontWeight(.light)
-                            }
-                        }
-                        .foregroundColor(selectedTab == .familyTab ? Color.accLight : Color.accDark)
-                        .buttonStyle(.plain)
-                        Spacer()
-                    }
-                    .overlay(Divider(), alignment: .top)
-                }
-            } drawerContent: {
-                VStack{
-                    switch selectedTab {
-                    case .choreTab:
-                        ChoreTabDrawerView()
-                    case .familyTab:
-                        FamilyTabDrawerView()
-                    }
-                    Spacer(minLength: 0)
-                }
-            }
-            .navigationBarHidden(true)
+        if appViewModel.state.shouldPresentNoFamilyView {
+            views.noFamilyView
         }
-        .padding(.vertical)
-        .ignoresSafeArea()
-        .sheet(isPresented: $presentingSheet, onDismiss: {}) {
-            views.addChoreView()
+        else{
+            NavigationView{
+                views.navDrawerView(navTitle: selectedTab.rawValue) {
+                    mainContent
+                } drawerContent: {
+                    drawerContent
+                }
+                .navigationBarHidden(true)
+            }
+            .padding(.vertical)
+            .ignoresSafeArea()
+            .sheet(isPresented: $presentingSheet, onDismiss: {}) {
+                views.addChoreView()
+            }
         }
     }
 }
@@ -125,5 +64,85 @@ extension Dependency.Views{
             appViewModel: ObservableViewModel(viewModel: viewModels.appViewModel),
             views: self
         )
+    }
+}
+
+extension AppView{
+    var mainContent: some View {
+        VStack{
+            //main view
+            switch selectedTab {
+            case .choreTab:
+                views.choreTabView()
+            case .familyTab:
+                views.familyTabView
+            }
+            Spacer(minLength: 0)
+            //tab bar
+            tabBar
+        }
+    }
+    
+    var drawerContent: some View {
+        VStack{
+            switch selectedTab {
+            case .choreTab:
+                ChoreTabDrawerView()
+            case .familyTab:
+                FamilyTabDrawerView()
+            }
+            Spacer(minLength: 0)
+        }
+    }
+    
+    var tabBar: some View{
+        HStack{
+            Spacer()
+            Button {
+                selectedTab = .choreTab
+            } label: {
+                VStack {
+                    Image(systemName: (selectedTab == .choreTab ? "checkmark.seal.fill" : "checkmark.seal"))
+                    Text("Chores")
+                        .font(.footnote)
+                        .fontWeight(.light)
+                }
+            }
+            .foregroundColor(selectedTab == .choreTab ? Color.accLight : Color.accDark)
+            .buttonStyle(.plain)
+            Spacer()
+
+            if (appViewModel.state.shouldRenderAddChoreButton){
+                Button {
+                    presentingSheet = true
+                } label: {
+                    VStack {
+                        Image(systemName: "plus.app.fill")
+                            .font(.system(size: 34, weight: .bold))
+                        Text("New Chore")
+                            .font(.footnote)
+                            .fontWeight(.light)
+                    }
+                }
+                .foregroundColor(.acc)
+                .buttonStyle(.plain)
+            }
+            
+            Spacer()
+            Button {
+                selectedTab = .familyTab
+            } label: {
+                VStack {
+                    Image(systemName: (selectedTab == .familyTab ? "house.fill" : "house"))
+                    Text("Family")
+                        .font(.footnote)
+                        .fontWeight(.light)
+                }
+            }
+            .foregroundColor(selectedTab == .familyTab ? Color.accLight : Color.accDark)
+            .buttonStyle(.plain)
+            Spacer()
+        }
+        .overlay(Divider(), alignment: .top)
     }
 }

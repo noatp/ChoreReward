@@ -23,7 +23,10 @@ class AppViewModel: StatefulViewModel{
     func addSubscription(){
         currentUserSubscription = userService.$currentUser
             .sink(receiveValue: {[weak self] receivedUser in
-                self?._state = .init(shouldRenderAddChoreButton: receivedUser?.role == .parent || receivedUser?.role == .admin)
+                self?._state = .init(
+                    shouldRenderAddChoreButton: receivedUser?.role == .parent || receivedUser?.role == .admin,
+                    shouldPresentNoFamilyView: receivedUser?.familyId == nil
+                )
             })
     }
     
@@ -37,8 +40,12 @@ class AppViewModel: StatefulViewModel{
 
 struct AppViewState{
     let shouldRenderAddChoreButton: Bool
+    let shouldPresentNoFamilyView: Bool
     
-    static let empty: AppViewState = .init(shouldRenderAddChoreButton: true)
+    static let empty: AppViewState = .init(
+        shouldRenderAddChoreButton: true,
+        shouldPresentNoFamilyView: false
+    )
 }
 
 extension Dependency.ViewModels{
