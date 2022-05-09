@@ -17,8 +17,6 @@ struct SignUpView: View {
     @State var roleSelection: Role = .parent
     @State var shouldShowImagePicker: Bool = false
     @State var userImage: UIImage?
-    @State var didChangeProfileImage: Bool = false
-
     
     init(
         signUpViewModel: ObservableViewModel<SignUpState, SignUpAction>,
@@ -53,7 +51,7 @@ struct SignUpView: View {
                    
             }
             .foregroundColor(.acc)
-            .buttonStyle(.plain)
+            //.buttonStyle(.plain)
             Text(signUpViewModel.state.errorMessage)
             
             
@@ -77,10 +75,9 @@ struct SignUpView: View {
         .navigationTitle("Sign Up")
         .navigationBarTitleDisplayMode(.automatic)
         .fullScreenCover(isPresented: $shouldShowImagePicker, onDismiss: nil) {
-            ImagePicker(
-                image: $userImage,
-                didChangeProfileImage: $didChangeProfileImage
-            )
+            ImagePicker(sourceType: .photoLibrary, didFinishPickingMediaHandler: { newUserImage in
+                userImage = newUserImage
+            })
             .ignoresSafeArea()
         }
     }

@@ -11,6 +11,8 @@ struct AddChoreView: View {
     @ObservedObject var addChoreViewModel: ObservableViewModel<AddChoreState, AddChoreAction>
     @State var choreTitle = ""
     @State var choreDescription = ""
+    @State var isPresentingImagePicker = false
+    @State var choreImage: UIImage? = nil
     @Environment(\.dismiss) var dismiss
     private var views: Dependency.Views
     
@@ -23,20 +25,44 @@ struct AddChoreView: View {
     }
     
     var body: some View {
-        VStack{
-            Spacer()
-            TextFieldView(textInput: $choreTitle, title: "What chore?")
-            Spacer()
-            TextFieldView(textInput: $choreDescription, title: "Description")
-            Spacer()
-            ButtonView(buttonTitle: "Create Chore", buttonImage: "plus") {
-                dismiss()
-                addChoreViewModel.perform(
-                    action: .createChore(choreTitle: choreTitle, choreDescription: choreDescription)
-                )
+        RegularNavBarView(navTitle: "New Chore") {
+            
+            VStack{
+                if let choreImage = choreImage {
+                    Image(uiImage: choreImage)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(maxWidth: .infinity, maxHeight: 200)
+                        .clipped()
+                        .padding()
+                }
+                else{
+                    ZStack{
+                        Rectangle().frame(maxWidth: .infinity, maxHeight: 200)
+                            .foregroundColor(.fg)
+                        Text("Add photo")
+                    }
+                    .border(Color.acc, width: 1)
+                    .padding()
+                    .onTapGesture {
+                        isPresentingImagePicker = true
+                    }
+                }
+                TextFieldView(textInput: $choreTitle, title: "What chore?")
+                TextFieldView(textInput: $choreDescription, title: "Description")
+                Spacer()
+                ButtonView(buttonTitle: "Create Chore", buttonImage: "plus") {
+                    dismiss()
+                    addChoreViewModel.perform(
+                        action: .createChore(choreTitle: choreTitle, choreDescription: choreDescription)
+                    )
+                }
+                .padding()
             }
-            ButtonView(buttonTitle: "Cancel", buttonImage: "xmark.app") {
-                dismiss()
+        }
+        .sheet(isPresented: $isPresentingImagePicker) {
+            ImagePicker(sourceType: .photoLibrary) { newChoreImage in
+                choreImage = newChoreImage
             }
         }
     }

@@ -35,7 +35,6 @@ struct ButtonView: View {
                 }
             }
         }
-        .buttonStyle(.plain)
     }
 }
 

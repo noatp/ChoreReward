@@ -15,7 +15,7 @@ enum Tabs: String{
 struct AppView: View {
     @ObservedObject var appViewModel: ObservableViewModel<AppViewState, Void>
     @State var selectedTab: Tabs = .choreTab
-    @State var presentingSheet: Bool = false
+    @State var presentingAddChoreView: Bool = false
     private var views: Dependency.Views
     
     init(
@@ -28,7 +28,7 @@ struct AppView: View {
     
     var body: some View {
         if appViewModel.state.shouldPresentNoFamilyView {
-            views.noFamilyView
+            views.noFamilyView 
         }
         else{
             NavigationView{
@@ -41,9 +41,10 @@ struct AppView: View {
             }
             .padding(.vertical)
             .ignoresSafeArea()
-            .sheet(isPresented: $presentingSheet, onDismiss: {}) {
+            .fullScreenCover(isPresented: $presentingAddChoreView) {
                 views.addChoreView()
             }
+            
         }
     }
 }
@@ -109,23 +110,23 @@ extension AppView{
                 }
             }
             .foregroundColor(selectedTab == .choreTab ? Color.accLight : Color.accDark)
-            .buttonStyle(.plain)
+            //.buttonStyle(.plain)
             Spacer()
 
             if (appViewModel.state.shouldRenderAddChoreButton){
                 Button {
-                    presentingSheet = true
+                    presentingAddChoreView = true
                 } label: {
                     VStack {
                         Image(systemName: "plus.app.fill")
-                            .font(.system(size: 34, weight: .bold))
+                            .font(.system(size: 40, weight: .bold))
                         Text("New Chore")
                             .font(.footnote)
                             .fontWeight(.light)
                     }
                 }
                 .foregroundColor(.acc)
-                .buttonStyle(.plain)
+                //.buttonStyle(.plain)
             }
             
             Spacer()
@@ -140,7 +141,7 @@ extension AppView{
                 }
             }
             .foregroundColor(selectedTab == .familyTab ? Color.accLight : Color.accDark)
-            .buttonStyle(.plain)
+            //.buttonStyle(.plain)
             Spacer()
         }
         .overlay(Divider(), alignment: .top)

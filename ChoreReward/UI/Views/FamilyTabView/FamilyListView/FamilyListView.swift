@@ -21,17 +21,25 @@ struct FamilyListView: View {
     }
     
     var body: some View {
-        VStack{
+        ZStack{
             ScrollView {
                 ForEach(familyListViewModel.state.members){ member in
                     UserCardView(user: member)
                 }
             }
-            if (familyListViewModel.state.shouldRenderAddMemberButton){
-                ButtonView(buttonTitle: "Add new member", buttonImage: "person.badge.plus") {
-                    presentedSheet = true
+            VStack{
+                Spacer()
+                HStack{
+                    Spacer()
+                    if familyListViewModel.state.shouldRenderAddMemberButton {
+                        CircularButton(action: {
+                            presentedSheet = true
+                        }, icon: "plus")
+                        .padding()
+                    }
                 }
             }
+            
         }
         .padding()
         .sheet(isPresented: $presentedSheet) {

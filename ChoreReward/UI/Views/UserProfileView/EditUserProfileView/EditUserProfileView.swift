@@ -112,10 +112,10 @@ struct EditUserProfileView: View {
             }
         )
         .fullScreenCover(isPresented: $shouldShowImagePicker, onDismiss: nil) {
-            ImagePicker(
-                image: $userImage,
-                didChangeProfileImage: $didChangeProfileImage
-            )
+            ImagePicker(sourceType: .photoLibrary, didFinishPickingMediaHandler: { newUserImage in
+                userImage = newUserImage
+                didChangeProfileImage = true
+            })
             .ignoresSafeArea()
         }
     }

@@ -124,7 +124,7 @@ extension NavDrawerView{
                     Text("Your Profile")
                 }
             }
-            .buttonStyle(.plain)
+            //.buttonStyle(.plain)
             .padding([.horizontal, .top])
 
             ButtonView(buttonTitle: "Settings", buttonImage: "gearshape") {
