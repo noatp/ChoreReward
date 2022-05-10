@@ -81,6 +81,8 @@ struct SignUpView: View {
             .ignoresSafeArea()
         }
     }
+    
+    
 }
 
 struct SignupView_Previews: PreviewProvider {

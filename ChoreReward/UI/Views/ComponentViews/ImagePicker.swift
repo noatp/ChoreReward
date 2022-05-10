@@ -12,6 +12,11 @@ struct ImagePicker: UIViewControllerRepresentable {
 
     var sourceType: UIImagePickerController.SourceType
     var didFinishPickingMediaHandler: ((UIImage) -> Void)
+    
+    init(sourceType: UIImagePickerController.SourceType, didFinishPickingMediaHandler: @escaping ((UIImage) -> Void)) {
+        self.sourceType = sourceType
+        self.didFinishPickingMediaHandler = didFinishPickingMediaHandler
+    }
 
     func makeCoordinator() -> Coordinator {
         return Coordinator(parent: self)
