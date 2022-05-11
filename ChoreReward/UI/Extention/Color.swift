@@ -17,4 +17,5 @@ extension Color{
     static let acc = Color("accent")
     static let accLight = Color("accent-light")
     static let accDark = Color("accent-dark")
+    static let textFieldPlaceholder = Color("textFieldPlaceholder")
 }

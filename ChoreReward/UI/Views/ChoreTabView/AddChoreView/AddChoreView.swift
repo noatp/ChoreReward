@@ -26,7 +26,7 @@ struct AddChoreView: View {
     
     var body: some View {
         RegularNavBarView(navTitle: "New Chore") {
-            
+
             VStack{
                 Group{
                     if let choreImage = choreImage {
@@ -40,24 +40,36 @@ struct AddChoreView: View {
                         ZStack{
                             RoundedRectangle(cornerRadius: 25)
                                 .frame(maxWidth: .infinity, maxHeight: 200)
-                                .foregroundColor(.fg)
+                                .foregroundColor(.textFieldPlaceholder)
+
                             Text("Add photo")
                         }
-                        
+
                     }
                 }
-                .shadow(radius: 5)
-                .padding()
+                .shadow(radius: 1)
+                .padding([.horizontal, .bottom])
                 .onTapGesture {
                     isPresentingImagePicker = true
                 }
                 TextFieldView(title: "Title", textInput: $choreTitle)
-                    .padding()
-                //TextFieldView(textInput: $choreDescription, title: "Description")
-                TextEditor(text: $choreDescription)
-                    .shadow(radius: 5)
-                    .foregroundColor(.red)
-                    .padding()
+                    .padding([.horizontal, .bottom])
+                ZStack(alignment: .leading){
+                    TextEditor(text: $choreDescription)
+                        .clipShape(RoundedRectangle(cornerRadius: 8))
+                        .shadow(radius: 1)
+                    if choreDescription.isEmpty{
+                        VStack{
+                            Text("Description")
+                                .foregroundColor(.textFieldPlaceholder)
+                                .padding(.all, 8)
+                            
+                            Spacer()
+                        }
+                    }
+                }
+                .padding(.horizontal)
+                .frame(maxHeight: 200)
                 Spacer()
                 ButtonView(buttonTitle: "Create Chore", buttonImage: "plus") {
                     dismiss()
@@ -84,7 +96,14 @@ struct AddChoreView_Previews: PreviewProvider {
             ),
             views: Dependency.preview.views()
         )
-
+        
+        AddChoreView(
+            addChoreViewModel: ObservableViewModel(
+                staticState: AddChoreState()
+            ),
+            views: Dependency.preview.views()
+        )
+        .preferredColorScheme(.dark)
     }
 }
 

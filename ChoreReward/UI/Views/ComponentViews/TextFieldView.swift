@@ -39,7 +39,7 @@ struct TextFieldView: View {
         }
         .autocapitalization(UITextAutocapitalizationType.none)
         .textFieldStyle(RoundedBorderTextFieldStyle())
-        .shadow(radius: 5)
+        .shadow(radius: 1)
     }
 }
 
