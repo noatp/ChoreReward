@@ -28,28 +28,36 @@ struct AddChoreView: View {
         RegularNavBarView(navTitle: "New Chore") {
             
             VStack{
-                if let choreImage = choreImage {
-                    Image(uiImage: choreImage)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(maxWidth: .infinity, maxHeight: 200)
-                        .clipped()
-                        .padding()
-                }
-                else{
-                    ZStack{
-                        Rectangle().frame(maxWidth: .infinity, maxHeight: 200)
-                            .foregroundColor(.fg)
-                        Text("Add photo")
+                Group{
+                    if let choreImage = choreImage {
+                        Image(uiImage: choreImage)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(maxWidth: .infinity, maxHeight: 200)
+                            .clipped()
                     }
-                    .border(Color.acc, width: 1)
+                    else{
+                        ZStack{
+                            RoundedRectangle(cornerRadius: 25)
+                                .frame(maxWidth: .infinity, maxHeight: 200)
+                                .foregroundColor(.fg)
+                            Text("Add photo")
+                        }
+                        
+                    }
+                }
+                .shadow(radius: 5)
+                .padding()
+                .onTapGesture {
+                    isPresentingImagePicker = true
+                }
+                TextFieldView(title: "Title", textInput: $choreTitle)
                     .padding()
-                    .onTapGesture {
-                        isPresentingImagePicker = true
-                    }
-                }
-                TextFieldView(textInput: $choreTitle, title: "What chore?")
-                TextFieldView(textInput: $choreDescription, title: "Description")
+                //TextFieldView(textInput: $choreDescription, title: "Description")
+                TextEditor(text: $choreDescription)
+                    .shadow(radius: 5)
+                    .foregroundColor(.red)
+                    .padding()
                 Spacer()
                 ButtonView(buttonTitle: "Create Chore", buttonImage: "plus") {
                     dismiss()

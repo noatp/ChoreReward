@@ -12,32 +12,34 @@ struct TextFieldView: View {
     @Binding var textInput: String
     private var secured: Bool
     private var title: String
-    private var prompt: String
     
     init(
-        textInput: Binding<String>,
-        secured: Bool = false,
         title: String,
-        prompt: String = ""
+        textInput: Binding<String>,
+        secured: Bool = false
     ){
         self._textInput = textInput
         self.secured = secured
         self.title = title
-        self.prompt = prompt
     }
     
     var body: some View {
+        
         Group{
             if (secured){
-                SecureField(title, text: $textInput)
+                SecureField(text: $textInput) {
+                    Text(title)
+                }
             }
             else{
-                TextField(title, text: $textInput)
+                TextField(text: $textInput) {
+                    Text(title)
+                }
             }
         }
-        .padding()
-        .textFieldStyle(RoundedBorderTextFieldStyle())
         .autocapitalization(UITextAutocapitalizationType.none)
+        .textFieldStyle(RoundedBorderTextFieldStyle())
+        .shadow(radius: 5)
     }
 }
 
@@ -45,8 +47,8 @@ struct TextFieldView: View {
 struct TextFieldView_Previews: PreviewProvider {
     static var previews: some View {
         Group{
-            TextFieldView(textInput: .constant("Preview"), title: "Preview")
-            TextFieldView(textInput: .constant(""), title: "Preview")
+            TextFieldView(title: "Preview", textInput: .constant(""), secured: true)
+            TextFieldView(title: "Preview", textInput: .constant(""))
         }
         .previewLayout(.sizeThatFits)
     }

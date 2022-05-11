@@ -57,22 +57,16 @@ struct EditUserProfileView: View {
                 })
                 .foregroundColor(.acc)
                 Divider()
-                HStack{
-                    VStack{
+                VStack{
+                    HStack{
                         Text("Name: ")
-                        Divider().frame(width: 0)
-                        Text("Email: ")
+                            .frame(width: 60)
+                        TextFieldView(title: editUserProfileViewModel.state.currentUserName, textInput: $userName)
                     }
-                    VStack{
-                        TextField("userName",
-                                  text: $userName,
-                                  prompt: Text(editUserProfileViewModel.state.currentUserName))
-                        .textInputAutocapitalization(.never)
-                        Divider()
-                        TextField("userEmail",
-                                  text: $userEmail,
-                                  prompt: Text(editUserProfileViewModel.state.currentUserEmail))
-                        .textInputAutocapitalization(.never)
+                    HStack{
+                        Text("Email: ")
+                            .frame(width: 60)
+                        TextFieldView(title: editUserProfileViewModel.state.currentUserEmail, textInput: $userEmail)
                     }
                 }
                 

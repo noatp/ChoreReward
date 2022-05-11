@@ -28,8 +28,8 @@ struct LoginView: View {
                 Text(loginViewModel.state.errorMessage)
                     .padding()
                 
-                TextFieldView(textInput: $emailInput, title: "Email")
-                TextFieldView(textInput: $passwordInput, secured: true, title: "Password")
+                TextFieldView(title: "Email", textInput: $emailInput)
+                TextFieldView(title: "Password", textInput: $passwordInput, secured: true)
                 
                 ButtonView(buttonTitle: "Login", buttonImage: "arrow.forward.to.line") {
                     loginViewModel.perform(action: .signIn(emailInput: emailInput, passwordInput: passwordInput))

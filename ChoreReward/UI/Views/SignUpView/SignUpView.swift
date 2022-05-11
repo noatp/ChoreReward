@@ -55,9 +55,9 @@ struct SignUpView: View {
             Text(signUpViewModel.state.errorMessage)
             
             
-            TextFieldView(textInput: $nameInput, title: "Full Name")
-            TextFieldView(textInput: $emailInput, title: "Email")
-            TextFieldView(textInput: $passwordInput, secured: true, title: "Password")
+            TextFieldView(title: "Name", textInput: $nameInput)
+            TextFieldView(title: "Email", textInput: $emailInput)
+            TextFieldView(title: "Password", textInput: $passwordInput, secured: true)
             RolePickerView(roleSelection: $roleSelection)
             
             ButtonView(buttonTitle: "Sign up", buttonImage: "arrow.turn.right.up") {

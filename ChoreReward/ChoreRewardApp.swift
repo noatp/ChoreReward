@@ -41,7 +41,8 @@ struct ChoreRewardApp: App {
             choreService: choreService,
             currentUserRepository: userRepository,
             currentFamilyRepository: familyRepository,
-            currentChoreRepository: choreRepository
+            currentChoreRepository: choreRepository,
+            storageRepository: storageRepository
         )
     }
 
