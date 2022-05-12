@@ -122,19 +122,25 @@ class UserService: ObservableObject{
     }
     
     func changeUserProfileImage(image: UIImage){
+        isBusy = true
         guard let currentUserId = currentUserId else {
             print("\(#function): could not retrieve currentUserId")
             return
         }
         
-        storageRepository.uploadUserProfileImage(image: image, userId: currentUserId) { [weak self] url in
-            if let userRepository = self?.userRepository {
-                Task{
-                    await userRepository.updateProfileImageForUser(userId: currentUserId, newImageUrl: url)
-                }
+        Task{
+            let profileImageUrl = await storageRepository.uploadUserProfileImage(image: image, userId: currentUserId)
+            
+            guard let profileImageUrl = profileImageUrl else {
+                print("\(#function): could not get a url for the profile image")
+                return
             }
+            
+            await userRepository.updateProfileImageForUser(userId: currentUserId, profileImageUrl: profileImageUrl)
+            isBusy = false
         }
     }
+    
     func updateUserProfileWithImage(newUserProfile: User, newUserImage: UIImage?){
         isBusy = true
         guard let currentUserId = currentUserId else {
@@ -144,21 +150,6 @@ class UserService: ObservableObject{
         }
         
         if let newUserImage = newUserImage {
-//            storageRepository.uploadUserProfileImage(image: newUserImage, userId: currentUserId) { [weak self] url in
-//                if let userRepository = self?.userRepository {
-//                    let userProfileWithImage = User(
-//                        email: newUserProfile.email,
-//                        name: newUserProfile.name,
-//                        role: newUserProfile.role,
-//                        profileImageUrl: url
-//                    )
-//                    Task{
-//                        print("\(#function) calling userRepository with image link")
-//                        await userRepository.updateUserProfileWithImage(userId: currentUserId, newUserProfileWithImage: userProfileWithImage)
-//                        self?.isBusy = false
-//                    }
-//                }
-//            }
             Task{
                 let profileImageUrl =  await storageRepository.uploadUserProfileImage(image: newUserImage, userId: currentUserId)
 

@@ -124,10 +124,10 @@ class UserRepository: ObservableObject{
         }
     }
     
-    func updateProfileImageForUser(userId: String, newImageUrl: String) async {
+    func updateProfileImageForUser(userId: String, profileImageUrl: String) async {
         do {
             try await database.collection("users").document(userId).updateData([
-                "profileImageUrl" : newImageUrl
+                "profileImageUrl" : profileImageUrl
             ])
         }
         catch{
