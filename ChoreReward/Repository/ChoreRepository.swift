@@ -14,14 +14,15 @@ class ChoreRepository: ObservableObject{
     private let database = Firestore.firestore()
     private var currentChoreListener: ListenerRegistration?
     
-    func createChore(newChore: Chore) -> String{
-        return database.collection("chores").addDocument(data:[
-            "title" : newChore.title,
+    func createChore(newChore: Chore, newChoreId: String){
+        database.collection("chores").document(newChoreId).setData([
+            "title": newChore.title,
             "assignerId": newChore.assignerId,
             "assigneeId": newChore.assigneeId,
             "created": Timestamp(date: newChore.created),
-            "description": newChore.description
-        ]).documentID
+            "description": newChore.description,
+            "choreImageUrl": newChore.choreImageUrl
+        ])
     }
     
     func readChore(choreId: String) async -> Chore?{
@@ -37,11 +38,14 @@ class ChoreRepository: ObservableObject{
     
     func readMultipleChores(choreIds: [String]) async -> [Chore]?{
         do{
+            print("choreIds: \(choreIds)")
             let querySnapshot = try await database.collection("chores")
                 .whereField(FieldPath.documentID(), in: choreIds)
                 .getDocuments() //return at most 10
+            print(querySnapshot.documents)
             return try querySnapshot.documents.compactMap({ document in
-                try document.data(as: Chore.self)
+                print(document)
+                return try document.data(as: Chore.self)
             })
         }
         catch{

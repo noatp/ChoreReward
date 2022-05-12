@@ -17,6 +17,7 @@ struct Chore: Identifiable, Codable{
     var completed: Date?
     var created: Date
     var description: String
+    var choreImageUrl: String
     
     static let empty = Chore(
         id: "",
@@ -24,7 +25,8 @@ struct Chore: Identifiable, Codable{
         assignerId: "",
         assigneeId: "",
         created: Date(),
-        description: ""
+        description: "",
+        choreImageUrl: ""
     )
     
     enum RewardType: String, CaseIterable, Identifiable{

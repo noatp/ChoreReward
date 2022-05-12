@@ -71,13 +71,15 @@ struct AddChoreView: View {
                 .padding(.horizontal)
                 .frame(maxHeight: 200)
                 Spacer()
-                ButtonView(buttonTitle: "Create Chore", buttonImage: "plus") {
-                    dismiss()
-                    addChoreViewModel.perform(
-                        action: .createChore(choreTitle: choreTitle, choreDescription: choreDescription)
-                    )
+                if let choreImage = choreImage {
+                    ButtonView(buttonTitle: "Create Chore", buttonImage: "plus") {
+                        dismiss()
+                        addChoreViewModel.perform(
+                            action: .createChore(choreTitle: choreTitle, choreDescription: choreDescription, choreImage: choreImage)
+                        )
+                    }
+                    .padding()
                 }
-                .padding()
             }
         }
         .sheet(isPresented: $isPresentingImagePicker) {

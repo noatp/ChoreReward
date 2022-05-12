@@ -7,6 +7,7 @@
 
 import Foundation
 import Combine
+import UIKit
 
 class ChoreService: ObservableObject{
     @Published var choreList: [Chore] = []
@@ -14,6 +15,7 @@ class ChoreService: ObservableObject{
     private let userRepository: UserRepository
     private let familyRepository: FamilyRepository
     private let choreRepository: ChoreRepository
+    private let storageRepository: StorageRepository
     
     private var choreSubscription: AnyCancellable?
     private var currentFamilySubscription: AnyCancellable?
@@ -21,11 +23,13 @@ class ChoreService: ObservableObject{
     init(
         userRepository: UserRepository,
         familyRepository: FamilyRepository,
-        choreRepository: ChoreRepository
+        choreRepository: ChoreRepository,
+        storageRepository: StorageRepository
     ) {
         self.userRepository = userRepository
         self.familyRepository = familyRepository
         self.choreRepository = choreRepository
+        self.storageRepository = storageRepository
         addSubscription()
     }
     
@@ -41,22 +45,35 @@ class ChoreService: ObservableObject{
             })
     }
     
-    func createChore(choreTitle: String, choreDescription: String, currentUser: User) async {
+    func createChore(choreTitle: String, choreDescription: String, currentUser: User, choreImage: UIImage) async {
         guard let currentUserId = currentUser.id,
               let currentFamilyId = currentUser.familyId
         else{
             return
         }
         
-        let newChore = Chore(
-            title: choreTitle,
-            assignerId: currentUserId,
-            assigneeId: "",
-            created: Date(),
-            description: choreDescription
-        )
-        let newChoreId = ChoreRepository().createChore(newChore: newChore)
-        await familyRepository.updateChoreOfFamily(familyId: currentFamilyId, choreId: newChoreId)
+        let newChoreId = UUID().uuidString
+        
+        Task{
+            let choreImageUrl = await storageRepository.uploadChoreImage(image: choreImage, choreId: newChoreId)
+            
+            guard let choreImageUrl = choreImageUrl else {
+                print("\(#function): could not get a url for the chore image")
+                return
+            }
+            
+            let newChore = Chore(
+                title: choreTitle,
+                assignerId: currentUserId,
+                assigneeId: "",
+                created: Date(),
+                description: choreDescription,
+                choreImageUrl: choreImageUrl
+            )
+            
+            choreRepository.createChore(newChore: newChore, newChoreId: newChoreId)
+            await familyRepository.updateChoreOfFamily(familyId: currentFamilyId, choreId: newChoreId)
+        }
     }
     
     private func getChoresOfCurrentFamily(currentFamily: Family) {
@@ -67,6 +84,7 @@ class ChoreService: ObservableObject{
             let idBatch = Array(choreIds[0...(batchSize - 1)])
             choreIds = Array(choreIds.dropFirst(batchSize))
             Task{
+                print("idBatch: \(idBatch)")
                 choreList += await choreRepository.readMultipleChores(choreIds: idBatch) ?? []
                 print("HERE \(batchSize)")
             }

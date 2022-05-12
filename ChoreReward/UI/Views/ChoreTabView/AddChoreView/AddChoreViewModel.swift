@@ -7,6 +7,7 @@
 
 import Foundation
 import Combine
+import SwiftUI
 
 class AddChoreViewModel: StatefulViewModel{
     @Published var _state: AddChoreState = empty
@@ -27,19 +28,19 @@ class AddChoreViewModel: StatefulViewModel{
         self.userService = userService
     }
 
-    func createChore(choreTitle: String, choreDescription: String){
+    func createChore(choreTitle: String, choreDescription: String, choreImage: UIImage){
         guard let currentUser = userService.currentUser else{
             return
         }
         Task{
-            await choreService.createChore(choreTitle: choreTitle, choreDescription: choreDescription, currentUser: currentUser)
+            await choreService.createChore(choreTitle: choreTitle, choreDescription: choreDescription, currentUser: currentUser, choreImage: choreImage)
         }
     }
     
     func performAction(_ action: AddChoreAction) {
          switch action {
-         case .createChore(let choreTitle, let choreDescription):
-             createChore(choreTitle: choreTitle, choreDescription: choreDescription)
+         case .createChore(let choreTitle, let choreDescription, let choreImage):
+             createChore(choreTitle: choreTitle, choreDescription: choreDescription, choreImage: choreImage)
          }
     }
 }
@@ -49,7 +50,7 @@ struct AddChoreState{
 }
 
 enum AddChoreAction{
-    case createChore(choreTitle: String, choreDescription: String)
+    case createChore(choreTitle: String, choreDescription: String, choreImage: UIImage)
 }
 
 extension Dependency.ViewModels{

@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct ChoreDetailView: View {
     @ObservedObject var choreDetailViewModel: ObservableViewModel<choreDetailState, choreDetailAction>
@@ -26,7 +27,7 @@ struct ChoreDetailView: View {
     var body: some View {
         ChoreDetailNavBarView(navTitle: chore.title, opacity: navBarOpacity) {
             ScrollView{
-                Image("unfinishedDishes")
+                KFImage(URL(string: chore.choreImageUrl))
                     .resizable()
                     .scaledToFill()
                     .frame(maxWidth: .infinity, maxHeight: 400)
@@ -58,7 +59,8 @@ struct ChoreDetailView_Previews: PreviewProvider {
             assigneeId: "preview assigneeId",
             completed: Date(),
             created: Date(),
-            description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Interdum posuere lorem ipsum dolor sit amet consectetur. Amet consectetur adipiscing elit pellentesque. Id venenatis a con"
+            description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Interdum posuere lorem ipsum dolor sit amet consectetur. Amet consectetur adipiscing elit pellentesque. Id venenatis a con",
+            choreImageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTvaNbNa9E_46fY75AFA9N8dhocKjEdDegvrN5QbBHH-WX-oij4xtjeYijvpC_kHB9-FiU&usqp=CAU"
         )
         
         NavigationView{

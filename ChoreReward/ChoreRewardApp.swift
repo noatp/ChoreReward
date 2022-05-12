@@ -32,7 +32,8 @@ struct ChoreRewardApp: App {
         let choreService = ChoreService(
             userRepository: userRepository,
             familyRepository: familyRepository,
-            choreRepository: choreRepository
+            choreRepository: choreRepository,
+            storageRepository: storageRepository
         )
         
         self.dependency = Dependency(
