@@ -41,4 +41,22 @@ class StorageRepository{
             }
         }
     }
+    
+    func uploadUserProfileImage(image: UIImage, userId: String) async -> String?{
+        let imageRef = storage.reference().child("userImage/\(userId)")
+        
+        guard let imageData = image.jpegData(compressionQuality: 0.5) else{
+            print("StorageRepository: uploadUserProfileImage: fail to compress image")
+            return nil
+        }
+        
+        do{
+            let _ = try await imageRef.putDataAsync(imageData)
+            return try await imageRef.downloadURL().absoluteString
+        }
+        catch{
+            print("\(#function): \(error)")
+            return nil
+        }
+    }
 }

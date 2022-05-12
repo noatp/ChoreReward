@@ -66,10 +66,6 @@ class UserService: ObservableObject{
     }
     
     func silentSignIn() async {
-//        if isLoginPending == true {
-//            return
-//        }
-//        isLoginPending = true
         performSignIn()
     }
     
@@ -140,26 +136,49 @@ class UserService: ObservableObject{
         }
     }
     func updateUserProfileWithImage(newUserProfile: User, newUserImage: UIImage?){
+        isBusy = true
         guard let currentUserId = currentUserId else {
             print("\(#function): could not retrieve currentUserId")
+            isBusy = false
             return
         }
         
         if let newUserImage = newUserImage {
-            storageRepository.uploadUserProfileImage(image: newUserImage, userId: currentUserId) { [weak self] url in
-                if let userRepository = self?.userRepository {
-                    let userProfileWithImage = User(
-                        email: newUserProfile.email,
-                        name: newUserProfile.name,
-                        role: newUserProfile.role,
-                        profileImageUrl: url
-                    )
-                    Task{
-                        print("\(#function) calling userRepository with image link")
-                        await userRepository.updateUserProfileWithImage(userId: currentUserId, newUserProfileWithImage: userProfileWithImage)
-                    }
+//            storageRepository.uploadUserProfileImage(image: newUserImage, userId: currentUserId) { [weak self] url in
+//                if let userRepository = self?.userRepository {
+//                    let userProfileWithImage = User(
+//                        email: newUserProfile.email,
+//                        name: newUserProfile.name,
+//                        role: newUserProfile.role,
+//                        profileImageUrl: url
+//                    )
+//                    Task{
+//                        print("\(#function) calling userRepository with image link")
+//                        await userRepository.updateUserProfileWithImage(userId: currentUserId, newUserProfileWithImage: userProfileWithImage)
+//                        self?.isBusy = false
+//                    }
+//                }
+//            }
+            Task{
+                let profileImageUrl =  await storageRepository.uploadUserProfileImage(image: newUserImage, userId: currentUserId)
+
+                guard let profileImageUrl = profileImageUrl else {
+                    print("\(#function): could not get a url for the profile image")
+                    return
                 }
+                
+                let userProfileWithImage = User(
+                    email: newUserProfile.email,
+                    name: newUserProfile.name,
+                    role: newUserProfile.role,
+                    profileImageUrl: profileImageUrl
+                )
+                
+                print("\(#function) calling userRepository with image link")
+                await userRepository.updateUserProfileWithImage(userId: currentUserId, newUserProfileWithImage: userProfileWithImage)
+                isBusy = false
             }
+            
         }
         else{
             let newUserProfileWithImage = User(
@@ -171,13 +190,16 @@ class UserService: ObservableObject{
             Task{
                 print("\(#function) calling userRepository with nil image link")
                 await userRepository.updateUserProfileWithImage(userId: currentUserId, newUserProfileWithImage: newUserProfileWithImage)
+                isBusy = false
             }
         }
     }
     
     func updateUserProfileWithoutImage(newUserProfile: User){
+        isBusy = true
         guard let currentUserId = currentUserId else {
             print("\(#function): could not retrieve currentUserId")
+            isBusy = false
             return
         }
                 
@@ -189,6 +211,7 @@ class UserService: ObservableObject{
         Task{
             print("\(#function) calling userRepository without image link")
             await userRepository.updateUserProfileWithoutImage(userId: currentUserId, newUserProfileWithoutImage: newUserProfileWithoutImage)
+            isBusy = false
         }
     }
 
