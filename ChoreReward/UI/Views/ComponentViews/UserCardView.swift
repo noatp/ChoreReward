@@ -27,7 +27,7 @@ struct UserCardView: View {
                     Image(systemName: "person.fill").resizable()
                 }
             }
-            .scaledToFill()
+            .scaledToFit()
             .frame(width: 50, height: 50)
             .clipShape(Circle())
             .shadow(radius: 5)

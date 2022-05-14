@@ -31,7 +31,7 @@ struct UserProfileView: View {
                         Image(systemName: "person.fill").resizable()
                     }
                 }
-                .scaledToFill()
+                .scaledToFit()
                 .frame(width: 200, height: 200)
                 .clipShape(Circle())
                 .shadow(radius: 5)
