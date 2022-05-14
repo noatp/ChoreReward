@@ -9,48 +9,37 @@ import Foundation
 import UIKit
 
 class Dependency{
-    let userService: UserService
-    let familyService: FamilyService
-    let choreService: ChoreService
-    
-    let currentUserRepository: UserRepository
-    let currentFamilyRepository: FamilyRepository
-    let currentChoreRepository: ChoreRepository
+    let userRepository: UserRepository
+    let familyRepository: FamilyRepository
+    let choreRepository: ChoreRepository
     let storageRepository: StorageRepository
-        
+    
     init(
-        userService: UserService = MockUserService(),
-        familyService: FamilyService = MockFamilyService(),
-        choreService: ChoreService = MockChoreService(),
-        currentUserRepository: UserRepository = MockUserRepository(),
-        currentFamilyRepository: FamilyRepository = MockFamilyRepository(),
-        currentChoreRepository: ChoreRepository = MockChoreRepository(),
+        userRepository: UserRepository = UserRepository(),
+        familyRepository: FamilyRepository = FamilyRepository(),
+        choreRepository: ChoreRepository = ChoreRepository(),
         storageRepository: StorageRepository = StorageRepository()
     ){
-        self.userService = userService
-        self.familyService = familyService
-        self.choreService = choreService
-        self.currentUserRepository = currentUserRepository
-        self.currentFamilyRepository = currentFamilyRepository
-        self.currentChoreRepository = currentChoreRepository
+        self.userRepository = userRepository
+        self.familyRepository = familyRepository
+        self.choreRepository = choreRepository
         self.storageRepository = storageRepository
     }
     
     static let preview = Dependency()
     
     class Repositories{
-        let dependency: Dependency
         let userRepository: UserRepository
         let familyRepository: FamilyRepository
         let choreRepository: ChoreRepository
         let storageRepository: StorageRepository
         
         init(dependency: Dependency){
-            self.dependency = dependency
-            self.userRepository = self.dependency.currentUserRepository
-            self.familyRepository = self.dependency.currentFamilyRepository
-            self.choreRepository = self.dependency.currentChoreRepository
-            self.storageRepository = self.dependency.storageRepository
+            self.userRepository = dependency.userRepository
+            self.familyRepository = dependency.familyRepository
+            self.choreRepository = dependency.choreRepository
+            self.storageRepository = dependency.storageRepository
+            
         }
     }
     
@@ -59,27 +48,36 @@ class Dependency{
     }
     
     class Services{
-        let dependency: Dependency
         let userService: UserService
         let familyService: FamilyService
         let choreService: ChoreService
         let repositories: Repositories
         
-        init(dependency: Dependency){
-            self.dependency = dependency
-            self.repositories = self.dependency.repositories()
-            self.userService = self.dependency.userService
-            self.familyService = self.dependency.familyService
-            self.choreService = self.dependency.choreService
+        init(repositories: Repositories){
+            self.repositories = repositories
+            self.userService = UserService(
+                currentUserRepository: repositories.userRepository,
+                storageRepository: repositories.storageRepository
+            )
+            self.familyService = FamilyService(
+                userRepository: repositories.userRepository,
+                familyRepository: repositories.familyRepository
+            )
+            self.choreService = ChoreService(
+                userRepository: repositories.userRepository,
+                familyRepository: repositories.familyRepository,
+                choreRepository: repositories.choreRepository,
+                storageRepository: repositories.storageRepository)
         }
     }
     
     private func services() -> Services{
-        return Services(dependency: self)
+        return Services(repositories: repositories())
     }
     
     class ViewModels{
         let services: Services
+        
         init(
             services: Services
         ){
@@ -113,46 +111,5 @@ class MockFamilyRepository: FamilyRepository{}
 class MockChoreRepository: ChoreRepository{}
 
 class MockStorageRepository: StorageRepository{}
-
-class MockUserService: UserService{
-    override init(
-        currentUserRepository: UserRepository = MockUserRepository(),
-        storageRepository: StorageRepository = StorageRepository()
-    ){
-        super.init(
-            currentUserRepository: currentUserRepository,
-            storageRepository: storageRepository
-        )
-    }
-}
-
-class MockFamilyService: FamilyService{
-    override init(
-        userRepository currentUserRepository: UserRepository = MockUserRepository(),
-        familyRepository currentFamilyRepository: FamilyRepository = MockFamilyRepository()
-    ) {
-        super.init(
-            userRepository: currentUserRepository,
-            familyRepository: currentFamilyRepository
-        )
-    }
-}
-
-class MockChoreService: ChoreService{
-    override init(
-        userRepository: UserRepository = MockUserRepository(),
-        familyRepository: FamilyRepository = MockFamilyRepository(),
-        choreRepository: ChoreRepository = MockChoreRepository(),
-        storageRepository: StorageRepository = MockStorageRepository()
-    ){
-        super.init(
-            userRepository: userRepository,
-            familyRepository: familyRepository,
-            choreRepository: choreRepository,
-            storageRepository: storageRepository
-        )
-    }
-}
-
 
 

@@ -14,37 +14,8 @@ struct ChoreRewardApp: App {
     
     init(){
         UserDefaults.standard.set(false, forKey: "_UIConstraintBasedLayoutLogUnsatisfiable")
-        
         FirebaseApp.configure()
-        let userRepository = UserRepository()
-        let familyRepository = FamilyRepository()
-        let choreRepository = ChoreRepository()
-        let storageRepository = StorageRepository()
-        
-        let userService = UserService(
-            currentUserRepository: userRepository,
-            storageRepository:storageRepository
-        )
-        let familyService = FamilyService(
-            userRepository: userRepository,
-            familyRepository: familyRepository
-        )
-        let choreService = ChoreService(
-            userRepository: userRepository,
-            familyRepository: familyRepository,
-            choreRepository: choreRepository,
-            storageRepository: storageRepository
-        )
-        
-        self.dependency = Dependency(
-            userService: userService,
-            familyService: familyService,
-            choreService: choreService,
-            currentUserRepository: userRepository,
-            currentFamilyRepository: familyRepository,
-            currentChoreRepository: choreRepository,
-            storageRepository: storageRepository
-        )
+        self.dependency = .init()
     }
 
     var body: some Scene {
