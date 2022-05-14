@@ -31,7 +31,6 @@ class UserService: ObservableObject{
     @Published var currentUser: User?
     @Published var isBusy: Bool = false
 
-    
     private let auth = Auth.auth()
     private let userRepository: UserRepository
     private let storageRepository: StorageRepository

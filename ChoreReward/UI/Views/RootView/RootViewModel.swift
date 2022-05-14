@@ -16,11 +16,14 @@ class RootViewModel: StatefulViewModel{
     }
     
     private var userService: UserService
+    private var choreService: ChoreService
     private var authStateSubscription: AnyCancellable?
     private var userServiceBusyStatusSubscription: AnyCancellable?
+    private var choreServiceBusyStatusSubscription: AnyCancellable?
     
-    init(userService: UserService) {
+    init(userService: UserService, choreService: ChoreService) {
         self.userService = userService
+        self.choreService = choreService
         addSubscription()
     }
     
@@ -54,6 +57,17 @@ class RootViewModel: StatefulViewModel{
                     shouldRenderProgressView: busyStatus
                 )
             }
+        choreServiceBusyStatusSubscription = choreService.$isBusy
+            .sink(receiveValue: { [weak self] busyStatus in
+                guard let oldState = self?._state else{
+                    return
+                }
+                
+                self?._state = .init(
+                    shouldRenderLoginView: oldState.shouldRenderLoginView,
+                    shouldRenderProgressView: busyStatus
+                )
+            })
     }
     
     func performAction(_ action: Void) {}
@@ -68,6 +82,6 @@ struct RootViewState{
 
 extension Dependency.ViewModels{
     var rootViewModel: RootViewModel{
-        RootViewModel(userService: services.userService)
+        RootViewModel(userService: services.userService, choreService: services.choreService)
     }
 }

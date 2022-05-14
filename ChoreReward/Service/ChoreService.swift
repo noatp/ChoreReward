@@ -11,13 +11,14 @@ import UIKit
 
 class ChoreService: ObservableObject{
     @Published var choreList: [Chore] = []
+    @Published var isBusy: Bool = false
     
     private let userRepository: UserRepository
     private let familyRepository: FamilyRepository
     private let choreRepository: ChoreRepository
     private let storageRepository: StorageRepository
     
-    private var choreSubscription: AnyCancellable?
+//    private var choreSubscription: AnyCancellable?
     private var currentFamilySubscription: AnyCancellable?
     
     init(
@@ -46,6 +47,7 @@ class ChoreService: ObservableObject{
     }
     
     func createChore(choreTitle: String, choreDescription: String, currentUser: User, choreImage: UIImage) async {
+        isBusy = true
         guard let currentUserId = currentUser.id,
               let currentFamilyId = currentUser.familyId
         else{
@@ -73,6 +75,7 @@ class ChoreService: ObservableObject{
             
             choreRepository.createChore(newChore: newChore, newChoreId: newChoreId)
             await familyRepository.updateChoreOfFamily(familyId: currentFamilyId, choreId: newChoreId)
+            isBusy = false
         }
     }
     
@@ -92,12 +95,6 @@ class ChoreService: ObservableObject{
         choreList = choreList.sorted { chore1, chore2 in
             chore1.created < chore2.created
         }
-    }
-    
-    func readChore (choreId: String) -> Chore{
-        return choreList.first { chore in
-            chore.id == choreId
-        }!
     }
     
     func takeChore (choreId: String?, currentUserId: String?){

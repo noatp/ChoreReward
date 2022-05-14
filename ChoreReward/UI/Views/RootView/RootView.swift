@@ -32,13 +32,14 @@ struct RootView: View {
                 VStack{
                     Spacer()
                     ProgressView()
-                        .shadow(color: Color(red: 0, green: 0, blue: 0.6),
-                                            radius: 4.0, x: 1.0, y: 2.0)
+                        .shadow(
+                            color: Color(red: 0, green: 0, blue: 0.6),
+                            radius: 4.0, x: 1.0, y: 2.0)
                         .frame(maxWidth: .infinity)
                         
                     Spacer()
                 }
-                .background(Color.bg.opacity(0.7))
+                .background(Color.fg.opacity(0.7))
             }
         }
     }
