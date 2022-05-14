@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct UserCardView: View {
     private let user: User
@@ -18,14 +19,21 @@ struct UserCardView: View {
     
     var body: some View {
         HStack{
-            Image("cook")
-                .resizable()
-                .scaledToFill()
-                .frame(width: 50, height: 50)
-                .clipShape(Circle())
-                .shadow(radius: 5)
-                .overlay(Circle().stroke(Color.fg, lineWidth: 0.5))
-                .padding(.trailing)
+            Group{
+                if let userImageUrl = user.profileImageUrl {
+                    KFImage(URL(string: userImageUrl)).resizable()
+                }
+                else{
+                    Image(systemName: "person.fill").resizable()
+                }
+            }
+            .scaledToFill()
+            .frame(width: 50, height: 50)
+            .clipShape(Circle())
+            .shadow(radius: 5)
+            .overlay(Circle().stroke(Color.fg, lineWidth: 0.5))
+            .padding(.trailing)
+            
             Text(user.name)
                 .font(.headline)
             Spacer()
