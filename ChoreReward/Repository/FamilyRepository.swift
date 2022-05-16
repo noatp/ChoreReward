@@ -39,13 +39,15 @@ class FamilyDatabase {
                 }
                 switch decodeResult{
                 case .success(let receivedFamily):
-                    if let family = receivedFamily{
-                        print("FamilyDatabase: readFamily: received new data from Firebase")
-                        self?.familyPublisher.send(family)
-                    }
-                    else{
-                        print("FamilyDatabase: readFaily: family does not exist")
-                    }
+                    print("FamilyDatabase: readFamily: received new data from Firebase")
+                    self?.familyPublisher.send(receivedFamily)
+//                    if let family = receivedFamily{
+//                        print("FamilyDatabase: readFamily: received new data from Firebase")
+//                        self?.familyPublisher.send(family)
+//                    }
+//                    else{
+//                        print("FamilyDatabase: readFaily: family does not exist")
+//                    }
                     
                 case .failure(let error):
                     print("FamilyDatabase: readFamily: \(error)")

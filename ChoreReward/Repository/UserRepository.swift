@@ -39,13 +39,15 @@ class UserDatabase {
             }
             switch decodeResult{
             case .success(let receivedUser):
-                if let user = receivedUser{
-                    print("UserDatabase: readUser: received new data from Firebase")
-                    self?.userPublisher.send(user)
-                }
-                else{
-                    print("UserDatabase: readUser: user does not exist")
-                }
+                print("UserDatabase: readUser: received new data from Firebase")
+                self?.userPublisher.send(receivedUser)
+//                if let user = receivedUser{
+//                    print("UserDatabase: readUser: received new data from Firebase")
+//                    self?.userPublisher.send(user)
+//                }
+//                else{
+//                    print("UserDatabase: readUser: user does not exist")
+//                }
             case .failure(let error):
                 print("UserDatabase: readUser: \(error)")
             }

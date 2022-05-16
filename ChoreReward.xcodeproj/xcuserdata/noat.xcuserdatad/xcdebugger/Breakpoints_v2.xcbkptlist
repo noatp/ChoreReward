@@ -117,8 +117,8 @@
             filePath = "ChoreReward/Repository/UserRepository.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "153"
-            endingLineNumber = "153"
+            startingLineNumber = "155"
+            endingLineNumber = "155"
             landmarkName = "updateUserProfileWithoutImage(userId:newUserProfileWithoutImage:)"
             landmarkType = "7">
          </BreakpointContent>
