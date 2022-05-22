@@ -87,9 +87,7 @@ class ChoreService: ObservableObject{
             let idBatch = Array(choreIds[0...(batchSize - 1)])
             choreIds = Array(choreIds.dropFirst(batchSize))
             Task{
-                print("idBatch: \(idBatch)")
                 choreList += await choreRepository.readMultipleChores(choreIds: idBatch) ?? []
-                print("HERE \(batchSize)")
             }
         }
         choreList = choreList.sorted { chore1, chore2 in

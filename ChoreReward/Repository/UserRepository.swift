@@ -10,58 +10,14 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 import Combine
 
-class UserDatabase {
-    static let shared = UserDatabase()
-    
-    let userPublisher = PassthroughSubject<User?, Never>()
-    
-    private let database = Firestore.firestore()
-    var currentUserListener: ListenerRegistration?
-    
-    func readUser(userId: String) {
-        guard currentUserListener == nil else {
-            return
-        }
-        
-        currentUserListener = database.collection("users").document(userId).addSnapshotListener { [weak self] documentSnapshot, error in
-            if let error = error {
-                print("UserDatabase: readUser: \(error)")
-                return
-            }
-
-            guard let document = documentSnapshot else {
-                print("UserDatabase: readUser: bad snapshot")
-                return
-            }
-
-            let decodeResult = Result{
-                try document.data(as: User.self)
-            }
-            switch decodeResult{
-            case .success(let receivedUser):
-                print("UserDatabase: readUser: received new data from Firebase")
-                self?.userPublisher.send(receivedUser)
-//                if let user = receivedUser{
-//                    print("UserDatabase: readUser: received new data from Firebase")
-//                    self?.userPublisher.send(user)
-//                }
-//                else{
-//                    print("UserDatabase: readUser: user does not exist")
-//                }
-            case .failure(let error):
-                print("UserDatabase: readUser: \(error)")
-            }
-        }
-    }
-    
-    func resetPublisher(){
-        self.userPublisher.send(nil)
-    }
-}
-
 class UserRepository: ObservableObject{
+    private let userDatabase : UserDatabase
+
     private let database = Firestore.firestore()
-    private let userDatabase = UserDatabase.shared
+    
+    init(userDatabase: UserDatabase) {
+        self.userDatabase = userDatabase
+    }
     
     func createUser(newUser: User) async {
         guard let newUserId = newUser.id else{
@@ -163,8 +119,6 @@ class UserRepository: ObservableObject{
     }
     
     func resetRepository(){
-        userDatabase.currentUserListener?.remove()
-        userDatabase.currentUserListener = nil
         userDatabase.resetPublisher()
     }
     

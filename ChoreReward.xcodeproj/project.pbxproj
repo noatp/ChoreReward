@@ -44,6 +44,9 @@
 		45A8085B2832A4EC00DF7EF6 /* FirebaseStorageSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = 45A8085A2832A4EC00DF7EF6 /* FirebaseStorageSwift-Beta */; };
 		45A8085E2832A57D00DF7EF6 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 45A8085D2832A57D00DF7EF6 /* Kingfisher */; };
 		45A808612832A5C700DF7EF6 /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = 45A808602832A5C700DF7EF6 /* CodeScanner */; };
+		45A808E52838A02400DF7EF6 /* UserAuthTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A808E42838A02400DF7EF6 /* UserAuthTest.swift */; };
+		45A808E72838A10600DF7EF6 /* UserDatabaseTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A808E62838A10600DF7EF6 /* UserDatabaseTest.swift */; };
+		45A808EA2839398A00DF7EF6 /* UserDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A808E92839398A00DF7EF6 /* UserDatabase.swift */; };
 		45ACB4AC2724AD1A000E04A0 /* ChoreRewardApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45ACB4AB2724AD1A000E04A0 /* ChoreRewardApp.swift */; };
 		45ACB4AE2724AD1A000E04A0 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45ACB4AD2724AD1A000E04A0 /* ContentView.swift */; };
 		45ACB4B32724AD1D000E04A0 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 45ACB4B22724AD1D000E04A0 /* Preview Assets.xcassets */; };
@@ -128,6 +131,9 @@
 		45A31BFA27E2CB340060B8AB /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		45A47549279215A100322BCE /* ChoreRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoreRepository.swift; sourceTree = "<group>"; };
 		45A4754B27931F1C00322BCE /* ChoreService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoreService.swift; sourceTree = "<group>"; };
+		45A808E42838A02400DF7EF6 /* UserAuthTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAuthTest.swift; sourceTree = "<group>"; };
+		45A808E62838A10600DF7EF6 /* UserDatabaseTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDatabaseTest.swift; sourceTree = "<group>"; };
+		45A808E92839398A00DF7EF6 /* UserDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDatabase.swift; sourceTree = "<group>"; };
 		45ACB4A82724AD1A000E04A0 /* ChoreReward.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChoreReward.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		45ACB4AB2724AD1A000E04A0 /* ChoreRewardApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoreRewardApp.swift; sourceTree = "<group>"; };
 		45ACB4AD2724AD1A000E04A0 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -334,6 +340,14 @@
 			path = Extention;
 			sourceTree = "<group>";
 		};
+		45A808E82839395800DF7EF6 /* Database */ = {
+			isa = PBXGroup;
+			children = (
+				45A808E92839398A00DF7EF6 /* UserDatabase.swift */,
+			);
+			path = Database;
+			sourceTree = "<group>";
+		};
 		45ACB49F2724AD1A000E04A0 = {
 			isa = PBXGroup;
 			children = (
@@ -359,6 +373,7 @@
 			isa = PBXGroup;
 			children = (
 				45942AC22827002E00CD490F /* ChoreReward.entitlements */,
+				45A808E82839395800DF7EF6 /* Database */,
 				45395C59272B20E900F50B70 /* Dependency */,
 				45B012D427549394002C7A06 /* Repository */,
 				453147692751FF91000A85D7 /* Service */,
@@ -384,6 +399,8 @@
 			isa = PBXGroup;
 			children = (
 				45ACB4C12724AD1D000E04A0 /* ChoreRewardTests.swift */,
+				45A808E42838A02400DF7EF6 /* UserAuthTest.swift */,
+				45A808E62838A10600DF7EF6 /* UserDatabaseTest.swift */,
 			);
 			path = ChoreRewardTests;
 			sourceTree = "<group>";
@@ -695,6 +712,7 @@
 				45E5FB1727E5A732008B20A8 /* ChoreDetailNavBarView.swift in Sources */,
 				453CC1A62787FBFB002996AF /* ChoreTabViewModel.swift in Sources */,
 				45EAF0BC27EEA484005655D4 /* EnvironmentKey.swift in Sources */,
+				45A808EA2839398A00DF7EF6 /* UserDatabase.swift in Sources */,
 				456D46E927EBFFE800B2AC07 /* NavDrawerView.swift in Sources */,
 				45ACB4AC2724AD1A000E04A0 /* ChoreRewardApp.swift in Sources */,
 				45E5FB1427E5A65C008B20A8 /* View.swift in Sources */,
@@ -720,7 +738,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				45A808E52838A02400DF7EF6 /* UserAuthTest.swift in Sources */,
 				45ACB4C22724AD1D000E04A0 /* ChoreRewardTests.swift in Sources */,
+				45A808E72838A10600DF7EF6 /* UserDatabaseTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -749,6 +769,151 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		454145062839ADC400A33317 /* Emulators */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_SWIFT_FLAGS = "-D EMULATORS";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Emulators;
+		};
+		454145072839ADC400A33317 /* Emulators */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = ChoreReward/ChoreReward.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"ChoreReward/Preview Content\"";
+				DEVELOPMENT_TEAM = ZRF6QZUXP5;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = noat.ChoreReward;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Emulators;
+		};
+		454145082839ADC400A33317 /* Emulators */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = ZRF6QZUXP5;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = noat.ChoreRewardTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ChoreReward.app/ChoreReward";
+			};
+			name = Emulators;
+		};
+		454145092839ADC400A33317 /* Emulators */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = ZRF6QZUXP5;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = noat.ChoreRewardUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = ChoreReward;
+			};
+			name = Emulators;
+		};
 		45ACB4CF2724AD1D000E04A0 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -944,7 +1109,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = ZRF6QZUXP5;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -969,7 +1134,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = ZRF6QZUXP5;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1038,6 +1203,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				45ACB4CF2724AD1D000E04A0 /* Debug */,
+				454145062839ADC400A33317 /* Emulators */,
 				45ACB4D02724AD1D000E04A0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -1047,6 +1213,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				45ACB4D22724AD1D000E04A0 /* Debug */,
+				454145072839ADC400A33317 /* Emulators */,
 				45ACB4D32724AD1D000E04A0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -1056,6 +1223,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				45ACB4D52724AD1D000E04A0 /* Debug */,
+				454145082839ADC400A33317 /* Emulators */,
 				45ACB4D62724AD1D000E04A0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -1065,6 +1233,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				45ACB4D82724AD1D000E04A0 /* Debug */,
+				454145092839ADC400A33317 /* Emulators */,
 				45ACB4D92724AD1D000E04A0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;

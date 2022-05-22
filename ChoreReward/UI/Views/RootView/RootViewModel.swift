@@ -17,6 +17,7 @@ class RootViewModel: StatefulViewModel{
     
     private var userService: UserService
     private var choreService: ChoreService
+    
     private var authStateSubscription: AnyCancellable?
     private var userServiceBusyStatusSubscription: AnyCancellable?
     private var choreServiceBusyStatusSubscription: AnyCancellable?

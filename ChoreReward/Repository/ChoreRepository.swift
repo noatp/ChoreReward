@@ -38,13 +38,10 @@ class ChoreRepository: ObservableObject{
     
     func readMultipleChores(choreIds: [String]) async -> [Chore]?{
         do{
-            print("choreIds: \(choreIds)")
             let querySnapshot = try await database.collection("chores")
                 .whereField(FieldPath.documentID(), in: choreIds)
                 .getDocuments() //return at most 10
-            print(querySnapshot.documents)
             return try querySnapshot.documents.compactMap({ document in
-                print(document)
                 return try document.data(as: Chore.self)
             })
         }

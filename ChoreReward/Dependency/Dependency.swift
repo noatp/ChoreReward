@@ -15,7 +15,7 @@ class Dependency{
     let storageRepository: StorageRepository
     
     init(
-        userRepository: UserRepository = UserRepository(),
+        userRepository: UserRepository = UserRepository(userDatabase: UserDatabase()),
         familyRepository: FamilyRepository = FamilyRepository(),
         choreRepository: ChoreRepository = ChoreRepository(),
         storageRepository: StorageRepository = StorageRepository()
@@ -26,7 +26,12 @@ class Dependency{
         self.storageRepository = storageRepository
     }
     
-    static let preview = Dependency()
+    static let preview = Dependency(
+        userRepository: MockUserRepository(userDatabase: MockUserDatabase()),
+        familyRepository: MockFamilyRepository(),
+        choreRepository: MockChoreRepository(),
+        storageRepository: MockStorageRepository()
+    )
     
     class Repositories{
         let userRepository: UserRepository
@@ -103,6 +108,7 @@ class Dependency{
         return Views(viewModels: viewModels())
     }
 }
+
 
 class MockUserRepository: UserRepository{}
 

@@ -9,8 +9,11 @@ import Foundation
 import Combine
 
 class AppViewModel: StatefulViewModel{
-    @Published var _state: AppViewState = empty
+    @Published var _state = empty
     static var empty: AppViewState = .empty
+    var state: AnyPublisher<AppViewState, Never>{
+        return $_state.eraseToAnyPublisher()
+    }
     
     private let userService: UserService
     private var currentUserSubscription: AnyCancellable?
@@ -30,9 +33,7 @@ class AppViewModel: StatefulViewModel{
             })
     }
     
-    var state: AnyPublisher<AppViewState, Never>{
-        return $_state.eraseToAnyPublisher()
-    }
+    
     
     func performAction(_ action: Void) {}
     
