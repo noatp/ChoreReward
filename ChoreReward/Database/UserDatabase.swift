@@ -23,26 +23,24 @@ class UserDatabase {
         
         currentUserListener = database.collection("users").document(userId).addSnapshotListener { [weak self] documentSnapshot, error in
             if let error = error {
-                print("\(#file) \(#function): \(error)")
+                print("\(#fileID) \(#function): \(error)")
                 return
             }
             
             guard let document = documentSnapshot else {
-                print("\(#function): bad snapshot")
+                print("\(#fileID) \(#function): bad snapshot")
                 return
             }
-            
-            print("THERE")
-            
+                        
             let decodeResult = Result{
                 try document.data(as: User.self)
             }
             switch decodeResult{
             case .success(let receivedUser):
-                print("\(#file) \(#function): received user data from Firebase")
+                print("\(#fileID) \(#function): received user data from Firebase")
                 self?.userPublisher.send(receivedUser)
             case .failure(let error):
-                print("\(#function): \(error)")
+                print("\(#fileID) \(#function): \(error)")
             }
         }
     }

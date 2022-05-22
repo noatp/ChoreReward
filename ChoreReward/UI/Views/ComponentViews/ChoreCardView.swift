@@ -17,10 +17,7 @@ struct ChoreCardView: View {
     
     var body: some View {
         HStack{
-            KFImage(URL(string: chore.choreImageUrl))
-                .resizable()
-                .scaledToFill()
-                .frame(width: 100, height: 100)
+            RemoteImageView(imageUrl: chore.choreImageUrl, size: .init(width: 100, height: 100))
                 .clipped()
             
             VStack(alignment: .leading){

@@ -9,6 +9,7 @@ import SwiftUI
 import Firebase
 import FirebaseAuth
 import FirebaseStorage
+import Kingfisher
 
 @main
 struct ChoreRewardApp: App {

@@ -21,14 +21,12 @@ struct UserCardView: View {
         HStack{
             Group{
                 if let userImageUrl = user.profileImageUrl {
-                    KFImage(URL(string: userImageUrl)).resizable()
+                    RemoteImageView(imageUrl: userImageUrl, size: .init(width: 50, height: 50))
                 }
                 else{
-                    Image(systemName: "person.fill").resizable()
+                    ImageView(systemImage: "person.fill", size: .init(width: 50, height: 50))
                 }
             }
-            .scaledToFit()
-            .frame(width: 50, height: 50)
             .clipShape(Circle())
             .shadow(radius: 5)
             .overlay(Circle().stroke(Color.fg, lineWidth: 0.5))

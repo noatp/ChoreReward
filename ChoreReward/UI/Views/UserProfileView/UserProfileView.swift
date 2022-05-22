@@ -25,21 +25,17 @@ struct UserProfileView: View {
             VStack(spacing: 16){
                 Group{
                     if let userImageUrl = userProfileViewModel.state.currentUserProfileImageUrl {
-                        KFImage(URL(string: userImageUrl)).resizable()
+                        RemoteImageView(imageUrl: userImageUrl, size: .init(width: 200, height: 200))
                     }
                     else{
-                        Image(systemName: "person.fill").resizable()
+                        ImageView(systemImage: "person.fill", size: .init(width: 200, height: 200))
                     }
                 }
-                .scaledToFit()
-                .frame(width: 200, height: 200)
                 .clipShape(Circle())
                 .shadow(radius: 5)
                 
-                
                 Text(userProfileViewModel.state.currentUserName)
                     .font(.title)
-
 
                 HStack{
                     Text("Email:")
