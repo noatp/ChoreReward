@@ -25,12 +25,12 @@ class FamilyDatabase {
         
         currentFamilyListener = database.collection("families").document(familyId).addSnapshotListener({ [weak self] documentSnapshot, error in
                 if let error = error {
-                    print("FamilyDatabase: readFamily: \(error)")
+                    print("\(#fileID) \(#function): \(error)")
                     return
                 }
                 
                 guard let document = documentSnapshot else {
-                    print("FamilyDatabase: readFamily: bad snapshot")
+                    print("\(#fileID) \(#function): bad snapshot")
                     return
                 }
                 
@@ -39,18 +39,10 @@ class FamilyDatabase {
                 }
                 switch decodeResult{
                 case .success(let receivedFamily):
-                    print("FamilyDatabase: readFamily: received new data from Firebase")
+                    print("\(#fileID) \(#function): received new data from Firebase")
                     self?.familyPublisher.send(receivedFamily)
-//                    if let family = receivedFamily{
-//                        print("FamilyDatabase: readFamily: received new data from Firebase")
-//                        self?.familyPublisher.send(family)
-//                    }
-//                    else{
-//                        print("FamilyDatabase: readFaily: family does not exist")
-//                    }
-                    
                 case .failure(let error):
-                    print("FamilyDatabase: readFamily: \(error)")
+                    print("\(#fileID) \(#function): \(error)")
                 }
             }
         )
@@ -75,7 +67,7 @@ class FamilyRepository: ObservableObject{
             ])
         }
         catch{
-            print("FamilyRepository: createFamily: \(error)")
+            print("\(#fileID) \(#function): \(error)")
         }
         
     }
@@ -94,7 +86,7 @@ class FamilyRepository: ObservableObject{
             ])
         }
         catch{
-            print("FamilyRepository: updateMemberOfFamily: \(error)")
+            print("\(#fileID) \(#function): \(error)")
         }
     }
     
@@ -105,7 +97,7 @@ class FamilyRepository: ObservableObject{
             ])
         }
         catch{
-            print("FamilyRepository: updateChoreOfFamily: \(error)")
+            print("\(#fileID) \(#function): \(error)")
         }
     }
     

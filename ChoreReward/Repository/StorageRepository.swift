@@ -17,7 +17,7 @@ class StorageRepository{
         let imageRef = storage.reference().child("userImage/\(userId)")
         
         guard let imageData = image.jpegData(compressionQuality: 0.5) else{
-            print("\(#function): fail to compress image")
+            print("\(#fileID) \(#function): fail to compress image")
             return nil
         }
         
@@ -26,7 +26,7 @@ class StorageRepository{
             return try await imageRef.downloadURL().absoluteString
         }
         catch{
-            print("\(#function): \(error)")
+            print("\(#fileID) \(#function): \(error)")
             return nil
         }
     }
@@ -35,7 +35,7 @@ class StorageRepository{
         let imageRef = storage.reference().child("choreImage/\(choreId)")
         
         guard let imageData = image.jpegData(compressionQuality: 0.5) else{
-            print("\(#function): fail to compress image")
+            print("\(#fileID) \(#function): fail to compress image")
             return nil
         }
         
@@ -44,7 +44,7 @@ class StorageRepository{
             return try await imageRef.downloadURL().absoluteString
         }
         catch{
-            print("\(#function): \(error)")
+            print("\(#fileID) \(#function): \(error)")
             return nil
         }
     }

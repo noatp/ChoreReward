@@ -72,8 +72,6 @@ struct SignUpView: View {
                 )
             }
         }
-        .navigationTitle("Sign Up")
-        .navigationBarTitleDisplayMode(.automatic)
         .fullScreenCover(isPresented: $shouldShowImagePicker, onDismiss: nil) {
             ImagePicker(sourceType: .photoLibrary, didFinishPickingMediaHandler: { newUserImage in
                 userImage = newUserImage

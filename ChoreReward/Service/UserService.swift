@@ -52,12 +52,12 @@ class UserService: ObservableObject{
     
     private func performSignIn(){
         guard let currentUserId = currentUserId else{
-            print("\(#function): currentUserId is nil")
+            print("\(#fileID) \(#function): currentUserId is nil")
             return
         }
         currentUserSubscription = userRepository.readUser(userId: currentUserId)
             .sink(receiveValue: {[weak self] receivedUser in
-                print("UserService: silentSignIn: received new user from UserDatabse through UserRepository")
+                print("\(#fileID) \(#function): received new user from UserDatabse through UserRepository")
                 self?.currentUser = receivedUser
                 self?.authState = .signedIn
                 self?.isBusy = false
@@ -75,7 +75,7 @@ class UserService: ObservableObject{
             performSignIn()
         }
         catch{
-            print("UserService: signIn: \(error)")
+            print("\(#fileID) \(#function): \(error)")
             authState = .signedOut(error: error)
             isBusy = false
         }
@@ -105,7 +105,7 @@ class UserService: ObservableObject{
             performSignIn()
         }
         catch{
-            print("UserService: signUp: \(error)")
+            print("\(#fileID) \(#function): \(error)")
             authState = .signedOut(error: error)
             isBusy = false
         }
@@ -116,14 +116,14 @@ class UserService: ObservableObject{
             try self.auth.signOut()
             resetService()
         } catch let signOutError as NSError {
-            print("Error signing out: %@", signOutError)
+            print("\(#fileID) \(#function): Error signing out: %@", signOutError)
         }
     }
     
     func changeUserProfileImage(image: UIImage){
         isBusy = true
         guard let currentUserId = currentUserId else {
-            print("\(#function): could not retrieve currentUserId")
+            print("\(#fileID) \(#function): could not retrieve currentUserId")
             return
         }
         
@@ -131,7 +131,7 @@ class UserService: ObservableObject{
             let profileImageUrl = await storageRepository.uploadUserProfileImage(image: image, userId: currentUserId)
             
             guard let profileImageUrl = profileImageUrl else {
-                print("\(#function): could not get a url for the profile image")
+                print("\(#fileID) \(#function): could not get a url for the profile image")
                 return
             }
             
@@ -143,7 +143,7 @@ class UserService: ObservableObject{
     func updateUserProfileWithImage(newUserProfile: User, newUserImage: UIImage?){
         isBusy = true
         guard let currentUserId = currentUserId else {
-            print("\(#function): could not retrieve currentUserId")
+            print("\(#fileID) \(#function): could not retrieve currentUserId")
             isBusy = false
             return
         }
@@ -153,7 +153,7 @@ class UserService: ObservableObject{
                 let profileImageUrl =  await storageRepository.uploadUserProfileImage(image: newUserImage, userId: currentUserId)
 
                 guard let profileImageUrl = profileImageUrl else {
-                    print("\(#function): could not get a url for the profile image")
+                    print("\(#fileID) \(#function): could not get a url for the profile image")
                     return
                 }
                 
@@ -164,7 +164,7 @@ class UserService: ObservableObject{
                     profileImageUrl: profileImageUrl
                 )
                 
-                print("\(#function) calling userRepository with image link")
+                print("\(#fileID) \(#function): calling userRepository with image link")
                 await userRepository.updateUserProfileWithImage(userId: currentUserId, newUserProfileWithImage: userProfileWithImage)
                 isBusy = false
             }
@@ -178,7 +178,7 @@ class UserService: ObservableObject{
                 profileImageUrl: nil
             )
             Task{
-                print("\(#function) calling userRepository with nil image link")
+                print("\(#fileID) \(#function): calling userRepository with nil image link")
                 await userRepository.updateUserProfileWithImage(userId: currentUserId, newUserProfileWithImage: newUserProfileWithImage)
                 isBusy = false
             }
@@ -188,7 +188,7 @@ class UserService: ObservableObject{
     func updateUserProfileWithoutImage(newUserProfile: User){
         isBusy = true
         guard let currentUserId = currentUserId else {
-            print("\(#function): could not retrieve currentUserId")
+            print("\(#fileID) \(#function): could not retrieve currentUserId")
             isBusy = false
             return
         }
@@ -199,14 +199,13 @@ class UserService: ObservableObject{
             role: newUserProfile.role
         )
         Task{
-            print("\(#function) calling userRepository without image link")
+            print("\(#fileID) \(#function): calling userRepository without image link")
             await userRepository.updateUserProfileWithoutImage(userId: currentUserId, newUserProfileWithoutImage: newUserProfileWithoutImage)
             isBusy = false
         }
     }
 
     private func resetService(){
-//        currentUserSubscription?.cancel()
         currentUser = nil
         authState = .signedOut(error: nil)
         currentUserSubscription = nil

@@ -41,8 +41,6 @@ struct LoginView: View {
                 .padding()
             }
             .padding()
-            .navigationTitle("Login")
-            .navigationBarTitleDisplayMode(.automatic)
         }
         .navigationViewStyle(.stack)
         .onAppear(perform: {

@@ -30,7 +30,7 @@ class EditUserProfileViewModel: StatefulViewModel{
         currentUserSubscription = userService.$currentUser
             .sink(receiveValue: { receivedUser in
                 guard let currentUser = receivedUser else{
-                    print("\(#function): currentUser is nil")
+                    print("\(#fileID) \(#function): currentUser is nil")
                     return
                 }
                 self._state = .init(
@@ -48,7 +48,7 @@ class EditUserProfileViewModel: StatefulViewModel{
         didChangeProfileImage: Bool
     ){
         guard let currentUser = userService.currentUser else{
-            print("\(#function): currentuser is nil")
+            print("\(#fileID) \(#function): currentuser is nil")
             return
         }
         let newUserProfile = User(

@@ -47,7 +47,7 @@ struct AddFamilyMemberView: View {
             dismiss()
             addFamilyMemberViewModel.perform(action: .addMember(userId: userId))
         case .failure(let error):
-            print("Scanning failed: \(error.localizedDescription)")
+            print("\(#fileID) \(#function): Scanning failed: \(error.localizedDescription)")
         }
     }
 

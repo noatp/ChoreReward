@@ -35,7 +35,7 @@ class FamilyService: ObservableObject{
                     self?.resetService()
                     return
                 }
-                print("FamilyService: addSubscription: received new user from UserDatabase through UserRepository")
+                print("\(#fileID) \(#function): received new user from UserDatabase through UserRepository")
                 self?.readCurrentFamily(currentUser: currentUser)
             })
     }
@@ -52,7 +52,7 @@ class FamilyService: ObservableObject{
     
     func readCurrentFamily(currentUser: User) {
         guard let currentFamilyId = currentUser.familyId else{
-            print("FamilyService: readCurrentFamily: currentUser does not have a family")
+            print("\(#fileID) \(#function): currentUser does not have a family")
             return
         }
         currentFamilySubscription = familyRepository.readFamily(familyId: currentFamilyId)
@@ -60,7 +60,7 @@ class FamilyService: ObservableObject{
                 guard let currentFamily = receivedFamily else{
                     return
                 }
-                print("FamilyService: readCurrentFamily: received new family from FamilyDatabse through FamilyRepository")
+                print("\(#fileID) \(#function): received new family from FamilyDatabse through FamilyRepository")
                 self?.currentFamily = receivedFamily
                 self?.getMembersOfCurrentFamily(currentFamily: currentFamily)
             })

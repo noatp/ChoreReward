@@ -41,7 +41,7 @@ class ChoreService: ObservableObject{
                     self?.resetService()
                     return
                 }
-                print("ChoreSerivce: addSubscription: received new family from FamilyDatabse through FamilyRepository")
+                print("\(#fileID) \(#function): received new family from FamilyDatabse through FamilyRepository")
                 self?.getChoresOfCurrentFamily(currentFamily: currentFamily)
             })
     }
@@ -60,7 +60,7 @@ class ChoreService: ObservableObject{
             let choreImageUrl = await storageRepository.uploadChoreImage(image: choreImage, choreId: newChoreId)
             
             guard let choreImageUrl = choreImageUrl else {
-                print("\(#function): could not get a url for the chore image")
+                print("\(#fileID) \(#function): could not get a url for the chore image")
                 return
             }
             
@@ -98,7 +98,7 @@ class ChoreService: ObservableObject{
     func takeChore (choreId: String?, currentUserId: String?){
         guard let choreId = choreId,
               let currentUserId = currentUserId else{
-                  print("ChoreService: takeChore: missing choreId and/or currentUserId")
+            print("\(#fileID) \(#function): missing choreId and/or currentUserId")
                   return
               }
         Task{
@@ -109,7 +109,7 @@ class ChoreService: ObservableObject{
     
     func completeChore (choreId: String?){
         guard let choreId = choreId else{
-            print("ChoreService: completeChore: missing choreId")
+            print("\(#fileID) \(#function): missing choreId")
             return
         }
         Task{
@@ -123,12 +123,12 @@ class ChoreService: ObservableObject{
             chore.id == choreId
         }
         guard let choreIndex = choreIndex else{
-            print("ChoreService: takeChore: could not find chore with provided choreId in choreList")
+            print("\(#fileID) \(#function): could not find chore with provided choreId in choreList")
             return
         }
         let updatedChore = await choreRepository.readChore(choreId: choreId)
         guard let updatedChore = updatedChore else{
-            print("ChoreService: takeChore: could not find chore with provided choreId after update")
+            print("\(#fileID) \(#function): could not find chore with provided choreId after update")
             return
         }
         choreList[choreIndex] = updatedChore

@@ -24,8 +24,17 @@ struct RemoteImageView: View {
         let cache = ImageCache.default
         let processor = DownsamplingImageProcessor(size: .init(width: size.width * 3, height: size.height * 3))
                         
+        var cachedPros = cache.isCached(forKey: imageUrl, processorIdentifier: processor.identifier)
+        var cacheTypePros = cache.imageCachedType(forKey: imageUrl, processorIdentifier: processor.identifier)
+        var cached = cache.isCached(forKey: imageUrl)
+        var cacheType = cache.imageCachedType(forKey: imageUrl)
+        
+        
+        print("\(#fileID) \(#function): before", imageUrl, cached, cacheType, processor.size, cachedPros, cacheTypePros)
+
         let image =  KFImage(URL(string: imageUrl))
             .cacheOriginalImage()
+            .cache
             .placeholder({ProgressView()})
             .setProcessor(processor)
             .cancelOnDisappear(true)
@@ -33,13 +42,12 @@ struct RemoteImageView: View {
             .scaledToFill()
             .frame(width: size.width, height: size.height)
         
-        let cachedPros = cache.isCached(forKey: imageUrl, processorIdentifier: processor.identifier)
-        let cacheTypePros = cache.imageCachedType(forKey: imageUrl, processorIdentifier: processor.identifier)
-        let cached = cache.isCached(forKey: imageUrl)
-        let cacheType = cache.imageCachedType(forKey: imageUrl)
+        cachedPros = cache.isCached(forKey: imageUrl, processorIdentifier: processor.identifier)
+        cacheTypePros = cache.imageCachedType(forKey: imageUrl, processorIdentifier: processor.identifier)
+        cached = cache.isCached(forKey: imageUrl)
+        cacheType = cache.imageCachedType(forKey: imageUrl)
         
-//        print("\(URL(string: imageUrl)?.path) with processor: \(processor.identifier) \(cached) in \(cacheType)")
-        print(imageUrl, cached, cacheType, processor.size, cachedPros, cacheTypePros)
+        print("\(#fileID) \(#function): after", imageUrl, cached, cacheType, processor.size, cachedPros, cacheTypePros)
         
         return image
     }

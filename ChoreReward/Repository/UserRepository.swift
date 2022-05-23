@@ -21,7 +21,7 @@ class UserRepository: ObservableObject{
     
     func createUser(newUser: User) async {
         guard let newUserId = newUser.id else{
-            print("UserRepository: createUser: new user does not have an id")
+            print("\(#fileID) \(#function): new user does not have an id")
             return
         }
         
@@ -34,7 +34,7 @@ class UserRepository: ObservableObject{
             ])
         }
         catch{
-            print("UserRepository: createUser: \(error)")
+            print("\(#fileID) \(#function): \(error)")
         }
     }
     
@@ -55,7 +55,7 @@ class UserRepository: ObservableObject{
             }
         }
         catch{
-            print("UserRepository: readMultipleUsers: \(error)")
+            print("\(#fileID) \(#function): \(error)")
             return nil
         }
     }
@@ -67,7 +67,7 @@ class UserRepository: ObservableObject{
             ])
         }
         catch{
-            print("UserRepository: updateFamilyForUser: \(error)")
+            print("\(#fileID) \(#function): \(error)")
         }
     }
     
@@ -78,7 +78,7 @@ class UserRepository: ObservableObject{
             ])
         }
         catch{
-            print("UserRepository updateRoleToAdminForUser: \(error)")
+            print("\(#fileID) \(#function): \(error)")
         }
     }
     
@@ -89,7 +89,7 @@ class UserRepository: ObservableObject{
             ])
         }
         catch{
-            print("\(#function): \(error)")
+            print("\(#fileID) \(#function): \(error)")
         }
     }
     
@@ -102,7 +102,7 @@ class UserRepository: ObservableObject{
             ])
         }
         catch{
-            print("\(#function): \(error)")
+            print("\(#fileID) \(#function): \(error)")
         }
     }
     
@@ -114,7 +114,7 @@ class UserRepository: ObservableObject{
             ])
         }
         catch{
-            print("\(#function): \(error)")
+            print("\(#fileID) \(#function): \(error)")
         }
     }
     

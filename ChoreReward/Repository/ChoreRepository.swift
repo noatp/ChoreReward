@@ -31,7 +31,7 @@ class ChoreRepository: ObservableObject{
             return try documentSnapshot.data(as: Chore.self)
         }
         catch{
-            print("ChoreRepository: readChore: \(error)")
+            print("\(#fileID) \(#function): \(error)")
             return nil
         }
     }
@@ -46,7 +46,7 @@ class ChoreRepository: ObservableObject{
             })
         }
         catch{
-            print("ChoreRepository: readMultipleChores: \(error)")
+            print("\(#fileID) \(#function): \(error)")
             return nil
         }
     }
@@ -58,7 +58,7 @@ class ChoreRepository: ObservableObject{
             ])
         }
         catch{
-            print("ChoreRepository: updateAssigneeForChore: \(error)")
+            print("\(#fileID) \(#function): \(error)")
         }
     }
     
@@ -69,7 +69,7 @@ class ChoreRepository: ObservableObject{
             ])
         }
         catch{
-            print("ChoreRepository: updateCompletionForChore: \(error)")
+            print("\(#fileID) \(#function): \(error)")
         }
     }
     
