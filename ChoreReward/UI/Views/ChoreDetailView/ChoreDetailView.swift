@@ -27,10 +27,14 @@ struct ChoreDetailView: View {
     var body: some View {
         ChoreDetailNavBarView(navTitle: chore.title, opacity: navBarOpacity) {
             ScrollView{
-                RemoteImageView(imageUrl: chore.choreImageUrl, size: .init(width: 400, height: 400))
-                    .clipped()
-                    .scrollViewOffset($navBarOpacity)
-                
+                RemoteImageView(
+                    imageUrl: chore.choreImageUrl,
+                    size: .init(width: 400, height: 400),
+                    cachingSize: .init(width: 400, height: 400)
+                )
+                .clipped()
+                .scrollViewOffset($navBarOpacity)
+            
                 choreDetailText
                 
                 if (!choreDetailViewModel.state.choreTaken){

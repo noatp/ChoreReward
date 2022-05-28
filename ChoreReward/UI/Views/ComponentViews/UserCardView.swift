@@ -21,7 +21,11 @@ struct UserCardView: View {
         HStack{
             Group{
                 if let userImageUrl = user.profileImageUrl {
-                    RemoteImageView(imageUrl: userImageUrl, size: .init(width: 50, height: 50))
+                    RemoteImageView(
+                        imageUrl: userImageUrl,
+                        size: .init(width: 50, height: 50),
+                        cachingSize: .init(width: 50, height: 50)
+                    )
                 }
                 else{
                     ImageView(systemImage: "person.fill", size: .init(width: 50, height: 50))

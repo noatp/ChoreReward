@@ -42,15 +42,18 @@ struct ChoreTabView: View {
             else{
                 ZStack(alignment: .top){
                     ScrollView(showsIndicators: false){
-                        ForEach(choreTabViewModel.state.displayingChoreList) {chore in
-                            VStack{
-                                NavigationLink {
-                                    views.choreDetailView(chore: chore)
-                                } label: {
-                                    ChoreCardView(chore: chore)
-                                }
-                            }.transition(.move(edge: onUnfinishedTab ? .leading : .trailing))
+                        LazyVStack{
+                            ForEach(choreTabViewModel.state.displayingChoreList) {chore in
+                                VStack{
+                                    NavigationLink {
+                                        views.choreDetailView(chore: chore)
+                                    } label: {
+                                        ChoreCardView(chore: chore)
+                                    }
+                                }.transition(.move(edge: onUnfinishedTab ? .leading : .trailing))
+                            }
                         }
+                        
                     }
                     .animation(.easeInOut(duration: 0.2), value: choreTabViewModel.state.chorePickerState)
                     if (presentFilterMenu){

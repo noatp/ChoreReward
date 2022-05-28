@@ -25,7 +25,11 @@ struct UserProfileView: View {
             VStack(spacing: 16){
                 Group{
                     if let userImageUrl = userProfileViewModel.state.currentUserProfileImageUrl {
-                        RemoteImageView(imageUrl: userImageUrl, size: .init(width: 200, height: 200))
+                        RemoteImageView(
+                            imageUrl: userImageUrl,
+                            size: .init(width: 200, height: 200),
+                            cachingSize: .init(width: 200, height: 200)
+                        )
                     }
                     else{
                         ImageView(systemImage: "person.fill", size: .init(width: 200, height: 200))

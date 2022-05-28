@@ -40,7 +40,11 @@ struct EditUserProfileView: View {
                     }
                     else {
                         if let userImageUrl = editUserProfileViewModel.state.currentUserProfileImageUrl {
-                            RemoteImageView(imageUrl: userImageUrl, size: .init(width: 200, height: 200))
+                            RemoteImageView(
+                                imageUrl: userImageUrl,
+                                size: .init(width: 200, height: 200),
+                                cachingSize: .init(width: 200, height: 200)
+                            )
                         }
                         else{
                             ImageView(systemImage: "person.fill", size: .init(width: 200, height: 200))

@@ -11,45 +11,27 @@ import Kingfisher
 struct RemoteImageView: View {
     private let imageUrl: String
     private let size: CGSize
+    private let cachingSize: CGSize
     
     init(
         imageUrl: String,
-        size: CGSize
+        size: CGSize,
+        cachingSize: CGSize
     ) {
         self.imageUrl = imageUrl
         self.size = size
+        self.cachingSize = cachingSize
     }
     
     var body: some View {
-        let cache = ImageCache.default
-        let processor = DownsamplingImageProcessor(size: .init(width: size.width * 3, height: size.height * 3))
-                        
-        var cachedPros = cache.isCached(forKey: imageUrl, processorIdentifier: processor.identifier)
-        var cacheTypePros = cache.imageCachedType(forKey: imageUrl, processorIdentifier: processor.identifier)
-        var cached = cache.isCached(forKey: imageUrl)
-        var cacheType = cache.imageCachedType(forKey: imageUrl)
-        
-        
-        print("\(#fileID) \(#function): before", imageUrl, cached, cacheType, processor.size, cachedPros, cacheTypePros)
-
-        let image =  KFImage(URL(string: imageUrl))
-            .cacheOriginalImage()
-            .cache
-            .placeholder({ProgressView()})
+        let processor = DownsamplingImageProcessor(size: .init(width: cachingSize.width*3, height: cachingSize.height*3))
+        return KFImage(URL(string: imageUrl))            .placeholder({ProgressView()})
             .setProcessor(processor)
             .cancelOnDisappear(true)
             .resizable()
             .scaledToFill()
             .frame(width: size.width, height: size.height)
         
-        cachedPros = cache.isCached(forKey: imageUrl, processorIdentifier: processor.identifier)
-        cacheTypePros = cache.imageCachedType(forKey: imageUrl, processorIdentifier: processor.identifier)
-        cached = cache.isCached(forKey: imageUrl)
-        cacheType = cache.imageCachedType(forKey: imageUrl)
-        
-        print("\(#fileID) \(#function): after", imageUrl, cached, cacheType, processor.size, cachedPros, cacheTypePros)
-        
-        return image
     }
 }
 
@@ -57,7 +39,8 @@ struct RemoteImageView_Previews: PreviewProvider {
     static var previews: some View {
         RemoteImageView(
             imageUrl: "https://s3.amazonaws.com/brt.org/tim-cook.png",
-            size: .init(width: 100, height: 100)
+            size: .init(width: 100, height: 100),
+            cachingSize: .init(width: 100, height: 100)
         )
     }
 }
