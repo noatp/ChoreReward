@@ -34,7 +34,9 @@ struct ChoreDetailView: View {
 //                )
 //                .clipped()
                 RemoteImageView(imageUrl: chore.choreImageUrl, isThumbnail: false)
-                .scrollViewOffset($navBarOpacity)
+                    .frame(maxWidth: .infinity, maxHeight: 400, alignment: .center)
+                    .clipped()
+                    .scrollViewOffset($navBarOpacity)
             
                 choreDetailText
                 

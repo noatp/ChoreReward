@@ -48,8 +48,6 @@ struct RemoteImageView: View {
                 })
                 .transition(.fade(duration: 0.5))
                 .scaledToFill()
-                .frame(width: 100, height: 100)
-                .clipped()
         }
         else{
             WebImage(url: URL(string: imageUrl)!)
@@ -60,8 +58,6 @@ struct RemoteImageView: View {
                 })
                 .transition(.fade(duration: 0.5))
                 .scaledToFill()
-                .frame(maxWidth: .infinity)
-                .clipped()
         }
         
     }

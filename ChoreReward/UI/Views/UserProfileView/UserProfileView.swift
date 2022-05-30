@@ -33,12 +33,11 @@ struct UserProfileView: View {
                         RemoteImageView(imageUrl: userImageUrl, isThumbnail: false)
                     }
                     else{
-                        ImageView(systemImage: "person.fill", size: .init(width: 200, height: 200))
+                        ImageView(systemImage: "person.fill")
                     }
                 }
-                .frame(width: 200, height: 200)
+                .frame(width: 200, height: 200, alignment: .center)
                 .clipShape(Circle())
-                .shadow(radius: 5)
                 
                 Text(userProfileViewModel.state.currentUserName)
                     .font(.title)

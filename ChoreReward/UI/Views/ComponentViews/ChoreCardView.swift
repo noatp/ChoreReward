@@ -25,7 +25,8 @@ struct ChoreCardView: View {
 //            .clipped()
 
             RemoteImageView(imageUrl: chore.choreImageUrl, isThumbnail: true)
-            
+                .frame(width: 100, height: 100, alignment: .center)
+                .clipped()
             VStack(alignment: .leading){
                 HStack{
                     Text(chore.title)

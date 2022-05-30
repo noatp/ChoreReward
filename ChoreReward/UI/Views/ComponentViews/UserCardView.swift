@@ -29,12 +29,11 @@ struct UserCardView: View {
                     RemoteImageView(imageUrl: userImageUrl, isThumbnail: true)
                 }
                 else{
-                    ImageView(systemImage: "person.fill", size: .init(width: 50, height: 50))
+                    ImageView(systemImage: "person.fill")
                 }
             }
+            .frame(width: 100, height: 100, alignment: .center)
             .clipShape(Circle())
-            .shadow(radius: 5)
-            .overlay(Circle().stroke(Color.fg, lineWidth: 0.5))
             .padding(.trailing)
             
             Text(user.name)

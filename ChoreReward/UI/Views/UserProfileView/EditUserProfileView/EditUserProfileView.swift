@@ -32,10 +32,10 @@ struct EditUserProfileView: View {
                 Group{
                     if didChangeProfileImage {
                         if let userImage = userImage {
-                            ImageView(uiImage: userImage, size: .init(width: 200, height: 200))
+                            ImageView(uiImage: userImage)
                         }
                         else{
-                            ImageView(systemImage: "person.fill", size: .init(width: 200, height: 200))
+                            ImageView(systemImage: "person.fill")
                         }
                     }
                     else {
@@ -48,13 +48,12 @@ struct EditUserProfileView: View {
                             RemoteImageView(imageUrl: userImageUrl, isThumbnail: false)
                         }
                         else{
-                            ImageView(systemImage: "person.fill", size: .init(width: 200, height: 200))
+                            ImageView(systemImage: "person.fill")
                         }
                     }
                 }
-                .frame(width: 200, height: 200)
+                .frame(width: 200, height: 200, alignment: .center)
                 .clipShape(Circle())
-                .shadow(radius: 5)
                
                 ButtonView(buttonTitle: "Change profile picture", action: {
                     shouldShowActionSheet = true

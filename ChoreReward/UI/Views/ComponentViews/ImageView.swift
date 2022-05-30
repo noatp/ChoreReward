@@ -10,16 +10,13 @@ import SwiftUI
 struct ImageView: View {
     let systemImage: String?
     let uiImage: UIImage?
-    let size: CGSize
     
     init(
         systemImage: String? = nil,
-        uiImage: UIImage? = nil,
-        size: CGSize
+        uiImage: UIImage? = nil
     ) {
         self.systemImage = systemImage
         self.uiImage = uiImage
-        self.size = size
     }
     
     var body: some View {
@@ -35,12 +32,11 @@ struct ImageView: View {
             }
         }
         .scaledToFill()
-        .frame(width: size.width, height: size.height)
     }
 }
 
 struct ImageView_Previews: PreviewProvider {
     static var previews: some View {
-        ImageView(systemImage: "person", size: .init(width: 200, height: 200))
+        ImageView(systemImage: "person")
     }
 }
