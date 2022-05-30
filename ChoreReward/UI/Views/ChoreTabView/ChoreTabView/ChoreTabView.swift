@@ -11,7 +11,6 @@ struct ChoreTabView: View {
     @ObservedObject var choreTabViewModel: ObservableViewModel<ChoreTabState, ChoreTabAction>
     @State private var presentedSheet = false
     @State private var presentFilterMenu = false
-    @State private var onUnfinishedTab = true
     @Namespace private var animation
     private var views: Dependency.Views
     
@@ -33,43 +32,47 @@ struct ChoreTabView: View {
             .padding([.leading, .bottom, .trailing])
             .background(Color.bg)
             
-            if choreTabViewModel.state.displayingChoreList.isEmpty{
-                Spacer()
-                Text("No chores")
-                Spacer()
-                
-            }
-            else{
-                ZStack(alignment: .top){
+            ZStack{
+                if choreTabViewModel.state.displayingChoreList.isEmpty{
+                    VStack{
+                        Spacer()
+                        Text("No chores")
+                        Spacer()
+                    }
+                }
+                else{
                     ScrollView(showsIndicators: false){
-                        LazyVStack{
+                        LazyVStack(spacing: 0){
                             ForEach(choreTabViewModel.state.displayingChoreList) {chore in
-                                VStack{
-                                    NavigationLink {
-                                        views.choreDetailView(chore: chore)
-                                    } label: {
-                                        ChoreCardView(chore: chore)
-                                    }
-                                }.transition(.move(edge: onUnfinishedTab ? .leading : .trailing))
+                                NavigationLink {
+                                    views.choreDetailView(chore: chore)
+                                } label: {
+                                    ChoreCardView(chore: chore)
+                                }
+                                .transition(.move(edge: choreTabViewModel.state.chorePickerState == .unfinished ? .leading : .trailing))
                             }
                         }
-
+                        .animation(.easeInOut, value: choreTabViewModel.state.chorePickerState)
                     }
-//                    List(choreTabViewModel.state.displayingChoreList){chore in
-//                        NavigationLink {
-//                            views.choreDetailView(chore: chore)
-//                        } label: {
-//                            ChoreCardView(chore: chore)
-//                        }
-//                    }
-                    .animation(.easeInOut(duration: 0.2), value: choreTabViewModel.state.chorePickerState)
-                    if (presentFilterMenu){
+                }
+                
+                //                    List(choreTabViewModel.state.displayingChoreList){chore in
+                //                        NavigationLink {
+                //                            views.choreDetailView(chore: chore)
+                //                        } label: {
+                //                            ChoreCardView(chore: chore)
+                //                        }
+                //                        .transition(.asymmetric(insertion: .move(edge: .leading), removal: .move(edge: .trailing)))
+                //                    }
+                //                    .animation(.easeInOut, value: choreTabViewModel.state.chorePickerState)
+                
+                if (presentFilterMenu){
+                    VStack{
                         filterMenu
+                        Spacer()
                     }
                 }
             }
-            
-            
             
         }
     }
@@ -106,7 +109,6 @@ extension ChoreTabView{
         HStack(spacing: 0){
             ButtonView(buttonTitle: "Unfinished") {
                 choreTabViewModel.perform(action: .updatePickerState(.unfinished))
-                onUnfinishedTab = true
             }
             .padding(.horizontal)
             .padding(.vertical, 5)
@@ -120,7 +122,6 @@ extension ChoreTabView{
             }
             ButtonView(buttonTitle: "Finished", action: {
                 choreTabViewModel.perform(action: .updatePickerState(.finished))
-                onUnfinishedTab = false
             })
             .padding(.horizontal)
             .padding(.vertical, 5)
@@ -166,6 +167,5 @@ extension ChoreTabView{
         .padding([.leading, .bottom, .trailing])
         .background(Color.bg)
         .foregroundColor(.fg)
-        .transition(.asymmetric(insertion: .move(edge: .trailing), removal: .opacity))
     }
 }

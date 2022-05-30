@@ -8,7 +8,7 @@
 import SwiftUI
 import Kingfisher
 
-struct ChoreCardView: View {
+struct `ChoreCardView`: View {
     private let chore: Chore
     
     init(chore: Chore){
