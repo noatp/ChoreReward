@@ -29,30 +29,32 @@ struct EditUserProfileView: View {
     var body: some View {
         RegularNavBarView(navTitle: editUserProfileViewModel.state.currentUserName) {
             VStack(spacing: 16){
-//                Group{
-//                    if didChangeProfileImage {
-//                        if let userImage = userImage {
-//                            ImageView(uiImage: userImage, size: .init(width: 200, height: 200))
-//                        }
-//                        else{
-//                            ImageView(systemImage: "person.fill", size: .init(width: 200, height: 200))
-//                        }
-//                    }
-//                    else {
-//                        if let userImageUrl = editUserProfileViewModel.state.currentUserProfileImageUrl {
+                Group{
+                    if didChangeProfileImage {
+                        if let userImage = userImage {
+                            ImageView(uiImage: userImage, size: .init(width: 200, height: 200))
+                        }
+                        else{
+                            ImageView(systemImage: "person.fill", size: .init(width: 200, height: 200))
+                        }
+                    }
+                    else {
+                        if let userImageUrl = editUserProfileViewModel.state.currentUserProfileImageUrl {
 //                            RemoteImageView(
 //                                imageUrl: userImageUrl,
 //                                size: .init(width: 200, height: 200),
 //                                cachingSize: .init(width: 200, height: 200)
 //                            )
-//                        }
-//                        else{
-//                            ImageView(systemImage: "person.fill", size: .init(width: 200, height: 200))
-//                        }
-//                    }
-//                }
-//                .clipShape(Circle())
-//                .shadow(radius: 5)
+                            RemoteImageView(imageUrl: userImageUrl, isThumbnail: false)
+                        }
+                        else{
+                            ImageView(systemImage: "person.fill", size: .init(width: 200, height: 200))
+                        }
+                    }
+                }
+                .frame(width: 200, height: 200)
+                .clipShape(Circle())
+                .shadow(radius: 5)
                
                 ButtonView(buttonTitle: "Change profile picture", action: {
                     shouldShowActionSheet = true

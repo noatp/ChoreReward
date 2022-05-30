@@ -23,20 +23,22 @@ struct UserProfileView: View {
     var body: some View {
         RegularNavBarView(navTitle: userProfileViewModel.state.currentUserName) {
             VStack(spacing: 16){
-//                Group{
-//                    if let userImageUrl = userProfileViewModel.state.currentUserProfileImageUrl {
+                Group{
+                    if let userImageUrl = userProfileViewModel.state.currentUserProfileImageUrl {
 //                        RemoteImageView(
 //                            imageUrl: userImageUrl,
 //                            size: .init(width: 200, height: 200),
 //                            cachingSize: .init(width: 200, height: 200)
 //                        )
-//                    }
-//                    else{
-//                        ImageView(systemImage: "person.fill", size: .init(width: 200, height: 200))
-//                    }
-//                }
-//                .clipShape(Circle())
-//                .shadow(radius: 5)
+                        RemoteImageView(imageUrl: userImageUrl, isThumbnail: false)
+                    }
+                    else{
+                        ImageView(systemImage: "person.fill", size: .init(width: 200, height: 200))
+                    }
+                }
+                .frame(width: 200, height: 200)
+                .clipShape(Circle())
+                .shadow(radius: 5)
                 
                 Text(userProfileViewModel.state.currentUserName)
                     .font(.title)
