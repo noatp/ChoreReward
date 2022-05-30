@@ -64,6 +64,7 @@
 		45B6BB39272FC72100F89D74 /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B6BB38272FC72100F89D74 /* AppView.swift */; };
 		45C1FA652767163F00BF11E3 /* FamilyRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C1FA642767163F00BF11E3 /* FamilyRepository.swift */; };
 		45C1FA672767ABBB00BF11E3 /* FamilyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C1FA662767ABBB00BF11E3 /* FamilyService.swift */; };
+		45D58F492843C1BB00E70937 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 45D58F482843C1BB00E70937 /* SDWebImageSwiftUI */; };
 		45D7AE8C27346E9900A53812 /* TextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D7AE8B27346E9900A53812 /* TextFieldView.swift */; };
 		45D7AE9327347D2900A53812 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D7AE9227347D2900A53812 /* User.swift */; };
 		45D7AE952735B4A100A53812 /* Family.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D7AE942735B4A100A53812 /* Family.swift */; };
@@ -185,6 +186,7 @@
 				45A8085B2832A4EC00DF7EF6 /* FirebaseStorageSwift-Beta in Frameworks */,
 				45A808572832A4EC00DF7EF6 /* FirebaseFirestoreSwift-Beta in Frameworks */,
 				45A808592832A4EC00DF7EF6 /* FirebaseStorage in Frameworks */,
+				45D58F492843C1BB00E70937 /* SDWebImageSwiftUI in Frameworks */,
 				45A808532832A4EC00DF7EF6 /* FirebaseAuth in Frameworks */,
 				45A808612832A5C700DF7EF6 /* CodeScanner in Frameworks */,
 				45A808552832A4EC00DF7EF6 /* FirebaseFirestore in Frameworks */,
@@ -558,6 +560,7 @@
 				45A8085A2832A4EC00DF7EF6 /* FirebaseStorageSwift-Beta */,
 				45A8085D2832A57D00DF7EF6 /* Kingfisher */,
 				45A808602832A5C700DF7EF6 /* CodeScanner */,
+				45D58F482843C1BB00E70937 /* SDWebImageSwiftUI */,
 			);
 			productName = ChoreReward;
 			productReference = 45ACB4A82724AD1A000E04A0 /* ChoreReward.app */;
@@ -635,6 +638,7 @@
 				45A808512832A4EC00DF7EF6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				45A8085C2832A57D00DF7EF6 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				45A8085F2832A5C700DF7EF6 /* XCRemoteSwiftPackageReference "CodeScanner" */,
+				45D58F472843C1BB00E70937 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
 			);
 			productRefGroup = 45ACB4A92724AD1A000E04A0 /* Products */;
 			projectDirPath = "";
@@ -1274,6 +1278,14 @@
 				kind = branch;
 			};
 		};
+		45D58F472843C1BB00E70937 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImageSwiftUI.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1311,6 +1323,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 45A8085F2832A5C700DF7EF6 /* XCRemoteSwiftPackageReference "CodeScanner" */;
 			productName = CodeScanner;
+		};
+		45D58F482843C1BB00E70937 /* SDWebImageSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 45D58F472843C1BB00E70937 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
+			productName = SDWebImageSwiftUI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -19,22 +19,22 @@ struct UserCardView: View {
     
     var body: some View {
         HStack{
-            Group{
-                if let userImageUrl = user.profileImageUrl {
-                    RemoteImageView(
-                        imageUrl: userImageUrl,
-                        size: .init(width: 50, height: 50),
-                        cachingSize: .init(width: 50, height: 50)
-                    )
-                }
-                else{
-                    ImageView(systemImage: "person.fill", size: .init(width: 50, height: 50))
-                }
-            }
-            .clipShape(Circle())
-            .shadow(radius: 5)
-            .overlay(Circle().stroke(Color.fg, lineWidth: 0.5))
-            .padding(.trailing)
+//            Group{
+//                if let userImageUrl = user.profileImageUrl {
+//                    RemoteImageView(
+//                        imageUrl: userImageUrl,
+//                        size: .init(width: 50, height: 50),
+//                        cachingSize: .init(width: 50, height: 50)
+//                    )
+//                }
+//                else{
+//                    ImageView(systemImage: "person.fill", size: .init(width: 50, height: 50))
+//                }
+//            }
+//            .clipShape(Circle())
+//            .shadow(radius: 5)
+//            .overlay(Circle().stroke(Color.fg, lineWidth: 0.5))
+//            .padding(.trailing)
             
             Text(user.name)
                 .font(.headline)

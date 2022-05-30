@@ -53,8 +53,15 @@ struct ChoreTabView: View {
                                 }.transition(.move(edge: onUnfinishedTab ? .leading : .trailing))
                             }
                         }
-                        
+
                     }
+//                    List(choreTabViewModel.state.displayingChoreList){chore in
+//                        NavigationLink {
+//                            views.choreDetailView(chore: chore)
+//                        } label: {
+//                            ChoreCardView(chore: chore)
+//                        }
+//                    }
                     .animation(.easeInOut(duration: 0.2), value: choreTabViewModel.state.chorePickerState)
                     if (presentFilterMenu){
                         filterMenu
