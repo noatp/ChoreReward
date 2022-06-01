@@ -38,6 +38,8 @@ struct UserCardView: View {
             
             Text(user.name)
                 .font(.headline)
+            
+            Spacer()
         }
     }
 }

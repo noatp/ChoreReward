@@ -49,9 +49,7 @@ class ChoreService: ObservableObject{
     
     func createChore(choreTitle: String, choreDescription: String, currentUser: User, choreImage: UIImage) async {
         isBusy = true
-        guard let currentUserId = currentUser.id
-//              let currentFamilyId = currentUser.familyId
-        else{
+        guard let currentUserId = currentUser.id else{
             return
         }
         
@@ -74,7 +72,6 @@ class ChoreService: ObservableObject{
             )
             
             choreRepository.createChore(newChore: newChore, newChoreId: newChoreId)
-//            await familyRepository.updateChoreOfFamily(familyId: currentFamilyId, choreId: newChoreId)
             isBusy = false
         }
     }

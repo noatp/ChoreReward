@@ -62,28 +62,31 @@ class ChoreRepository: ObservableObject{
     func readChoresOfFamily(_ family: Family) {
         choreCollection = family.choreCollection
         if familyChoresListener == nil {
-            familyChoresListener = family.choreCollection?.addSnapshotListener{ [weak self] querySnapshot, error in
-                guard let documents = querySnapshot?.documents else{
-                    print("\(#fileID) \(#function): Error fetching documents: \(error!)")
-                    return
-                }
-                let chores: [Chore] = documents.compactMap{ document in
-                    do {
-                        return try document.data(as: Chore.self)
+            familyChoresListener = family.choreCollection?
+                .order(by: "created")
+                .addSnapshotListener{ [weak self] querySnapshot, error in
+                    guard let documents = querySnapshot?.documents else{
+                        print("\(#fileID) \(#function): Error fetching documents: \(error!)")
+                        return
                     }
-                    catch{
-                        print("\(#fileID) \(#function): error")
-                        return nil
+                    let chores: [Chore] = documents
+                        .compactMap{ document in
+                        do {
+                            return try document.data(as: Chore.self)
+                        }
+                        catch{
+                            print("\(#fileID) \(#function): error")
+                            return nil
+                        }
                     }
+                    self?.familyChoresPublisher.send(chores)
                 }
-                self?.familyChoresPublisher.send(chores)
-            }
         }
     }
     
     func updateAssigneeForChore(choreId: String, assigneeId: String) async {
         do {
-            try await database.collection("chores").document(choreId).updateData([
+            try await choreCollection?.document(choreId).updateData([
                 "assigneeId" : assigneeId
             ])
         }
@@ -94,7 +97,7 @@ class ChoreRepository: ObservableObject{
     
     func updateCompletionForChore(choreId: String) async {
         do{
-            try await database.collection("chores").document(choreId).updateData([
+            try await choreCollection?.document(choreId).updateData([
                 "completed" : FieldValue.serverTimestamp()
             ])
         }
