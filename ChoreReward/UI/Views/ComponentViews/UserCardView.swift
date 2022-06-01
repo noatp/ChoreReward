@@ -9,10 +9,10 @@ import SwiftUI
 import Kingfisher
 
 struct UserCardView: View {
-    private let user: User
+    private let user: DenormUser
     
     init(
-        user: User
+        user: DenormUser
     ){
         self.user = user
     }
@@ -38,16 +38,13 @@ struct UserCardView: View {
             
             Text(user.name)
                 .font(.headline)
-            Spacer()
-            Text(user.role.rawValue)
-                .font(.caption)
         }
     }
 }
 
 struct UserCardView_Previews: PreviewProvider {
     static var previews: some View {
-        UserCardView(user: User.preview)
+        UserCardView(user: DenormUser.preview)
             .previewLayout(.sizeThatFits)
     }
 }

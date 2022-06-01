@@ -62,7 +62,7 @@ struct ChoreDetailView_Previews: PreviewProvider {
             assignerId: "preview assignerId",
             assigneeId: "preview assigneeId",
             completed: Date(),
-            created: Date(),
+            created: nil,
             description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Interdum posuere lorem ipsum dolor sit amet consectetur. Amet consectetur adipiscing elit pellentesque. Id venenatis a con",
             choreImageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTvaNbNa9E_46fY75AFA9N8dhocKjEdDegvrN5QbBHH-WX-oij4xtjeYijvpC_kHB9-FiU&usqp=CAU"
         )
@@ -97,7 +97,7 @@ extension ChoreDetailView{
                 .frame(maxWidth: .infinity, alignment: .leading)
             Text("Chore put up by: \(chore.assignerId)")
                 .font(.footnote)
-            Text("on \(chore.created.formatted(date: .abbreviated, time: .omitted))")
+            Text("on \(chore.created?.dateValue().formatted(date: .abbreviated, time: .omitted) ?? "")")
                 .font(.footnote)
                 .padding(.bottom)
             

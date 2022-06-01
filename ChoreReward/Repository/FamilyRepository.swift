@@ -58,13 +58,24 @@ class FamilyRepository: ObservableObject{
     private let database = Firestore.firestore()
     private let familyDatabase = FamilyDatabase.shared
     
-    func createFamily(currentUserId: String, newFamilyId: String) async {
+    func createFamily(currentUser: User, newFamilyId: String) async {
+        guard let currentUserId = currentUser.id else {
+            return
+        }
+        let newFamilyDocRef: DocumentReference = database.collection("families").document(newFamilyId)
+        let newFamily: Family = .init(
+            familyDocRef: newFamilyDocRef,
+            adminId: currentUserId,
+            members: [
+                DenormUser(
+                    id: currentUserId,
+                    name: currentUser.name,
+                    profileImageUrl: currentUser.profileImageUrl
+                )
+            ]
+        )
         do{
-            try await database.collection("families").document(newFamilyId).setData([
-                "admin": currentUserId,
-                "members": [currentUserId],
-                "chores": []
-            ])
+            try newFamilyDocRef.setData(from: newFamily)
         }
         catch{
             print("\(#fileID) \(#function): \(error)")

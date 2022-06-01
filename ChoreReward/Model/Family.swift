@@ -7,18 +7,36 @@
 
 import Foundation
 import FirebaseFirestoreSwift
+import FirebaseFirestore
 
 struct Family: Identifiable, Codable{
     @DocumentID var id: String?
-    var admin: String //store the uid of the family creator
-    var members: [String]
-    var chores: [String]
+    var familyDocRef: DocumentReference?
+    var adminId: String //store the uid of the family creator
+    var members: [DenormUser]
     
     static let preview = Family(
         id: "tranfam",
-        admin: User.preview.id ?? "",
-        members: [User.preview.id ?? ""],
-        chores: [Chore.empty.id!, Chore.empty.id!]
+        adminId: User.preview.id ?? "",
+        members: [DenormUser.preview]
+    )
+}
+
+extension Family {
+    var choreCollection: CollectionReference? {
+        return familyDocRef?.collection("chores")
+    }
+}
+
+struct DenormUser: Codable, Identifiable {
+    let id: String
+    let name: String
+    let profileImageUrl: String?
+    
+    static let preview: DenormUser = .init(
+        id: "preview_denorm_user_id",
+        name: "preview_denorm_user_name",
+        profileImageUrl: "preview_denorm_user_url"
     )
 }
 

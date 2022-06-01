@@ -10,7 +10,6 @@ import Combine
 
 class FamilyService: ObservableObject{
     @Published var currentFamily: Family? = nil
-    @Published var currentFamilyMembers: [User] = []
     
     private let userRepository: UserRepository
     private let familyRepository: FamilyRepository
@@ -45,7 +44,7 @@ class FamilyService: ObservableObject{
             return
         }
         let newFamilyId = UUID().uuidString
-        await familyRepository.createFamily(currentUserId: currentUserId, newFamilyId: newFamilyId)
+        await familyRepository.createFamily(currentUser: currentUser, newFamilyId: newFamilyId)
         await userRepository.updateFamilyForUser(familyId: newFamilyId, userId: currentUserId)
         await userRepository.updateRoleToAdminForUser(userId: currentUserId)
     }
@@ -57,12 +56,9 @@ class FamilyService: ObservableObject{
         }
         currentFamilySubscription = familyRepository.readFamily(familyId: currentFamilyId)
             .sink(receiveValue: { [weak self] receivedFamily in
-                guard let currentFamily = receivedFamily else{
-                    return
-                }
                 print("\(#fileID) \(#function): received new family from FamilyDatabse through FamilyRepository")
                 self?.currentFamily = receivedFamily
-                self?.getMembersOfCurrentFamily(currentFamily: currentFamily)
+//                self?.getMembersOfCurrentFamily(currentFamily: currentFamily)
             })
     }
     
@@ -78,21 +74,20 @@ class FamilyService: ObservableObject{
         await userRepository.updateFamilyForUser(familyId: currentFamilyId, userId: userId)
     }
     
-    private func getMembersOfCurrentFamily(currentFamily: Family) {
-        let memberIds = currentFamily.members
-        guard memberIds.count > 0, memberIds.count < 10 else{
-            return
-        }
-        Task{
-            currentFamilyMembers = await userRepository.readMultipleUsers(userIds: memberIds) ?? []
-        }
-    }
+//    private func getMembersOfCurrentFamily(currentFamily: Family) {
+//        let memberIds = currentFamily.members
+//        guard memberIds.count > 0, memberIds.count < 10 else{
+//            return
+//        }
+//        Task{
+//            currentFamilyMembers = await userRepository.readMultipleUsers(userIds: memberIds) ?? []
+//        }
+//    }
     
     private func resetService(){
         currentFamilySubscription?.cancel()
         currentFamilySubscription = nil
         currentFamily = nil
-        currentFamilyMembers = []
         familyRepository.resetRepository()
     }
 }

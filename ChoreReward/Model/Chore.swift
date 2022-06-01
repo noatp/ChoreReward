@@ -9,13 +9,14 @@ import Foundation
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
+
 struct Chore: Identifiable, Codable{
     @DocumentID var id: String?
     var title: String
     var assignerId: String
     var assigneeId: String
     var completed: Date?
-    var created: Date
+    @ServerTimestamp var created: Timestamp?
     var description: String
     var choreImageUrl: String
     
@@ -24,7 +25,7 @@ struct Chore: Identifiable, Codable{
         title: "",
         assignerId: "",
         assigneeId: "",
-        created: Date(),
+        created: Timestamp.init(),
         description: "",
         choreImageUrl: ""
     )

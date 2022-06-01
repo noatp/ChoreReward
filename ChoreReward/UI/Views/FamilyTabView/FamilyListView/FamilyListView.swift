@@ -54,7 +54,7 @@ struct FamilyListView_Previews: PreviewProvider {
             FamilyListView(
                 familyListViewModel: .init(
                     staticState: .init(
-                        members: [User.preview],
+                        members: [DenormUser.preview],
                         shouldRenderAddMemberButton: true
                     )
                 ),

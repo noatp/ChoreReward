@@ -30,16 +30,16 @@ class ChoreTabViewModel: StatefulViewModel{
     }
     
     func addSubscription(){
-        choreListSubscription = choreService.$choreList
-            .sink(receiveValue: { [weak self] receivedChoreList in
-                guard let oldState = self?._state else{
+        choreListSubscription = choreService.$familyChores
+            .sink(receiveValue: { [weak self] receivedFamilyChores in
+                guard let oldState = self?._state, let familyChores = receivedFamilyChores else{
                     return
                 }
                 self?._state = .init(
                     displayingChoreList: self?.applyFilterAndPicker(
                         filterState: oldState.choreFilterState,
                         pickerState: oldState.chorePickerState,
-                        choreList: receivedChoreList
+                        choreList: familyChores
                     ) ?? [],
                     choreFilterState: oldState.choreFilterState,
                     chorePickerState: oldState.chorePickerState
@@ -88,7 +88,7 @@ class ChoreTabViewModel: StatefulViewModel{
             displayingChoreList: applyFilterAndPicker(
                 filterState: newState,
                 pickerState: oldState.chorePickerState,
-                choreList: choreService.choreList
+                choreList: choreService.familyChores ?? []
             ),
             choreFilterState: newState,
             chorePickerState: oldState.chorePickerState
@@ -102,7 +102,7 @@ class ChoreTabViewModel: StatefulViewModel{
             displayingChoreList: applyFilterAndPicker(
                 filterState: oldState.choreFilterState,
                 pickerState: newState,
-                choreList: choreService.choreList
+                choreList: choreService.familyChores ?? []
             ),
             choreFilterState: oldState.choreFilterState,
             chorePickerState: newState

@@ -8,9 +8,10 @@
 import Foundation
 import Combine
 import UIKit
+import FirebaseFirestore
 
 class ChoreService: ObservableObject{
-    @Published var choreList: [Chore] = []
+    @Published var familyChores: [Chore]?
     @Published var isBusy: Bool = false
     
     private let userRepository: UserRepository
@@ -18,8 +19,8 @@ class ChoreService: ObservableObject{
     private let choreRepository: ChoreRepository
     private let storageRepository: StorageRepository
     
-//    private var choreSubscription: AnyCancellable?
     private var currentFamilySubscription: AnyCancellable?
+    private var familyChoresSubscription: AnyCancellable?
     
     init(
         userRepository: UserRepository,
@@ -48,8 +49,8 @@ class ChoreService: ObservableObject{
     
     func createChore(choreTitle: String, choreDescription: String, currentUser: User, choreImage: UIImage) async {
         isBusy = true
-        guard let currentUserId = currentUser.id,
-              let currentFamilyId = currentUser.familyId
+        guard let currentUserId = currentUser.id
+//              let currentFamilyId = currentUser.familyId
         else{
             return
         }
@@ -68,31 +69,22 @@ class ChoreService: ObservableObject{
                 title: choreTitle,
                 assignerId: currentUserId,
                 assigneeId: "",
-                created: Date(),
                 description: choreDescription,
                 choreImageUrl: choreImageUrl
             )
             
             choreRepository.createChore(newChore: newChore, newChoreId: newChoreId)
-            await familyRepository.updateChoreOfFamily(familyId: currentFamilyId, choreId: newChoreId)
+//            await familyRepository.updateChoreOfFamily(familyId: currentFamilyId, choreId: newChoreId)
             isBusy = false
         }
     }
     
     private func getChoresOfCurrentFamily(currentFamily: Family) {
-        choreList = []
-        var choreIds = currentFamily.chores
-        while (!choreIds.isEmpty){
-            let batchSize = (choreIds.count > 10) ? 10 : choreIds.count
-            let idBatch = Array(choreIds[0...(batchSize - 1)])
-            choreIds = Array(choreIds.dropFirst(batchSize))
-            Task{
-                choreList += await choreRepository.readMultipleChores(choreIds: idBatch) ?? []
-            }
-        }
-        choreList = choreList.sorted { chore1, chore2 in
-            chore1.created < chore2.created
-        }
+        familyChoresSubscription = choreRepository.familyChoresPublisher
+            .sink(receiveValue: { [weak self] receivedFamilyChores in
+                self?.familyChores = receivedFamilyChores
+            })
+        choreRepository.readChoresOfFamily(currentFamily)
     }
     
     func takeChore (choreId: String?, currentUserId: String?){
@@ -103,7 +95,7 @@ class ChoreService: ObservableObject{
               }
         Task{
             await choreRepository.updateAssigneeForChore(choreId: choreId, assigneeId: currentUserId)
-            await readUpdatedChore(choreId: choreId)
+//            await readUpdatedChore(choreId: choreId)
         }
     }
     
@@ -114,27 +106,27 @@ class ChoreService: ObservableObject{
         }
         Task{
             await choreRepository.updateCompletionForChore(choreId: choreId)
-            await readUpdatedChore(choreId: choreId)
+//            await readUpdatedChore(choreId: choreId)
         }
     }
     
-    private func readUpdatedChore(choreId: String) async {
-        let choreIndex = choreList.firstIndex { chore in
-            chore.id == choreId
-        }
-        guard let choreIndex = choreIndex else{
-            print("\(#fileID) \(#function): could not find chore with provided choreId in choreList")
-            return
-        }
-        let updatedChore = await choreRepository.readChore(choreId: choreId)
-        guard let updatedChore = updatedChore else{
-            print("\(#fileID) \(#function): could not find chore with provided choreId after update")
-            return
-        }
-        choreList[choreIndex] = updatedChore
-    }
+//    private func readUpdatedChore(choreId: String) async {
+//        let choreIndex = familyChores.firstIndex { chore in
+//            chore.id == choreId
+//        }
+//        guard let choreIndex = choreIndex else{
+//            print("\(#fileID) \(#function): could not find chore with provided choreId in choreList")
+//            return
+//        }
+//        let updatedChore = await choreRepository.readChore(choreId: choreId)
+//        guard let updatedChore = updatedChore else{
+//            print("\(#fileID) \(#function): could not find chore with provided choreId after update")
+//            return
+//        }
+//        familyChores[choreIndex] = updatedChore
+//    }
     
     private func resetService(){
-        choreList = []
+        familyChores = []
     }
 }

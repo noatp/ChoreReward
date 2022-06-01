@@ -37,13 +37,13 @@ class FamilyListViewModel: StatefulViewModel{
     }
     
     func addSubscription(){
-        familyMemberSubscription = familyService.$currentFamilyMembers
-            .sink(receiveValue: { [weak self] receivedFamilyMembers in
-                guard let oldState = self?._state else{
+        familyMemberSubscription = familyService.$currentFamily
+            .sink(receiveValue: { [weak self] receivedFamily in
+                guard let oldState = self?._state, let currentFamily = receivedFamily else{
                     return
                 }
                 self?._state = .init(
-                    members: receivedFamilyMembers,
+                    members: currentFamily.members,
                     shouldRenderAddMemberButton: oldState.shouldRenderAddMemberButton
                 )
             })
@@ -63,7 +63,7 @@ class FamilyListViewModel: StatefulViewModel{
 }
 
 struct FamilyListState{
-    let members: [User]
+    let members: [DenormUser]
     let shouldRenderAddMemberButton: Bool
 }
 
