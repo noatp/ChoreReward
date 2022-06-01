@@ -10,12 +10,12 @@ import SwiftUI
 struct CircularButton: View {
     let action: () -> Void
     let icon: String
-    
+
     init(action: @escaping () -> Void, icon: String) {
         self.action = action
         self.icon = icon
     }
-    
+
     var body: some View {
         Button {
             action()
@@ -33,12 +33,12 @@ struct CircularButton: View {
 struct CircularButtonBig: View {
     let action: () -> Void
     let icon: String
-    
+
     init(action: @escaping () -> Void, icon: String) {
         self.action = action
         self.icon = icon
     }
-    
+
     var body: some View {
         Button {
             action()

@@ -9,8 +9,7 @@ import Foundation
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
-
-struct Chore: Identifiable, Codable{
+struct Chore: Identifiable, Codable {
     @DocumentID var id: String?
     var title: String
     var assignerId: String
@@ -19,7 +18,7 @@ struct Chore: Identifiable, Codable{
     @ServerTimestamp var created: Timestamp?
     var description: String
     var choreImageUrl: String
-    
+
     static let empty = Chore(
         id: "",
         title: "",
@@ -29,14 +28,11 @@ struct Chore: Identifiable, Codable{
         description: "",
         choreImageUrl: ""
     )
-    
-    enum RewardType: String, CaseIterable, Identifiable{
+
+    enum RewardType: String, CaseIterable, Identifiable {
         case goal
         case monetary
-        
+
         var id: String {self.rawValue}
     }
 }
-
-
-

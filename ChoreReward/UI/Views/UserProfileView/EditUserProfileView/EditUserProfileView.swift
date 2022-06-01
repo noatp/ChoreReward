@@ -17,28 +17,26 @@ struct EditUserProfileView: View {
     @State var userEmail: String = ""
     @State var didChangeProfileImage: Bool = false
     private var views: Dependency.Views
-    
+
     init(
         editUserProfileViewModel: ObservableViewModel<EditUserProfileState, EditUserProfileAction>,
         views: Dependency.Views
-    ){
+    ) {
         self.editUserProfileViewModel = editUserProfileViewModel
         self.views = views
     }
-    
+
     var body: some View {
         RegularNavBarView(navTitle: editUserProfileViewModel.state.currentUserName) {
-            VStack(spacing: 16){
-                Group{
+            VStack(spacing: 16) {
+                Group {
                     if didChangeProfileImage {
                         if let userImage = userImage {
                             ImageView(uiImage: userImage)
-                        }
-                        else{
+                        } else {
                             ImageView(systemImage: "person.fill")
                         }
-                    }
-                    else {
+                    } else {
                         if let userImageUrl = editUserProfileViewModel.state.currentUserProfileImageUrl {
 //                            RemoteImageView(
 //                                imageUrl: userImageUrl,
@@ -46,33 +44,32 @@ struct EditUserProfileView: View {
 //                                cachingSize: .init(width: 200, height: 200)
 //                            )
                             RemoteImageView(imageUrl: userImageUrl, isThumbnail: false)
-                        }
-                        else{
+                        } else {
                             ImageView(systemImage: "person.fill")
                         }
                     }
                 }
                 .frame(width: 200, height: 200, alignment: .center)
                 .clipShape(Circle())
-               
+
                 ButtonView(buttonTitle: "Change profile picture", action: {
                     shouldShowActionSheet = true
                 })
                 .foregroundColor(.acc)
                 Divider()
-                VStack{
-                    HStack{
+                VStack {
+                    HStack {
                         Text("Name: ")
                             .frame(width: 60)
                         TextFieldView(title: editUserProfileViewModel.state.currentUserName, textInput: $userName)
                     }
-                    HStack{
+                    HStack {
                         Text("Email: ")
                             .frame(width: 60)
                         TextFieldView(title: editUserProfileViewModel.state.currentUserEmail, textInput: $userEmail)
                     }
                 }
-                
+
                 Divider()
                 Button {
                     editUserProfileViewModel.perform(action: .updateUserProfile(
@@ -130,14 +127,11 @@ struct EditUserProfileView_Previews: PreviewProvider {
     }
 }
 
-extension Dependency.Views{
-    var editUserProfileView: EditUserProfileView{
+extension Dependency.Views {
+    var editUserProfileView: EditUserProfileView {
         return EditUserProfileView(
             editUserProfileViewModel: ObservableViewModel(viewModel: viewModels.editUserProfileViewModel),
             views: self
         )
     }
 }
-
-
-

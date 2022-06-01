@@ -9,15 +9,15 @@ import SwiftUI
 
 struct RolePickerView: View {
     @Binding var roleSelection: Role
-    
+
     init(
         roleSelection: Binding<Role>
-    ){
+    ) {
         self._roleSelection = roleSelection
     }
-    
+
     var body: some View {
-        HStack{
+        HStack {
             Text("You are a: ")
             Picker("Role", selection: $roleSelection) {
                 Text("Parent").tag(Role.parent)
@@ -26,7 +26,7 @@ struct RolePickerView: View {
             .pickerStyle(SegmentedPickerStyle())
         }
         .padding()
-        
+
     }
 }
 

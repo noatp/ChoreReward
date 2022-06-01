@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-extension Color{
+extension Color {
     static let bg = Color("background")
     static let fg = Color("foreground")
     static let bg2 = Color("background2")

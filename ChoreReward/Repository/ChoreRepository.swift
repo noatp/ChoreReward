@@ -10,7 +10,7 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 import Combine
 
-//class ChoreDatabase {
+// class ChoreDatabase {
 //    static let shared = ChoreDatabase()
 //
 //
@@ -31,50 +31,47 @@ import Combine
 //    func resetPublisher(){
 //        self.familyPublisher.send(nil)
 //    }
-//}
+// }
 
-class ChoreRepository: ObservableObject{
+class ChoreRepository: ObservableObject {
     private let database = Firestore.firestore()
     private var familyChoresListener: ListenerRegistration?
     private var choreCollection: CollectionReference?
     let familyChoresPublisher = PassthroughSubject<[Chore]?, Never>()
-    
-    func createChore(newChore: Chore, newChoreId: String){
-        do{
+
+    func createChore(newChore: Chore, newChoreId: String) {
+        do {
             try choreCollection?.document(newChoreId).setData(from: newChore)
-        }
-        catch{
+        } catch {
             print("\(#fileID) \(#function): \(error)")
         }
     }
-    
-    func readChore(choreId: String) async -> Chore?{
-        do{
+
+    func readChore(choreId: String) async -> Chore? {
+        do {
             let documentSnapshot = try await database.collection("chores").document(choreId).getDocument()
             return try documentSnapshot.data(as: Chore.self)
-        }
-        catch{
+        } catch {
             print("\(#fileID) \(#function): \(error)")
             return nil
         }
     }
-    
+
     func readChoresOfFamily(_ family: Family) {
         choreCollection = family.choreCollection
         if familyChoresListener == nil {
             familyChoresListener = family.choreCollection?
                 .order(by: "created")
-                .addSnapshotListener{ [weak self] querySnapshot, error in
-                    guard let documents = querySnapshot?.documents else{
+                .addSnapshotListener { [weak self] querySnapshot, error in
+                    guard let documents = querySnapshot?.documents else {
                         print("\(#fileID) \(#function): Error fetching documents: \(error!)")
                         return
                     }
                     let chores: [Chore] = documents
-                        .compactMap{ document in
+                        .compactMap { document in
                         do {
                             return try document.data(as: Chore.self)
-                        }
-                        catch{
+                        } catch {
                             print("\(#fileID) \(#function): error")
                             return nil
                         }
@@ -83,33 +80,30 @@ class ChoreRepository: ObservableObject{
                 }
         }
     }
-    
+
     func updateAssigneeForChore(choreId: String, assigneeId: String) async {
         do {
             try await choreCollection?.document(choreId).updateData([
-                "assigneeId" : assigneeId
+                "assigneeId": assigneeId
             ])
-        }
-        catch{
+        } catch {
             print("\(#fileID) \(#function): \(error)")
         }
     }
-    
+
     func updateCompletionForChore(choreId: String) async {
-        do{
+        do {
             try await choreCollection?.document(choreId).updateData([
-                "completed" : FieldValue.serverTimestamp()
+                "completed": FieldValue.serverTimestamp()
             ])
-        }
-        catch{
+        } catch {
             print("\(#fileID) \(#function): \(error)")
         }
     }
-    
-    func resetRepository(){
+
+    func resetRepository() {
         self.familyChoresPublisher.send(nil)
         self.familyChoresListener?.remove()
         self.familyChoresListener = nil
     }
 }
-

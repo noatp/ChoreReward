@@ -11,19 +11,19 @@ import Kingfisher
 struct UserProfileView: View {
     @ObservedObject var userProfileViewModel: ObservableViewModel<UserProfileState, UserProfileAction>
     private var views: Dependency.Views
-    
+
     init(
         userProfileViewModel: ObservableViewModel<UserProfileState, UserProfileAction>,
         views: Dependency.Views
-    ){
+    ) {
         self.userProfileViewModel = userProfileViewModel
         self.views = views
     }
-    
+
     var body: some View {
         RegularNavBarView(navTitle: userProfileViewModel.state.currentUserName) {
-            VStack(spacing: 16){
-                Group{
+            VStack(spacing: 16) {
+                Group {
                     if let userImageUrl = userProfileViewModel.state.currentUserProfileImageUrl {
 //                        RemoteImageView(
 //                            imageUrl: userImageUrl,
@@ -31,32 +31,31 @@ struct UserProfileView: View {
 //                            cachingSize: .init(width: 200, height: 200)
 //                        )
                         RemoteImageView(imageUrl: userImageUrl, isThumbnail: false)
-                    }
-                    else{
+                    } else {
                         ImageView(systemImage: "person.fill")
                     }
                 }
                 .frame(width: 200, height: 200, alignment: .center)
                 .clipShape(Circle())
-                
+
                 Text(userProfileViewModel.state.currentUserName)
                     .font(.title)
 
-                HStack{
+                HStack {
                     Text("Email:")
                     Text(userProfileViewModel.state.currentUserEmail)
                 }
-                HStack{
+                HStack {
                     Text("Role:")
                     Text(userProfileViewModel.state.currentUserRole)
                 }
-                
+
                 Spacer()
-                
+
                 NavigationLink {
                     views.editUserProfileView
                 } label: {
-                    HStack{
+                    HStack {
                         Image(systemName: "pencil")
                         Text("Edit profile")
                     }
@@ -74,7 +73,7 @@ struct UserProfileView: View {
 
 struct UserTabView_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationView{
+        NavigationView {
             UserProfileView(
                 userProfileViewModel: ObservableViewModel(
                     staticState: UserProfileState(
@@ -82,7 +81,7 @@ struct UserTabView_Previews: PreviewProvider {
                         currentUserName: "Toan Pham",
                         currentUserRole: "Child",
                         currentUserProfileImageUrl: nil
-                    )                    
+                    )
                 ),
                 views: Dependency.preview.views()
             )
@@ -91,13 +90,11 @@ struct UserTabView_Previews: PreviewProvider {
     }
 }
 
-extension Dependency.Views{
-    var userProfileView: UserProfileView{
+extension Dependency.Views {
+    var userProfileView: UserProfileView {
         return UserProfileView(
             userProfileViewModel: ObservableViewModel(viewModel: viewModels.userProfileViewModel),
             views: self
         )
     }
 }
-
-

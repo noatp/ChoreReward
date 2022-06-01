@@ -9,12 +9,12 @@ import SwiftUI
 
 struct NavDrawerView<MainContent: View, DrawerContent: View>: View {
     @State var presentingSideDrawer: Bool = false
-    
+
     private var views: Dependency.Views
     private let mainContent: MainContent
     private let drawerContent: DrawerContent
     private let navTitle: String
-    
+
     init(
         navTitle: String,
         views: Dependency.Views,
@@ -28,19 +28,19 @@ struct NavDrawerView<MainContent: View, DrawerContent: View>: View {
     }
 
     var body: some View {
-        ZStack{
-            //main content: nav bar on top of content
-            VStack(alignment: .leading, spacing: 0){
+        ZStack {
+            // main content: nav bar on top of content
+            VStack(alignment: .leading, spacing: 0) {
                 TabNavBarView(presentingSideDrawer: $presentingSideDrawer, navTitle: navTitle)
                 mainContent
                 Spacer(minLength: 0)
             }
-            
-            //side drawer content
+
+            // side drawer content
             GeometryReader { geoProxy in
-                ZStack(alignment: .leading){
-                    //transparent layer to prevent interaction with main content
-                    if (presentingSideDrawer){
+                ZStack(alignment: .leading) {
+                    // transparent layer to prevent interaction with main content
+                    if presentingSideDrawer {
                         Color.bg2.opacity(0.4)
                             .ignoresSafeArea()
                             .onTapGesture {
@@ -50,23 +50,23 @@ struct NavDrawerView<MainContent: View, DrawerContent: View>: View {
                             }
                             .transition(.opacity)
 
-                        //side menu
-                        HStack(spacing: 0){
-                            VStack{
+                        // side menu
+                        HStack(spacing: 0) {
+                            VStack {
                                 ButtonView(buttonImage: "xmark", action: {
                                     withAnimation {
                                         presentingSideDrawer = false
                                     }
                                 })
                                 .foregroundColor(.fg)
-                                
+
                                 Spacer()
                             }
                             .padding(.horizontal)
-                            
+
                             Divider()
-                            
-                            VStack(alignment: .leading){
+
+                            VStack(alignment: .leading) {
                                 drawerContent
                                 Spacer()
                                     .frame(maxWidth: .infinity)
@@ -90,7 +90,7 @@ struct SideDrawerView_Previews: PreviewProvider {
         NavDrawerView(
             navTitle: "Preview",
             views: Dependency.preview.views()
-        ){
+        ) {
             Text("This is a Preview of NavDrawerView")
         } drawerContent: {
             ChoreTabDrawerView()
@@ -98,12 +98,12 @@ struct SideDrawerView_Previews: PreviewProvider {
     }
 }
 
-extension Dependency.Views{
+extension Dependency.Views {
     func navDrawerView<MainContent: View, DrawerContent: View>(
         navTitle: String,
         mainContent: () -> MainContent,
         drawerContent: () -> DrawerContent
-    ) -> NavDrawerView<MainContent, DrawerContent>{
+    ) -> NavDrawerView<MainContent, DrawerContent> {
         return NavDrawerView(
             navTitle: navTitle,
             views: self,
@@ -113,22 +113,22 @@ extension Dependency.Views{
     }
 }
 
-extension NavDrawerView{
+extension NavDrawerView {
     var basicDrawerContent: some View {
-        VStack(alignment: .leading){
+        VStack(alignment: .leading) {
             NavigationLink {
                 views.userProfileView
             } label: {
-                HStack{
+                HStack {
                     Image(systemName: "person.crop.circle")
                     Text("Your Profile")
                 }
             }
-            //.buttonStyle(.plain)
+            // .buttonStyle(.plain)
             .padding([.horizontal, .top])
 
             ButtonView(buttonTitle: "Settings", buttonImage: "gearshape") {
-                
+
             }
             .padding([.horizontal, .top])
         }

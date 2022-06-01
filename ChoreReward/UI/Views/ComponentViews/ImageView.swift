@@ -10,7 +10,7 @@ import SwiftUI
 struct ImageView: View {
     let systemImage: String?
     let uiImage: UIImage?
-    
+
     init(
         systemImage: String? = nil,
         uiImage: UIImage? = nil
@@ -18,16 +18,14 @@ struct ImageView: View {
         self.systemImage = systemImage
         self.uiImage = uiImage
     }
-    
+
     var body: some View {
-        Group{
+        Group {
             if let systemImage = systemImage {
                 Image(systemName: systemImage).resizable()
-            }
-            else if let uiImage = uiImage {
+            } else if let uiImage = uiImage {
                 Image(uiImage: uiImage).resizable()
-            }
-            else{
+            } else {
                 Image(systemName: "person.fill").resizable()
             }
         }

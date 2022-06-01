@@ -11,7 +11,7 @@ struct ButtonView: View {
     private var action: () -> Void
     private var buttonTitle: String?
     private var buttonImage: String?
-    
+
     init(
         buttonTitle: String? = nil,
         buttonImage: String? = nil,
@@ -21,12 +21,12 @@ struct ButtonView: View {
         self.buttonImage = buttonImage
         self.buttonTitle = buttonTitle
     }
-    
+
     var body: some View {
         Button {
             action()
         } label: {
-            HStack{
+            HStack {
                 if let buttonImage = buttonImage {
                     Image(systemName: buttonImage)
                 }
@@ -40,15 +40,15 @@ struct ButtonView: View {
 
 struct ButtonView_Previews: PreviewProvider {
     static var previews: some View {
-        Group{
+        Group {
             ButtonView(buttonTitle: "Preview", buttonImage: "person") {
-                
+
             }
             ButtonView(buttonImage: "person") {
-                
+
             }
             ButtonView(buttonTitle: "Preview") {
-                
+
             }
         }
         .previewLayout(.sizeThatFits)

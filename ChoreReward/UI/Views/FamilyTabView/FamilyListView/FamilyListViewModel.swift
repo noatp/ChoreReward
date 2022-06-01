@@ -8,25 +8,25 @@
 import Foundation
 import Combine
 
-class FamilyListViewModel: StatefulViewModel{
+class FamilyListViewModel: StatefulViewModel {
     @Published var _state: FamilyListState
     static let empty = FamilyListState(
         members: [],
         shouldRenderAddMemberButton: false
     )
-    var state: AnyPublisher<FamilyListState, Never>{
+    var state: AnyPublisher<FamilyListState, Never> {
         return $_state.eraseToAnyPublisher()
     }
-    
+
     private let familyService: FamilyService
     private let userService: UserService
     private var familyMemberSubscription: AnyCancellable?
     private var currentUserSubscription: AnyCancellable?
-    
+
     init(
         familyService: FamilyService,
         userService: UserService
-    ){
+    ) {
         self.familyService = familyService
         self.userService = userService
         self._state = .init(
@@ -35,11 +35,11 @@ class FamilyListViewModel: StatefulViewModel{
         )
         addSubscription()
     }
-    
-    func addSubscription(){
+
+    func addSubscription() {
         familyMemberSubscription = familyService.$currentFamily
             .sink(receiveValue: { [weak self] receivedFamily in
-                guard let oldState = self?._state, let currentFamily = receivedFamily else{
+                guard let oldState = self?._state, let currentFamily = receivedFamily else {
                     return
                 }
                 self?._state = .init(
@@ -49,7 +49,7 @@ class FamilyListViewModel: StatefulViewModel{
             })
         currentUserSubscription = userService.$currentUser
             .sink(receiveValue: { [weak self] receivedUser in
-                guard let oldState = self?._state else{
+                guard let oldState = self?._state else {
                     return
                 }
                 self?._state = .init(
@@ -58,17 +58,17 @@ class FamilyListViewModel: StatefulViewModel{
                 )
             })
     }
-    
+
     func performAction(_ action: Void) {}
 }
 
-struct FamilyListState{
+struct FamilyListState {
     let members: [DenormUser]
     let shouldRenderAddMemberButton: Bool
 }
 
-extension Dependency.ViewModels{
-    var familyListViewModel: FamilyListViewModel{
+extension Dependency.ViewModels {
+    var familyListViewModel: FamilyListViewModel {
         FamilyListViewModel(
             familyService: services.familyService,
             userService: services.userService

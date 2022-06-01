@@ -1,8 +1,6 @@
 # By default, SwiftLint uses a set of sensible default rules you can adjust:
 disabled_rules: # rule identifiers turned on by default to exclude from running
-  - colon
-  - comma
-  - control_statement
+
 opt_in_rules: # some rules are turned off by default, so you need to opt-in
   - empty_count # Find all the available rules by running: `swiftlint rules`
 
@@ -22,5 +20,15 @@ opt_in_rules: # some rules are turned off by default, so you need to opt-in
 # analyzer_rules: # Rules run by `swiftlint analyze`
 #   - explicit_self
 
+line_length:
+  warning: 180
+  error: 200
+identifier_name:
+  min_length: 2 # only min_length
+  allowed_symbols: ["_"]
+  excluded: # excluded via string array
+    - id
+    - URL
+    - GlobalAPIKey
 
 reporter: "xcode" # reporter type (xcode, json, csv, checkstyle, codeclimate, junit, html, emoji, sonarqube, markdown, github-actions-logging)

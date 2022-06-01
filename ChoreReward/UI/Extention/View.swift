@@ -8,8 +8,8 @@
 import Foundation
 import SwiftUI
 
-extension View{
-    func scrollViewOffset(_ offset: Binding<Double>) -> some View{
+extension View {
+    func scrollViewOffset(_ offset: Binding<Double>) -> some View {
         background(GeometryReader { geoProxy -> Color in
             let scrollViewOffset = geoProxy.frame(in: .global).minY / -100
             DispatchQueue.main.async {

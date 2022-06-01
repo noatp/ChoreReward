@@ -10,16 +10,16 @@ import Kingfisher
 
 struct UserCardView: View {
     private let user: DenormUser
-    
+
     init(
         user: DenormUser
-    ){
+    ) {
         self.user = user
     }
-    
+
     var body: some View {
-        HStack{
-            Group{
+        HStack {
+            Group {
                 if let userImageUrl = user.profileImageUrl {
 //                    RemoteImageView(
 //                        imageUrl: userImageUrl,
@@ -27,18 +27,17 @@ struct UserCardView: View {
 //                        cachingSize: .init(width: 50, height: 50)
 //                    )
                     RemoteImageView(imageUrl: userImageUrl, isThumbnail: true)
-                }
-                else{
+                } else {
                     ImageView(systemImage: "person.fill")
                 }
             }
             .frame(width: 100, height: 100, alignment: .center)
             .clipShape(Circle())
             .padding(.trailing)
-            
+
             Text(user.name)
                 .font(.headline)
-            
+
             Spacer()
         }
     }
@@ -50,4 +49,3 @@ struct UserCardView_Previews: PreviewProvider {
             .previewLayout(.sizeThatFits)
     }
 }
-

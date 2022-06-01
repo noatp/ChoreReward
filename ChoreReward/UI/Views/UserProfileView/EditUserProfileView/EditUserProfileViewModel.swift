@@ -9,27 +9,27 @@ import Foundation
 import Combine
 import SwiftUI
 
-class EditUserProfileViewModel: StatefulViewModel{
+class EditUserProfileViewModel: StatefulViewModel {
     @Published var _state: EditUserProfileState = empty
     static let empty = EditUserProfileState.empty
-    var state: AnyPublisher<EditUserProfileState, Never>{
+    var state: AnyPublisher<EditUserProfileState, Never> {
         return $_state.eraseToAnyPublisher()
     }
 
     private let userService: UserService
     private var currentUserSubscription: AnyCancellable?
-        
+
     init(
         userService: UserService
-    ){
+    ) {
         self.userService = userService
         self.addSubscription()
     }
-    
-    func addSubscription(){
+
+    func addSubscription() {
         currentUserSubscription = userService.$currentUser
             .sink(receiveValue: { receivedUser in
-                guard let currentUser = receivedUser else{
+                guard let currentUser = receivedUser else {
                     print("\(#fileID) \(#function): currentUser is nil")
                     return
                 }
@@ -46,8 +46,8 @@ class EditUserProfileViewModel: StatefulViewModel{
         userEmail: String,
         newUserImage: UIImage?,
         didChangeProfileImage: Bool
-    ){
-        guard let currentUser = userService.currentUser else{
+    ) {
+        guard let currentUser = userService.currentUser else {
             print("\(#fileID) \(#function): currentuser is nil")
             return
         }
@@ -56,16 +56,15 @@ class EditUserProfileViewModel: StatefulViewModel{
             name: userName.isEmpty ? currentUser.name : userName,
             role: currentUser.role
         )
-        if didChangeProfileImage{
+        if didChangeProfileImage {
             userService.updateUserProfileWithImage(newUserProfile: newUserProfile, newUserImage: newUserImage)
-        }
-        else{
+        } else {
             userService.updateUserProfileWithoutImage(newUserProfile: newUserProfile)
         }
     }
-    
+
     func performAction(_ action: EditUserProfileAction) {
-        switch(action){
+        switch action {
         case .updateUserProfile(let userName, let userEmail, let userImage, let didChangeProfileImage):
             updateUserProfile(
                 userName: userName,
@@ -82,14 +81,14 @@ struct EditUserProfileState {
     let currentUserName: String
     let currentUserRole: String
     let currentUserProfileImageUrl: String?
-    
+
     static let empty: EditUserProfileState = .init(
         currentUserEmail: "",
         currentUserName: "",
         currentUserRole: "",
         currentUserProfileImageUrl: nil
     )
-    
+
     static let preview: EditUserProfileState = .init(
         currentUserEmail: "toan.chpham@gmail.com",
         currentUserName: "Toan Pham",
@@ -98,12 +97,12 @@ struct EditUserProfileState {
     )
 }
 
-enum EditUserProfileAction{
+enum EditUserProfileAction {
     case updateUserProfile(userName: String, userEmail: String, userImage: UIImage?, didChangeProfileImage: Bool)
 }
 
-extension Dependency.ViewModels{
-    var editUserProfileViewModel: EditUserProfileViewModel{
+extension Dependency.ViewModels {
+    var editUserProfileViewModel: EditUserProfileViewModel {
         EditUserProfileViewModel(userService: services.userService)
     }
 }

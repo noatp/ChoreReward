@@ -12,24 +12,23 @@ struct RegularNavBarView<Content: View>: View {
 
     private let navTitle: String
     private let content: Content
-    
+
     init(navTitle: String, content: () -> Content) {
         self.navTitle = navTitle
         self.content = content()
     }
-    
+
     var body: some View {
-        VStack{
-            ZStack{
-                HStack{
+        VStack {
+            ZStack {
+                HStack {
                     ButtonView(buttonImage: "chevron.left") {
                         dismiss()
                     }
                     Spacer()
                 }
-                
-                HStack{
-                    
+
+                HStack {
 
                     Spacer(minLength: 50)
                     Text(navTitle)
@@ -37,25 +36,25 @@ struct RegularNavBarView<Content: View>: View {
                         .truncationMode(.tail)
                         .font(.title2)
                     Spacer(minLength: 50)
-                    
+
                 }
             }
-            
+
             .padding([.leading, .bottom, .trailing])
             .background(Color.bg.ignoresSafeArea(edges: .top))
             .foregroundColor(.fg)
-            
+
             content
             Spacer(minLength: 0)
         }
-        
+
     }
 }
 
 struct RegularNavBarView_Previews: PreviewProvider {
     static var previews: some View {
         RegularNavBarView(navTitle: "RegularNavBarView") {
-            VStack{
+            VStack {
                 Text("This is RegularNavBarView")
             }
         }

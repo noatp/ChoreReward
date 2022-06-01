@@ -8,14 +8,13 @@
 import Foundation
 import SwiftUI
 
-//struct PresentingProgressView: EnvironmentKey {
+// struct PresentingProgressView: EnvironmentKey {
 //    static var defaultValue: Binding<Bool> = .constant(false)
-//}
+// }
 //
-//extension EnvironmentValues {
+// extension EnvironmentValues {
 //    var presentingProgressView: Binding<Bool>{
 //        get {self[PresentingProgressView.self]}
 //        set {self[PresentingProgressView.self] = newValue}
 //    }
-//}
-
+// }

@@ -14,24 +14,24 @@ struct ChoreDetailNavBarView<Content: View>: View {
     private let navTitle: String
     private let opacity: Double
     private let content: Content
-    
+
     init(navTitle: String, opacity: Double, content: () -> Content) {
         self.navTitle = navTitle
         self.opacity = opacity
         self.content = content()
     }
-    
+
     var body: some View {
-        ZStack(alignment: .top){
+        ZStack(alignment: .top) {
             content
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
-            
-            HStack{
-                NavBarButton
+
+            HStack {
+                navBarButton
                 Spacer()
             }
             .background(
-                HStack{
+                HStack {
                     Spacer(minLength: 50)
                     Text(navTitle)
                         .lineLimit(1)
@@ -59,8 +59,8 @@ struct ChoreDetailNavBarView_Previews: PreviewProvider {
     }
 }
 
-extension ChoreDetailNavBarView{
-    private var NavBarButton: some View{
+extension ChoreDetailNavBarView {
+    private var navBarButton: some View {
         CircularButton(action: {
             dismiss()
         }, icon: "xmark")

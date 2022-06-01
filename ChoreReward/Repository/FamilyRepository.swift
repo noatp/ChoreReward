@@ -12,32 +12,32 @@ import Combine
 
 class FamilyDatabase {
     static let shared = FamilyDatabase()
-    
+
     let familyPublisher = PassthroughSubject<Family?, Never>()
-    
+
     private let database = Firestore.firestore()
     var currentFamilyListener: ListenerRegistration?
-    
-    func readFamily(familyId: String){
-        guard currentFamilyListener == nil else{
+
+    func readFamily(familyId: String) {
+        guard currentFamilyListener == nil else {
             return
         }
-        
+
         currentFamilyListener = database.collection("families").document(familyId).addSnapshotListener({ [weak self] documentSnapshot, error in
                 if let error = error {
                     print("\(#fileID) \(#function): \(error)")
                     return
                 }
-                
+
                 guard let document = documentSnapshot else {
                     print("\(#fileID) \(#function): bad snapshot")
                     return
                 }
-                
-                let decodeResult = Result{
+
+                let decodeResult = Result {
                     try document.data(as: Family.self)
                 }
-                switch decodeResult{
+                switch decodeResult {
                 case .success(let receivedFamily):
                     print("\(#fileID) \(#function): received new data from Firebase")
                     self?.familyPublisher.send(receivedFamily)
@@ -47,17 +47,16 @@ class FamilyDatabase {
             }
         )
     }
-    
-    func resetPublisher(){
+
+    func resetPublisher() {
         self.familyPublisher.send(nil)
     }
 }
 
-
-class FamilyRepository: ObservableObject{
+class FamilyRepository: ObservableObject {
     private let database = Firestore.firestore()
     private let familyDatabase = FamilyDatabase.shared
-    
+
     func createFamily(currentUser: User, newFamilyId: String) async {
         guard let currentUserId = currentUser.id else {
             return
@@ -74,45 +73,42 @@ class FamilyRepository: ObservableObject{
                 )
             ]
         )
-        do{
+        do {
             try newFamilyDocRef.setData(from: newFamily)
-        }
-        catch{
+        } catch {
             print("\(#fileID) \(#function): \(error)")
         }
-        
+
     }
-    
-    func readFamily(familyId: String? = nil) -> AnyPublisher<Family?, Never>{
+
+    func readFamily(familyId: String? = nil) -> AnyPublisher<Family?, Never> {
         if let familyId = familyId {
             familyDatabase.readFamily(familyId: familyId)
         }
         return familyDatabase.familyPublisher.eraseToAnyPublisher()
     }
-    
+
     func updateMemberOfFamily(familyId: String, userId: String) async {
-        do{
+        do {
             try await database.collection("families").document(familyId).updateData([
-                "members" : FieldValue.arrayUnion([userId])
+                "members": FieldValue.arrayUnion([userId])
             ])
-        }
-        catch{
+        } catch {
             print("\(#fileID) \(#function): \(error)")
         }
     }
-    
+
     func updateChoreOfFamily(familyId: String, choreId: String) async {
-        do{
+        do {
             try await database.collection("families").document(familyId).updateData([
-                "chores" : FieldValue.arrayUnion([choreId])
+                "chores": FieldValue.arrayUnion([choreId])
             ])
-        }
-        catch{
+        } catch {
             print("\(#fileID) \(#function): \(error)")
         }
     }
-    
-    func resetRepository(){
+
+    func resetRepository() {
         familyDatabase.currentFamilyListener?.remove()
         familyDatabase.currentFamilyListener = nil
         familyDatabase.resetPublisher()

@@ -16,18 +16,18 @@ struct AddFamilyMemberView: View {
     init(
         addFamilyMemberViewModel: ObservableViewModel<Void, AddFamilyMemberAction>,
         views: Dependency.Views
-    ){
+    ) {
         self.addFamilyMemberViewModel = addFamilyMemberViewModel
         self.views = views
     }
-    
+
     var body: some View {
-        ZStack{
+        ZStack {
             CodeScannerView(codeTypes: [.qr]) { result in
                 handleScan(result: result)
             }
-            VStack{
-                HStack{
+            VStack {
+                HStack {
                     CircularButton(action: {
                         dismiss()
                     }, icon: "xmark")
@@ -36,10 +36,10 @@ struct AddFamilyMemberView: View {
                 }
                 Spacer()
             }
-            
+
         }
     }
-    
+
     func handleScan(result: Result<ScanResult, ScanError>) {
         switch result {
         case .success(let result):
@@ -55,7 +55,7 @@ struct AddFamilyMemberView: View {
 
 struct AddFamilyMemberView_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationView{
+        NavigationView {
             AddFamilyMemberView(
                 addFamilyMemberViewModel: ObservableViewModel(
                     staticState: ()
@@ -67,8 +67,8 @@ struct AddFamilyMemberView_Previews: PreviewProvider {
     }
 }
 
-extension Dependency.Views{
-    func addFamilyMemberView() -> AddFamilyMemberView{
+extension Dependency.Views {
+    func addFamilyMemberView() -> AddFamilyMemberView {
         return AddFamilyMemberView(
             addFamilyMemberViewModel: ObservableViewModel(
                 viewModel: viewModels.addFamilyMemberViewModel

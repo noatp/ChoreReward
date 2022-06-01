@@ -7,16 +7,16 @@
 
 import Foundation
 
-struct Reward{
-    var unit: rewardUnit
+struct Reward {
+    var unit: RewardUnit
     var amount: Int
-    
-    static let previewReward = Reward(unit: rewardUnit.percentOfCurrentGoal, amount: 1)
+
+    static let previewReward = Reward(unit: RewardUnit.percentOfCurrentGoal, amount: 1)
 }
 
-enum rewardUnit: String, CaseIterable, Identifiable{
+enum RewardUnit: String, CaseIterable, Identifiable {
     case percentOfCurrentGoal
     case dollar
-    
+
     var id: String {self.rawValue}
 }
