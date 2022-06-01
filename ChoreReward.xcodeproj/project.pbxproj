@@ -543,6 +543,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 45ACB4D12724AD1D000E04A0 /* Build configuration list for PBXNativeTarget "ChoreReward" */;
 			buildPhases = (
+				45D58F702847E44300E70937 /* ShellScript */,
 				45ACB4A42724AD1A000E04A0 /* Sources */,
 				45ACB4A52724AD1A000E04A0 /* Frameworks */,
 				45ACB4A62724AD1A000E04A0 /* Resources */,
@@ -677,6 +678,26 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		45D58F702847E44300E70937 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nif test -d \"/opt/homebrew/bin/\"; then\n  PATH=\"/opt/homebrew/bin/:${PATH}\"\nfi\n\nexport PATH\n\nif which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		45ACB4A42724AD1A000E04A0 /* Sources */ = {
