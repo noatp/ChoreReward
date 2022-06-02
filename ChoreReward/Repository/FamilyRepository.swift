@@ -57,11 +57,13 @@ class FamilyRepository: ObservableObject {
     private let database = Firestore.firestore()
     private let familyDatabase = FamilyDatabase.shared
 
-    // when writing the members field of family => trigger cloud function to update familyId of user
-    func createFamily(currentUser: User) async {
-        guard let currentUserId = currentUser.id else {
-            return
-        }
+    /*
+     first create a family with empty 'members' array.
+     then update the 'members' array, adding the admin "userId" as the first member of the family.
+     the update will trigger cloud function to update the correspoding user document
+     the user document will have role updated to "admin" and new familyId
+     */
+    func createFamily(currentUserId: String) async {
         let newFamilyDocRef: DocumentReference = database.collection("families").document()
         let newFamily: Family = .init(
             familyDocRef: newFamilyDocRef,
@@ -69,7 +71,8 @@ class FamilyRepository: ObservableObject {
             members: []
         )
         do {
-            try newFamilyDocRef.setData(from: newFamily)
+            let data = try Firestore.Encoder().encode(newFamily)
+            try await newFamilyDocRef.setData(data)
             await updateMembersOfFamily(familyId: newFamilyDocRef.documentID, userId: currentUserId)
         } catch {
             print("\(#fileID) \(#function): \(error)")
@@ -84,22 +87,12 @@ class FamilyRepository: ObservableObject {
         return familyDatabase.familyPublisher.eraseToAnyPublisher()
     }
 
-    func updateChoreOfFamily(familyId: String, choreId: String) async {
-        do {
-            try await database.collection("families").document(familyId).updateData([
-                "chores": FieldValue.arrayUnion([choreId])
-            ])
-        } catch {
-            print("\(#fileID) \(#function): \(error)")
-        }
-    }
-
     func updateMembersOfFamily(familyId: String, userId: String) async {
         do {
             try await database.collection("families").document(familyId).updateData([
                 "members": FieldValue.arrayUnion([
                     ["id": userId]
-            ])
+                ])
             ])
         } catch {
             print("\(#fileID) \(#function): \(error)")

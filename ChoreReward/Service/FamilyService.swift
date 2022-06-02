@@ -29,42 +29,39 @@ class FamilyService: ObservableObject {
     func addSubscription() {
         currentUserSubscription = userRepository.readUser()
             .sink(receiveValue: { [weak self] receivedUser in
-                guard let currentUser = receivedUser else {
-                    // logged out
+                if let currentUser = receivedUser {
+                    print("\(#fileID) \(#function): received a non-nil user, checking for familyId")
+                    guard let currentFamilyId = currentUser.familyId else {
+                        print("\(#fileID) \(#function): currentUser does not have a familyId")
+                        return
+                    }
+                    self?.readCurrentFamily(currentFamilyId: currentFamilyId)
+                }
+                else{
+                    print("\(#fileID) \(#function): received a nil user, reset family service")
                     self?.resetService()
                     return
                 }
-                print("\(#fileID) \(#function): received new user from UserDatabase through UserRepository")
-                self?.readCurrentFamily(currentUser: currentUser)
             })
     }
 
-    func createFamily(currentUser: User) async {
-        await familyRepository.createFamily(currentUser: currentUser)
+    func createFamily(currentUserId: String) async {
+        await familyRepository.createFamily(currentUserId: currentUserId)
     }
 
-    func readCurrentFamily(currentUser: User) {
-        guard let currentFamilyId = currentUser.familyId else {
-            print("\(#fileID) \(#function): currentUser does not have a family")
-            return
-        }
+    func readCurrentFamily(currentFamilyId: String) {
         currentFamilySubscription = familyRepository.readFamily(familyId: currentFamilyId)
             .sink(receiveValue: { [weak self] receivedFamily in
-                print("\(#fileID) \(#function): received new family from FamilyDatabse through FamilyRepository")
                 self?.currentFamily = receivedFamily
+                print("\(#fileID) \(#function): received and cached a non-nil family")
             })
     }
 
     func addUserToCurrentFamily(userId: String) async {
-        guard let currentFamilyId = currentFamily?.id else {
-            return
-        }
-        guard userId != "" else {
+        guard let currentFamilyId = currentFamily?.id, userId != "" else {
             return
         }
         await familyRepository.updateMembersOfFamily(familyId: currentFamilyId, userId: userId)
-
-//        await userRepository.updateFamilyForUser(familyId: currentFamilyId, userId: userId)
     }
 
     private func resetService() {
