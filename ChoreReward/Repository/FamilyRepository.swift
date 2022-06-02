@@ -25,7 +25,7 @@ class FamilyDatabase {
 
         currentFamilyListener = database.collection("families").document(familyId).addSnapshotListener({ [weak self] documentSnapshot, error in
                 if let error = error {
-                    print("\(#fileID) \(#function): \(error)")
+                    print("\(#fileID) \(#function): addSnapshotListener error: \(error)")
                     return
                 }
 
@@ -39,16 +39,18 @@ class FamilyDatabase {
                 }
                 switch decodeResult {
                 case .success(let receivedFamily):
-                    print("\(#fileID) \(#function): received new data from Firebase")
+                    print("\(#fileID) \(#function): received data from Firebase")
                     self?.familyPublisher.send(receivedFamily)
                 case .failure(let error):
-                    print("\(#fileID) \(#function): \(error)")
+                    print("\(#fileID) \(#function): decoding error: \(error)")
                 }
             }
         )
     }
 
     func resetPublisher() {
+        currentFamilyListener?.remove()
+        currentFamilyListener = nil
         self.familyPublisher.send(nil)
     }
 }
@@ -80,10 +82,8 @@ class FamilyRepository: ObservableObject {
 
     }
 
-    func readFamily(familyId: String? = nil) -> AnyPublisher<Family?, Never> {
-        if let familyId = familyId {
-            familyDatabase.readFamily(familyId: familyId)
-        }
+    func readFamily(familyId: String) -> AnyPublisher<Family?, Never> {
+        familyDatabase.readFamily(familyId: familyId)
         return familyDatabase.familyPublisher.eraseToAnyPublisher()
     }
 
@@ -100,8 +100,6 @@ class FamilyRepository: ObservableObject {
     }
 
     func resetRepository() {
-        familyDatabase.currentFamilyListener?.remove()
-        familyDatabase.currentFamilyListener = nil
         familyDatabase.resetPublisher()
     }
 }

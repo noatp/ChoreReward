@@ -32,9 +32,15 @@ class FamilyService: ObservableObject {
                 if let currentUser = receivedUser {
                     print("\(#fileID) \(#function): received a non-nil user, checking for familyId")
                     guard let currentFamilyId = currentUser.familyId else {
-                        print("\(#fileID) \(#function): currentUser does not have a familyId")
+                        print("\(#fileID) \(#function): received user does not have a familyId")
+                        self?.currentFamily = nil
                         return
                     }
+                    if let currentFamilyIdInCache = self?.currentFamily?.id, currentFamilyId == currentFamilyIdInCache{
+                        print("\(#fileID) \(#function): received user has same familyId as the cached family")
+                    }
+                    print("\(#fileID) \(#function): received user has diff familyId from the cached family -> fetch new family data")
+                    self?.resetService()
                     self?.readCurrentFamily(currentFamilyId: currentFamilyId)
                 }
                 else{
@@ -52,7 +58,8 @@ class FamilyService: ObservableObject {
     func readCurrentFamily(currentFamilyId: String) {
         currentFamilySubscription = familyRepository.readFamily(familyId: currentFamilyId)
             .sink(receiveValue: { [weak self] receivedFamily in
-                self?.currentFamily = receivedFamily
+                guard let currentFamily = receivedFamily else {return}
+                self?.currentFamily = currentFamily
                 print("\(#fileID) \(#function): received and cached a non-nil family")
             })
     }
