@@ -35,7 +35,7 @@ struct UserCardView: View {
             .clipShape(Circle())
             .padding(.trailing)
 
-            Text(user.name)
+            Text(user.name ?? "")
                 .font(.headline)
 
             Spacer()

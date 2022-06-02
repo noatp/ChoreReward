@@ -30,7 +30,7 @@ extension Family {
 
 struct DenormUser: Codable, Identifiable {
     let id: String
-    let name: String
+    let name: String?
     let profileImageUrl: String?
 
     static let preview: DenormUser = .init(

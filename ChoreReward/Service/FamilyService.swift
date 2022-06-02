@@ -40,13 +40,7 @@ class FamilyService: ObservableObject {
     }
 
     func createFamily(currentUser: User) async {
-        guard let currentUserId = currentUser.id else {
-            return
-        }
-        let newFamilyId = UUID().uuidString
-        await familyRepository.createFamily(currentUser: currentUser, newFamilyId: newFamilyId)
-        await userRepository.updateFamilyForUser(familyId: newFamilyId, userId: currentUserId)
-        await userRepository.updateRoleToAdminForUser(userId: currentUserId)
+        await familyRepository.createFamily(currentUser: currentUser)
     }
 
     func readCurrentFamily(currentUser: User) {
@@ -58,7 +52,6 @@ class FamilyService: ObservableObject {
             .sink(receiveValue: { [weak self] receivedFamily in
                 print("\(#fileID) \(#function): received new family from FamilyDatabse through FamilyRepository")
                 self?.currentFamily = receivedFamily
-//                self?.getMembersOfCurrentFamily(currentFamily: currentFamily)
             })
     }
 
@@ -69,8 +62,9 @@ class FamilyService: ObservableObject {
         guard userId != "" else {
             return
         }
+        await familyRepository.updateMembersOfFamily(familyId: currentFamilyId, userId: userId)
 
-        await userRepository.updateFamilyForUser(familyId: currentFamilyId, userId: userId)
+//        await userRepository.updateFamilyForUser(familyId: currentFamilyId, userId: userId)
     }
 
     private func resetService() {

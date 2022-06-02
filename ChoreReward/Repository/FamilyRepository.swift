@@ -57,11 +57,12 @@ class FamilyRepository: ObservableObject {
     private let database = Firestore.firestore()
     private let familyDatabase = FamilyDatabase.shared
 
-    func createFamily(currentUser: User, newFamilyId: String) async {
+    // when writing the members field of family => trigger cloud function to update familyId of user
+    func createFamily(currentUser: User) async {
         guard let currentUserId = currentUser.id else {
             return
         }
-        let newFamilyDocRef: DocumentReference = database.collection("families").document(newFamilyId)
+        let newFamilyDocRef: DocumentReference = database.collection("families").document()
         let newFamily: Family = .init(
             familyDocRef: newFamilyDocRef,
             adminId: currentUserId,
@@ -69,6 +70,7 @@ class FamilyRepository: ObservableObject {
         )
         do {
             try newFamilyDocRef.setData(from: newFamily)
+            await updateMembersOfFamily(familyId: newFamilyDocRef.documentID, userId: currentUserId)
         } catch {
             print("\(#fileID) \(#function): \(error)")
         }
@@ -86,6 +88,18 @@ class FamilyRepository: ObservableObject {
         do {
             try await database.collection("families").document(familyId).updateData([
                 "chores": FieldValue.arrayUnion([choreId])
+            ])
+        } catch {
+            print("\(#fileID) \(#function): \(error)")
+        }
+    }
+
+    func updateMembersOfFamily(familyId: String, userId: String) async {
+        do {
+            try await database.collection("families").document(familyId).updateData([
+                "members": FieldValue.arrayUnion([
+                    ["id": userId]
+            ])
             ])
         } catch {
             print("\(#fileID) \(#function): \(error)")
