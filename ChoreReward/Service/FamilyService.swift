@@ -70,19 +70,8 @@ class FamilyService: ObservableObject {
             return
         }
 
-        await familyRepository.updateMemberOfFamily(familyId: currentFamilyId, userId: userId)
         await userRepository.updateFamilyForUser(familyId: currentFamilyId, userId: userId)
     }
-
-//    private func getMembersOfCurrentFamily(currentFamily: Family) {
-//        let memberIds = currentFamily.members
-//        guard memberIds.count > 0, memberIds.count < 10 else{
-//            return
-//        }
-//        Task{
-//            currentFamilyMembers = await userRepository.readMultipleUsers(userIds: memberIds) ?? []
-//        }
-//    }
 
     private func resetService() {
         currentFamilySubscription?.cancel()

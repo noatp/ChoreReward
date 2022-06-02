@@ -22,6 +22,12 @@ struct AddFamilyMemberView: View {
     }
 
     var body: some View {
+        VStack {
+            TextFieldView(title: "UserId", textInput: $userIdInput)
+            ButtonView(buttonTitle: "Submit") {
+                addFamilyMemberViewModel.perform(action: .addMember(userId: userIdInput))
+            }
+        }
         ZStack {
             CodeScannerView(codeTypes: [.qr]) { result in
                 handleScan(result: result)

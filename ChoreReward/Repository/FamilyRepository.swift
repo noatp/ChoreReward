@@ -65,13 +65,7 @@ class FamilyRepository: ObservableObject {
         let newFamily: Family = .init(
             familyDocRef: newFamilyDocRef,
             adminId: currentUserId,
-            members: [
-                DenormUser(
-                    id: currentUserId,
-                    name: currentUser.name,
-                    profileImageUrl: currentUser.profileImageUrl
-                )
-            ]
+            members: []
         )
         do {
             try newFamilyDocRef.setData(from: newFamily)
@@ -86,16 +80,6 @@ class FamilyRepository: ObservableObject {
             familyDatabase.readFamily(familyId: familyId)
         }
         return familyDatabase.familyPublisher.eraseToAnyPublisher()
-    }
-
-    func updateMemberOfFamily(familyId: String, userId: String) async {
-        do {
-            try await database.collection("families").document(familyId).updateData([
-                "members": FieldValue.arrayUnion([userId])
-            ])
-        } catch {
-            print("\(#fileID) \(#function): \(error)")
-        }
     }
 
     func updateChoreOfFamily(familyId: String, choreId: String) async {
