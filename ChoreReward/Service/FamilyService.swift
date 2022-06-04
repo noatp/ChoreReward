@@ -36,18 +36,27 @@ class FamilyService: ObservableObject {
                         self?.currentFamily = nil
                         return
                     }
-                    if let currentFamilyIdInCache = self?.currentFamily?.id, currentFamilyId == currentFamilyIdInCache{
+                    // case familyId of user got changed, check if same familyId
+                    // if not, reset service to listen to new family
+                    if let currentFamilyIdInCache = self?.currentFamily?.id, currentFamilyId == currentFamilyIdInCache {
                         print("\(#fileID) \(#function): received user has same familyId as the cached family")
                     }
-                    print("\(#fileID) \(#function): received user has diff familyId from the cached family -> fetch new family data")
+                    print("\(#fileID) \(#function): received-user has diff familyId from the cached family -> resetting family service & fetch new family data")
                     self?.resetService()
                     self?.readCurrentFamily(currentFamilyId: currentFamilyId)
-                }
-                else{
-                    print("\(#fileID) \(#function): received a nil user, reset family service")
+                } else {
+                    print("\(#fileID) \(#function): received reset signal from UserRepository, reset family service")
                     self?.resetService()
                     return
                 }
+            })
+        currentFamilySubscription = familyRepository.familyPublisher
+            .sink(receiveValue: { [weak self] receivedFamily in
+                guard let currentFamily = receivedFamily else {
+                    return
+                }
+                self?.currentFamily = currentFamily
+                print("\(#fileID) \(#function): received and cached a non-nil family")
             })
     }
 
@@ -56,12 +65,7 @@ class FamilyService: ObservableObject {
     }
 
     func readCurrentFamily(currentFamilyId: String) {
-        currentFamilySubscription = familyRepository.readFamily(familyId: currentFamilyId)
-            .sink(receiveValue: { [weak self] receivedFamily in
-                guard let currentFamily = receivedFamily else {return}
-                self?.currentFamily = currentFamily
-                print("\(#fileID) \(#function): received and cached a non-nil family")
-            })
+        familyRepository.readFamily(familyId: currentFamilyId)
     }
 
     func addUserToCurrentFamily(userId: String) async {
@@ -72,8 +76,6 @@ class FamilyService: ObservableObject {
     }
 
     private func resetService() {
-        currentFamilySubscription?.cancel()
-        currentFamilySubscription = nil
         currentFamily = nil
         familyRepository.resetRepository()
     }

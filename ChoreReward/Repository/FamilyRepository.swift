@@ -10,54 +10,10 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 import Combine
 
-class FamilyDatabase {
-    static let shared = FamilyDatabase()
-
-    let familyPublisher = PassthroughSubject<Family?, Never>()
-
-    private let database = Firestore.firestore()
-    var currentFamilyListener: ListenerRegistration?
-
-    func readFamily(familyId: String) {
-        guard currentFamilyListener == nil else {
-            return
-        }
-
-        currentFamilyListener = database.collection("families").document(familyId).addSnapshotListener({ [weak self] documentSnapshot, error in
-                if let error = error {
-                    print("\(#fileID) \(#function): addSnapshotListener error: \(error)")
-                    return
-                }
-
-                guard let document = documentSnapshot else {
-                    print("\(#fileID) \(#function): bad snapshot")
-                    return
-                }
-
-                let decodeResult = Result {
-                    try document.data(as: Family.self)
-                }
-                switch decodeResult {
-                case .success(let receivedFamily):
-                    print("\(#fileID) \(#function): received data from Firebase")
-                    self?.familyPublisher.send(receivedFamily)
-                case .failure(let error):
-                    print("\(#fileID) \(#function): decoding error: \(error)")
-                }
-            }
-        )
-    }
-
-    func resetPublisher() {
-        currentFamilyListener?.remove()
-        currentFamilyListener = nil
-        self.familyPublisher.send(nil)
-    }
-}
-
 class FamilyRepository: ObservableObject {
     private let database = Firestore.firestore()
-    private let familyDatabase = FamilyDatabase.shared
+    private var currentFamilyListener: ListenerRegistration?
+    let familyPublisher = PassthroughSubject<Family?, Never>()
 
     /*
      first create a family with empty 'members' array.
@@ -82,9 +38,24 @@ class FamilyRepository: ObservableObject {
 
     }
 
-    func readFamily(familyId: String) -> AnyPublisher<Family?, Never> {
-        familyDatabase.readFamily(familyId: familyId)
-        return familyDatabase.familyPublisher.eraseToAnyPublisher()
+    func readFamily(familyId: String) {
+        if currentFamilyListener == nil {
+            currentFamilyListener = database.collection("families").document(familyId)
+                .addSnapshotListener({ [weak self] documentSnapshot, error in
+                    guard let document = documentSnapshot else {
+                        print("\(#fileID) \(#function): Error fetching document: \(error!)")
+                        return
+                    }
+                    do {
+                        let family = try document.data(as: Family.self)
+                        print("\(#fileID) \(#function): received family data, publishing...")
+                        self?.familyPublisher.send(family)
+                    } catch {
+                        print("\(#fileID) \(#function): error decoding \(error)")
+                    }
+                }
+            )
+        }
     }
 
     func updateMembersOfFamily(familyId: String, userId: String) async {
@@ -100,6 +71,8 @@ class FamilyRepository: ObservableObject {
     }
 
     func resetRepository() {
-        familyDatabase.resetPublisher()
+        self.familyPublisher.send(nil)
+        self.currentFamilyListener?.remove()
+        self.currentFamilyListener = nil
     }
 }

@@ -10,36 +10,13 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 import Combine
 
-// class ChoreDatabase {
-//    static let shared = ChoreDatabase()
-//
-//
-//    private let database = Firestore.firestore()
-//    private var currentFamilyListener: ListenerRegistration?
-//
-//    func readFamily(familyId: String){
-//        family.choreCollection?.addSnapshotListener({ [weak self] querySnapshot, error in
-//            guard let documents = querySnapshot?.documents else{
-//                print("Error fetching documents: \(error!)")
-//                return
-//            }
-//
-//
-//        })
-//    }
-//
-//    func resetPublisher(){
-//        self.familyPublisher.send(nil)
-//    }
-// }
-
 class ChoreRepository: ObservableObject {
     private let database = Firestore.firestore()
     private var familyChoresListener: ListenerRegistration?
-    private var choreCollection: CollectionReference?
     let familyChoresPublisher = PassthroughSubject<[Chore]?, Never>()
 
-    func createChore(newChore: Chore, newChoreId: String) {
+    func createChore(newChore: Chore, newChoreId: String, choreCollection: CollectionReference?) {
+
         do {
             try choreCollection?.document(newChoreId).setData(from: newChore)
         } catch {
@@ -47,20 +24,9 @@ class ChoreRepository: ObservableObject {
         }
     }
 
-    func readChore(choreId: String) async -> Chore? {
-        do {
-            let documentSnapshot = try await database.collection("chores").document(choreId).getDocument()
-            return try documentSnapshot.data(as: Chore.self)
-        } catch {
-            print("\(#fileID) \(#function): \(error)")
-            return nil
-        }
-    }
-
-    func readChoresOfFamily(_ family: Family) {
-        choreCollection = family.choreCollection
+    func readChoreCollection(_ choreCollection: CollectionReference) {
         if familyChoresListener == nil {
-            familyChoresListener = family.choreCollection?
+            familyChoresListener = choreCollection
                 .order(by: "created")
                 .addSnapshotListener { [weak self] querySnapshot, error in
                     guard let documents = querySnapshot?.documents else {
@@ -76,12 +42,18 @@ class ChoreRepository: ObservableObject {
                             return nil
                         }
                     }
-                    self?.familyChoresPublisher.send(chores)
+                    if chores.isEmpty {
+                        print("\(#fileID) \(#function): received empty list, publishing nil...")
+                        self?.familyChoresPublisher.send(nil)
+                    } else {
+                        print("\(#fileID) \(#function): received chores data, publishing...")
+                        self?.familyChoresPublisher.send(chores)
+                    }
                 }
         }
     }
 
-    func updateAssigneeForChore(choreId: String, assigneeId: String) async {
+    func updateAssigneeForChore(choreId: String, assigneeId: String, choreCollection: CollectionReference?) async {
         do {
             try await choreCollection?.document(choreId).updateData([
                 "assigneeId": assigneeId
@@ -91,7 +63,7 @@ class ChoreRepository: ObservableObject {
         }
     }
 
-    func updateCompletionForChore(choreId: String) async {
+    func updateCompletionForChore(choreId: String, choreCollection: CollectionReference?) async {
         do {
             try await choreCollection?.document(choreId).updateData([
                 "completed": FieldValue.serverTimestamp()

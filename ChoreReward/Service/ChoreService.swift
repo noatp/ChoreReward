@@ -13,6 +13,7 @@ import FirebaseFirestore
 class ChoreService: ObservableObject {
     @Published var familyChores: [Chore]?
     @Published var isBusy: Bool = false
+    private var currentChoreCollection: CollectionReference?
 
     private let userRepository: UserRepository
     private let familyRepository: FamilyRepository
@@ -36,14 +37,35 @@ class ChoreService: ObservableObject {
     }
 
     private func addSubscription() {
-        currentFamilySubscription = familyRepository.readFamily()
+        familyChoresSubscription = choreRepository.familyChoresPublisher
+            .sink(receiveValue: { [weak self] receivedFamilyChores in
+                guard let familyChores = receivedFamilyChores else {
+                    return
+                }
+                self?.familyChores = familyChores
+                print("\(#fileID) \(#function): received and cached a non-nil chore list")
+            })
+        currentFamilySubscription = familyRepository.familyPublisher
             .sink(receiveValue: { [weak self] receivedFamily in
-                guard let currentFamily = receivedFamily else {
+                if let currentFamily = receivedFamily {
+                    print("\(#fileID) \(#function): received a non-nil family, checking for chore collection ref")
+                    guard let receivedChoreCollection = currentFamily.choreCollection else {
+                        print("\(#fileID) \(#function): received family does not have a chore collection")
+                        self?.familyChores = []
+                        return
+                    }
+                    if let currentChoreCollection = self?.currentChoreCollection, currentChoreCollection == receivedChoreCollection {
+                        print("\(#fileID) \(#function): received-family has same chore collection as the cached chore collection")
+                    }
+                    print("\(#fileID) \(#function): received-family has diff chore collection from the cached family -> resetting chore service & fetch new chore data")
+                    self?.resetService()
+                    self?.getChoresOfCurrentFamilyWith(choreCollection: receivedChoreCollection)
+                    self?.currentChoreCollection = receivedChoreCollection
+                } else {
+                    print("\(#fileID) \(#function): received reset signal from FamilyRepository, reset chore service")
                     self?.resetService()
                     return
                 }
-                print("\(#fileID) \(#function): received new family from FamilyDatabse through FamilyRepository")
-                self?.getChoresOfCurrentFamily(currentFamily: currentFamily)
             })
     }
 
@@ -71,17 +93,13 @@ class ChoreService: ObservableObject {
                 choreImageUrl: choreImageUrl
             )
 
-            choreRepository.createChore(newChore: newChore, newChoreId: newChoreId)
+            choreRepository.createChore(newChore: newChore, newChoreId: newChoreId, choreCollection: currentChoreCollection)
             isBusy = false
         }
     }
 
-    private func getChoresOfCurrentFamily(currentFamily: Family) {
-        familyChoresSubscription = choreRepository.familyChoresPublisher
-            .sink(receiveValue: { [weak self] receivedFamilyChores in
-                self?.familyChores = receivedFamilyChores
-            })
-        choreRepository.readChoresOfFamily(currentFamily)
+    private func getChoresOfCurrentFamilyWith(choreCollection: CollectionReference) {
+        choreRepository.readChoreCollection(choreCollection)
     }
 
     func takeChore (choreId: String?, currentUserId: String?) {
@@ -91,8 +109,7 @@ class ChoreService: ObservableObject {
                   return
               }
         Task {
-            await choreRepository.updateAssigneeForChore(choreId: choreId, assigneeId: currentUserId)
-//            await readUpdatedChore(choreId: choreId)
+            await choreRepository.updateAssigneeForChore(choreId: choreId, assigneeId: currentUserId, choreCollection: currentChoreCollection)
         }
     }
 
@@ -102,28 +119,12 @@ class ChoreService: ObservableObject {
             return
         }
         Task {
-            await choreRepository.updateCompletionForChore(choreId: choreId)
-//            await readUpdatedChore(choreId: choreId)
+            await choreRepository.updateCompletionForChore(choreId: choreId, choreCollection: currentChoreCollection)
         }
     }
 
-//    private func readUpdatedChore(choreId: String) async {
-//        let choreIndex = familyChores.firstIndex { chore in
-//            chore.id == choreId
-//        }
-//        guard let choreIndex = choreIndex else{
-//            print("\(#fileID) \(#function): could not find chore with provided choreId in choreList")
-//            return
-//        }
-//        let updatedChore = await choreRepository.readChore(choreId: choreId)
-//        guard let updatedChore = updatedChore else{
-//            print("\(#fileID) \(#function): could not find chore with provided choreId after update")
-//            return
-//        }
-//        familyChores[choreIndex] = updatedChore
-//    }
-
     private func resetService() {
         familyChores = []
+        choreRepository.resetRepository()
     }
 }

@@ -43,11 +43,11 @@ class NoFamilyViewModel: StatefulViewModel {
     }
 
     func createFamily() {
-        guard let currentUser = userService.currentUser else {
+        guard let currentUserId = userService.currentUserId else {
             return
         }
         Task {
-            await familyService.createFamily(currentUser: currentUser)
+            await familyService.createFamily(currentUserId: currentUserId)
         }
     }
 
