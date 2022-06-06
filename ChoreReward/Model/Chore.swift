@@ -15,7 +15,7 @@ struct Chore: Identifiable, Codable {
     var assignerId: String
     var assigneeId: String
     var completed: Date?
-    @ServerTimestamp var created: Timestamp?
+    var created: Date
     var description: String
     var choreImageUrl: String
 
@@ -24,7 +24,7 @@ struct Chore: Identifiable, Codable {
         title: "",
         assignerId: "",
         assigneeId: "",
-        created: Timestamp.init(),
+        created: Date.now,
         description: "",
         choreImageUrl: ""
     )

@@ -24,7 +24,6 @@ class FamilyRepository: ObservableObject {
     func createFamily(currentUserId: String) async {
         let newFamilyDocRef: DocumentReference = database.collection("families").document()
         let newFamily: Family = .init(
-            familyDocRef: newFamilyDocRef,
             adminId: currentUserId,
             members: []
         )
@@ -47,8 +46,9 @@ class FamilyRepository: ObservableObject {
                         return
                     }
                     do {
-                        let family = try document.data(as: Family.self)
-                        print("\(#fileID) \(#function): received family data, publishing...")
+                        var family = try document.data(as: Family.self)
+                        family.familyDocRef = document.reference
+                        print("\(#fileID) \(#function): received family data, publishing...\(document.metadata.hasPendingWrites)")
                         self?.familyPublisher.send(family)
                     } catch {
                         print("\(#fileID) \(#function): error decoding \(error)")

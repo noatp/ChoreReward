@@ -10,6 +10,7 @@ import Combine
 
 class FamilyService: ObservableObject {
     @Published var currentFamily: Family?
+    private var currentFamilyId: String?
 
     private let userRepository: UserRepository
     private let familyRepository: FamilyRepository
@@ -29,21 +30,25 @@ class FamilyService: ObservableObject {
     func addSubscription() {
         currentUserSubscription = userRepository.readUser()
             .sink(receiveValue: { [weak self] receivedUser in
-                if let currentUser = receivedUser {
+                if let receivedUser = receivedUser {
                     print("\(#fileID) \(#function): received a non-nil user, checking for familyId")
-                    guard let currentFamilyId = currentUser.familyId else {
+                    guard let receivedFamilyId = receivedUser.familyId else {
                         print("\(#fileID) \(#function): received user does not have a familyId")
                         self?.currentFamily = nil
                         return
                     }
                     // case familyId of user got changed, check if same familyId
                     // if not, reset service to listen to new family
-                    if let currentFamilyIdInCache = self?.currentFamily?.id, currentFamilyId == currentFamilyIdInCache {
-                        print("\(#fileID) \(#function): received user has same familyId as the cached family")
+                    if let currentFamilyIdInCache = self?.currentFamilyId, receivedFamilyId == currentFamilyIdInCache {
+                        print("\(#fileID) \(#function): received user has same familyId as the cached family -> doing nothing")
+                        return
+                    } else {
+                        print("\(#fileID) \(#function): received-user has diff familyId from the cached family -> resetting family service & fetch new family data")
+                        self?.resetService()
+                        self?.currentFamilyId = receivedFamilyId
+                        self?.readCurrentFamily(currentFamilyId: receivedFamilyId)
+                        return
                     }
-                    print("\(#fileID) \(#function): received-user has diff familyId from the cached family -> resetting family service & fetch new family data")
-                    self?.resetService()
-                    self?.readCurrentFamily(currentFamilyId: currentFamilyId)
                 } else {
                     print("\(#fileID) \(#function): received reset signal from UserRepository, reset family service")
                     self?.resetService()
@@ -77,6 +82,7 @@ class FamilyService: ObservableObject {
 
     private func resetService() {
         currentFamily = nil
+        currentFamilyId = nil
         familyRepository.resetRepository()
     }
 }

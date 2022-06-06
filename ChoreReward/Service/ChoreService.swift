@@ -55,12 +55,15 @@ class ChoreService: ObservableObject {
                         return
                     }
                     if let currentChoreCollection = self?.currentChoreCollection, currentChoreCollection == receivedChoreCollection {
-                        print("\(#fileID) \(#function): received-family has same chore collection as the cached chore collection")
+                        print("\(#fileID) \(#function): received-family has same chore collection as the cached chore collection -> doing nothing")
+                        return
+                    } else {
+                        print("\(#fileID) \(#function): received-family has diff chore collection from the cached family -> resetting chore service & fetch new chore data")
+                        self?.resetService()
+                        self?.currentChoreCollection = receivedChoreCollection
+                        self?.getChoresOfCurrentFamilyWith(choreCollection: receivedChoreCollection)
+                        return
                     }
-                    print("\(#fileID) \(#function): received-family has diff chore collection from the cached family -> resetting chore service & fetch new chore data")
-                    self?.resetService()
-                    self?.getChoresOfCurrentFamilyWith(choreCollection: receivedChoreCollection)
-                    self?.currentChoreCollection = receivedChoreCollection
                 } else {
                     print("\(#fileID) \(#function): received reset signal from FamilyRepository, reset chore service")
                     self?.resetService()
@@ -89,6 +92,7 @@ class ChoreService: ObservableObject {
                 title: choreTitle,
                 assignerId: currentUserId,
                 assigneeId: "",
+                created: Date.now,
                 description: choreDescription,
                 choreImageUrl: choreImageUrl
             )
@@ -125,6 +129,7 @@ class ChoreService: ObservableObject {
 
     private func resetService() {
         familyChores = []
+        currentChoreCollection = nil
         choreRepository.resetRepository()
     }
 }

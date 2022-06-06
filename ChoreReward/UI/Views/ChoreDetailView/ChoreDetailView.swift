@@ -25,7 +25,8 @@ struct ChoreDetailView: View {
     }
 
     var body: some View {
-        ChoreDetailNavBarView(navTitle: chore.title, opacity: navBarOpacity) {
+//        print("\(#fileID) \(#function): \(chore)")
+        return ChoreDetailNavBarView(navTitle: chore.title, opacity: navBarOpacity) {
             ScrollView {
 //                RemoteImageView(
 //                    imageUrl: chore.choreImageUrl,
@@ -61,7 +62,7 @@ struct ChoreDetailView_Previews: PreviewProvider {
             assignerId: "preview assignerId",
             assigneeId: "preview assigneeId",
             completed: Date(),
-            created: nil,
+            created: Date(),
             description: """
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, \
                 sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Interdum \
@@ -101,7 +102,7 @@ extension ChoreDetailView {
                 .frame(maxWidth: .infinity, alignment: .leading)
             Text("Chore put up by: \(chore.assignerId)")
                 .font(.footnote)
-            Text("on \(chore.created?.dateValue().formatted(date: .abbreviated, time: .omitted) ?? "")")
+            Text("on \(chore.created.formatted(date: .abbreviated, time: .omitted))")
                 .font(.footnote)
                 .padding(.bottom)
 

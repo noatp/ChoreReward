@@ -39,6 +39,7 @@ struct RemoteImageView: View {
 //            .resizable()
 //            .scaledToFill()
 //            .frame(width: size.width, height: size.height)
+
         if isThumbnail {
             WebImage(url: URL(string: imageUrl)!)
                 .resizable()
