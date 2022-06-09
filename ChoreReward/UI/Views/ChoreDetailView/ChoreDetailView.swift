@@ -61,8 +61,8 @@ struct ChoreDetailView_Previews: PreviewProvider {
             title: "Wash the dishes",
             assignerId: "preview assignerId",
             assigneeId: "preview assigneeId",
-            completed: Date(),
-            created: Date(),
+            completed: Date.now.intTimestamp,
+            created: Date.now.intTimestamp,
             description: """
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, \
                 sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Interdum \
@@ -102,7 +102,7 @@ extension ChoreDetailView {
                 .frame(maxWidth: .infinity, alignment: .leading)
             Text("Chore put up by: \(chore.assignerId)")
                 .font(.footnote)
-            Text("on \(chore.created.formatted(date: .abbreviated, time: .omitted))")
+            Text("on \(chore.created.dateTimestamp.formatted(date: .abbreviated, time: .omitted))")
                 .font(.footnote)
                 .padding(.bottom)
 
@@ -114,7 +114,7 @@ extension ChoreDetailView {
             if choreDetailViewModel.state.choreTaken {
                 Text("Chore taken by: \(chore.assigneeId)")
                 if choreDetailViewModel.state.choreCompleted {
-                    Text("Chore is completed on \(chore.completed!.formatted(date: .abbreviated, time: .omitted))")
+                    Text("Chore is completed on \(chore.completed!.dateTimestamp.formatted(date: .abbreviated, time: .omitted))")
                 } else {
                     Text("Chore is not completed")
                 }

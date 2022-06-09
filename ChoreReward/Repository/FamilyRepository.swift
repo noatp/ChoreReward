@@ -48,7 +48,7 @@ class FamilyRepository: ObservableObject {
                     do {
                         var family = try document.data(as: Family.self)
                         family.familyDocRef = document.reference
-                        print("\(#fileID) \(#function): received family data, publishing...\(document.metadata.hasPendingWrites)")
+                        print("\(#fileID) \(#function): received family data, publishing...")
                         self?.familyPublisher.send(family)
                     } catch {
                         print("\(#fileID) \(#function): error decoding \(error)")

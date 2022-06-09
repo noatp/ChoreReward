@@ -92,7 +92,7 @@ class ChoreService: ObservableObject {
                 title: choreTitle,
                 assignerId: currentUserId,
                 assigneeId: "",
-                created: Date.now,
+                created: Date.now.intTimestamp,
                 description: choreDescription,
                 choreImageUrl: choreImageUrl
             )

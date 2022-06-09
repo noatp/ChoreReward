@@ -28,28 +28,25 @@ class ChoreRepository: ObservableObject {
         if familyChoresListener == nil {
             familyChoresListener = choreCollection.order(by: "created")
                 .addSnapshotListener { [weak self] querySnapshot, error in
-                    print("\(#fileID) \(#function): \(choreCollection.path)")
                     guard let querySnapshot = querySnapshot else {
                         print("\(#fileID) \(#function): Error fetching documents: \(error!)")
                         return
                     }
-                    if !querySnapshot.metadata.hasPendingWrites {
-                        let chores: [Chore] = querySnapshot.documents
-                            .compactMap { document in
-                                do {
-                                    return try document.data(as: Chore.self)
-                                } catch {
-                                    print("\(#fileID) \(#function): error")
-                                    return nil
-                                }
+                    let chores: [Chore] = querySnapshot.documents
+                        .compactMap { document in
+                            do {
+                                return try document.data(as: Chore.self)
+                            } catch {
+                                print("\(#fileID) \(#function): error")
+                                return nil
                             }
-                        if chores.isEmpty {
-                            print("\(#fileID) \(#function): received empty list, publishing nil...")
-                            self?.familyChoresPublisher.send(nil)
-                        } else {
-                            print("\(#fileID) \(#function): received chores data, publishing ... \(querySnapshot.metadata.hasPendingWrites)")
-                            self?.familyChoresPublisher.send(chores)
                         }
+                    if chores.isEmpty {
+                        print("\(#fileID) \(#function): received empty list, publishing nil...")
+                        self?.familyChoresPublisher.send(nil)
+                    } else {
+                        print("\(#fileID) \(#function): received chores data, publishing...")
+                        self?.familyChoresPublisher.send(chores)
                     }
                 }
         }
@@ -57,7 +54,6 @@ class ChoreRepository: ObservableObject {
 
     func updateAssigneeForChore(choreId: String, assigneeId: String, choreCollection: CollectionReference?) async {
         do {
-            print("\(#fileID) \(#function): \(choreCollection)")
             try await choreCollection?.document(choreId).updateData([
                 "assigneeId": assigneeId
             ])
@@ -69,7 +65,7 @@ class ChoreRepository: ObservableObject {
     func updateCompletionForChore(choreId: String, choreCollection: CollectionReference?) async {
         do {
             try await choreCollection?.document(choreId).updateData([
-                "completed": FieldValue.serverTimestamp()
+                "completed": Date.now.intTimestamp
             ])
         } catch {
             print("\(#fileID) \(#function): \(error)")

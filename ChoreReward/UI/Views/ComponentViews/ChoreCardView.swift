@@ -35,7 +35,7 @@ struct `ChoreCardView`: View {
                         .truncationMode(.tail)
                         .font(.headline.weight(.semibold))
                     Spacer()
-                    Text(chore.created.formatted(date: .numeric, time: .omitted))
+                    Text(chore.created.dateTimestamp.formatted(date: .numeric, time: .omitted))
                         .font(.caption.weight(.thin))
                 }
                 Text(chore.description)
@@ -58,7 +58,7 @@ struct ChoreCardView_Previews: PreviewProvider {
                          title: "Preview Chore",
                          assignerId: "123",
                          assigneeId: "456",
-                         created: Date(),
+                         created: Date().intTimestamp,
                          description: """
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididun
                             ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
