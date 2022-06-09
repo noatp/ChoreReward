@@ -8,18 +8,18 @@
 import Foundation
 import Combine
 
-class ChoreTabViewModel: StatefulViewModel{
+class ChoreTabViewModel: StatefulViewModel {
     @Published private var _state: ChoreTabState = empty
     static var empty: ChoreTabState = .empty
-    
-    var state: AnyPublisher<ChoreTabState, Never>{
+
+    var state: AnyPublisher<ChoreTabState, Never> {
         return $_state.eraseToAnyPublisher()
     }
-    
+
     private let choreService: ChoreService
     private let userService: UserService
     private var choreListSubscription: AnyCancellable?
-    
+
     init(
         choreService: ChoreService,
         userService: UserService
@@ -28,27 +28,27 @@ class ChoreTabViewModel: StatefulViewModel{
         self.userService = userService
         addSubscription()
     }
-    
-    func addSubscription(){
-        choreListSubscription = choreService.$choreList
-            .sink(receiveValue: { [weak self] receivedChoreList in
-                guard let oldState = self?._state else{
+
+    func addSubscription() {
+        choreListSubscription = choreService.$familyChores
+            .sink(receiveValue: { [weak self] receivedFamilyChores in
+                guard let oldState = self?._state, let familyChores = receivedFamilyChores else {
                     return
                 }
                 self?._state = .init(
                     displayingChoreList: self?.applyFilterAndPicker(
                         filterState: oldState.choreFilterState,
                         pickerState: oldState.chorePickerState,
-                        choreList: receivedChoreList
+                        choreList: familyChores
                     ) ?? [],
                     choreFilterState: oldState.choreFilterState,
                     chorePickerState: oldState.chorePickerState
                 )
             })
     }
-    
-    private func applyFilterToChoreList(filterState: ChoreFilterState, choreList: [Chore]) -> [Chore]{
-        switch filterState{
+
+    private func applyFilterToChoreList(filterState: ChoreFilterState, choreList: [Chore]) -> [Chore] {
+        switch filterState {
         case .all:
             return choreList
         case .takenByCurrentUser:
@@ -57,8 +57,8 @@ class ChoreTabViewModel: StatefulViewModel{
             }
         }
     }
-    
-    private func applyPickerToChoreList(pickerState: ChorePickerState, choreList: [Chore]) -> [Chore]{
+
+    private func applyPickerToChoreList(pickerState: ChorePickerState, choreList: [Chore]) -> [Chore] {
         switch pickerState {
         case .finished:
             return choreList.filter { chore in
@@ -70,8 +70,8 @@ class ChoreTabViewModel: StatefulViewModel{
             }
         }
     }
-    
-    private func applyFilterAndPicker(filterState: ChoreFilterState, pickerState: ChorePickerState, choreList: [Chore]) -> [Chore]{
+
+    private func applyFilterAndPicker(filterState: ChoreFilterState, pickerState: ChorePickerState, choreList: [Chore]) -> [Chore] {
         return applyFilterToChoreList(
             filterState: filterState,
             choreList: applyPickerToChoreList(
@@ -80,37 +80,37 @@ class ChoreTabViewModel: StatefulViewModel{
             )
         )
     }
-    
-    private func updateFilterState(_ newState: ChoreFilterState){
+
+    private func updateFilterState(_ newState: ChoreFilterState) {
         let oldState = _state
-        
+
         _state = .init(
             displayingChoreList: applyFilterAndPicker(
                 filterState: newState,
                 pickerState: oldState.chorePickerState,
-                choreList: choreService.choreList
+                choreList: choreService.familyChores ?? []
             ),
             choreFilterState: newState,
             chorePickerState: oldState.chorePickerState
         )
     }
-    
-    private func updatePickerState(_ newState: ChorePickerState){
+
+    private func updatePickerState(_ newState: ChorePickerState) {
         let oldState = _state
-        
+
         _state = .init(
             displayingChoreList: applyFilterAndPicker(
                 filterState: oldState.choreFilterState,
                 pickerState: newState,
-                choreList: choreService.choreList
+                choreList: choreService.familyChores ?? []
             ),
             choreFilterState: oldState.choreFilterState,
             chorePickerState: newState
         )
     }
-    
+
     func performAction(_ action: ChoreTabAction) {
-        switch action{
+        switch action {
         case .updateFilterState(let choreFilterState):
             updateFilterState(choreFilterState)
         case .updatePickerState(let chorePickerState):
@@ -119,11 +119,11 @@ class ChoreTabViewModel: StatefulViewModel{
     }
 }
 
-struct ChoreTabState{
+struct ChoreTabState {
     let displayingChoreList: [Chore]
     let choreFilterState: ChoreFilterState
     let chorePickerState: ChorePickerState
-    
+
     static let empty: ChoreTabState = .init(
         displayingChoreList: [],
         choreFilterState: .all,
@@ -131,21 +131,21 @@ struct ChoreTabState{
     )
 }
 
-enum ChoreTabAction{
+enum ChoreTabAction {
     case updatePickerState(ChorePickerState)
     case updateFilterState(ChoreFilterState)
 }
 
-enum ChoreFilterState{
+enum ChoreFilterState {
     case all, takenByCurrentUser
 }
 
-enum ChorePickerState{
+enum ChorePickerState {
     case finished, unfinished
 }
 
-extension Dependency.ViewModels{
-    var choreTabViewModel: ChoreTabViewModel{
+extension Dependency.ViewModels {
+    var choreTabViewModel: ChoreTabViewModel {
         ChoreTabViewModel(
             choreService: services.choreService,
             userService: services.userService

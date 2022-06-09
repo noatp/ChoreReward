@@ -10,25 +10,25 @@ import FirebaseAuth
 import SwiftUI
 import Combine
 
-class LoginViewModel: StatefulViewModel{
+class LoginViewModel: StatefulViewModel {
     @Published var _state: LoginViewState = empty
     static let empty = LoginViewState(errorMessage: "")
-    var state: AnyPublisher<LoginViewState, Never>{
+    var state: AnyPublisher<LoginViewState, Never> {
         return $_state.eraseToAnyPublisher()
     }
-    
+
     private var userService: UserService
     private var useCaseSubscription: AnyCancellable?
-    
+
     init(userService: UserService) {
         self.userService = userService
         addSubscription()
     }
-    
-    func addSubscription(){
+
+    func addSubscription() {
         useCaseSubscription = userService.$authState
             .sink(receiveValue: {[weak self] authState in
-                switch authState{
+                switch authState {
                 case .signedIn:
                     break
                 case .signedOut(let error):
@@ -36,21 +36,21 @@ class LoginViewModel: StatefulViewModel{
                 }
             })
     }
-    
-    func signIn(emailInput: String, passwordInput: String){
-        Task{
+
+    func signIn(emailInput: String, passwordInput: String) {
+        Task {
             await userService.signIn(email: emailInput, password: passwordInput)
         }
     }
-    
-    func silentSignIn(){
-        Task{
+
+    func silentSignIn() {
+        Task {
             await userService.silentSignIn()
         }
     }
-    
+
     func performAction(_ action: LoginViewAction) {
-        switch action{
+        switch action {
         case .signIn(let emailInput, let passwordInput):
             signIn(emailInput: emailInput, passwordInput: passwordInput)
         case .silentSignIn:
@@ -60,17 +60,17 @@ class LoginViewModel: StatefulViewModel{
     }
 }
 
-struct LoginViewState{
+struct LoginViewState {
     let errorMessage: String
 }
 
-enum LoginViewAction{
+enum LoginViewAction {
     case signIn(emailInput: String, passwordInput: String)
     case silentSignIn
 }
 
-extension Dependency.ViewModels{
-    var loginViewModel: LoginViewModel{
+extension Dependency.ViewModels {
+    var loginViewModel: LoginViewModel {
         return LoginViewModel(userService: services.userService)
     }
 }

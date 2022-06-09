@@ -9,7 +9,7 @@ import SwiftUI
 
 struct FamilyTabDrawerView: View {
     var body: some View {
-        VStack(alignment: .leading){
+        VStack(alignment: .leading) {
             Spacer()
                 .frame(maxWidth: .infinity)
         }

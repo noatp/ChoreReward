@@ -11,18 +11,18 @@ import FirebaseFirestoreSwift
 import Combine
 import CoreMedia
 
-class FamilyRepository: ObservableObject{
-    @Published var currentFamily: Family? = nil
-    
+class FamilyRepository: ObservableObject {
+    @Published var currentFamily: Family?
+
     private let database = Firestore.firestore()
-    private var currentFamilyRef: DocumentReference? = nil
-    
-    init(initFamily: Family? = nil){
+    private var currentFamilyRef: DocumentReference?
+
+    init(initFamily: Family? = nil) {
         self.currentFamily = initFamily
     }
-    
-    func createFamily(newFamily: Family){
-        guard currentFamilyRef == nil else{
+
+    func createFamily(newFamily: Family) {
+        guard currentFamilyRef == nil else {
             return
         }
         currentFamilyRef = database.collection("families").addDocument(data: [
@@ -37,17 +37,17 @@ class FamilyRepository: ObservableObject{
             }
         }
     }
-    
-    func readFamily(familyId: String){
-        if (currentFamilyRef == nil){
+
+    func readFamily(familyId: String) {
+        if currentFamilyRef == nil {
             currentFamilyRef = database.collection("families").document(familyId)
-        } 
-        
-        guard currentFamilyRef != nil else{
+        }
+
+        guard currentFamilyRef != nil else {
             print("can't find reference to the family with provided id")
             return
         }
-        
+
         currentFamilyRef!.getDocument {[weak self] (document, error) in
             let result = Result {
                 try document?.data(as: Family.self)

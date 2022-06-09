@@ -12,32 +12,31 @@ struct AddChoreView: View {
     @State var choreTitle = ""
     @State var choreDescription = ""
     @State var isPresentingImagePicker = false
-    @State var choreImage: UIImage? = nil
+    @State var choreImage: UIImage?
     @Environment(\.dismiss) var dismiss
     private var views: Dependency.Views
-    
+
     init(
         addChoreViewModel: ObservableViewModel<AddChoreState, AddChoreAction>,
         views: Dependency.Views
-    ){
+    ) {
         self.addChoreViewModel = addChoreViewModel
         self.views = views
     }
-    
+
     var body: some View {
         RegularNavBarView(navTitle: "New Chore") {
 
-            VStack{
-                Group{
+            VStack {
+                Group {
                     if let choreImage = choreImage {
                         Image(uiImage: choreImage)
                             .resizable()
                             .scaledToFit()
                             .frame(maxWidth: .infinity, maxHeight: 200)
                             .clipped()
-                    }
-                    else{
-                        ZStack{
+                    } else {
+                        ZStack {
                             RoundedRectangle(cornerRadius: 25)
                                 .frame(maxWidth: .infinity, maxHeight: 200)
                                 .foregroundColor(.textFieldPlaceholder)
@@ -54,16 +53,16 @@ struct AddChoreView: View {
                 }
                 TextFieldView(title: "Title", textInput: $choreTitle)
                     .padding([.horizontal, .bottom])
-                ZStack(alignment: .leading){
+                ZStack(alignment: .leading) {
                     TextEditor(text: $choreDescription)
                         .clipShape(RoundedRectangle(cornerRadius: 8))
                         .shadow(radius: 1)
-                    if choreDescription.isEmpty{
-                        VStack{
+                    if choreDescription.isEmpty {
+                        VStack {
                             Text("Description")
                                 .foregroundColor(.textFieldPlaceholder)
                                 .padding(.all, 8)
-                            
+
                             Spacer()
                         }
                     }
@@ -98,7 +97,7 @@ struct AddChoreView_Previews: PreviewProvider {
             ),
             views: Dependency.preview.views()
         )
-        
+
         AddChoreView(
             addChoreViewModel: ObservableViewModel(
                 staticState: AddChoreState()
@@ -109,8 +108,8 @@ struct AddChoreView_Previews: PreviewProvider {
     }
 }
 
-extension Dependency.Views{
-    func addChoreView() -> AddChoreView{
+extension Dependency.Views {
+    func addChoreView() -> AddChoreView {
         return AddChoreView(
             addChoreViewModel: ObservableViewModel(
                 viewModel: viewModels.addChoreViewModel

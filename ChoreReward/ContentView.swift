@@ -10,11 +10,11 @@ import CoreData
 
 struct ContentView: View {
     let views: Dependency.Views
-    
-    init(views: Dependency.Views){
+
+    init(views: Dependency.Views) {
         self.views = views
     }
-    
+
     var body: some View {
         views.rootView
     }

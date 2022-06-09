@@ -10,100 +10,69 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 import Combine
 
-class FamilyDatabase {
-    static let shared = FamilyDatabase()
-    
+class FamilyRepository: ObservableObject {
+    private let database = Firestore.firestore()
+    private var currentFamilyListener: ListenerRegistration?
     let familyPublisher = PassthroughSubject<Family?, Never>()
-    
-    private let database = Firestore.firestore()
-    var currentFamilyListener: ListenerRegistration?
-    
-    func readFamily(familyId: String){
-        guard currentFamilyListener == nil else{
-            return
-        }
-        
-        currentFamilyListener = database.collection("families").document(familyId).addSnapshotListener({ [weak self] documentSnapshot, error in
-                if let error = error {
-                    print("\(#fileID) \(#function): \(error)")
-                    return
-                }
-                
-                guard let document = documentSnapshot else {
-                    print("\(#fileID) \(#function): bad snapshot")
-                    return
-                }
-                
-                let decodeResult = Result{
-                    try document.data(as: Family.self)
-                }
-                switch decodeResult{
-                case .success(let receivedFamily):
-                    print("\(#fileID) \(#function): received new data from Firebase")
-                    self?.familyPublisher.send(receivedFamily)
-                case .failure(let error):
-                    print("\(#fileID) \(#function): \(error)")
-                }
-            }
+
+    /*
+     first create a family with empty 'members' array.
+     then update the 'members' array, adding the admin "userId" as the first member of the family.
+     the update will trigger cloud function to update the correspoding user document
+     the user document will have role updated to "admin" and new familyId
+     */
+    func createFamily(currentUserId: String) async {
+        let newFamilyDocRef: DocumentReference = database.collection("families").document()
+        let newFamily: Family = .init(
+            adminId: currentUserId,
+            members: []
         )
+        do {
+            let data = try Firestore.Encoder().encode(newFamily)
+            try await newFamilyDocRef.setData(data)
+            await updateMembersOfFamily(familyId: newFamilyDocRef.documentID, userId: currentUserId)
+        } catch {
+            print("\(#fileID) \(#function): \(error)")
+        }
+
     }
-    
-    func resetPublisher(){
+
+    func readFamily(familyId: String) {
+        if currentFamilyListener == nil {
+            currentFamilyListener = database.collection("families").document(familyId)
+                .addSnapshotListener({ [weak self] documentSnapshot, error in
+                    guard let document = documentSnapshot else {
+                        print("\(#fileID) \(#function): Error fetching document: \(error!)")
+                        return
+                    }
+                    do {
+                        var family = try document.data(as: Family.self)
+                        family.familyDocRef = document.reference
+                        print("\(#fileID) \(#function): received family data, publishing...")
+                        self?.familyPublisher.send(family)
+                    } catch {
+                        print("\(#fileID) \(#function): error decoding \(error)")
+                    }
+                }
+            )
+        }
+    }
+
+    func updateMembersOfFamily(familyId: String, userId: String) async {
+        do {
+            try await database.collection("families").document(familyId).updateData([
+                "members": FieldValue.arrayUnion([
+                    ["id": userId]
+                ])
+            ])
+        } catch {
+            print("\(#fileID) \(#function): \(error)")
+        }
+    }
+
+    func resetRepository() {
         self.familyPublisher.send(nil)
-    }
-}
-
-
-class FamilyRepository: ObservableObject{
-    private let database = Firestore.firestore()
-    private let familyDatabase = FamilyDatabase.shared
-    
-    func createFamily(currentUserId: String, newFamilyId: String) async {
-        do{
-            try await database.collection("families").document(newFamilyId).setData([
-                "admin": currentUserId,
-                "members": [currentUserId],
-                "chores": []
-            ])
-        }
-        catch{
-            print("\(#fileID) \(#function): \(error)")
-        }
-        
-    }
-    
-    func readFamily(familyId: String? = nil) -> AnyPublisher<Family?, Never>{
-        if let familyId = familyId {
-            familyDatabase.readFamily(familyId: familyId)
-        }
-        return familyDatabase.familyPublisher.eraseToAnyPublisher()
-    }
-    
-    func updateMemberOfFamily(familyId: String, userId: String) async {
-        do{
-            try await database.collection("families").document(familyId).updateData([
-                "members" : FieldValue.arrayUnion([userId])
-            ])
-        }
-        catch{
-            print("\(#fileID) \(#function): \(error)")
-        }
-    }
-    
-    func updateChoreOfFamily(familyId: String, choreId: String) async {
-        do{
-            try await database.collection("families").document(familyId).updateData([
-                "chores" : FieldValue.arrayUnion([choreId])
-            ])
-        }
-        catch{
-            print("\(#fileID) \(#function): \(error)")
-        }
-    }
-    
-    func resetRepository(){
-        familyDatabase.currentFamilyListener?.remove()
-        familyDatabase.currentFamilyListener = nil
-        familyDatabase.resetPublisher()
+        self.currentFamilyListener?.remove()
+        self.currentFamilyListener = nil
     }
 }

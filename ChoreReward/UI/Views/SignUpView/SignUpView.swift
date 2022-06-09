@@ -10,24 +10,24 @@ import SwiftUI
 struct SignUpView: View {
     @ObservedObject var signUpViewModel: ObservableViewModel<SignUpState, SignUpAction>
     private var views: Dependency.Views
-    
+
     @State var nameInput: String = ""
     @State var emailInput: String = ""
     @State var passwordInput: String = ""
     @State var roleSelection: Role = .parent
     @State var shouldShowImagePicker: Bool = false
     @State var userImage: UIImage?
-    
+
     init(
         signUpViewModel: ObservableViewModel<SignUpState, SignUpAction>,
         views: Dependency.Views
-    ){
+    ) {
         self.signUpViewModel = signUpViewModel
         self.views = views
     }
-    
+
     var body: some View {
-        VStack{
+        VStack {
             Button {
                 shouldShowImagePicker = true
             } label: {
@@ -38,9 +38,8 @@ struct SignUpView: View {
                         .frame(width: 200, height: 200)
                         .clipShape(Circle())
                         .shadow(radius: 5)
-                }
-                else{
-                    ZStack{
+                } else {
+                    ZStack {
                         Circle()
                             .frame(width: 200, height: 200)
                             .foregroundColor(.fg)
@@ -48,18 +47,17 @@ struct SignUpView: View {
                         Text("Add profile picture")
                     }
                 }
-                   
+
             }
             .foregroundColor(.acc)
-            //.buttonStyle(.plain)
+            // .buttonStyle(.plain)
             Text(signUpViewModel.state.errorMessage)
-            
-            
+
             TextFieldView(title: "Name", textInput: $nameInput)
             TextFieldView(title: "Email", textInput: $emailInput)
             TextFieldView(title: "Password", textInput: $passwordInput, secured: true)
             RolePickerView(roleSelection: $roleSelection)
-            
+
             ButtonView(buttonTitle: "Sign up", buttonImage: "arrow.turn.right.up") {
                 signUpViewModel.perform(
                     action: .signUp(
@@ -79,8 +77,7 @@ struct SignUpView: View {
             .ignoresSafeArea()
         }
     }
-    
-    
+
 }
 
 struct SignupView_Previews: PreviewProvider {
@@ -94,10 +91,10 @@ struct SignupView_Previews: PreviewProvider {
     }
 }
 
-extension Dependency.Views{
-    var signUpView: SignUpView{
+extension Dependency.Views {
+    var signUpView: SignUpView {
         return SignUpView(
-            signUpViewModel:ObservableViewModel(viewModel: viewModels.signUpViewModel),
+            signUpViewModel: ObservableViewModel(viewModel: viewModels.signUpViewModel),
             views: self
         )
     }

@@ -9,24 +9,25 @@ import SwiftUI
 import Kingfisher
 
 struct ChoreDetailView: View {
-    @ObservedObject var choreDetailViewModel: ObservableViewModel<choreDetailState, choreDetailAction>
+    @ObservedObject var choreDetailViewModel: ObservableViewModel<ChoreDetailState, ChoreDetailAction>
     @State private var navBarOpacity: Double = 0
     @State private var scrollPos: Double = 0
-    
-    private var chore: Chore{choreDetailViewModel.state.chore}
+
+    private var chore: Chore {choreDetailViewModel.state.chore}
     private var views: Dependency.Views
-        
+
     init(
-        choreDetailViewModel: ObservableViewModel<choreDetailState, choreDetailAction>,
+        choreDetailViewModel: ObservableViewModel<ChoreDetailState, ChoreDetailAction>,
         views: Dependency.Views
-    ){
+    ) {
         self.choreDetailViewModel = choreDetailViewModel
         self.views = views
     }
-    
+
     var body: some View {
-        ChoreDetailNavBarView(navTitle: chore.title, opacity: navBarOpacity) {
-            ScrollView{
+//        print("\(#fileID) \(#function): \(chore)")
+        return ChoreDetailNavBarView(navTitle: chore.title, opacity: navBarOpacity) {
+            ScrollView {
 //                RemoteImageView(
 //                    imageUrl: chore.choreImageUrl,
 //                    size: .init(width: 400, height: 400),
@@ -37,14 +38,13 @@ struct ChoreDetailView: View {
                     .frame(maxWidth: .infinity, maxHeight: 400, alignment: .center)
                     .clipped()
                     .scrollViewOffset($navBarOpacity)
-            
+
                 choreDetailText
-                
-                if (!choreDetailViewModel.state.choreTaken){
+
+                if !choreDetailViewModel.state.choreTaken {
                     takeChoreButton
-                }
-                else{
-                    if (!choreDetailViewModel.state.choreCompleted){
+                } else {
+                    if !choreDetailViewModel.state.choreCompleted {
                         completeChoreButton
                     }
                 }
@@ -61,16 +61,21 @@ struct ChoreDetailView_Previews: PreviewProvider {
             title: "Wash the dishes",
             assignerId: "preview assignerId",
             assigneeId: "preview assigneeId",
-            completed: Date(),
-            created: Date(),
-            description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Interdum posuere lorem ipsum dolor sit amet consectetur. Amet consectetur adipiscing elit pellentesque. Id venenatis a con",
+            completed: Date.now.intTimestamp,
+            created: Date.now.intTimestamp,
+            description: """
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, \
+                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Interdum \
+                posuere lorem ipsum dolor sit amet consectetur. Amet consectetur adipiscing \
+                elit pellentesque. Id venenatis a con
+            """,
             choreImageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTvaNbNa9E_46fY75AFA9N8dhocKjEdDegvrN5QbBHH-WX-oij4xtjeYijvpC_kHB9-FiU&usqp=CAU"
         )
-        
-        NavigationView{
+
+        NavigationView {
             ChoreDetailView(
                 choreDetailViewModel: ObservableViewModel(
-                    staticState: choreDetailState(chore: previewChoreFinished)
+                    staticState: ChoreDetailState(chore: previewChoreFinished)
                 ),
                 views: Dependency.preview.views()
             )
@@ -78,8 +83,8 @@ struct ChoreDetailView_Previews: PreviewProvider {
     }
 }
 
-extension Dependency.Views{
-    func choreDetailView(chore: Chore) -> ChoreDetailView{
+extension Dependency.Views {
+    func choreDetailView(chore: Chore) -> ChoreDetailView {
         return ChoreDetailView(
             choreDetailViewModel: ObservableViewModel(
                 viewModel: viewModels.choreDetailViewModel(chore: chore)
@@ -89,43 +94,42 @@ extension Dependency.Views{
     }
 }
 
-extension ChoreDetailView{
-    private var choreDetailText: some View{
-        VStack(alignment: .leading){
+extension ChoreDetailView {
+    private var choreDetailText: some View {
+        VStack(alignment: .leading) {
             Text("\(chore.title)")
                 .font(.title)
                 .frame(maxWidth: .infinity, alignment: .leading)
             Text("Chore put up by: \(chore.assignerId)")
                 .font(.footnote)
-            Text("on \(chore.created.formatted(date: .abbreviated, time: .omitted))")
+            Text("on \(chore.created.dateTimestamp.formatted(date: .abbreviated, time: .omitted))")
                 .font(.footnote)
                 .padding(.bottom)
-            
+
             Text("Detail")
                 .font(.headline)
             Text(chore.description)
                 .padding(.bottom)
-                                
-            if (choreDetailViewModel.state.choreTaken){
+
+            if choreDetailViewModel.state.choreTaken {
                 Text("Chore taken by: \(chore.assigneeId)")
-                if (choreDetailViewModel.state.choreCompleted){
-                    Text("Chore is completed on \(chore.completed!.formatted(date: .abbreviated, time: .omitted))")
-                }
-                else{
+                if choreDetailViewModel.state.choreCompleted {
+                    Text("Chore is completed on \(chore.completed!.dateTimestamp.formatted(date: .abbreviated, time: .omitted))")
+                } else {
                     Text("Chore is not completed")
                 }
             }
         }
         .padding(.horizontal)
     }
-    
-    private var takeChoreButton: some View{
+
+    private var takeChoreButton: some View {
         ButtonView(buttonTitle: "Take chore", buttonImage: "figure.wave") {
             choreDetailViewModel.perform(action: .takeChore)
         }
     }
-    
-    private var completeChoreButton: some View{
+
+    private var completeChoreButton: some View {
         ButtonView(buttonTitle: "Complete chore", buttonImage: "checkmark.seal.fill") {
             choreDetailViewModel.perform(action: .completeChore)
         }

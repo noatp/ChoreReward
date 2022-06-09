@@ -36,6 +36,9 @@
 		45750CDC27FC075300274617 /* ChoreTabDrawerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45750CDB27FC075300274617 /* ChoreTabDrawerView.swift */; };
 		45750CDE27FCE4B700274617 /* FamilyTabDrawerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45750CDD27FCE4B700274617 /* FamilyTabDrawerView.swift */; };
 		45750CE027FD270A00274617 /* RegularNavBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45750CDF27FD270A00274617 /* RegularNavBarView.swift */; };
+		458C76A928501D6900119E68 /* AddChoreIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 458C76A828501D6900119E68 /* AddChoreIntent.swift */; };
+		458C76BD2851736000119E68 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 458C76BC2851736000119E68 /* Date.swift */; };
+		458C76BF285174AF00119E68 /* Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 458C76BE285174AF00119E68 /* Int.swift */; };
 		45A31BFB27E2CB340060B8AB /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A31BFA27E2CB340060B8AB /* Color.swift */; };
 		45A4754A279215A100322BCE /* ChoreRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A47549279215A100322BCE /* ChoreRepository.swift */; };
 		45A4754C27931F1C00322BCE /* ChoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A4754B27931F1C00322BCE /* ChoreService.swift */; };
@@ -132,6 +135,9 @@
 		45750CDB27FC075300274617 /* ChoreTabDrawerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoreTabDrawerView.swift; sourceTree = "<group>"; };
 		45750CDD27FCE4B700274617 /* FamilyTabDrawerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyTabDrawerView.swift; sourceTree = "<group>"; };
 		45750CDF27FD270A00274617 /* RegularNavBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegularNavBarView.swift; sourceTree = "<group>"; };
+		458C76A828501D6900119E68 /* AddChoreIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddChoreIntent.swift; sourceTree = "<group>"; };
+		458C76BC2851736000119E68 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
+		458C76BE285174AF00119E68 /* Int.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Int.swift; sourceTree = "<group>"; };
 		45942AC22827002E00CD490F /* ChoreReward.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ChoreReward.entitlements; sourceTree = "<group>"; };
 		45A31BFA27E2CB340060B8AB /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		45A47549279215A100322BCE /* ChoreRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoreRepository.swift; sourceTree = "<group>"; };
@@ -250,8 +256,8 @@
 		45395C53272A252900F50B70 /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				45A31BF927E2CB290060B8AB /* Extention */,
 				45395C54272A253E00F50B70 /* Views */,
+				458C76A828501D6900119E68 /* AddChoreIntent.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -342,6 +348,8 @@
 				45A31BFA27E2CB340060B8AB /* Color.swift */,
 				45E5FB1327E5A65C008B20A8 /* View.swift */,
 				45EAF0BB27EEA484005655D4 /* EnvironmentKey.swift */,
+				458C76BC2851736000119E68 /* Date.swift */,
+				458C76BE285174AF00119E68 /* Int.swift */,
 			);
 			path = Extention;
 			sourceTree = "<group>";
@@ -379,6 +387,7 @@
 			isa = PBXGroup;
 			children = (
 				45942AC22827002E00CD490F /* ChoreReward.entitlements */,
+				45A31BF927E2CB290060B8AB /* Extention */,
 				45A808E82839395800DF7EF6 /* Database */,
 				45395C59272B20E900F50B70 /* Dependency */,
 				45B012D427549394002C7A06 /* Repository */,
@@ -543,6 +552,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 45ACB4D12724AD1D000E04A0 /* Build configuration list for PBXNativeTarget "ChoreReward" */;
 			buildPhases = (
+				45D58F702847E44300E70937 /* ShellScript */,
 				45ACB4A42724AD1A000E04A0 /* Sources */,
 				45ACB4A52724AD1A000E04A0 /* Frameworks */,
 				45ACB4A62724AD1A000E04A0 /* Resources */,
@@ -678,6 +688,26 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		45D58F702847E44300E70937 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nif test -d \"/opt/homebrew/bin/\"; then\n  PATH=\"/opt/homebrew/bin/:${PATH}\"\nfi\n\nexport PATH\n\nif which swiftlint >/dev/null; then\n  swiftlint --fix && swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		45ACB4A42724AD1A000E04A0 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -700,15 +730,18 @@
 				45ACB4DC2724AE00000E04A0 /* Chore.swift in Sources */,
 				455ECC86275DA7A100438A43 /* RolePickerView.swift in Sources */,
 				45A31BFB27E2CB340060B8AB /* Color.swift in Sources */,
+				458C76A928501D6900119E68 /* AddChoreIntent.swift in Sources */,
 				45B6BB39272FC72100F89D74 /* AppView.swift in Sources */,
 				4531476B2751FFBD000A85D7 /* UserService.swift in Sources */,
 				45EAF0BA27EE6F8B005655D4 /* CircularButton.swift in Sources */,
 				452AFECE275443720060BD43 /* SignUpView.swift in Sources */,
 				45243F10276EB5F700D2EACB /* FamilyListViewModel.swift in Sources */,
 				45750CDC27FC075300274617 /* ChoreTabDrawerView.swift in Sources */,
+				458C76BF285174AF00119E68 /* Int.swift in Sources */,
 				45B090332800DE8800CD1597 /* StorageRepository.swift in Sources */,
 				4531476E2752FBFC000A85D7 /* AppViewModel.swift in Sources */,
 				45B012D7275495CF002C7A06 /* UserRepository.swift in Sources */,
+				458C76BD2851736000119E68 /* Date.swift in Sources */,
 				45D7AE9327347D2900A53812 /* User.swift in Sources */,
 				45D8D399275E77CA0026ABE3 /* FamilyTabView.swift in Sources */,
 				45B2FF4328106A9800120921 /* EditUserProfileViewModel.swift in Sources */,

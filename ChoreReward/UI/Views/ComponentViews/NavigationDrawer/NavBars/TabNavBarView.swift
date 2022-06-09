@@ -9,16 +9,16 @@ import SwiftUI
 
 struct TabNavBarView: View {
     @Binding var presentingSideDrawer: Bool
-    
+
     private let navTitle: String
-    
+
     init(presentingSideDrawer: Binding<Bool>, navTitle: String) {
         self._presentingSideDrawer = presentingSideDrawer
         self.navTitle = navTitle
     }
-    
+
     var body: some View {
-        HStack{
+        HStack {
             ButtonView(buttonImage: "line.3.horizontal", action: {
                 withAnimation {
                     presentingSideDrawer = true

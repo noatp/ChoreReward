@@ -7,22 +7,22 @@
 
 import SwiftUI
 import CoreImage.CIFilterBuiltins
-import CoreImage
+// import CoreImage
 
 struct NoFamilyView: View {
     @ObservedObject var noFamilyViewModel: ObservableViewModel<NoFamilyState, NoFamilyAction>
     private var views: Dependency.Views
-    
+
     init(
         noFamilyViewModel: ObservableViewModel<NoFamilyState, NoFamilyAction>,
         views: Dependency.Views
-    ){
+    ) {
         self.noFamilyViewModel = noFamilyViewModel
         self.views = views
     }
-    
+
     var body: some View {
-        VStack(spacing: 16){
+        VStack(spacing: 16) {
             Text("Please ask your family's admin to invite you to the family using the following QR code")
                 .multilineTextAlignment(.center)
             Image(uiImage: generateQRImage(from: noFamilyViewModel.state.currentUserId))
@@ -31,7 +31,7 @@ struct NoFamilyView: View {
                 .scaledToFit()
                 .frame(width: 200, height: 200)
             Text(noFamilyViewModel.state.currentUserId)
-            if (noFamilyViewModel.state.shouldRenderCreateFamilyButton){
+            if noFamilyViewModel.state.shouldRenderCreateFamilyButton {
                 Button("Create a new family") {
                     noFamilyViewModel.perform(action: .createFamily)
                 }
@@ -39,11 +39,11 @@ struct NoFamilyView: View {
         }
         .padding()
     }
-    
-    private func generateQRImage(from userId: String) -> UIImage{
+
+    private func generateQRImage(from userId: String) -> UIImage {
         let context = CIContext()
         let filter = CIFilter.qrCodeGenerator()
-        
+
         filter.message = Data(userId.utf8)
 
             if let outputImage = filter.outputImage {
@@ -58,7 +58,7 @@ struct NoFamilyView: View {
 
 struct NoFamilyView_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationView{
+        NavigationView {
             NoFamilyView(
                 noFamilyViewModel: .init(
                     staticState: .init(
@@ -71,12 +71,12 @@ struct NoFamilyView_Previews: PreviewProvider {
     }
 }
 
-extension Dependency.Views{
-    var noFamilyView: NoFamilyView{
+extension Dependency.Views {
+    var noFamilyView: NoFamilyView {
         return NoFamilyView(
             noFamilyViewModel: ObservableViewModel(viewModel: viewModels.noFamilyViewModel),
             views: self
         )
-        
+
     }
 }

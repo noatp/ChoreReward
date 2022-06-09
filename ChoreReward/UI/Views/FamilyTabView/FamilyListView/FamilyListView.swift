@@ -11,25 +11,25 @@ struct FamilyListView: View {
     @ObservedObject var familyListViewModel: ObservableViewModel<FamilyListState, Void>
     @State var presentedSheet = false
     private var views: Dependency.Views
-    
+
     init(
         familyListViewModel: ObservableViewModel<FamilyListState, Void>,
         views: Dependency.Views
-    ){
+    ) {
         self.familyListViewModel = familyListViewModel
         self.views = views
     }
-    
+
     var body: some View {
-        ZStack{
+        ZStack {
             ScrollView {
-                ForEach(familyListViewModel.state.members){ member in
+                ForEach(familyListViewModel.state.members) { member in
                     UserCardView(user: member)
                 }
             }
-            VStack{
+            VStack {
                 Spacer()
-                HStack{
+                HStack {
                     Spacer()
                     if familyListViewModel.state.shouldRenderAddMemberButton {
                         CircularButton(action: {
@@ -39,7 +39,7 @@ struct FamilyListView: View {
                     }
                 }
             }
-            
+
         }
         .padding()
         .sheet(isPresented: $presentedSheet) {
@@ -50,11 +50,11 @@ struct FamilyListView: View {
 
 struct FamilyListView_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationView{
+        NavigationView {
             FamilyListView(
                 familyListViewModel: .init(
                     staticState: .init(
-                        members: [User.preview],
+                        members: [DenormUser.preview],
                         shouldRenderAddMemberButton: true
                     )
                 ),
@@ -63,8 +63,8 @@ struct FamilyListView_Previews: PreviewProvider {
     }
 }
 
-extension Dependency.Views{
-    var familyListView: FamilyListView{
+extension Dependency.Views {
+    var familyListView: FamilyListView {
         return FamilyListView(
             familyListViewModel: ObservableViewModel(viewModel: viewModels.familyListViewModel),
             views: self

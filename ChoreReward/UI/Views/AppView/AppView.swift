@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-enum Tabs: String{
+enum Tabs: String {
     case choreTab = "Chores"
     case familyTab = "Family Members"
 }
@@ -17,21 +17,20 @@ struct AppView: View {
     @State var selectedTab: Tabs = .choreTab
     @State var presentingAddChoreView: Bool = false
     private var views: Dependency.Views
-    
+
     init(
         appViewModel: ObservableViewModel<AppViewState, Void>,
         views: Dependency.Views
-    ){
+    ) {
         self.appViewModel = appViewModel
         self.views = views
     }
-    
+
     var body: some View {
         if appViewModel.state.shouldPresentNoFamilyView {
-            views.noFamilyView 
-        }
-        else{
-            NavigationView{
+            views.noFamilyView
+        } else {
+            NavigationView {
                 views.navDrawerView(navTitle: selectedTab.rawValue) {
                     mainContent
                 } drawerContent: {
@@ -44,7 +43,7 @@ struct AppView: View {
             .fullScreenCover(isPresented: $presentingAddChoreView) {
                 views.addChoreView()
             }
-            
+
         }
     }
 }
@@ -59,8 +58,8 @@ struct AppView_Previews: PreviewProvider {
     }
 }
 
-extension Dependency.Views{
-    var appView: AppView{
+extension Dependency.Views {
+    var appView: AppView {
         return AppView(
             appViewModel: ObservableViewModel(viewModel: viewModels.appViewModel),
             views: self
@@ -68,10 +67,10 @@ extension Dependency.Views{
     }
 }
 
-extension AppView{
+extension AppView {
     var mainContent: some View {
-        VStack{
-            //main view
+        VStack {
+            // main view
             switch selectedTab {
             case .choreTab:
                 views.choreTabView()
@@ -79,13 +78,13 @@ extension AppView{
                 views.familyTabView
             }
             Spacer(minLength: 0)
-            //tab bar
+            // tab bar
             tabBar
         }
     }
-    
+
     var drawerContent: some View {
-        VStack{
+        VStack {
             switch selectedTab {
             case .choreTab:
                 ChoreTabDrawerView()
@@ -95,9 +94,9 @@ extension AppView{
             Spacer(minLength: 0)
         }
     }
-    
-    var tabBar: some View{
-        HStack{
+
+    var tabBar: some View {
+        HStack {
             Spacer()
             Button {
                 selectedTab = .choreTab
@@ -110,10 +109,10 @@ extension AppView{
                 }
             }
             .foregroundColor(selectedTab == .choreTab ? Color.accLight : Color.accDark)
-            //.buttonStyle(.plain)
+            // .buttonStyle(.plain)
             Spacer()
 
-            if (appViewModel.state.shouldRenderAddChoreButton){
+            if appViewModel.state.shouldRenderAddChoreButton {
                 Button {
                     presentingAddChoreView = true
                 } label: {
@@ -126,9 +125,9 @@ extension AppView{
                     }
                 }
                 .foregroundColor(.acc)
-                //.buttonStyle(.plain)
+                // .buttonStyle(.plain)
             }
-            
+
             Spacer()
             Button {
                 selectedTab = .familyTab
@@ -141,7 +140,7 @@ extension AppView{
                 }
             }
             .foregroundColor(selectedTab == .familyTab ? Color.accLight : Color.accDark)
-            //.buttonStyle(.plain)
+            // .buttonStyle(.plain)
             Spacer()
         }
         .overlay(Divider(), alignment: .top)

@@ -14,8 +14,8 @@ import Kingfisher
 @main
 struct ChoreRewardApp: App {
     let dependency: Dependency
-    
-    init(){
+
+    init() {
 //        UserDefaults.standard.set(false, forKey: "_UIConstraintBasedLayoutLogUnsatisfiable")
         FirebaseApp.configure()
 #if EMULATORS

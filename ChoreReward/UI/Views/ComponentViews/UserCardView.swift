@@ -9,17 +9,17 @@ import SwiftUI
 import Kingfisher
 
 struct UserCardView: View {
-    private let user: User
-    
+    private let user: DenormUser
+
     init(
-        user: User
-    ){
+        user: DenormUser
+    ) {
         self.user = user
     }
-    
+
     var body: some View {
-        HStack{
-            Group{
+        HStack {
+            Group {
                 if let userImageUrl = user.profileImageUrl {
 //                    RemoteImageView(
 //                        imageUrl: userImageUrl,
@@ -27,28 +27,25 @@ struct UserCardView: View {
 //                        cachingSize: .init(width: 50, height: 50)
 //                    )
                     RemoteImageView(imageUrl: userImageUrl, isThumbnail: true)
-                }
-                else{
+                } else {
                     ImageView(systemImage: "person.fill")
                 }
             }
             .frame(width: 100, height: 100, alignment: .center)
             .clipShape(Circle())
             .padding(.trailing)
-            
-            Text(user.name)
+
+            Text(user.name ?? "")
                 .font(.headline)
+
             Spacer()
-            Text(user.role.rawValue)
-                .font(.caption)
         }
     }
 }
 
 struct UserCardView_Previews: PreviewProvider {
     static var previews: some View {
-        UserCardView(user: User.preview)
+        UserCardView(user: DenormUser.preview)
             .previewLayout(.sizeThatFits)
     }
 }
-

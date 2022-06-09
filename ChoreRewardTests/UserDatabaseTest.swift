@@ -11,8 +11,8 @@ import Combine
 
 class UserDatabaseTest: XCTestCase {
     let testUser = User(email: "test1@gmail.com", name: "test123456", role: .parent)
-    var userDatabase : MockUserDatabase?
-    
+    var userDatabase: MockUserDatabase?
+
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
         userDatabase = MockUserDatabase(mockUser: testUser)
@@ -21,10 +21,10 @@ class UserDatabaseTest: XCTestCase {
     override func tearDownWithError() throws {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
-    
+
     func testReadUser() async throws {
         let expectation = XCTestExpectation(description: "listen to a user record from firestore")
-        var testResult: User? = nil
+        var testResult: User?
         userDatabase?.resetPublisher()
         let currentUserSubscription = userDatabase?.userPublisher.eraseToAnyPublisher()
             .sink(receiveValue: { receivedUser in

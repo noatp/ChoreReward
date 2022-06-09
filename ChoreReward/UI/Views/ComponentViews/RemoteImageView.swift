@@ -15,7 +15,7 @@ struct RemoteImageView: View {
 //    private let cachingSize: CGSize
     private let imageUrl: String
     private let isThumbnail: Bool
-    
+
     init(
 //        imageUrl: String,
 //        size: CGSize,
@@ -29,7 +29,7 @@ struct RemoteImageView: View {
         self.imageUrl = imageUrl
         self.isThumbnail = isThumbnail
     }
-    
+
     var body: some View {
 //        let processor = DownsamplingImageProcessor(size: .init(width: cachingSize.width*3, height: cachingSize.height*3))
 //        return KFImage(URL(string: imageUrl))
@@ -39,6 +39,7 @@ struct RemoteImageView: View {
 //            .resizable()
 //            .scaledToFill()
 //            .frame(width: size.width, height: size.height)
+
         if isThumbnail {
             WebImage(url: URL(string: imageUrl)!)
                 .resizable()
@@ -48,8 +49,7 @@ struct RemoteImageView: View {
                 })
                 .transition(.fade(duration: 0.5))
                 .scaledToFill()
-        }
-        else{
+        } else {
             WebImage(url: URL(string: imageUrl)!)
                 .resizable()
                 .cancelOnDisappear(true)
@@ -59,7 +59,7 @@ struct RemoteImageView: View {
                 .transition(.fade(duration: 0.5))
                 .scaledToFill()
         }
-        
+
     }
 }
 

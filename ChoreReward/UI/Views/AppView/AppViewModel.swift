@@ -8,22 +8,22 @@
 import Foundation
 import Combine
 
-class AppViewModel: StatefulViewModel{
+class AppViewModel: StatefulViewModel {
     @Published var _state = empty
     static var empty: AppViewState = .empty
-    var state: AnyPublisher<AppViewState, Never>{
+    var state: AnyPublisher<AppViewState, Never> {
         return $_state.eraseToAnyPublisher()
     }
-    
+
     private let userService: UserService
     private var currentUserSubscription: AnyCancellable?
-    
+
     init(userService: UserService) {
         self.userService = userService
         addSubscription()
     }
-    
-    func addSubscription(){
+
+    func addSubscription() {
         currentUserSubscription = userService.$currentUser
             .sink(receiveValue: {[weak self] receivedUser in
                 self?._state = .init(
@@ -32,25 +32,23 @@ class AppViewModel: StatefulViewModel{
                 )
             })
     }
-    
-    
-    
+
     func performAction(_ action: Void) {}
-    
+
 }
 
-struct AppViewState{
+struct AppViewState {
     let shouldRenderAddChoreButton: Bool
     let shouldPresentNoFamilyView: Bool
-    
+
     static let empty: AppViewState = .init(
         shouldRenderAddChoreButton: true,
         shouldPresentNoFamilyView: false
     )
 }
 
-extension Dependency.ViewModels{
-    var appViewModel: AppViewModel{
+extension Dependency.ViewModels {
+    var appViewModel: AppViewModel {
         AppViewModel(userService: services.userService)
     }
 }

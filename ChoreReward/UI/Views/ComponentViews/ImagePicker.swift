@@ -12,7 +12,7 @@ struct ImagePicker: UIViewControllerRepresentable {
 
     var sourceType: UIImagePickerController.SourceType
     var didFinishPickingMediaHandler: ((UIImage) -> Void)
-    
+
     init(sourceType: UIImagePickerController.SourceType, didFinishPickingMediaHandler: @escaping ((UIImage) -> Void)) {
         self.sourceType = sourceType
         self.didFinishPickingMediaHandler = didFinishPickingMediaHandler
@@ -30,8 +30,8 @@ struct ImagePicker: UIViewControllerRepresentable {
             self.parent = parent
         }
 
-        func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-            if let uiImage = info[.originalImage] as? UIImage{
+        func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
+            if let uiImage = info[.originalImage] as? UIImage {
                 parent.didFinishPickingMediaHandler(uiImage)
             }
             picker.dismiss(animated: true)
@@ -56,7 +56,7 @@ struct ImagePicker: UIViewControllerRepresentable {
 
 }
 
-//struct ContentView: View {
+// struct ContentView: View {
 //    @State private var isPresented: Bool = false
 //    var body: some View {
 //        Button("Present Picker") {
@@ -66,8 +66,8 @@ struct ImagePicker: UIViewControllerRepresentable {
 //            PhotoPicker(configuration: configuration, isPresented: $isPresented)
 //        }
 //    }
-//}
-//struct ImagePicker: UIViewControllerRepresentable {
+// }
+// struct ImagePicker: UIViewControllerRepresentable {
 //    let configuration: PHPickerConfiguration = PHPickerConfiguration(photoLibrary: PHPhotoLibrary.shared())
 //    @Binding var isPresented: Bool
 //    @Binding var image: UIImage?
@@ -106,4 +106,4 @@ struct ImagePicker: UIViewControllerRepresentable {
 //
 //        }
 //    }
-//}
+// }

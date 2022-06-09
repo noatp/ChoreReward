@@ -10,19 +10,18 @@ import SwiftUI
 struct FamilyTabView: View {
     @ObservedObject var familyTabViewModel: ObservableViewModel<FamilyTabState, Void>
     private var views: Dependency.Views
-    
+
     init(
         familyTabViewModel: ObservableViewModel<FamilyTabState, Void>,
         views: Dependency.Views
-    ){
+    ) {
         self.familyTabViewModel = familyTabViewModel
         self.views = views
     }
     var body: some View {
         if familyTabViewModel.state.hasCurrentFamily {
             views.familyListView
-        }
-        else{
+        } else {
             views.noFamilyView
         }
     }
@@ -40,7 +39,7 @@ struct FamilyTabView_Previews: PreviewProvider {
                 views: Dependency.preview.views()
             )
         }
-        NavigationView{
+        NavigationView {
             FamilyTabView(
                 familyTabViewModel: .init(
                     staticState: .init(
@@ -53,8 +52,8 @@ struct FamilyTabView_Previews: PreviewProvider {
     }
 }
 
-extension Dependency.Views{
-    var familyTabView: FamilyTabView{
+extension Dependency.Views {
+    var familyTabView: FamilyTabView {
         return FamilyTabView(
             familyTabViewModel: ObservableViewModel(viewModel: viewModels.familyTabViewModel),
             views: self

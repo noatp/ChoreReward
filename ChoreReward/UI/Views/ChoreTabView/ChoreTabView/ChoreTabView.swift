@@ -13,36 +13,35 @@ struct ChoreTabView: View {
     @State private var presentFilterMenu = false
     @Namespace private var animation
     private var views: Dependency.Views
-    
+
     init(
         choreTabViewModel: ObservableViewModel<ChoreTabState, ChoreTabAction>,
         views: Dependency.Views
-    ){
+    ) {
         self.choreTabViewModel = choreTabViewModel
         self.views = views
     }
-    
+
     var body: some View {
-        VStack(spacing: 0){
-            HStack{
+        VStack(spacing: 0) {
+            HStack {
                 choreStatusPicker
                 Spacer()
                 filterButton
             }
             .padding([.leading, .bottom, .trailing])
             .background(Color.bg)
-            
-            ZStack{
-                if choreTabViewModel.state.displayingChoreList.isEmpty{
-                    VStack{
+
+            ZStack {
+                if choreTabViewModel.state.displayingChoreList.isEmpty {
+                    VStack {
                         Spacer()
                         Text("No chores")
                         Spacer()
                     }
-                }
-                else{
-                    ScrollView(showsIndicators: false){
-                        LazyVStack(spacing: 0){
+                } else {
+                    ScrollView(showsIndicators: false) {
+                        LazyVStack(spacing: 0) {
                             ForEach(choreTabViewModel.state.displayingChoreList) {chore in
                                 NavigationLink {
                                     views.choreDetailView(chore: chore)
@@ -55,7 +54,7 @@ struct ChoreTabView: View {
                         .animation(.easeInOut, value: choreTabViewModel.state.chorePickerState)
                     }
                 }
-                
+
                 //                    List(choreTabViewModel.state.displayingChoreList){chore in
                 //                        NavigationLink {
                 //                            views.choreDetailView(chore: chore)
@@ -65,22 +64,22 @@ struct ChoreTabView: View {
                 //                        .transition(.asymmetric(insertion: .move(edge: .leading), removal: .move(edge: .trailing)))
                 //                    }
                 //                    .animation(.easeInOut, value: choreTabViewModel.state.chorePickerState)
-                
-                if (presentFilterMenu){
-                    VStack{
+
+                if presentFilterMenu {
+                    VStack {
                         filterMenu
                         Spacer()
                     }
                 }
             }
-            
+
         }
     }
 }
 
 struct ChoreTabView_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationView{
+        NavigationView {
             ChoreTabView(
                 choreTabViewModel: ObservableViewModel(
                     staticState: .empty
@@ -93,8 +92,8 @@ struct ChoreTabView_Previews: PreviewProvider {
     }
 }
 
-extension Dependency.Views{
-    func choreTabView() -> ChoreTabView{
+extension Dependency.Views {
+    func choreTabView() -> ChoreTabView {
         return ChoreTabView(
             choreTabViewModel: ObservableViewModel(
                 viewModel: viewModels.choreTabViewModel
@@ -104,17 +103,17 @@ extension Dependency.Views{
     }
 }
 
-extension ChoreTabView{
-    private var choreStatusPicker: some View{
-        HStack(spacing: 0){
+extension ChoreTabView {
+    private var choreStatusPicker: some View {
+        HStack(spacing: 0) {
             ButtonView(buttonTitle: "Unfinished") {
                 choreTabViewModel.perform(action: .updatePickerState(.unfinished))
             }
             .padding(.horizontal)
             .padding(.vertical, 5)
             .foregroundColor(.fg)
-            .background{
-                if (choreTabViewModel.state.chorePickerState == .unfinished){
+            .background {
+                if choreTabViewModel.state.chorePickerState == .unfinished {
                     RoundedRectangle(cornerRadius: .infinity)
                         .foregroundColor(.bg3)
                         .matchedGeometryEffect(id: "pickerBackground", in: animation)
@@ -126,22 +125,22 @@ extension ChoreTabView{
             .padding(.horizontal)
             .padding(.vertical, 5)
             .foregroundColor(.fg)
-            .background{
-                if (choreTabViewModel.state.chorePickerState == .finished){
+            .background {
+                if choreTabViewModel.state.chorePickerState == .finished {
                     RoundedRectangle(cornerRadius: .infinity)
                         .foregroundColor(.bg3)
                         .matchedGeometryEffect(id: "pickerBackground", in: animation)
                 }
             }
         }
-        .background{
+        .background {
             RoundedRectangle(cornerRadius: .infinity)
                 .foregroundColor(.bg2)
         }
         .animation(.easeInOut(duration: 0.2), value: choreTabViewModel.state.chorePickerState)
     }
-    
-    private var filterButton: some View{
+
+    private var filterButton: some View {
         ButtonView(buttonTitle: "Filter", buttonImage: "tray") {
             withAnimation(.easeInOut(duration: 0.2)) {
                 presentFilterMenu.toggle()
@@ -149,9 +148,9 @@ extension ChoreTabView{
         }
         .foregroundColor(.white)
     }
-    
-    private var filterMenu: some View{
-        VStack(alignment: .leading){
+
+    private var filterMenu: some View {
+        VStack(alignment: .leading) {
             Divider()
             ButtonView(buttonTitle: "All", buttonImage: "house") {
                 choreTabViewModel.perform(action: .updateFilterState(.all))
@@ -162,7 +161,7 @@ extension ChoreTabView{
                 choreTabViewModel.perform(action: .updateFilterState(.takenByCurrentUser))
                 presentFilterMenu.toggle()
             }
-            
+
         }
         .padding([.leading, .bottom, .trailing])
         .background(Color.bg)

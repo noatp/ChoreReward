@@ -10,7 +10,6 @@ import FirebaseAuth
 import Combine
 import SwiftUI
 
-
 /*
  NOTE TO SELF:
  - service should try to validate parameter before calling Repository
@@ -26,7 +25,7 @@ import SwiftUI
  
  */
 
-class UserService: ObservableObject{
+class UserService: ObservableObject {
     @Published var authState: AuthState = .signedOut(error: nil)
     @Published var currentUser: User?
     @Published var isBusy: Bool = false
@@ -36,53 +35,52 @@ class UserService: ObservableObject{
     private let storageRepository: StorageRepository
 
     private var currentUserSubscription: AnyCancellable?
-    //private var isLoginPending: Bool = false
-    
-    var currentUserId: String?{
+    // private var isLoginPending: Bool = false
+
+    var currentUserId: String? {
         auth.currentUser?.uid
     }
-    
+
     init(
         currentUserRepository: UserRepository,
         storageRepository: StorageRepository
-    ){
+    ) {
         self.userRepository = currentUserRepository
         self.storageRepository = storageRepository
     }
-    
-    private func performSignIn(){
-        guard let currentUserId = currentUserId else{
+
+    private func performSignIn() {
+        guard let currentUserId = currentUserId else {
             print("\(#fileID) \(#function): currentUserId is nil")
             return
         }
         currentUserSubscription = userRepository.readUser(userId: currentUserId)
             .sink(receiveValue: {[weak self] receivedUser in
-                print("\(#fileID) \(#function): received new user from UserDatabse through UserRepository")
+                print("\(#fileID) \(#function): received a user")
                 self?.currentUser = receivedUser
                 self?.authState = .signedIn
                 self?.isBusy = false
             })
     }
-    
+
     func silentSignIn() async {
         performSignIn()
     }
-    
+
     func signIn(email: String, password: String) async {
-        do{
+        do {
             isBusy = true
             try await auth.signIn(withEmail: email, password: password)
             performSignIn()
-        }
-        catch{
+        } catch {
             print("\(#fileID) \(#function): \(error)")
             authState = .signedOut(error: error)
             isBusy = false
         }
     }
-    
+
     func signUp(newUser: User, password: String, profileImage: UIImage?) async {
-        do{
+        do {
             isBusy = true
             try await auth.createUser(withEmail: newUser.email, password: password)
             guard let currentUserId = currentUserId else {
@@ -101,17 +99,16 @@ class UserService: ObservableObject{
             if let profileImage = profileImage {
                 changeUserProfileImage(image: profileImage)
             }
-            
+
             performSignIn()
-        }
-        catch{
+        } catch {
             print("\(#fileID) \(#function): \(error)")
             authState = .signedOut(error: error)
             isBusy = false
         }
     }
-    
-    func signOut(){
+
+    func signOut() {
         do {
             try self.auth.signOut()
             resetService()
@@ -119,102 +116,100 @@ class UserService: ObservableObject{
             print("\(#fileID) \(#function): Error signing out: %@", signOutError)
         }
     }
-    
-    func changeUserProfileImage(image: UIImage){
+
+    func changeUserProfileImage(image: UIImage) {
         isBusy = true
         guard let currentUserId = currentUserId else {
             print("\(#fileID) \(#function): could not retrieve currentUserId")
             return
         }
-        
-        Task{
+
+        Task {
             let profileImageUrl = await storageRepository.uploadUserProfileImage(image: image, userId: currentUserId)
-            
+
             guard let profileImageUrl = profileImageUrl else {
                 print("\(#fileID) \(#function): could not get a url for the profile image")
                 return
             }
-            
+
             await userRepository.updateProfileImageForUser(userId: currentUserId, profileImageUrl: profileImageUrl)
             isBusy = false
         }
     }
-    
-    func updateUserProfileWithImage(newUserProfile: User, newUserImage: UIImage?){
+
+    func updateUserProfileWithImage(newUserProfile: User, newUserImage: UIImage?) {
         isBusy = true
         guard let currentUserId = currentUserId else {
             print("\(#fileID) \(#function): could not retrieve currentUserId")
             isBusy = false
             return
         }
-        
+
         if let newUserImage = newUserImage {
-            Task{
+            Task {
                 let profileImageUrl =  await storageRepository.uploadUserProfileImage(image: newUserImage, userId: currentUserId)
 
                 guard let profileImageUrl = profileImageUrl else {
                     print("\(#fileID) \(#function): could not get a url for the profile image")
                     return
                 }
-                
+
                 let userProfileWithImage = User(
                     email: newUserProfile.email,
                     name: newUserProfile.name,
                     role: newUserProfile.role,
                     profileImageUrl: profileImageUrl
                 )
-                
+
                 print("\(#fileID) \(#function): calling userRepository with image link")
                 await userRepository.updateUserProfileWithImage(userId: currentUserId, newUserProfileWithImage: userProfileWithImage)
                 isBusy = false
             }
-            
-        }
-        else{
+
+        } else {
             let newUserProfileWithImage = User(
                 email: newUserProfile.email,
                 name: newUserProfile.name,
                 role: newUserProfile.role,
                 profileImageUrl: nil
             )
-            Task{
+            Task {
                 print("\(#fileID) \(#function): calling userRepository with nil image link")
                 await userRepository.updateUserProfileWithImage(userId: currentUserId, newUserProfileWithImage: newUserProfileWithImage)
                 isBusy = false
             }
         }
     }
-    
-    func updateUserProfileWithoutImage(newUserProfile: User){
+
+    func updateUserProfileWithoutImage(newUserProfile: User) {
         isBusy = true
         guard let currentUserId = currentUserId else {
             print("\(#fileID) \(#function): could not retrieve currentUserId")
             isBusy = false
             return
         }
-                
+
         let newUserProfileWithoutImage = User(
             email: newUserProfile.email,
             name: newUserProfile.name,
             role: newUserProfile.role
         )
-        Task{
+        Task {
             print("\(#fileID) \(#function): calling userRepository without image link")
             await userRepository.updateUserProfileWithoutImage(userId: currentUserId, newUserProfileWithoutImage: newUserProfileWithoutImage)
             isBusy = false
         }
     }
 
-    private func resetService(){
+    private func resetService() {
         currentUser = nil
         authState = .signedOut(error: nil)
         currentUserSubscription = nil
         userRepository.resetRepository()
     }
-    
-    enum AuthState{
+
+    enum AuthState {
         case signedIn
         case signedOut(error: Error?)
     }
 }
-

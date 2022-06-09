@@ -10,40 +10,38 @@ import FirebaseStorage
 import FirebaseStorageSwift
 import UIKit
 
-class StorageRepository{
+class StorageRepository {
     let storage = Storage.storage()
-        
-    func uploadUserProfileImage(image: UIImage, userId: String) async -> String?{
+
+    func uploadUserProfileImage(image: UIImage, userId: String) async -> String? {
         let imageRef = storage.reference().child("userImage/\(userId)")
-        
-        guard let imageData = image.jpegData(compressionQuality: 0.5) else{
+
+        guard let imageData = image.jpegData(compressionQuality: 0.5) else {
             print("\(#fileID) \(#function): fail to compress image")
             return nil
         }
-        
-        do{
-            let _ = try await imageRef.putDataAsync(imageData)
+
+        do {
+            _ = try await imageRef.putDataAsync(imageData)
             return try await imageRef.downloadURL().absoluteString
-        }
-        catch{
+        } catch {
             print("\(#fileID) \(#function): \(error)")
             return nil
         }
     }
-    
-    func uploadChoreImage(image: UIImage, choreId: String) async -> String?{
+
+    func uploadChoreImage(image: UIImage, choreId: String) async -> String? {
         let imageRef = storage.reference().child("choreImage/\(choreId)")
-        
-        guard let imageData = image.jpegData(compressionQuality: 0.5) else{
+
+        guard let imageData = image.jpegData(compressionQuality: 0.5) else {
             print("\(#fileID) \(#function): fail to compress image")
             return nil
         }
-        
-        do{
-            let _ = try await imageRef.putDataAsync(imageData)
+
+        do {
+            _ = try await imageRef.putDataAsync(imageData)
             return try await imageRef.downloadURL().absoluteString
-        }
-        catch{
+        } catch {
             print("\(#fileID) \(#function): \(error)")
             return nil
         }
