@@ -79,7 +79,7 @@ class UserService: ObservableObject {
         }
     }
 
-    func signUp(newUser: User, password: String, profileImage: UIImage?) async {
+    func signUp(newUser: User, password: String, userImageUrl: String?) async {
         do {
             isBusy = true
             try await auth.createUser(withEmail: newUser.email, password: password)
@@ -92,14 +92,14 @@ class UserService: ObservableObject {
                 email: newUser.email,
                 name: newUser.name,
                 role: newUser.role,
-                profileImageUrl: nil
+                userImageUrl: nil
             )
             await userRepository.createUser(newUser: user)
 
-            if let profileImage = profileImage {
-                changeUserProfileImage(image: profileImage)
-            }
+            if let userImageUrl = userImageUrl {
+                changeUserImage(userImageUrl: userImageUrl )
 
+            }
             performSignIn()
         } catch {
             print("\(#fileID) \(#function): \(error)")
@@ -117,7 +117,7 @@ class UserService: ObservableObject {
         }
     }
 
-    func changeUserProfileImage(image: UIImage) {
+    func changeUserImage(userImageUrl: String) {
         isBusy = true
         guard let currentUserId = currentUserId else {
             print("\(#fileID) \(#function): could not retrieve currentUserId")
@@ -125,7 +125,7 @@ class UserService: ObservableObject {
         }
 
         Task {
-            let profileImageUrl = await storageRepository.uploadUserProfileImage(image: image, userId: currentUserId)
+            let profileImageUrl = await storageRepository.uploadUserProfileImage(imageUrl: userImageUrl)
 
             guard let profileImageUrl = profileImageUrl else {
                 print("\(#fileID) \(#function): could not get a url for the profile image")
@@ -137,7 +137,7 @@ class UserService: ObservableObject {
         }
     }
 
-    func updateUserProfileWithImage(newUserProfile: User, newUserImage: UIImage?) {
+    func updateUserProfileWithImage(newUserProfile: User, newUserImageUrl: String?) {
         isBusy = true
         guard let currentUserId = currentUserId else {
             print("\(#fileID) \(#function): could not retrieve currentUserId")
@@ -145,11 +145,11 @@ class UserService: ObservableObject {
             return
         }
 
-        if let newUserImage = newUserImage {
+        if let newUserImageUrl = newUserImageUrl {
             Task {
-                let profileImageUrl =  await storageRepository.uploadUserProfileImage(image: newUserImage, userId: currentUserId)
+                let userImageUrl =  await storageRepository.uploadUserProfileImage(imageUrl: newUserImageUrl)
 
-                guard let profileImageUrl = profileImageUrl else {
+                guard let userImageUrl = userImageUrl else {
                     print("\(#fileID) \(#function): could not get a url for the profile image")
                     return
                 }
@@ -158,7 +158,7 @@ class UserService: ObservableObject {
                     email: newUserProfile.email,
                     name: newUserProfile.name,
                     role: newUserProfile.role,
-                    profileImageUrl: profileImageUrl
+                    userImageUrl: userImageUrl
                 )
 
                 print("\(#fileID) \(#function): calling userRepository with image link")
@@ -171,7 +171,7 @@ class UserService: ObservableObject {
                 email: newUserProfile.email,
                 name: newUserProfile.name,
                 role: newUserProfile.role,
-                profileImageUrl: nil
+                userImageUrl: nil
             )
             Task {
                 print("\(#fileID) \(#function): calling userRepository with nil image link")

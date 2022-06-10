@@ -12,7 +12,7 @@ struct AddChoreView: View {
     @State var choreTitle = ""
     @State var choreDescription = ""
     @State var isPresentingImagePicker = false
-    @State var choreImage: UIImage?
+    @State var choreImageUrl: String?
     @Environment(\.dismiss) var dismiss
     private var views: Dependency.Views
 
@@ -29,10 +29,8 @@ struct AddChoreView: View {
 
             VStack {
                 Group {
-                    if let choreImage = choreImage {
-                        Image(uiImage: choreImage)
-                            .resizable()
-                            .scaledToFit()
+                    if let choreImageUrl = choreImageUrl {
+                        RemoteImageView(imageUrl: choreImageUrl, isThumbnail: false)
                             .frame(maxWidth: .infinity, maxHeight: 200)
                             .clipped()
                     } else {
@@ -70,11 +68,11 @@ struct AddChoreView: View {
                 .padding(.horizontal)
                 .frame(maxHeight: 200)
                 Spacer()
-                if let choreImage = choreImage {
+                if let choreImageUrl = choreImageUrl {
                     ButtonView(buttonTitle: "Create Chore", buttonImage: "plus") {
                         dismiss()
                         addChoreViewModel.perform(
-                            action: .createChore(choreTitle: choreTitle, choreDescription: choreDescription, choreImage: choreImage)
+                            action: .createChore(choreTitle: choreTitle, choreDescription: choreDescription, choreImageUrl: choreImageUrl)
                         )
                     }
                     .padding()
@@ -82,8 +80,8 @@ struct AddChoreView: View {
             }
         }
         .sheet(isPresented: $isPresentingImagePicker) {
-            ImagePicker(sourceType: .photoLibrary) { newChoreImage in
-                choreImage = newChoreImage
+            ImagePicker(sourceType: .photoLibrary) { newChoreImageUrl in
+                choreImageUrl = newChoreImageUrl
             }
         }
     }

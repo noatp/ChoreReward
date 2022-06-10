@@ -30,7 +30,7 @@ class UserRepository: ObservableObject {
                 "email": newUser.email,
                 "name": newUser.name,
                 "role": newUser.role.rawValue,
-                "profileImageUrl": newUser.profileImageUrl ?? NSNull()
+                "userImageUrl": newUser.userImageUrl ?? NSNull()
             ])
         } catch {
             print("\(#fileID) \(#function): \(error)")
@@ -93,7 +93,7 @@ class UserRepository: ObservableObject {
             try await database.collection("users").document(userId).updateData([
                 "email": newUserProfileWithImage.email,
                 "name": newUserProfileWithImage.name,
-                "profileImageUrl": newUserProfileWithImage.profileImageUrl ?? NSNull()
+                "userImageUrl": newUserProfileWithImage.userImageUrl ?? NSNull()
             ])
         } catch {
             print("\(#fileID) \(#function): \(error)")

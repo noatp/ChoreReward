@@ -12,7 +12,7 @@ struct EditUserProfileView: View {
     @ObservedObject var editUserProfileViewModel: ObservableViewModel<EditUserProfileState, EditUserProfileAction>
     @State var shouldShowImagePicker: Bool = false
     @State var shouldShowActionSheet: Bool = false
-    @State var userImage: UIImage?
+    @State var userImageUrl: String?
     @State var userName: String = ""
     @State var userEmail: String = ""
     @State var didChangeProfileImage: Bool = false
@@ -31,18 +31,13 @@ struct EditUserProfileView: View {
             VStack(spacing: 16) {
                 Group {
                     if didChangeProfileImage {
-                        if let userImage = userImage {
-                            ImageView(uiImage: userImage)
+                        if let userImageUrl = userImageUrl {
+                            RemoteImageView(imageUrl: userImageUrl, isThumbnail: false)
                         } else {
                             ImageView(systemImage: "person.fill")
                         }
                     } else {
                         if let userImageUrl = editUserProfileViewModel.state.currentUserProfileImageUrl {
-//                            RemoteImageView(
-//                                imageUrl: userImageUrl,
-//                                size: .init(width: 200, height: 200),
-//                                cachingSize: .init(width: 200, height: 200)
-//                            )
                             RemoteImageView(imageUrl: userImageUrl, isThumbnail: false)
                         } else {
                             ImageView(systemImage: "person.fill")
@@ -75,7 +70,7 @@ struct EditUserProfileView: View {
                     editUserProfileViewModel.perform(action: .updateUserProfile(
                         userName: userName,
                         userEmail: userEmail,
-                        userImage: userImage,
+                        userImageUrl: userImageUrl,
                         didChangeProfileImage: didChangeProfileImage
                     ))
                 } label: {
@@ -92,7 +87,7 @@ struct EditUserProfileView: View {
             titleVisibility: .visible,
             actions: {
                 Button {
-                    userImage = nil
+                    userImageUrl = nil
                     didChangeProfileImage = true
                 } label: {
                     Text("Remove profile picture")
@@ -106,8 +101,8 @@ struct EditUserProfileView: View {
             }
         )
         .fullScreenCover(isPresented: $shouldShowImagePicker, onDismiss: nil) {
-            ImagePicker(sourceType: .photoLibrary, didFinishPickingMediaHandler: { newUserImage in
-                userImage = newUserImage
+            ImagePicker(sourceType: .photoLibrary, didFinishPickingMediaHandler: { newUserImageUrl in
+                userImageUrl = newUserImageUrl
                 didChangeProfileImage = true
             })
             .ignoresSafeArea()

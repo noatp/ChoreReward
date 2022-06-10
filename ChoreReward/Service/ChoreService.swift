@@ -72,7 +72,7 @@ class ChoreService: ObservableObject {
             })
     }
 
-    func createChore(choreTitle: String, choreDescription: String, currentUser: User, choreImage: UIImage) async {
+    func createChore(choreTitle: String, choreDescription: String, currentUser: User, choreImageUrl: String) async {
         isBusy = true
         guard let currentUserId = currentUser.id else {
             return
@@ -81,7 +81,7 @@ class ChoreService: ObservableObject {
         let newChoreId = UUID().uuidString
 
         Task {
-            let choreImageUrl = await storageRepository.uploadChoreImage(image: choreImage, choreId: newChoreId)
+            let choreImageUrl = await storageRepository.uploadUserProfileImage(imageUrl: choreImageUrl)
 
             guard let choreImageUrl = choreImageUrl else {
                 print("\(#fileID) \(#function): could not get a url for the chore image")

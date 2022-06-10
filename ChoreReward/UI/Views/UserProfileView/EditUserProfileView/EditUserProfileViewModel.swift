@@ -37,14 +37,14 @@ class EditUserProfileViewModel: StatefulViewModel {
                     currentUserEmail: currentUser.email,
                     currentUserName: currentUser.name,
                     currentUserRole: currentUser.role.rawValue,
-                    currentUserProfileImageUrl: currentUser.profileImageUrl
+                    currentUserProfileImageUrl: currentUser.userImageUrl
                 )
             })
     }
     private func updateUserProfile(
         userName: String,
         userEmail: String,
-        newUserImage: UIImage?,
+        newUserImageUrl: String?,
         didChangeProfileImage: Bool
     ) {
         guard let currentUser = userService.currentUser else {
@@ -57,7 +57,7 @@ class EditUserProfileViewModel: StatefulViewModel {
             role: currentUser.role
         )
         if didChangeProfileImage {
-            userService.updateUserProfileWithImage(newUserProfile: newUserProfile, newUserImage: newUserImage)
+            userService.updateUserProfileWithImage(newUserProfile: newUserProfile, newUserImageUrl: newUserImageUrl)
         } else {
             userService.updateUserProfileWithoutImage(newUserProfile: newUserProfile)
         }
@@ -65,11 +65,11 @@ class EditUserProfileViewModel: StatefulViewModel {
 
     func performAction(_ action: EditUserProfileAction) {
         switch action {
-        case .updateUserProfile(let userName, let userEmail, let userImage, let didChangeProfileImage):
+        case .updateUserProfile(let userName, let userEmail, let userImageUrl, let didChangeProfileImage):
             updateUserProfile(
                 userName: userName,
                 userEmail: userEmail,
-                newUserImage: userImage,
+                newUserImageUrl: userImageUrl,
                 didChangeProfileImage: didChangeProfileImage
             )
         }
@@ -98,7 +98,7 @@ struct EditUserProfileState {
 }
 
 enum EditUserProfileAction {
-    case updateUserProfile(userName: String, userEmail: String, userImage: UIImage?, didChangeProfileImage: Bool)
+    case updateUserProfile(userName: String, userEmail: String, userImageUrl: String?, didChangeProfileImage: Bool)
 }
 
 extension Dependency.ViewModels {
