@@ -15,10 +15,9 @@ class ChoreRepository: ObservableObject {
     private var familyChoresListener: ListenerRegistration?
     let familyChoresPublisher = PassthroughSubject<[Chore]?, Never>()
 
-    func createChore(newChore: Chore, newChoreId: String, choreCollection: CollectionReference?) {
-
+    func create(_ newChore: Chore, with choreId: String, in choreCollection: CollectionReference) {
         do {
-            try choreCollection?.document(newChoreId).setData(from: newChore)
+            _ = try choreCollection.document(choreId).setData(from: newChore)
         } catch {
             print("\(#fileID) \(#function): \(error)")
         }
@@ -71,7 +70,7 @@ class ChoreRepository: ObservableObject {
             print("\(#fileID) \(#function): \(error)")
         }
     }
-    
+
     func updateChoreImage(for choreId: String, in choreCollection: CollectionReference, with imageUrl: String) async {
         do {
             try await choreCollection.document(choreId).updateData([

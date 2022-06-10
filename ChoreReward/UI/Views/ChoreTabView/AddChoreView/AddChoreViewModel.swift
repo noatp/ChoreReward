@@ -32,9 +32,7 @@ class AddChoreViewModel: StatefulViewModel {
         guard let currentUser = userService.currentUser else {
             return
         }
-        Task {
-            await choreService.createChore(choreTitle: choreTitle, choreDescription: choreDescription, currentUser: currentUser, choreImageUrl: choreImageUrl)
-        }
+        choreService.createChore(choreTitle: choreTitle, choreDescription: choreDescription, currentUser: currentUser, choreImageUrl: choreImageUrl)
     }
 
     func performAction(_ action: AddChoreAction) {

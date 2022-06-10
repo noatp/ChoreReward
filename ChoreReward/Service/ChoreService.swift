@@ -36,34 +36,27 @@ class ChoreService: ObservableObject {
         addSubscription()
     }
 
-    func createChore(choreTitle: String, choreDescription: String, currentUser: User, choreImageUrl: String) async {
+    func createChore(choreTitle: String, choreDescription: String, currentUser: User, choreImageUrl: String) {
         isBusy = true
-        guard let currentUserId = currentUser.id else {
+        guard let currentUserId = currentUser.id, let currentChoreCollection = currentChoreCollection else {
             return
         }
 
         let newChoreId = UUID().uuidString
 
-        Task {
-            let choreImageUrl = await storageRepository.uploadUserProfileImage(imageUrl: choreImageUrl)
-
-            guard let choreImageUrl = choreImageUrl else {
-                print("\(#fileID) \(#function): could not get a url for the chore image")
-                return
-            }
-
-            let newChore = Chore(
-                title: choreTitle,
-                assignerId: currentUserId,
-                assigneeId: "",
-                created: Date.now.intTimestamp,
-                description: choreDescription,
-                choreImageUrl: choreImageUrl
-            )
-
-            choreRepository.createChore(newChore: newChore, newChoreId: newChoreId, choreCollection: currentChoreCollection)
-            isBusy = false
+        let newChore = Chore(
+            title: choreTitle,
+            assignerId: currentUserId,
+            assigneeId: "",
+            created: Date.now.intTimestamp,
+            description: choreDescription,
+            choreImageUrl: choreImageUrl
+        )
+        choreRepository.create(newChore, with: newChoreId, in: currentChoreCollection)
+        storageRepository.uploadChoreImage(with: choreImageUrl) { [weak self] newChoreImageUrl in
+            self?.updateChoreImage(for: newChoreId, with: newChoreImageUrl)
         }
+        isBusy = false
     }
 
     func takeChore (choreId: String?, currentUserId: String?) {
@@ -86,11 +79,11 @@ class ChoreService: ObservableObject {
             await choreRepository.updateCompletionForChore(choreId: choreId, choreCollection: currentChoreCollection)
         }
     }
-    
+
     private func getChoresOfCurrentFamilyWith(choreCollection: CollectionReference) {
         choreRepository.readChoreCollection(choreCollection)
     }
-    
+
     private func updateChoreImage(for choreId: String?, with imageUrl: String) {
         guard let choreId = choreId, let currentChoreCollection = currentChoreCollection else {
             print("\(#fileID) \(#function): missing choreId or currentChoreCollection")
@@ -100,7 +93,7 @@ class ChoreService: ObservableObject {
             await choreRepository.updateChoreImage(for: choreId, in: currentChoreCollection, with: imageUrl)
         }
     }
-    
+
     private func addSubscription() {
         familyChoresSubscription = choreRepository.familyChoresPublisher
             .sink(receiveValue: { [weak self] receivedFamilyChores in
@@ -136,7 +129,6 @@ class ChoreService: ObservableObject {
                 }
             })
     }
-
 
     private func resetService() {
         familyChores = []
