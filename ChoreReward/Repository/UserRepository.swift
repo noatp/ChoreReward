@@ -50,10 +50,14 @@ class UserRepository: ObservableObject {
     }
 
     func updateProfileForUser(with userId: String, using newUserProfile: User) {
-        do {
-            try database.collection("users").document(userId).setData(from: newUserProfile, merge: true)
-        } catch {
-            print("\(#fileID) \(#function): \(error)")
+        database.collection("users").document(userId).updateData([
+            "name": newUserProfile.name,
+            "email": newUserProfile.email,
+            "userImageUrl": newUserProfile.userImageUrl ?? NSNull()
+        ]) { error in
+            if let error = error {
+                print("\(#fileID) \(#function): \(error)")
+            }
         }
     }
 

@@ -15,7 +15,7 @@ struct EditUserProfileView: View {
     @State var userImageUrl: String?
     @State var userName: String = ""
     @State var userEmail: String = ""
-    @State var didChangeProfileImage: Bool = false
+    @State var userImageDidChange: Bool = false
     private var views: Dependency.Views
 
     init(
@@ -30,7 +30,7 @@ struct EditUserProfileView: View {
         RegularNavBarView(navTitle: editUserProfileViewModel.state.currentUserName) {
             VStack(spacing: 16) {
                 Group {
-                    if didChangeProfileImage {
+                    if userImageDidChange {
                         if let userImageUrl = userImageUrl {
                             RemoteImageView(imageUrl: userImageUrl, isThumbnail: false)
                         } else {
@@ -70,13 +70,13 @@ struct EditUserProfileView: View {
                     editUserProfileViewModel.perform(action: .updateUserProfile(
                         userName: userName,
                         userEmail: userEmail,
-                        userImageUrl: userImageUrl,
-                        didChangeProfileImage: didChangeProfileImage
+                        newUserImageUrl: userImageUrl,
+                        userImageDidChange: userImageDidChange
                     ))
                 } label: {
                     Text("Apply changes")
                 }
-                .disabled(userName == "" && userEmail == "" && !didChangeProfileImage)
+                .disabled(userName == "" && userEmail == "" && !userImageDidChange)
             }
             .padding()
         }
@@ -88,7 +88,7 @@ struct EditUserProfileView: View {
             actions: {
                 Button {
                     userImageUrl = nil
-                    didChangeProfileImage = true
+                    userImageDidChange = true
                 } label: {
                     Text("Remove profile picture")
                 }
@@ -103,7 +103,7 @@ struct EditUserProfileView: View {
         .fullScreenCover(isPresented: $shouldShowImagePicker, onDismiss: nil) {
             ImagePicker(sourceType: .photoLibrary, didFinishPickingMediaHandler: { newUserImageUrl in
                 userImageUrl = newUserImageUrl
-                didChangeProfileImage = true
+                userImageDidChange = true
             })
             .ignoresSafeArea()
         }

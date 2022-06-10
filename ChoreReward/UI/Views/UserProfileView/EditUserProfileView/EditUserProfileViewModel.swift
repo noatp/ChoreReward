@@ -45,7 +45,7 @@ class EditUserProfileViewModel: StatefulViewModel {
         userName: String,
         userEmail: String,
         newUserImageUrl: String?,
-        didChangeProfileImage: Bool
+        userImageDidChange: Bool
     ) {
         guard let currentUser = userService.currentUser else {
             print("\(#fileID) \(#function): currentuser is nil")
@@ -56,21 +56,20 @@ class EditUserProfileViewModel: StatefulViewModel {
             name: userName.isEmpty ? currentUser.name : userName,
             role: currentUser.role
         )
-        if didChangeProfileImage {
-            userService.updateUserProfile(newUserProfile: newUserProfile, newUserImageUrl: newUserImageUrl)
-        } else {
-            userService.updateUserProfile(newUserProfile: newUserProfile, newUserImageUrl: nil)
-        }
+
+        userService.updateUserProfileForCurrentUser(withNewUserProfile: newUserProfile,
+                                                    andNewUserImageUrl: newUserImageUrl,
+                                                    whenUserImageDidChange: userImageDidChange)
     }
 
     func performAction(_ action: EditUserProfileAction) {
         switch action {
-        case .updateUserProfile(let userName, let userEmail, let userImageUrl, let didChangeProfileImage):
+        case .updateUserProfile(let userName, let userEmail, let newUserImageUrl, let userImageDidChange):
             updateUserProfile(
                 userName: userName,
                 userEmail: userEmail,
-                newUserImageUrl: userImageUrl,
-                didChangeProfileImage: didChangeProfileImage
+                newUserImageUrl: newUserImageUrl,
+                userImageDidChange: userImageDidChange
             )
         }
     }
@@ -98,7 +97,7 @@ struct EditUserProfileState {
 }
 
 enum EditUserProfileAction {
-    case updateUserProfile(userName: String, userEmail: String, userImageUrl: String?, didChangeProfileImage: Bool)
+    case updateUserProfile(userName: String, userEmail: String, newUserImageUrl: String?, userImageDidChange: Bool)
 }
 
 extension Dependency.ViewModels {

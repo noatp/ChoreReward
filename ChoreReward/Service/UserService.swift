@@ -105,7 +105,16 @@ class UserService: ObservableObject {
         }
     }
 
-    func updateUserProfile(newUserProfile: User, newUserImageUrl: String?) {
+    /*
+     cases:
+        - remove image: imageDidChange = true, imageUrl = nil
+        - choose new image: imageDidChange = true, imageUrl != nil
+        - do nothing: imageDidChange = false, imageUrl = nil
+     */
+
+    func updateUserProfileForCurrentUser(withNewUserProfile newUserProfile: User,
+                                         andNewUserImageUrl newUserImageUrl: String?,
+                                         whenUserImageDidChange userImageDidChange: Bool) {
         isBusy = true
         guard let currentUserId = currentUserId else {
             print("\(#fileID) \(#function): could not retrieve currentUserId")
@@ -113,20 +122,26 @@ class UserService: ObservableObject {
             return
         }
 
-        let newUserProfile = User(
-            email: newUserProfile.email,
-            name: newUserProfile.name,
-            role: newUserProfile.role,
-            userImageUrl: newUserImageUrl
-        )
+        var newUser: User = .empty
 
-        userRepository.updateProfileForUser(with: currentUserId, using: newUserProfile)
+        if userImageDidChange {
+            newUser = User( // with image url
+                email: newUserProfile.email,
+                name: newUserProfile.name,
+                role: newUserProfile.role,
+                userImageUrl: newUserImageUrl
+            )
 
-        if let newUserImageUrl = newUserImageUrl {
-            storageRepository.uploadUserImage(with: newUserImageUrl) { [weak self] uploadedUserImageUrl in
-                self?.updateUserImage(with: uploadedUserImageUrl)
+            if let newUserImageUrl = newUserImageUrl {
+                storageRepository.uploadUserImage(with: newUserImageUrl) { [weak self] uploadedUserImageUrl in
+                    self?.updateUserImage(with: uploadedUserImageUrl)
+                }
             }
+        } else {
+            newUser = newUserProfile // without image url
         }
+
+        userRepository.updateProfileForUser(with: currentUserId, using: newUser)
 
         isBusy = false
     }
