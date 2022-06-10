@@ -15,6 +15,7 @@ struct EditUserProfileView: View {
     @State var userImageUrl: String?
     @State var userName: String = ""
     @State var userEmail: String = ""
+    @State var didChangeProfileImage: Bool = false
     private var views: Dependency.Views
 
     init(
@@ -29,12 +30,18 @@ struct EditUserProfileView: View {
         RegularNavBarView(navTitle: editUserProfileViewModel.state.currentUserName) {
             VStack(spacing: 16) {
                 Group {
-                    if let userImageUrl = userImageUrl {
-                        RemoteImageView(imageUrl: userImageUrl, isThumbnail: false)
-                    } else if let userImageUrlFromRemote = editUserProfileViewModel.state.currentUserProfileImageUrl {
-                        RemoteImageView(imageUrl: userImageUrlFromRemote, isThumbnail: false)
+                    if didChangeProfileImage {
+                        if let userImageUrl = userImageUrl {
+                            RemoteImageView(imageUrl: userImageUrl, isThumbnail: false)
+                        } else {
+                            ImageView(systemImage: "person.fill")
+                        }
                     } else {
-                        ImageView(systemImage: "person.fill")
+                        if let userImageUrl = editUserProfileViewModel.state.currentUserProfileImageUrl {
+                            RemoteImageView(imageUrl: userImageUrl, isThumbnail: false)
+                        } else {
+                            ImageView(systemImage: "person.fill")
+                        }
                     }
                 }
                 .frame(width: 200, height: 200, alignment: .center)
@@ -63,12 +70,13 @@ struct EditUserProfileView: View {
                     editUserProfileViewModel.perform(action: .updateUserProfile(
                         userName: userName,
                         userEmail: userEmail,
-                        userImageUrl: userImageUrl
+                        userImageUrl: userImageUrl,
+                        didChangeProfileImage: didChangeProfileImage
                     ))
                 } label: {
                     Text("Apply changes")
                 }
-                .disabled(userName == "" && userEmail == "" && userImageUrl == nil)
+                .disabled(userName == "" && userEmail == "" && !didChangeProfileImage)
             }
             .padding()
         }
@@ -79,6 +87,13 @@ struct EditUserProfileView: View {
             titleVisibility: .visible,
             actions: {
                 Button {
+                    userImageUrl = nil
+                    didChangeProfileImage = true
+                } label: {
+                    Text("Remove profile picture")
+                }
+
+                Button {
                     shouldShowImagePicker = true
                 } label: {
                     Text("Choose from library")
@@ -88,6 +103,7 @@ struct EditUserProfileView: View {
         .fullScreenCover(isPresented: $shouldShowImagePicker, onDismiss: nil) {
             ImagePicker(sourceType: .photoLibrary, didFinishPickingMediaHandler: { newUserImageUrl in
                 userImageUrl = newUserImageUrl
+                didChangeProfileImage = true
             })
             .ignoresSafeArea()
         }

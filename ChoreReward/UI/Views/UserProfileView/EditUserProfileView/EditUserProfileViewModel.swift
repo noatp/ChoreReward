@@ -44,7 +44,8 @@ class EditUserProfileViewModel: StatefulViewModel {
     private func updateUserProfile(
         userName: String,
         userEmail: String,
-        newUserImageUrl: String?
+        newUserImageUrl: String?,
+        didChangeProfileImage: Bool
     ) {
         guard let currentUser = userService.currentUser else {
             print("\(#fileID) \(#function): currentuser is nil")
@@ -55,16 +56,21 @@ class EditUserProfileViewModel: StatefulViewModel {
             name: userName.isEmpty ? currentUser.name : userName,
             role: currentUser.role
         )
-        userService.updateUserProfile(newUserProfile: newUserProfile, newUserImageUrl: newUserImageUrl)
+        if didChangeProfileImage {
+            userService.updateUserProfile(newUserProfile: newUserProfile, newUserImageUrl: newUserImageUrl)
+        } else {
+            userService.updateUserProfile(newUserProfile: newUserProfile, newUserImageUrl: nil)
+        }
     }
 
     func performAction(_ action: EditUserProfileAction) {
         switch action {
-        case .updateUserProfile(let userName, let userEmail, let userImageUrl):
+        case .updateUserProfile(let userName, let userEmail, let userImageUrl, let didChangeProfileImage):
             updateUserProfile(
                 userName: userName,
                 userEmail: userEmail,
-                newUserImageUrl: userImageUrl
+                newUserImageUrl: userImageUrl,
+                didChangeProfileImage: didChangeProfileImage
             )
         }
     }
@@ -92,7 +98,7 @@ struct EditUserProfileState {
 }
 
 enum EditUserProfileAction {
-    case updateUserProfile(userName: String, userEmail: String, userImageUrl: String?)
+    case updateUserProfile(userName: String, userEmail: String, userImageUrl: String?, didChangeProfileImage: Bool)
 }
 
 extension Dependency.ViewModels {
