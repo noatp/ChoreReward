@@ -23,7 +23,7 @@ class ChoreRepository: ObservableObject {
         }
     }
 
-    func readChoreCollection(_ choreCollection: CollectionReference) {
+    func read(_ choreCollection: CollectionReference) {
         if familyChoresListener == nil {
             familyChoresListener = choreCollection
                 .order(by: "created")
@@ -52,7 +52,7 @@ class ChoreRepository: ObservableObject {
         }
     }
 
-    func updateAssigneeForChore(choreId: String, assigneeId: String, choreCollection: CollectionReference) {
+    func update(choreAtId choreId: String, in choreCollection: CollectionReference, withAssigneeId assigneeId: String) {
         choreCollection
             .document(choreId)
             .updateData(["assigneeId": assigneeId]) { error in
@@ -62,7 +62,7 @@ class ChoreRepository: ObservableObject {
             }
     }
 
-    func updateCompletionForChore(choreId: String, choreCollection: CollectionReference) {
+    func update(completedTimestampForChoreAtId choreId: String, in choreCollection: CollectionReference) {
         choreCollection
             .document(choreId)
             .updateData(["completed": Date.now.intTimestamp]) { error in
@@ -72,7 +72,7 @@ class ChoreRepository: ObservableObject {
             }
     }
 
-    func updateChoreImage(for choreId: String, in choreCollection: CollectionReference, with imageUrl: String) {
+    func update(choreAtId choreId: String, in choreCollection: CollectionReference, withImageUrl imageUrl: String) {
         choreCollection
             .document(choreId)
             .updateData(["choreImageUrl": imageUrl]) { error in
@@ -82,7 +82,7 @@ class ChoreRepository: ObservableObject {
             }
     }
 
-    func resetRepository() {
+    func reset() {
         self.familyChoresPublisher.send(nil)
         self.familyChoresListener?.remove()
         self.familyChoresListener = nil

@@ -67,7 +67,7 @@ class ChoreService: ObservableObject {
             print("\(#fileID) \(#function): missing choreId and/or currentUserId")
             return
         }
-        choreRepository.updateAssigneeForChore(choreId: choreId, assigneeId: currentUserId, choreCollection: currentChoreCollection)
+        choreRepository.update(choreAtId: choreId, in: currentChoreCollection, withAssigneeId: currentUserId)
     }
 
     func completeChore (choreId: String?) {
@@ -77,11 +77,11 @@ class ChoreService: ObservableObject {
             print("\(#fileID) \(#function): missing choreId")
             return
         }
-        choreRepository.updateCompletionForChore(choreId: choreId, choreCollection: currentChoreCollection)
+        choreRepository.update(completedTimestampForChoreAtId: choreId, in: currentChoreCollection)
     }
 
     private func getChoresOfCurrentFamilyWith(choreCollection: CollectionReference) {
-        choreRepository.readChoreCollection(choreCollection)
+        choreRepository.read(choreCollection)
     }
 
     private func updateChoreImage(for choreId: String?, with imageUrl: String) {
@@ -89,7 +89,7 @@ class ChoreService: ObservableObject {
             print("\(#fileID) \(#function): missing choreId or currentChoreCollection")
             return
         }
-        choreRepository.updateChoreImage(for: choreId, in: currentChoreCollection, with: imageUrl)
+        choreRepository.update(choreAtId: choreId, in: currentChoreCollection, withImageUrl: imageUrl)
     }
 
     private func addSubscription() {
@@ -131,6 +131,6 @@ class ChoreService: ObservableObject {
     private func resetService() {
         familyChores = []
         currentChoreCollection = nil
-        choreRepository.resetRepository()
+        choreRepository.reset()
     }
 }
