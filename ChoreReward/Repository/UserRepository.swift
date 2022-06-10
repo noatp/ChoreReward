@@ -39,44 +39,10 @@ class UserRepository: ObservableObject {
         return userDatabase.userPublisher.eraseToAnyPublisher()
     }
 
-    func readMultipleUsers(userIds: [String]) async -> [User]? {
-        do {
-            let querySnapshot = try await database.collection("users")
-                .whereField(FieldPath.documentID(), in: userIds)
-                .getDocuments()
-            return try querySnapshot.documents.compactMap { document in
-                try document.data(as: User.self)
-            }
-        } catch {
-            print("\(#fileID) \(#function): \(error)")
-            return nil
-        }
-    }
-
     func updateFamilyForUser(familyId: String, userId: String) async {
         do {
             try await database.collection("users").document(userId).updateData([
                 "familyId": familyId
-            ])
-        } catch {
-            print("\(#fileID) \(#function): \(error)")
-        }
-    }
-
-    func updateRoleToAdminForUser(userId: String) async {
-        do {
-            try await database.collection("users").document(userId).updateData([
-                "role": "admin"
-            ])
-        } catch {
-            print("\(#fileID) \(#function): \(error)")
-        }
-    }
-
-    func updateProfileImageForUser(userId: String, profileImageUrl: String) async {
-        do {
-            try await database.collection("users").document(userId).updateData([
-                "profileImageUrl": profileImageUrl
             ])
         } catch {
             print("\(#fileID) \(#function): \(error)")
