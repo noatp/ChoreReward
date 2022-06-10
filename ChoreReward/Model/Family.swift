@@ -31,11 +31,11 @@ extension Family {
 struct DenormUser: Codable, Identifiable {
     let id: String
     let name: String?
-    let profileImageUrl: String?
+    let userImageUrl: String?
 
     static let preview: DenormUser = .init(
         id: "preview_denorm_user_id",
         name: "preview_denorm_user_name",
-        profileImageUrl: "preview_denorm_user_url"
+        userImageUrl: "preview_denorm_user_url"
     )
 }

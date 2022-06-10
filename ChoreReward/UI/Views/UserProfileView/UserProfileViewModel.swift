@@ -47,16 +47,10 @@ class UserProfileViewModel: StatefulViewModel {
         userService.signOut()
     }
 
-    private func changeUserImage(userImageUrl: String) {
-        userService.changeUserImage(userImageUrl: userImageUrl)
-    }
-
     func performAction(_ action: UserProfileAction) {
         switch action {
         case .signOut:
             signOut()
-        case .changeUserImage(let userImageUrl):
-            changeUserImage(userImageUrl: userImageUrl)
         }
     }
 }
@@ -70,7 +64,6 @@ struct UserProfileState {
 
 enum UserProfileAction {
     case signOut
-    case changeUserImage(userImageUrl: String)
 }
 
 extension Dependency.ViewModels {

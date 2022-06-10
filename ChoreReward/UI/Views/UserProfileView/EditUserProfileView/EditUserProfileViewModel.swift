@@ -57,9 +57,9 @@ class EditUserProfileViewModel: StatefulViewModel {
             role: currentUser.role
         )
         if didChangeProfileImage {
-            userService.updateUserProfileWithImage(newUserProfile: newUserProfile, newUserImageUrl: newUserImageUrl)
+            userService.updateUserProfile(newUserProfile: newUserProfile, newUserImageUrl: newUserImageUrl)
         } else {
-            userService.updateUserProfileWithoutImage(newUserProfile: newUserProfile)
+            userService.updateUserProfile(newUserProfile: newUserProfile, newUserImageUrl: nil)
         }
     }
 
