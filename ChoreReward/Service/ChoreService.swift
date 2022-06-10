@@ -36,6 +36,71 @@ class ChoreService: ObservableObject {
         addSubscription()
     }
 
+    func createChore(choreTitle: String, choreDescription: String, currentUser: User, choreImageUrl: String) async {
+        isBusy = true
+        guard let currentUserId = currentUser.id else {
+            return
+        }
+
+        let newChoreId = UUID().uuidString
+
+        Task {
+            let choreImageUrl = await storageRepository.uploadUserProfileImage(imageUrl: choreImageUrl)
+
+            guard let choreImageUrl = choreImageUrl else {
+                print("\(#fileID) \(#function): could not get a url for the chore image")
+                return
+            }
+
+            let newChore = Chore(
+                title: choreTitle,
+                assignerId: currentUserId,
+                assigneeId: "",
+                created: Date.now.intTimestamp,
+                description: choreDescription,
+                choreImageUrl: choreImageUrl
+            )
+
+            choreRepository.createChore(newChore: newChore, newChoreId: newChoreId, choreCollection: currentChoreCollection)
+            isBusy = false
+        }
+    }
+
+    func takeChore (choreId: String?, currentUserId: String?) {
+        guard let choreId = choreId,
+              let currentUserId = currentUserId else {
+            print("\(#fileID) \(#function): missing choreId and/or currentUserId")
+                  return
+              }
+        Task {
+            await choreRepository.updateAssigneeForChore(choreId: choreId, assigneeId: currentUserId, choreCollection: currentChoreCollection)
+        }
+    }
+
+    func completeChore (choreId: String?) {
+        guard let choreId = choreId else {
+            print("\(#fileID) \(#function): missing choreId")
+            return
+        }
+        Task {
+            await choreRepository.updateCompletionForChore(choreId: choreId, choreCollection: currentChoreCollection)
+        }
+    }
+    
+    private func getChoresOfCurrentFamilyWith(choreCollection: CollectionReference) {
+        choreRepository.readChoreCollection(choreCollection)
+    }
+    
+    private func updateChoreImage(for choreId: String?, with imageUrl: String) {
+        guard let choreId = choreId, let currentChoreCollection = currentChoreCollection else {
+            print("\(#fileID) \(#function): missing choreId or currentChoreCollection")
+            return
+        }
+        Task {
+            await choreRepository.updateChoreImage(for: choreId, in: currentChoreCollection, with: imageUrl)
+        }
+    }
+    
     private func addSubscription() {
         familyChoresSubscription = choreRepository.familyChoresPublisher
             .sink(receiveValue: { [weak self] receivedFamilyChores in
@@ -72,60 +137,6 @@ class ChoreService: ObservableObject {
             })
     }
 
-    func createChore(choreTitle: String, choreDescription: String, currentUser: User, choreImageUrl: String) async {
-        isBusy = true
-        guard let currentUserId = currentUser.id else {
-            return
-        }
-
-        let newChoreId = UUID().uuidString
-
-        Task {
-            let choreImageUrl = await storageRepository.uploadUserProfileImage(imageUrl: choreImageUrl)
-
-            guard let choreImageUrl = choreImageUrl else {
-                print("\(#fileID) \(#function): could not get a url for the chore image")
-                return
-            }
-
-            let newChore = Chore(
-                title: choreTitle,
-                assignerId: currentUserId,
-                assigneeId: "",
-                created: Date.now.intTimestamp,
-                description: choreDescription,
-                choreImageUrl: choreImageUrl
-            )
-
-            choreRepository.createChore(newChore: newChore, newChoreId: newChoreId, choreCollection: currentChoreCollection)
-            isBusy = false
-        }
-    }
-
-    private func getChoresOfCurrentFamilyWith(choreCollection: CollectionReference) {
-        choreRepository.readChoreCollection(choreCollection)
-    }
-
-    func takeChore (choreId: String?, currentUserId: String?) {
-        guard let choreId = choreId,
-              let currentUserId = currentUserId else {
-            print("\(#fileID) \(#function): missing choreId and/or currentUserId")
-                  return
-              }
-        Task {
-            await choreRepository.updateAssigneeForChore(choreId: choreId, assigneeId: currentUserId, choreCollection: currentChoreCollection)
-        }
-    }
-
-    func completeChore (choreId: String?) {
-        guard let choreId = choreId else {
-            print("\(#fileID) \(#function): missing choreId")
-            return
-        }
-        Task {
-            await choreRepository.updateCompletionForChore(choreId: choreId, choreCollection: currentChoreCollection)
-        }
-    }
 
     private func resetService() {
         familyChores = []

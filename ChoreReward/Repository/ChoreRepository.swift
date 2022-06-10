@@ -71,6 +71,16 @@ class ChoreRepository: ObservableObject {
             print("\(#fileID) \(#function): \(error)")
         }
     }
+    
+    func updateChoreImage(for choreId: String, in choreCollection: CollectionReference, with imageUrl: String) async {
+        do {
+            try await choreCollection.document(choreId).updateData([
+                "choreImageUrl": imageUrl
+            ])
+        } catch {
+            print("\(#fileID) \(#function): \(error)")
+        }
+    }
 
     func resetRepository() {
         self.familyChoresPublisher.send(nil)
