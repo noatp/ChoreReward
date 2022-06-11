@@ -19,19 +19,14 @@ class UserRepository: ObservableObject {
         self.userDatabase = userDatabase
     }
 
-    func createUser(newUser: User) async {
+    func create(_ newUser: User) {
         guard let newUserId = newUser.id else {
             print("\(#fileID) \(#function): new user does not have an id")
             return
         }
 
         do {
-            try await database.collection("users").document(newUserId).setData([
-                "email": newUser.email,
-                "name": newUser.name,
-                "role": newUser.role.rawValue,
-                "profileImageUrl": newUser.profileImageUrl ?? NSNull()
-            ])
+            try database.collection("users").document(newUserId).setData(from: newUser)
         } catch {
             print("\(#fileID) \(#function): \(error)")
         }
@@ -44,20 +39,6 @@ class UserRepository: ObservableObject {
         return userDatabase.userPublisher.eraseToAnyPublisher()
     }
 
-    func readMultipleUsers(userIds: [String]) async -> [User]? {
-        do {
-            let querySnapshot = try await database.collection("users")
-                .whereField(FieldPath.documentID(), in: userIds)
-                .getDocuments()
-            return try querySnapshot.documents.compactMap { document in
-                try document.data(as: User.self)
-            }
-        } catch {
-            print("\(#fileID) \(#function): \(error)")
-            return nil
-        }
-    }
-
     func updateFamilyForUser(familyId: String, userId: String) async {
         do {
             try await database.collection("users").document(userId).updateData([
@@ -68,43 +49,22 @@ class UserRepository: ObservableObject {
         }
     }
 
-    func updateRoleToAdminForUser(userId: String) async {
-        do {
-            try await database.collection("users").document(userId).updateData([
-                "role": "admin"
-            ])
-        } catch {
-            print("\(#fileID) \(#function): \(error)")
+    func updateProfileForUser(with userId: String, using newUserProfile: User) {
+        database.collection("users").document(userId).updateData([
+            "name": newUserProfile.name,
+            "email": newUserProfile.email,
+            "userImageUrl": newUserProfile.userImageUrl ?? NSNull()
+        ]) { error in
+            if let error = error {
+                print("\(#fileID) \(#function): \(error)")
+            }
         }
     }
 
-    func updateProfileImageForUser(userId: String, profileImageUrl: String) async {
+    func updateUserImage(for userId: String, with imageUrl: String) async {
         do {
             try await database.collection("users").document(userId).updateData([
-                "profileImageUrl": profileImageUrl
-            ])
-        } catch {
-            print("\(#fileID) \(#function): \(error)")
-        }
-    }
-
-    func updateUserProfileWithImage(userId: String, newUserProfileWithImage: User) async {
-        do {
-            try await database.collection("users").document(userId).updateData([
-                "email": newUserProfileWithImage.email,
-                "name": newUserProfileWithImage.name,
-                "profileImageUrl": newUserProfileWithImage.profileImageUrl ?? NSNull()
-            ])
-        } catch {
-            print("\(#fileID) \(#function): \(error)")
-        }
-    }
-
-    func updateUserProfileWithoutImage(userId: String, newUserProfileWithoutImage: User) async {
-        do {
-            try await database.collection("users").document(userId).updateData([
-                "email": newUserProfileWithoutImage.email,
-                "name": newUserProfileWithoutImage.name
+                "userImageUrl": imageUrl
             ])
         } catch {
             print("\(#fileID) \(#function): \(error)")
@@ -113,9 +73,5 @@ class UserRepository: ObservableObject {
 
     func resetRepository() {
         userDatabase.resetPublisher()
-    }
-
-    enum RepositoryError: Error {
-        case badSnapshot
     }
 }

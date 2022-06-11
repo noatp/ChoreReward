@@ -28,19 +28,17 @@ class AddChoreViewModel: StatefulViewModel {
         self.userService = userService
     }
 
-    func createChore(choreTitle: String, choreDescription: String, choreImage: UIImage) {
+    func createChore(choreTitle: String, choreDescription: String, choreImageUrl: String) {
         guard let currentUser = userService.currentUser else {
             return
         }
-        Task {
-            await choreService.createChore(choreTitle: choreTitle, choreDescription: choreDescription, currentUser: currentUser, choreImage: choreImage)
-        }
+        choreService.createChore(choreTitle: choreTitle, choreDescription: choreDescription, currentUser: currentUser, choreImageUrl: choreImageUrl)
     }
 
     func performAction(_ action: AddChoreAction) {
          switch action {
-         case .createChore(let choreTitle, let choreDescription, let choreImage):
-             createChore(choreTitle: choreTitle, choreDescription: choreDescription, choreImage: choreImage)
+         case .createChore(let choreTitle, let choreDescription, let choreImageUrl):
+             createChore(choreTitle: choreTitle, choreDescription: choreDescription, choreImageUrl: choreImageUrl)
          }
     }
 }
@@ -50,7 +48,7 @@ struct AddChoreState {
 }
 
 enum AddChoreAction {
-    case createChore(choreTitle: String, choreDescription: String, choreImage: UIImage)
+    case createChore(choreTitle: String, choreDescription: String, choreImageUrl: String)
 }
 
 extension Dependency.ViewModels {

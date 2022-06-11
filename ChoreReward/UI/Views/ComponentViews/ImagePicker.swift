@@ -11,9 +11,9 @@ import SwiftUI
 struct ImagePicker: UIViewControllerRepresentable {
 
     var sourceType: UIImagePickerController.SourceType
-    var didFinishPickingMediaHandler: ((UIImage) -> Void)
+    var didFinishPickingMediaHandler: ((String) -> Void)
 
-    init(sourceType: UIImagePickerController.SourceType, didFinishPickingMediaHandler: @escaping ((UIImage) -> Void)) {
+    init(sourceType: UIImagePickerController.SourceType, didFinishPickingMediaHandler: @escaping ((String) -> Void)) {
         self.sourceType = sourceType
         self.didFinishPickingMediaHandler = didFinishPickingMediaHandler
     }
@@ -31,8 +31,8 @@ struct ImagePicker: UIViewControllerRepresentable {
         }
 
         func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
-            if let uiImage = info[.originalImage] as? UIImage {
-                parent.didFinishPickingMediaHandler(uiImage)
+            if let imageUrl = info[.imageURL] as? URL {
+                parent.didFinishPickingMediaHandler(imageUrl.absoluteString)
             }
             picker.dismiss(animated: true)
         }

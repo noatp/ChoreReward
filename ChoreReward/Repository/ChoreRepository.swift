@@ -15,18 +15,18 @@ class ChoreRepository: ObservableObject {
     private var familyChoresListener: ListenerRegistration?
     let familyChoresPublisher = PassthroughSubject<[Chore]?, Never>()
 
-    func createChore(newChore: Chore, newChoreId: String, choreCollection: CollectionReference?) {
-
+    func create(_ newChore: Chore, with choreId: String, in choreCollection: CollectionReference) {
         do {
-            try choreCollection?.document(newChoreId).setData(from: newChore)
+            _ = try choreCollection.document(choreId).setData(from: newChore)
         } catch {
             print("\(#fileID) \(#function): \(error)")
         }
     }
 
-    func readChoreCollection(_ choreCollection: CollectionReference) {
+    func read(_ choreCollection: CollectionReference) {
         if familyChoresListener == nil {
-            familyChoresListener = choreCollection.order(by: "created")
+            familyChoresListener = choreCollection
+                .order(by: "created")
                 .addSnapshotListener { [weak self] querySnapshot, error in
                     guard let querySnapshot = querySnapshot else {
                         print("\(#fileID) \(#function): Error fetching documents: \(error!)")
@@ -52,27 +52,37 @@ class ChoreRepository: ObservableObject {
         }
     }
 
-    func updateAssigneeForChore(choreId: String, assigneeId: String, choreCollection: CollectionReference?) async {
-        do {
-            try await choreCollection?.document(choreId).updateData([
-                "assigneeId": assigneeId
-            ])
-        } catch {
-            print("\(#fileID) \(#function): \(error)")
-        }
+    func update(choreAtId choreId: String, in choreCollection: CollectionReference, withAssigneeId assigneeId: String) {
+        choreCollection
+            .document(choreId)
+            .updateData(["assigneeId": assigneeId]) { error in
+                if let error = error {
+                    print("\(#fileID) \(#function): \(error)")
+                }
+            }
     }
 
-    func updateCompletionForChore(choreId: String, choreCollection: CollectionReference?) async {
-        do {
-            try await choreCollection?.document(choreId).updateData([
-                "completed": Date.now.intTimestamp
-            ])
-        } catch {
-            print("\(#fileID) \(#function): \(error)")
-        }
+    func update(completedTimestampForChoreAtId choreId: String, in choreCollection: CollectionReference) {
+        choreCollection
+            .document(choreId)
+            .updateData(["completed": Date.now.intTimestamp]) { error in
+                if let error = error {
+                    print("\(#fileID) \(#function): \(error)")
+                }
+            }
     }
 
-    func resetRepository() {
+    func update(choreAtId choreId: String, in choreCollection: CollectionReference, withImageUrl imageUrl: String) {
+        choreCollection
+            .document(choreId)
+            .updateData(["choreImageUrl": imageUrl]) { error in
+                if let error = error {
+                    print("\(#fileID) \(#function): \(error)")
+                }
+            }
+    }
+
+    func reset() {
         self.familyChoresPublisher.send(nil)
         self.familyChoresListener?.remove()
         self.familyChoresListener = nil

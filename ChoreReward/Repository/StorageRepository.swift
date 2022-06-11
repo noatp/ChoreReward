@@ -13,37 +13,69 @@ import UIKit
 class StorageRepository {
     let storage = Storage.storage()
 
-    func uploadUserProfileImage(image: UIImage, userId: String) async -> String? {
-        let imageRef = storage.reference().child("userImage/\(userId)")
-
-        guard let imageData = image.jpegData(compressionQuality: 0.5) else {
-            print("\(#fileID) \(#function): fail to compress image")
-            return nil
+    func uploadUserImage(with url: String, _ completion: @escaping ((String) -> Void)) {
+        guard let imageUrl = URL(string: url) else {
+            print("\(#fileID) \(#function): could not convert imageUrl String to URL")
+            return
         }
+        let imageRef = storage.reference().child("userImage/\(UUID().uuidString)")
 
         do {
-            _ = try await imageRef.putDataAsync(imageData)
-            return try await imageRef.downloadURL().absoluteString
+            let imageData = try Data(contentsOf: imageUrl)
+            guard let image = UIImage(data: imageData)?.jpegData(compressionQuality: 0.5) else {
+                print("\(#fileID) \(#function): fail to compress image")
+                return
+            }
+            imageRef.putData(image, completion: { result in
+                switch result {
+                case .success:
+                    imageRef.downloadURL { (url, error) in
+                        guard let downloadURL = url?.absoluteString, error == nil else {
+                            print("\(#fileID) \(#function): \(error!)")
+                            return
+                        }
+                        completion(downloadURL)
+                    }
+                case .failure(let error):
+                    print("\(#fileID) \(#function): \(error)")
+                }
+            })
         } catch {
             print("\(#fileID) \(#function): \(error)")
-            return nil
         }
+
     }
 
-    func uploadChoreImage(image: UIImage, choreId: String) async -> String? {
-        let imageRef = storage.reference().child("choreImage/\(choreId)")
-
-        guard let imageData = image.jpegData(compressionQuality: 0.5) else {
-            print("\(#fileID) \(#function): fail to compress image")
-            return nil
+    func uploadChoreImage(with url: String, _ completion: @escaping ((String) -> Void)) {
+        guard let imageUrl = URL(string: url) else {
+            print("\(#fileID) \(#function): could not convert imageUrl String to URL")
+            return
         }
+        let imageRef = storage.reference().child("choreImage/\(UUID().uuidString)")
 
         do {
-            _ = try await imageRef.putDataAsync(imageData)
-            return try await imageRef.downloadURL().absoluteString
+            let imageData = try Data(contentsOf: imageUrl)
+            guard let image = UIImage(data: imageData)?.jpegData(compressionQuality: 0.5) else {
+                print("\(#fileID) \(#function): fail to compress image")
+                return
+            }
+            imageRef.putData(image, completion: { result in
+                switch result {
+                case .success:
+                    imageRef.downloadURL { (url, error) in
+                        guard let downloadURL = url?.absoluteString, error == nil else {
+                            print("\(#fileID) \(#function): \(error!)")
+                            return
+                        }
+                        completion(downloadURL)
+                    }
+                case .failure(let error):
+                    print("\(#fileID) \(#function): \(error)")
+                }
+            })
         } catch {
             print("\(#fileID) \(#function): \(error)")
-            return nil
         }
+
     }
 }

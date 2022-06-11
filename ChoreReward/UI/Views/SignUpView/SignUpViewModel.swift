@@ -44,28 +44,27 @@ class SignUpViewModel: StatefulViewModel {
         nameInput: String,
         passwordInput: String,
         roleSelection: Role,
-        profileImage: UIImage?
+        userImageUrl: String?
     ) {
         let newUser = User(
             email: emailInput,
             name: nameInput,
-            role: roleSelection,
-            profileImageUrl: ""
+            role: roleSelection
         )
         Task {
-            await userService.signUp(newUser: newUser, password: passwordInput, profileImage: profileImage)
+            await userService.signUp(newUser: newUser, password: passwordInput, userImageUrl: userImageUrl)
         }
     }
 
     func performAction(_ action: SignUpAction) {
         switch action {
-        case .signUp(let emailInput, let nameInput, let passwordInput, let roleSelection, let profileImage):
+        case .signUp(let emailInput, let nameInput, let passwordInput, let roleSelection, let userImageUrl):
             signUp(
                 emailInput: emailInput,
                 nameInput: nameInput,
                 passwordInput: passwordInput,
                 roleSelection: roleSelection,
-                profileImage: profileImage
+                userImageUrl: userImageUrl
             )
         }
     }
@@ -81,7 +80,7 @@ enum SignUpAction {
         nameInput: String,
         passwordInput: String,
         roleSelection: Role,
-        profileImage: UIImage?
+        userImageUrl: String?
     )
 }
 

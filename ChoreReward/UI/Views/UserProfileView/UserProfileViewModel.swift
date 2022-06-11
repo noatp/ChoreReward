@@ -38,7 +38,7 @@ class UserProfileViewModel: StatefulViewModel {
                     currentUserEmail: receivedUser?.email ?? "",
                     currentUserName: receivedUser?.name ?? "",
                     currentUserRole: receivedUser?.role.rawValue ?? "",
-                    currentUserProfileImageUrl: receivedUser?.profileImageUrl
+                    currentUserProfileImageUrl: receivedUser?.userImageUrl
                 )
             })
     }
@@ -47,16 +47,10 @@ class UserProfileViewModel: StatefulViewModel {
         userService.signOut()
     }
 
-    private func changeUserProfileImage(image: UIImage) {
-        userService.changeUserProfileImage(image: image)
-    }
-
     func performAction(_ action: UserProfileAction) {
         switch action {
         case .signOut:
             signOut()
-        case .changeUserProfileImage(let image):
-            changeUserProfileImage(image: image)
         }
     }
 }
@@ -70,7 +64,6 @@ struct UserProfileState {
 
 enum UserProfileAction {
     case signOut
-    case changeUserProfileImage(image: UIImage)
 }
 
 extension Dependency.ViewModels {

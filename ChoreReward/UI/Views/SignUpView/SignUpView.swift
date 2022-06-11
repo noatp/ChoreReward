@@ -16,7 +16,7 @@ struct SignUpView: View {
     @State var passwordInput: String = ""
     @State var roleSelection: Role = .parent
     @State var shouldShowImagePicker: Bool = false
-    @State var userImage: UIImage?
+    @State var userImageUrl: String?
 
     init(
         signUpViewModel: ObservableViewModel<SignUpState, SignUpAction>,
@@ -31,10 +31,8 @@ struct SignUpView: View {
             Button {
                 shouldShowImagePicker = true
             } label: {
-                if let userImage = userImage {
-                    Image(uiImage: userImage)
-                        .resizable()
-                        .scaledToFill()
+                if let userImageUrl = userImageUrl {
+                    RemoteImageView(imageUrl: userImageUrl, isThumbnail: false)
                         .frame(width: 200, height: 200)
                         .clipShape(Circle())
                         .shadow(radius: 5)
@@ -65,14 +63,14 @@ struct SignUpView: View {
                         nameInput: nameInput,
                         passwordInput: passwordInput,
                         roleSelection: roleSelection,
-                        profileImage: userImage
+                        userImageUrl: userImageUrl
                     )
                 )
             }
         }
         .fullScreenCover(isPresented: $shouldShowImagePicker, onDismiss: nil) {
-            ImagePicker(sourceType: .photoLibrary, didFinishPickingMediaHandler: { newUserImage in
-                userImage = newUserImage
+            ImagePicker(sourceType: .photoLibrary, didFinishPickingMediaHandler: { newUserImageUrl in
+                userImageUrl = newUserImageUrl
             })
             .ignoresSafeArea()
         }
