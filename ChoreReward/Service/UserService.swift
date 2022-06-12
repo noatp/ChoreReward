@@ -49,15 +49,27 @@ class UserService: ObservableObject {
         addSubscription()
     }
 
-    func silentSignIn() async {
-        readCurrentUser()
+    func silentSignIn() {
+        guard let currentUserId = currentUserId else {
+            print("\(#fileID) \(#function): no authorized user session")
+            self.authState = .signedOut(error: nil)
+            return
+        }
+        print("\(#fileID) \(#function): has authorized user session -> resetting user service & fetching new user data")
+        self.reset()
+        self.authState = .signedIn
+        readCurrentUser(currentUserId: currentUserId)
     }
 
     func signIn(email: String, password: String) async {
         do {
             isBusy = true
             try await auth.signIn(withEmail: email, password: password)
-            readCurrentUser()
+            guard let currentUserId = currentUserId else {
+                print("\(#fileID) \(#function): currentUserId is nil")
+                return
+            }
+            readCurrentUser(currentUserId: currentUserId)
         } catch {
             print("\(#fileID) \(#function): \(error)")
             authState = .signedOut(error: error)
@@ -88,7 +100,7 @@ class UserService: ObservableObject {
                 }
             }
 
-            readCurrentUser()
+            readCurrentUser(currentUserId: currentUserId)
         } catch {
             print("\(#fileID) \(#function): \(error)")
             authState = .signedOut(error: error)
@@ -99,18 +111,11 @@ class UserService: ObservableObject {
     func signOut() {
         do {
             try self.auth.signOut()
-            resetService()
+            reset()
         } catch let signOutError as NSError {
             print("\(#fileID) \(#function): Error signing out: %@", signOutError)
         }
     }
-
-    /*
-     cases:
-        - remove image: imageDidChange = true, imageUrl = nil
-        - choose new image: imageDidChange = true, imageUrl != nil
-        - do nothing: imageDidChange = false, imageUrl = nil
-     */
 
     func updateUserProfileForCurrentUser(withNewUserProfile newUserProfile: User,
                                          andNewUserImageUrl newUserImageUrl: String?,
@@ -156,29 +161,26 @@ class UserService: ObservableObject {
         }
     }
 
-    private func resetService() {
-        currentUser = nil
-        authState = .signedOut(error: nil)
-        currentUserSubscription = nil
-        userRepository.resetRepository()
-    }
-
-    private func readCurrentUser() {
-        guard let currentUserId = currentUserId else {
-            print("\(#fileID) \(#function): currentUserId is nil")
-            return
-        }
+    private func readCurrentUser(currentUserId: String) {
         userRepository.readUser(userId: currentUserId)
     }
 
     private func addSubscription() {
         currentUserSubscription = userRepository.userPublisher
             .sink(receiveValue: {[weak self] receivedUser in
-                print("\(#fileID) \(#function): received a user")
-                self?.currentUser = receivedUser
-                self?.authState = .signedIn
+                guard let currentUser = receivedUser else {
+                    return
+                }
+                self?.currentUser = currentUser
+                print("\(#fileID) \(#function): received and cached a non-nil user")
                 self?.isBusy = false
             })
+    }
+
+    private func reset() {
+        currentUser = nil
+        authState = .signedOut(error: nil)
+        userRepository.resetRepository()
     }
 
     enum AuthState {

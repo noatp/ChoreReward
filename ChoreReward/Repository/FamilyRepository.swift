@@ -69,7 +69,7 @@ class FamilyRepository: ObservableObject {
         }
     }
 
-    func resetRepository() {
+    func reset() {
         self.familyPublisher.send(nil)
         self.currentFamilyListener?.remove()
         self.currentFamilyListener = nil

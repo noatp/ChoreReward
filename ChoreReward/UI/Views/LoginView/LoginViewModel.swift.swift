@@ -44,9 +44,7 @@ class LoginViewModel: StatefulViewModel {
     }
 
     func silentSignIn() {
-        Task {
-            await userService.silentSignIn()
-        }
+        userService.silentSignIn()
     }
 
     func performAction(_ action: LoginViewAction) {

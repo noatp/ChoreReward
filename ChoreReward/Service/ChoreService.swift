@@ -115,20 +115,20 @@ class ChoreService: ObservableObject {
                         return
                     } else {
                         print("\(#fileID) \(#function): received-family has diff chore collection from the cached family -> resetting chore service & fetch new chore data")
-                        self?.resetService()
+                        self?.reset()
                         self?.currentChoreCollection = receivedChoreCollection
                         self?.getChoresOfCurrentFamilyWith(choreCollection: receivedChoreCollection)
                         return
                     }
                 } else {
                     print("\(#fileID) \(#function): received reset signal from FamilyRepository, reset chore service")
-                    self?.resetService()
+                    self?.reset()
                     return
                 }
             })
     }
 
-    private func resetService() {
+    private func reset() {
         familyChores = []
         currentChoreCollection = nil
         choreRepository.reset()
