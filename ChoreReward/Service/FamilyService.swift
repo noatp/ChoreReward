@@ -28,7 +28,7 @@ class FamilyService: ObservableObject {
     }
 
     func addSubscription() {
-        currentUserSubscription = userRepository.readUser()
+        currentUserSubscription = userRepository.userPublisher
             .sink(receiveValue: { [weak self] receivedUser in
                 if let receivedUser = receivedUser {
                     print("\(#fileID) \(#function): received a non-nil user, checking for familyId")

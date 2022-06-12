@@ -11,13 +11,9 @@ import FirebaseFirestoreSwift
 import Combine
 
 class UserRepository: ObservableObject {
-    private let userDatabase: UserDatabase
-
     private let database = Firestore.firestore()
-
-    init(userDatabase: UserDatabase) {
-        self.userDatabase = userDatabase
-    }
+    private var currentUserListener: ListenerRegistration?
+    let userPublisher = PassthroughSubject<User?, Never>()
 
     func create(_ newUser: User) {
         guard let newUserId = newUser.id else {
@@ -32,11 +28,25 @@ class UserRepository: ObservableObject {
         }
     }
 
-    func readUser(userId: String? = nil) -> AnyPublisher<User?, Never> {
-        if let userId = userId {
-            userDatabase.readUser(userId: userId)
+    func readUser(userId: String) {
+        if currentUserListener == nil {
+            currentUserListener = database.collection("users")
+                .document(userId)
+                .addSnapshotListener { [weak self] documentSnapshot, error in
+                    guard let document = documentSnapshot else {
+                        print("\(#fileID) \(#function): Error fetching document: \(error!)")
+                        return
+                    }
+                    do {
+                        let user = try document.data(as: User.self)
+                        // could get a reference to the user doc here for use later in family service
+                        print("\(#fileID) \(#function): received user data, publishing...")
+                        self?.userPublisher.send(user)
+                    } catch {
+                        print("\(#fileID) \(#function): error decoding \(error)")
+                    }
+                }
         }
-        return userDatabase.userPublisher.eraseToAnyPublisher()
     }
 
     func updateFamilyForUser(familyId: String, userId: String) async {
@@ -72,6 +82,8 @@ class UserRepository: ObservableObject {
     }
 
     func resetRepository() {
-        userDatabase.resetPublisher()
+        self.userPublisher.send(nil)
+        self.currentUserListener?.remove()
+        self.currentUserListener = nil
     }
 }

@@ -35,7 +35,6 @@ class UserService: ObservableObject {
     private let storageRepository: StorageRepository
 
     private var currentUserSubscription: AnyCancellable?
-    // private var isLoginPending: Bool = false
 
     var currentUserId: String? {
         auth.currentUser?.uid
@@ -47,17 +46,18 @@ class UserService: ObservableObject {
     ) {
         self.userRepository = currentUserRepository
         self.storageRepository = storageRepository
+        addSubscription()
     }
 
     func silentSignIn() async {
-        performSignIn()
+        readCurrentUser()
     }
 
     func signIn(email: String, password: String) async {
         do {
             isBusy = true
             try await auth.signIn(withEmail: email, password: password)
-            performSignIn()
+            readCurrentUser()
         } catch {
             print("\(#fileID) \(#function): \(error)")
             authState = .signedOut(error: error)
@@ -88,7 +88,7 @@ class UserService: ObservableObject {
                 }
             }
 
-            performSignIn()
+            readCurrentUser()
         } catch {
             print("\(#fileID) \(#function): \(error)")
             authState = .signedOut(error: error)
@@ -163,12 +163,16 @@ class UserService: ObservableObject {
         userRepository.resetRepository()
     }
 
-    private func performSignIn() {
+    private func readCurrentUser() {
         guard let currentUserId = currentUserId else {
             print("\(#fileID) \(#function): currentUserId is nil")
             return
         }
-        currentUserSubscription = userRepository.readUser(userId: currentUserId)
+        userRepository.readUser(userId: currentUserId)
+    }
+
+    private func addSubscription() {
+        currentUserSubscription = userRepository.userPublisher
             .sink(receiveValue: {[weak self] receivedUser in
                 print("\(#fileID) \(#function): received a user")
                 self?.currentUser = receivedUser

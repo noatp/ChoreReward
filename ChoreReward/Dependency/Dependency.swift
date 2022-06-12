@@ -15,7 +15,7 @@ class Dependency {
     let storageRepository: StorageRepository
 
     init(
-        userRepository: UserRepository = UserRepository(userDatabase: UserDatabase()),
+        userRepository: UserRepository = UserRepository(),
         familyRepository: FamilyRepository = FamilyRepository(),
         choreRepository: ChoreRepository = ChoreRepository(),
         storageRepository: StorageRepository = StorageRepository()
@@ -27,7 +27,7 @@ class Dependency {
     }
 
     static let preview = Dependency(
-        userRepository: MockUserRepository(userDatabase: MockUserDatabase()),
+        userRepository: MockUserRepository(),
         familyRepository: MockFamilyRepository(),
         choreRepository: MockChoreRepository(),
         storageRepository: MockStorageRepository()

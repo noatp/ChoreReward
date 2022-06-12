@@ -44,7 +44,7 @@ struct LoginView: View {
         }
         .navigationViewStyle(.stack)
         .onAppear(perform: {
-            loginViewModel.perform(action: .silentSignIn)
+             loginViewModel.perform(action: .silentSignIn)
         })
     }
 }
