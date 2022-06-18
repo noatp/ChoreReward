@@ -28,7 +28,6 @@ import SwiftUI
 class UserService: ObservableObject {
     @Published var authState: AuthState = .signedOut(error: nil)
     @Published var currentUser: User?
-    @Published var isBusy: Bool = false
 
     private let auth = Auth.auth()
     private let userRepository: UserRepository
@@ -49,7 +48,7 @@ class UserService: ObservableObject {
         addSubscription()
     }
 
-    func silentSignIn() {
+    private func checkCurentAuthSession(afterAuthenticated: (_ currentUserId: String) -> Void) {
         guard let currentUserId = currentUserId else {
             print("\(#fileID) \(#function): no authorized user session")
             self.authState = .signedOut(error: nil)
@@ -57,54 +56,54 @@ class UserService: ObservableObject {
         }
         print("\(#fileID) \(#function): has authorized user session -> resetting user service & fetching new user data")
         self.reset()
-        self.authState = .signedIn
-        readCurrentUser(currentUserId: currentUserId)
+        afterAuthenticated(currentUserId)
+    }
+
+    func silentSignIn() {
+        checkCurentAuthSession { currentUserId in
+            self.authState = .signedIn
+            readCurrentUser(currentUserId: currentUserId)
+        }
     }
 
     func signIn(email: String, password: String) async {
         do {
-            isBusy = true
             try await auth.signIn(withEmail: email, password: password)
-            guard let currentUserId = currentUserId else {
-                print("\(#fileID) \(#function): currentUserId is nil")
-                return
+            checkCurentAuthSession { currentUserId in
+                self.authState = .signedIn
+                readCurrentUser(currentUserId: currentUserId)
             }
-            readCurrentUser(currentUserId: currentUserId)
         } catch {
             print("\(#fileID) \(#function): \(error)")
             authState = .signedOut(error: error)
-            isBusy = false
         }
     }
 
     func signUp(newUser: User, password: String, userImageUrl: String?) async {
         do {
-            isBusy = true
             try await auth.createUser(withEmail: newUser.email, password: password)
-            guard let currentUserId = currentUserId else {
-                return
-            }
+            checkCurentAuthSession { currentUserId in
+                let newUser = User(
+                    id: currentUserId,
+                    email: newUser.email,
+                    name: newUser.name,
+                    role: newUser.role,
+                    userImageUrl: userImageUrl
+                )
 
-            let newUser = User(
-                id: currentUserId,
-                email: newUser.email,
-                name: newUser.name,
-                role: newUser.role,
-                userImageUrl: userImageUrl
-            )
-
-            userRepository.create(newUser)
-            if let userImageUrl = userImageUrl {
-                storageRepository.uploadUserImage(with: userImageUrl) { [weak self] newUserImageUrl in
-                    self?.updateUserImage(with: newUserImageUrl)
+                userRepository.create(newUser)
+                if let userImageUrl = userImageUrl {
+                    storageRepository.uploadUserImage(with: userImageUrl) { [weak self] newUserImageUrl in
+                        self?.updateUserImage(with: newUserImageUrl)
+                    }
                 }
-            }
 
-            readCurrentUser(currentUserId: currentUserId)
+                self.authState = .signedIn
+                readCurrentUser(currentUserId: currentUserId)
+            }
         } catch {
             print("\(#fileID) \(#function): \(error)")
             authState = .signedOut(error: error)
-            isBusy = false
         }
     }
 
@@ -120,10 +119,8 @@ class UserService: ObservableObject {
     func updateUserProfileForCurrentUser(withNewUserProfile newUserProfile: User,
                                          andNewUserImageUrl newUserImageUrl: String?,
                                          whenUserImageDidChange userImageDidChange: Bool) {
-        isBusy = true
         guard let currentUserId = currentUserId else {
             print("\(#fileID) \(#function): could not retrieve currentUserId")
-            isBusy = false
             return
         }
 
@@ -147,8 +144,6 @@ class UserService: ObservableObject {
         }
 
         userRepository.updateProfileForUser(with: currentUserId, using: newUser)
-
-        isBusy = false
     }
 
     private func updateUserImage(with imageUrl: String) {
@@ -173,7 +168,6 @@ class UserService: ObservableObject {
                 }
                 self?.currentUser = currentUser
                 print("\(#fileID) \(#function): received and cached a non-nil user")
-                self?.isBusy = false
             })
     }
 
