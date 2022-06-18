@@ -40,7 +40,7 @@ class FamilyRepository: ObservableObject {
     func readFamily(familyId: String) {
         if currentFamilyListener == nil {
             currentFamilyListener = database.collection("families").document(familyId)
-                .addSnapshotListener({ [weak self] documentSnapshot, error in
+                .addSnapshotListener { [weak self] documentSnapshot, error in
                     guard let document = documentSnapshot else {
                         print("\(#fileID) \(#function): Error fetching document: \(error!)")
                         return
@@ -54,7 +54,6 @@ class FamilyRepository: ObservableObject {
                         print("\(#fileID) \(#function): error decoding \(error)")
                     }
                 }
-            )
         }
     }
 
@@ -70,7 +69,7 @@ class FamilyRepository: ObservableObject {
         }
     }
 
-    func resetRepository() {
+    func reset() {
         self.familyPublisher.send(nil)
         self.currentFamilyListener?.remove()
         self.currentFamilyListener = nil

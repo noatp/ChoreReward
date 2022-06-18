@@ -10,7 +10,9 @@ import Combine
 
 class FamilyService: ObservableObject {
     @Published var currentFamily: Family?
-    private var currentFamilyId: String?
+    private var currentFamilyId: String? {
+        currentFamily?.id
+    }
 
     private let userRepository: UserRepository
     private let familyRepository: FamilyRepository
@@ -27,8 +29,19 @@ class FamilyService: ObservableObject {
         addSubscription()
     }
 
-    func addSubscription() {
-        currentUserSubscription = userRepository.readUser()
+    func createFamily(currentUserId: String) async {
+        await familyRepository.createFamily(currentUserId: currentUserId)
+    }
+
+    func addUserToCurrentFamily(userId: String) async {
+        guard let currentFamilyId = currentFamily?.id, userId != "" else {
+            return
+        }
+        await familyRepository.updateMembersOfFamily(familyId: currentFamilyId, userId: userId)
+    }
+
+    private func addSubscription() {
+        currentUserSubscription = userRepository.userPublisher
             .sink(receiveValue: { [weak self] receivedUser in
                 if let receivedUser = receivedUser {
                     print("\(#fileID) \(#function): received a non-nil user, checking for familyId")
@@ -44,14 +57,13 @@ class FamilyService: ObservableObject {
                         return
                     } else {
                         print("\(#fileID) \(#function): received-user has diff familyId from the cached family -> resetting family service & fetch new family data")
-                        self?.resetService()
-                        self?.currentFamilyId = receivedFamilyId
+                        self?.reset()
                         self?.readCurrentFamily(currentFamilyId: receivedFamilyId)
                         return
                     }
                 } else {
                     print("\(#fileID) \(#function): received reset signal from UserRepository, reset family service")
-                    self?.resetService()
+                    self?.reset()
                     return
                 }
             })
@@ -65,24 +77,12 @@ class FamilyService: ObservableObject {
             })
     }
 
-    func createFamily(currentUserId: String) async {
-        await familyRepository.createFamily(currentUserId: currentUserId)
-    }
-
-    func readCurrentFamily(currentFamilyId: String) {
+    private func readCurrentFamily(currentFamilyId: String) {
         familyRepository.readFamily(familyId: currentFamilyId)
     }
 
-    func addUserToCurrentFamily(userId: String) async {
-        guard let currentFamilyId = currentFamily?.id, userId != "" else {
-            return
-        }
-        await familyRepository.updateMembersOfFamily(familyId: currentFamilyId, userId: userId)
-    }
-
-    private func resetService() {
+    private func reset() {
         currentFamily = nil
-        currentFamilyId = nil
-        familyRepository.resetRepository()
+        familyRepository.reset()
     }
 }

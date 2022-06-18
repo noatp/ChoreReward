@@ -50,7 +50,6 @@
 		45A808612832A5C700DF7EF6 /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = 45A808602832A5C700DF7EF6 /* CodeScanner */; };
 		45A808E52838A02400DF7EF6 /* UserAuthTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A808E42838A02400DF7EF6 /* UserAuthTest.swift */; };
 		45A808E72838A10600DF7EF6 /* UserDatabaseTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A808E62838A10600DF7EF6 /* UserDatabaseTest.swift */; };
-		45A808EA2839398A00DF7EF6 /* UserDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A808E92839398A00DF7EF6 /* UserDatabase.swift */; };
 		45ACB4AC2724AD1A000E04A0 /* ChoreRewardApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45ACB4AB2724AD1A000E04A0 /* ChoreRewardApp.swift */; };
 		45ACB4AE2724AD1A000E04A0 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45ACB4AD2724AD1A000E04A0 /* ContentView.swift */; };
 		45ACB4B32724AD1D000E04A0 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 45ACB4B22724AD1D000E04A0 /* Preview Assets.xcassets */; };
@@ -142,7 +141,6 @@
 		45A4754B27931F1C00322BCE /* ChoreService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoreService.swift; sourceTree = "<group>"; };
 		45A808E42838A02400DF7EF6 /* UserAuthTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAuthTest.swift; sourceTree = "<group>"; };
 		45A808E62838A10600DF7EF6 /* UserDatabaseTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDatabaseTest.swift; sourceTree = "<group>"; };
-		45A808E92839398A00DF7EF6 /* UserDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDatabase.swift; sourceTree = "<group>"; };
 		45ACB4A82724AD1A000E04A0 /* ChoreReward.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChoreReward.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		45ACB4AB2724AD1A000E04A0 /* ChoreRewardApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoreRewardApp.swift; sourceTree = "<group>"; };
 		45ACB4AD2724AD1A000E04A0 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -351,14 +349,6 @@
 			path = Extention;
 			sourceTree = "<group>";
 		};
-		45A808E82839395800DF7EF6 /* Database */ = {
-			isa = PBXGroup;
-			children = (
-				45A808E92839398A00DF7EF6 /* UserDatabase.swift */,
-			);
-			path = Database;
-			sourceTree = "<group>";
-		};
 		45ACB49F2724AD1A000E04A0 = {
 			isa = PBXGroup;
 			children = (
@@ -385,7 +375,6 @@
 			children = (
 				45942AC22827002E00CD490F /* ChoreReward.entitlements */,
 				45A31BF927E2CB290060B8AB /* Extention */,
-				45A808E82839395800DF7EF6 /* Database */,
 				45395C59272B20E900F50B70 /* Dependency */,
 				45B012D427549394002C7A06 /* Repository */,
 				453147692751FF91000A85D7 /* Service */,
@@ -752,7 +741,6 @@
 				45E5FB1727E5A732008B20A8 /* ChoreDetailNavBarView.swift in Sources */,
 				453CC1A62787FBFB002996AF /* ChoreTabViewModel.swift in Sources */,
 				45EAF0BC27EEA484005655D4 /* EnvironmentKey.swift in Sources */,
-				45A808EA2839398A00DF7EF6 /* UserDatabase.swift in Sources */,
 				456D46E927EBFFE800B2AC07 /* NavDrawerView.swift in Sources */,
 				45ACB4AC2724AD1A000E04A0 /* ChoreRewardApp.swift in Sources */,
 				45E5FB1427E5A65C008B20A8 /* View.swift in Sources */,

@@ -47,17 +47,6 @@ class RootViewModel: StatefulViewModel {
                     )
                 }
             })
-        userServiceBusyStatusSubscription = userService.$isBusy
-            .sink { [weak self] busyStatus in
-                guard let oldState = self?._state else {
-                    return
-                }
-
-                self?._state = .init(
-                    shouldRenderLoginView: oldState.shouldRenderLoginView,
-                    shouldRenderProgressView: busyStatus
-                )
-            }
         choreServiceBusyStatusSubscription = choreService.$isBusy
             .sink(receiveValue: { [weak self] busyStatus in
                 guard let oldState = self?._state else {

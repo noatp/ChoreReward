@@ -28,14 +28,12 @@ import SwiftUI
 class UserService: ObservableObject {
     @Published var authState: AuthState = .signedOut(error: nil)
     @Published var currentUser: User?
-    @Published var isBusy: Bool = false
 
     private let auth = Auth.auth()
     private let userRepository: UserRepository
     private let storageRepository: StorageRepository
 
     private var currentUserSubscription: AnyCancellable?
-    // private var isLoginPending: Bool = false
 
     var currentUserId: String? {
         auth.currentUser?.uid
@@ -47,78 +45,82 @@ class UserService: ObservableObject {
     ) {
         self.userRepository = currentUserRepository
         self.storageRepository = storageRepository
+        addSubscription()
     }
 
-    func silentSignIn() async {
-        performSignIn()
+    private func checkCurentAuthSession(afterAuthenticated: (_ currentUserId: String) -> Void) {
+        guard let currentUserId = currentUserId else {
+            print("\(#fileID) \(#function): no authorized user session")
+            self.authState = .signedOut(error: nil)
+            return
+        }
+        print("\(#fileID) \(#function): has authorized user session -> resetting user service & fetching new user data")
+        self.reset()
+        afterAuthenticated(currentUserId)
+    }
+
+    func silentSignIn() {
+        checkCurentAuthSession { currentUserId in
+            self.authState = .signedIn
+            readCurrentUser(currentUserId: currentUserId)
+        }
     }
 
     func signIn(email: String, password: String) async {
         do {
-            isBusy = true
             try await auth.signIn(withEmail: email, password: password)
-            performSignIn()
+            checkCurentAuthSession { currentUserId in
+                self.authState = .signedIn
+                readCurrentUser(currentUserId: currentUserId)
+            }
         } catch {
             print("\(#fileID) \(#function): \(error)")
             authState = .signedOut(error: error)
-            isBusy = false
         }
     }
 
     func signUp(newUser: User, password: String, userImageUrl: String?) async {
         do {
-            isBusy = true
             try await auth.createUser(withEmail: newUser.email, password: password)
-            guard let currentUserId = currentUserId else {
-                return
-            }
+            checkCurentAuthSession { currentUserId in
+                let newUser = User(
+                    id: currentUserId,
+                    email: newUser.email,
+                    name: newUser.name,
+                    role: newUser.role,
+                    userImageUrl: userImageUrl
+                )
 
-            let newUser = User(
-                id: currentUserId,
-                email: newUser.email,
-                name: newUser.name,
-                role: newUser.role,
-                userImageUrl: userImageUrl
-            )
-
-            userRepository.create(newUser)
-            if let userImageUrl = userImageUrl {
-                storageRepository.uploadUserImage(with: userImageUrl) { [weak self] newUserImageUrl in
-                    self?.updateUserImage(with: newUserImageUrl)
+                userRepository.create(newUser)
+                if let userImageUrl = userImageUrl {
+                    storageRepository.uploadUserImage(with: userImageUrl) { [weak self] newUserImageUrl in
+                        self?.updateUserImage(with: newUserImageUrl)
+                    }
                 }
-            }
 
-            performSignIn()
+                self.authState = .signedIn
+                readCurrentUser(currentUserId: currentUserId)
+            }
         } catch {
             print("\(#fileID) \(#function): \(error)")
             authState = .signedOut(error: error)
-            isBusy = false
         }
     }
 
     func signOut() {
         do {
             try self.auth.signOut()
-            resetService()
+            reset()
         } catch let signOutError as NSError {
             print("\(#fileID) \(#function): Error signing out: %@", signOutError)
         }
     }
 
-    /*
-     cases:
-        - remove image: imageDidChange = true, imageUrl = nil
-        - choose new image: imageDidChange = true, imageUrl != nil
-        - do nothing: imageDidChange = false, imageUrl = nil
-     */
-
     func updateUserProfileForCurrentUser(withNewUserProfile newUserProfile: User,
                                          andNewUserImageUrl newUserImageUrl: String?,
                                          whenUserImageDidChange userImageDidChange: Bool) {
-        isBusy = true
         guard let currentUserId = currentUserId else {
             print("\(#fileID) \(#function): could not retrieve currentUserId")
-            isBusy = false
             return
         }
 
@@ -142,8 +144,6 @@ class UserService: ObservableObject {
         }
 
         userRepository.updateProfileForUser(with: currentUserId, using: newUser)
-
-        isBusy = false
     }
 
     private func updateUserImage(with imageUrl: String) {
@@ -156,25 +156,25 @@ class UserService: ObservableObject {
         }
     }
 
-    private func resetService() {
-        currentUser = nil
-        authState = .signedOut(error: nil)
-        currentUserSubscription = nil
-        userRepository.resetRepository()
+    private func readCurrentUser(currentUserId: String) {
+        userRepository.readUser(userId: currentUserId)
     }
 
-    private func performSignIn() {
-        guard let currentUserId = currentUserId else {
-            print("\(#fileID) \(#function): currentUserId is nil")
-            return
-        }
-        currentUserSubscription = userRepository.readUser(userId: currentUserId)
+    private func addSubscription() {
+        currentUserSubscription = userRepository.userPublisher
             .sink(receiveValue: {[weak self] receivedUser in
-                print("\(#fileID) \(#function): received a user")
-                self?.currentUser = receivedUser
-                self?.authState = .signedIn
-                self?.isBusy = false
+                guard let currentUser = receivedUser else {
+                    return
+                }
+                self?.currentUser = currentUser
+                print("\(#fileID) \(#function): received and cached a non-nil user")
             })
+    }
+
+    private func reset() {
+        currentUser = nil
+        authState = .signedOut(error: nil)
+        userRepository.resetRepository()
     }
 
     enum AuthState {
