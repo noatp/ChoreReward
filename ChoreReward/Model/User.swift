@@ -16,6 +16,7 @@ struct User: Identifiable, Codable {
     var role: Role
     var familyId: String?
     var userImageUrl: String?
+    var goal: Goal?
 
     static let preview = User(
         id: "previewID",
@@ -33,4 +34,11 @@ enum Role: String, Codable {
     case parent
     case child
     case admin
+}
+
+struct Goal: Codable {
+    let name: String
+    let value: Double
+
+    static let empty = Goal(name: "", value: 0.00)
 }
