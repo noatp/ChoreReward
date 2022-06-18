@@ -117,6 +117,17 @@ extension NavDrawerView {
     var basicDrawerContent: some View {
         VStack(alignment: .leading) {
             NavigationLink {
+                views.userGoalView
+            } label: {
+                HStack {
+                    Image(systemName: "person.crop.circle")
+                    Text("Your Goal")
+                }
+            }
+            // .buttonStyle(.plain)
+            .padding([.horizontal, .top])
+
+            NavigationLink {
                 views.userProfileView
             } label: {
                 HStack {
