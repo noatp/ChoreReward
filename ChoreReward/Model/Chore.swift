@@ -18,6 +18,7 @@ struct Chore: Identifiable, Codable {
     var created: Int
     var description: String
     var choreImageUrl: String
+    var rewardValue: Float?
 
     static let empty = Chore(
         id: "",

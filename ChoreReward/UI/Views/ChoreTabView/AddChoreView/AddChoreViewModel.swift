@@ -28,17 +28,28 @@ class AddChoreViewModel: StatefulViewModel {
         self.userService = userService
     }
 
-    func createChore(choreTitle: String, choreDescription: String, choreImageUrl: String) {
+    func createChore(choreTitle: String, choreDescription: String, choreImageUrl: String, choreRewardValue: String) {
         guard let currentUser = userService.currentUser else {
             return
         }
-        choreService.createChore(choreTitle: choreTitle, choreDescription: choreDescription, currentUser: currentUser, choreImageUrl: choreImageUrl)
+        choreService.createChore(
+            withTitle: choreTitle,
+            withDescription: choreDescription,
+            withImageUrl: choreImageUrl,
+            withRewardValue: choreRewardValue,
+            byUser: currentUser
+        )
     }
 
     func performAction(_ action: AddChoreAction) {
          switch action {
-         case .createChore(let choreTitle, let choreDescription, let choreImageUrl):
-             createChore(choreTitle: choreTitle, choreDescription: choreDescription, choreImageUrl: choreImageUrl)
+         case .createChore(let choreTitle, let choreDescription, let choreImageUrl, let choreRewardValue):
+             createChore(
+                choreTitle: choreTitle,
+                choreDescription: choreDescription,
+                choreImageUrl: choreImageUrl,
+                choreRewardValue: choreRewardValue
+             )
          }
     }
 }
@@ -48,7 +59,7 @@ struct AddChoreState {
 }
 
 enum AddChoreAction {
-    case createChore(choreTitle: String, choreDescription: String, choreImageUrl: String)
+    case createChore(choreTitle: String, choreDescription: String, choreImageUrl: String, choreRewardValue: String)
 }
 
 extension Dependency.ViewModels {
