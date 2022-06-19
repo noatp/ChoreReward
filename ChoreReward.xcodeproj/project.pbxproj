@@ -88,6 +88,7 @@
 		45EAF0C027FA407A005655D4 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45EAF0BF27FA407A005655D4 /* ImagePicker.swift */; };
 		45F784962793D84400C8B197 /* AddChoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F784952793D84400C8B197 /* AddChoreView.swift */; };
 		45F784982793D86F00C8B197 /* AddChoreViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F784972793D86F00C8B197 /* AddChoreViewModel.swift */; };
+		45FC9A25285FC217009EC84C /* RewardCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45FC9A24285FC217009EC84C /* RewardCardView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -185,6 +186,7 @@
 		45EAF0BF27FA407A005655D4 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		45F784952793D84400C8B197 /* AddChoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddChoreView.swift; sourceTree = "<group>"; };
 		45F784972793D86F00C8B197 /* AddChoreViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddChoreViewModel.swift; sourceTree = "<group>"; };
+		45FC9A24285FC217009EC84C /* RewardCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RewardCardView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -479,6 +481,7 @@
 				45EAF0BF27FA407A005655D4 /* ImagePicker.swift */,
 				4538D0422839DFEE00368C98 /* RemoteImageView.swift */,
 				4538D044283A288D00368C98 /* ImageView.swift */,
+				45FC9A24285FC217009EC84C /* RewardCardView.swift */,
 			);
 			path = ComponentViews;
 			sourceTree = "<group>";
@@ -770,6 +773,7 @@
 				45E5FB1427E5A65C008B20A8 /* View.swift in Sources */,
 				45750CD927FB938100274617 /* TabNavBarView.swift in Sources */,
 				45750CE027FD270A00274617 /* RegularNavBarView.swift in Sources */,
+				45FC9A25285FC217009EC84C /* RewardCardView.swift in Sources */,
 				452AFED0275444020060BD43 /* SignUpViewModel.swift in Sources */,
 				45A4754C27931F1C00322BCE /* ChoreService.swift in Sources */,
 				453147662751C83E000A85D7 /* LoginView.swift in Sources */,

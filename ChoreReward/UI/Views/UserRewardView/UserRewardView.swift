@@ -34,29 +34,39 @@ struct UserRewardView: View {
                 presentSheet = true
             }
         } content: {
-            ScrollView(showsIndicators: false) {
-                LazyVStack(spacing: 0) {
-                    ForEach(userRewardViewModel.state.rewards, id: \.name) {reward in
-                        HStack {
-                            Text(reward.name)
-                            Text("\(reward.value)")
-                        }
+            VStack(alignment: .leading) {
+                Text(String(format: "Current balance is ", userRewardViewModel.state.balance))
+                    .font(.system(size: 20, weight: .light, design: .default))
+                + Text(String(format: "$%.2f", userRewardViewModel.state.balance))
+                    .font(.system(size: 30, weight: .bold, design: .rounded))
+                ScrollView(showsIndicators: false) {
+                    LazyVStack(spacing: 0) {
+                        ForEach(userRewardViewModel.state.rewards, id: \.name) {reward in
+                            RewardCardView(
+                                rewardName: reward.name,
+                                rewardValue: reward.value,
+                                userBalance: userRewardViewModel.state.balance)
 
+                        }
                     }
                 }
             }
+            .padding()
         }
         .navigationBarHidden(true)
         .sheet(isPresented: $presentSheet) {
             VStack {
                 TextFieldView(title: "Reward name", textInput: $rewardName)
-                TextFieldView(title: "Reward value", textInput: $rewardValue)
+                HStack {
+                    Text("$")
+                    TextFieldView(title: "Reward value", textInput: $rewardValue)
+                }
                 ButtonView(buttonTitle: "Add new reward") {
                     userRewardViewModel.perform(action: .addNewReward(name: rewardName, value: rewardValue))
                     dismiss()
                 }
             }
-
+            .padding()
         }
     }
 }
@@ -65,7 +75,7 @@ struct UserGoalView_Previews: PreviewProvider {
     static var previews: some View {
         UserRewardView(
             userGoalViewModel: ObservableViewModel(
-                staticState: UserRewardViewState(rewards: [])
+                staticState: UserRewardViewState(rewards: [], balance: 0.00)
             ),
             views: Dependency.preview.views()
         )

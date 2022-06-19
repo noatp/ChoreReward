@@ -11,6 +11,7 @@ import FirebaseFirestore
 
 class RewardService: ObservableObject {
     @Published var userRewards: [Reward]?
+    @Published var userBalance: Float?
     private var rewardCollection: CollectionReference?
 
     private let userRepository: UserRepository
@@ -57,7 +58,8 @@ class RewardService: ObservableObject {
         currentUserSubscription = userRepository.userPublisher
             .sink(receiveValue: { [weak self] receivedUser in
                 if let receivedUser = receivedUser {
-                    print("\(#fileID) \(#function): received a non-nil user, checking for reward collection ref")
+                    print("\(#fileID) \(#function): received a non-nil user, updating cache user balance, and checking for reward collection ref")
+                    self?.userBalance = receivedUser.balance
                     guard let receivedRewardCollection = receivedUser.rewardCollection else {
                         print("\(#fileID) \(#function): received user does not have a reward collection")
                         self?.userRewards = []

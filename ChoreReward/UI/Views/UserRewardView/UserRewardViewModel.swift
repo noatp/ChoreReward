@@ -18,6 +18,7 @@ class UserRewardViewModel: StatefulViewModel {
     private let userService: UserService
     private let rewardService: RewardService
     private var userRewardsSubscription: AnyCancellable?
+    private var userBalanceSubscription: AnyCancellable?
 
     init(
         userService: UserService,
@@ -31,10 +32,21 @@ class UserRewardViewModel: StatefulViewModel {
     private func addSubscription() {
         userRewardsSubscription = rewardService.$userRewards
             .sink(receiveValue: { [weak self] receivedRewards in
-                guard let rewards = receivedRewards else {
+                guard let oldState = self?._state,
+                      let rewards = receivedRewards
+                else {
                     return
                 }
-                self?._state = .init(rewards: rewards)
+                self?._state = .init(rewards: rewards, balance: oldState.balance)
+            })
+        userBalanceSubscription = rewardService.$userBalance
+            .sink(receiveValue: { [weak self] receivedBalance in
+                guard let oldState = self?._state,
+                      let balance = receivedBalance
+                else {
+                    return
+                }
+                self?._state = .init(rewards: oldState.rewards, balance: balance)
             })
     }
 
@@ -55,8 +67,9 @@ class UserRewardViewModel: StatefulViewModel {
 
 struct UserRewardViewState {
     let rewards: [Reward]
+    let balance: Float
 
-    static let empty: UserRewardViewState = .init(rewards: [])
+    static let empty: UserRewardViewState = .init(rewards: [], balance: 0)
 }
 
 enum UserRewardViewAction {

@@ -46,7 +46,6 @@ class ChoreService: ObservableObject {
         }
 
         let newChoreId = UUID().uuidString
-
         let newChore = Chore(
             title: title,
             assignerId: currentUserId,
