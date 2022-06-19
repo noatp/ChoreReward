@@ -39,7 +39,8 @@ class FamilyRepository: ObservableObject {
 
     func readFamily(familyId: String) {
         if currentFamilyListener == nil {
-            currentFamilyListener = database.collection("families").document(familyId)
+            currentFamilyListener = database.collection("families")
+                .document(familyId)
                 .addSnapshotListener { [weak self] documentSnapshot, error in
                     guard let document = documentSnapshot else {
                         print("\(#fileID) \(#function): Error fetching document: \(error!)")

@@ -38,6 +38,7 @@
 		45750CE027FD270A00274617 /* RegularNavBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45750CDF27FD270A00274617 /* RegularNavBarView.swift */; };
 		4583C12B285E717300E77427 /* UserGoalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4583C12A285E717300E77427 /* UserGoalView.swift */; };
 		4583C12D285E718600E77427 /* UserGoalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4583C12C285E718600E77427 /* UserGoalViewModel.swift */; };
+		4583C131285E7A5900E77427 /* RewardRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4583C130285E7A5900E77427 /* RewardRepository.swift */; };
 		458C76BD2851736000119E68 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 458C76BC2851736000119E68 /* Date.swift */; };
 		458C76BF285174AF00119E68 /* Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 458C76BE285174AF00119E68 /* Int.swift */; };
 		45A31BFB27E2CB340060B8AB /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A31BFA27E2CB340060B8AB /* Color.swift */; };
@@ -137,6 +138,7 @@
 		45750CDF27FD270A00274617 /* RegularNavBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegularNavBarView.swift; sourceTree = "<group>"; };
 		4583C12A285E717300E77427 /* UserGoalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserGoalView.swift; sourceTree = "<group>"; };
 		4583C12C285E718600E77427 /* UserGoalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserGoalViewModel.swift; sourceTree = "<group>"; };
+		4583C130285E7A5900E77427 /* RewardRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RewardRepository.swift; sourceTree = "<group>"; };
 		458C76BC2851736000119E68 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		458C76BE285174AF00119E68 /* Int.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Int.swift; sourceTree = "<group>"; };
 		45942AC22827002E00CD490F /* ChoreReward.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ChoreReward.entitlements; sourceTree = "<group>"; };
@@ -447,6 +449,7 @@
 				45C1FA642767163F00BF11E3 /* FamilyRepository.swift */,
 				45A47549279215A100322BCE /* ChoreRepository.swift */,
 				45B090322800DE8800CD1597 /* StorageRepository.swift */,
+				4583C130285E7A5900E77427 /* RewardRepository.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -753,6 +756,7 @@
 				45429DB1279B608C00FA9670 /* ChoreCardView.swift in Sources */,
 				45F784982793D86F00C8B197 /* AddChoreViewModel.swift in Sources */,
 				45D7AE952735B4A100A53812 /* Family.swift in Sources */,
+				4583C131285E7A5900E77427 /* RewardRepository.swift in Sources */,
 				45C1FA672767ABBB00BF11E3 /* FamilyService.swift in Sources */,
 				45E5FB1727E5A732008B20A8 /* ChoreDetailNavBarView.swift in Sources */,
 				453CC1A62787FBFB002996AF /* ChoreTabViewModel.swift in Sources */,

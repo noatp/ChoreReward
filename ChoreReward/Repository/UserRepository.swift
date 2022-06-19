@@ -38,8 +38,9 @@ class UserRepository: ObservableObject {
                         return
                     }
                     do {
-                        let user = try document.data(as: User.self)
+                        var user = try document.data(as: User.self)
                         // could get a reference to the user doc here for use later in family service
+                        user.userDocRef = document.reference
                         print("\(#fileID) \(#function): received user data, publishing...")
                         self?.userPublisher.send(user)
                     } catch {
