@@ -10,7 +10,10 @@ import SwiftUI
 struct UserRewardView: View {
     @Environment(\.dismiss) private var dismiss
     @ObservedObject var userRewardViewModel: ObservableViewModel<UserRewardViewState, UserRewardViewAction>
-    // @State var
+    @State var presentSheet: Bool = false
+    @State var rewardName: String = ""
+    @State var rewardValue: String = ""
+
     private var views: Dependency.Views
 
     init(
@@ -28,7 +31,7 @@ struct UserRewardView: View {
             }
         } rightItem: {
             ButtonView(buttonImage: "plus") {
-
+                presentSheet = true
             }
         } content: {
             ScrollView(showsIndicators: false) {
@@ -43,9 +46,18 @@ struct UserRewardView: View {
                 }
             }
         }
-
         .navigationBarHidden(true)
+        .sheet(isPresented: $presentSheet) {
+            VStack {
+                TextFieldView(title: "Reward name", textInput: $rewardName)
+                TextFieldView(title: "Reward value", textInput: $rewardValue)
+                ButtonView(buttonTitle: "Add new reward") {
+                    userRewardViewModel.perform(action: .addNewReward(name: rewardName, value: rewardValue))
+                    dismiss()
+                }
+            }
 
+        }
     }
 }
 

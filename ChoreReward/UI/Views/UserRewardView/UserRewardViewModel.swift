@@ -38,14 +38,17 @@ class UserRewardViewModel: StatefulViewModel {
             })
     }
 
-//    private func something(){
-//
-//    }
+    private func addNewReward(name: String, value: String) {
+        guard let floatValue = Float(value) else {
+            return
+        }
+        rewardService.createReward(withName: name, andValue: floatValue)
+    }
 
     func performAction(_ action: UserRewardViewAction) {
         switch action {
-//        case .action(let name):
-//            //call a private func
+        case.addNewReward(let name, let value):
+            addNewReward(name: name, value: value)
         }
     }
 }
@@ -57,7 +60,7 @@ struct UserRewardViewState {
 }
 
 enum UserRewardViewAction {
-    // case action(name: type)
+    case addNewReward(name: String, value: String)
 }
 
 extension Dependency.ViewModels {
