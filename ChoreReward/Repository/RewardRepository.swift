@@ -15,7 +15,7 @@ class RewardRepository: ObservableObject {
     private var userRewardsListener: ListenerRegistration?
     let userRewardsPublisher = PassthroughSubject<[Reward]?, Never>()
 
-    func create(_ newReward: Chore, in rewardCollection: CollectionReference) {
+    func create(_ newReward: Reward, in rewardCollection: CollectionReference) {
         do {
             _ = try rewardCollection.addDocument(from: newReward)
         } catch {
@@ -25,30 +25,28 @@ class RewardRepository: ObservableObject {
 
     func read(_ rewardCollection: CollectionReference) {
         if userRewardsListener == nil {
-            userRewardsListener = rewardCollection
-                .order(by: "created")
-                .addSnapshotListener { [weak self] querySnapshot, error in
-                    guard let querySnapshot = querySnapshot else {
-                        print("\(#fileID) \(#function): Error fetching documents: \(error!)")
-                        return
-                    }
-                    let rewards: [Reward] = querySnapshot.documents
-                        .compactMap { document in
-                            do {
-                                return try document.data(as: Reward.self)
-                            } catch {
-                                print("\(#fileID) \(#function): error")
-                                return nil
-                            }
-                        }
-                    if rewards.isEmpty {
-                        print("\(#fileID) \(#function): received empty list, publishing nil...")
-                        self?.userRewardsPublisher.send(nil)
-                    } else {
-                        print("\(#fileID) \(#function): received rewards data, publishing...")
-                        self?.userRewardsPublisher.send(rewards)
-                    }
+            userRewardsListener = rewardCollection.addSnapshotListener { [weak self] querySnapshot, error in
+                guard let querySnapshot = querySnapshot else {
+                    print("\(#fileID) \(#function): Error fetching documents: \(error!)")
+                    return
                 }
+                let rewards: [Reward] = querySnapshot.documents
+                    .compactMap { document in
+                        do {
+                            return try document.data(as: Reward.self)
+                        } catch {
+                            print("\(#fileID) \(#function): error")
+                            return nil
+                        }
+                    }
+                if rewards.isEmpty {
+                    print("\(#fileID) \(#function): received empty list, publishing nil...")
+                    self?.userRewardsPublisher.send(nil)
+                } else {
+                    print("\(#fileID) \(#function): received rewards data, publishing...")
+                    self?.userRewardsPublisher.send(rewards)
+                }
+            }
         }
     }
 
