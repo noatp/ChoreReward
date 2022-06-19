@@ -9,6 +9,7 @@ import SwiftUI
 import Kingfisher
 
 struct EditUserProfileView: View {
+    @Environment(\.dismiss) private var dismiss
     @ObservedObject var editUserProfileViewModel: ObservableViewModel<EditUserProfileState, EditUserProfileAction>
     @State var shouldShowImagePicker: Bool = false
     @State var shouldShowActionSheet: Bool = false
@@ -28,6 +29,12 @@ struct EditUserProfileView: View {
 
     var body: some View {
         RegularNavBarView(navTitle: editUserProfileViewModel.state.currentUserName) {
+            ButtonView(buttonImage: "chevron.left") {
+                dismiss()
+            }
+        } rightItem: {
+            EmptyView()
+        } content: {
             VStack(spacing: 16) {
                 Group {
                     if userImageDidChange {

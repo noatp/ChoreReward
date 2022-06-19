@@ -26,7 +26,10 @@ struct AddChoreView: View {
 
     var body: some View {
         RegularNavBarView(navTitle: "New Chore") {
-
+            EmptyView()
+        } rightItem: {
+            EmptyView()
+        } content: {
             VStack {
                 Group {
                     if let choreImageUrl = choreImageUrl {

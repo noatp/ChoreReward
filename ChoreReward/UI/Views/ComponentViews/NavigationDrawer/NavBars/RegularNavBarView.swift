@@ -7,25 +7,31 @@
 
 import SwiftUI
 
-struct RegularNavBarView<Content: View>: View {
-    @Environment(\.dismiss) private var dismiss
-
+struct RegularNavBarView<Content: View, LeftItem: View, RightItem: View>: View {
     private let navTitle: String
     private let content: Content
+    private let leftItem: LeftItem?
+    private let rightItem: RightItem?
 
-    init(navTitle: String, content: () -> Content) {
+    init(
+        navTitle: String,
+        leftItem: () -> LeftItem?,
+        rightItem: () -> RightItem?,
+        content: () -> Content
+    ) {
         self.navTitle = navTitle
         self.content = content()
+        self.leftItem = leftItem()
+        self.rightItem = rightItem()
     }
 
     var body: some View {
         VStack {
             ZStack {
                 HStack {
-                    ButtonView(buttonImage: "chevron.left") {
-                        dismiss()
-                    }
+                    leftItem
                     Spacer()
+                    rightItem
                 }
 
                 HStack {
@@ -53,10 +59,13 @@ struct RegularNavBarView<Content: View>: View {
 
 struct RegularNavBarView_Previews: PreviewProvider {
     static var previews: some View {
-        RegularNavBarView(navTitle: "RegularNavBarView") {
-            VStack {
-                Text("This is RegularNavBarView")
-            }
+        RegularNavBarView(navTitle: "Title") {
+            ButtonView(buttonImage: "chevron.left") {}
+        } rightItem: {
+            ButtonView(buttonImage: "plus") {}
+        } content: {
+            Text("content")
         }
+
     }
 }

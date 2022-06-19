@@ -9,6 +9,7 @@ import SwiftUI
 import Kingfisher
 
 struct UserProfileView: View {
+    @Environment(\.dismiss) private var dismiss
     @ObservedObject var userProfileViewModel: ObservableViewModel<UserProfileState, UserProfileAction>
     private var views: Dependency.Views
 
@@ -22,14 +23,20 @@ struct UserProfileView: View {
 
     var body: some View {
         RegularNavBarView(navTitle: userProfileViewModel.state.currentUserName) {
+            ButtonView(buttonImage: "chevron.left") {
+                dismiss()
+            }
+        } rightItem: {
+            EmptyView()
+        } content: {
             VStack(spacing: 16) {
                 Group {
                     if let userImageUrl = userProfileViewModel.state.currentUserProfileImageUrl {
-//                        RemoteImageView(
-//                            imageUrl: userImageUrl,
-//                            size: .init(width: 200, height: 200),
-//                            cachingSize: .init(width: 200, height: 200)
-//                        )
+                        //                        RemoteImageView(
+                        //                            imageUrl: userImageUrl,
+                        //                            size: .init(width: 200, height: 200),
+                        //                            cachingSize: .init(width: 200, height: 200)
+                        //                        )
                         RemoteImageView(imageUrl: userImageUrl, isThumbnail: false)
                     } else {
                         ImageView(systemImage: "person.fill")
