@@ -7,7 +7,7 @@
 
 import Foundation
 import FirebaseFirestoreSwift
-import UIKit
+import FirebaseFirestore
 
 struct User: Identifiable, Codable {
     @DocumentID public var id: String?
@@ -16,6 +16,8 @@ struct User: Identifiable, Codable {
     var role: Role
     var familyId: String?
     var userImageUrl: String?
+    var balance: Float?
+    var userDocRef: DocumentReference?
 
     static let preview = User(
         id: "previewID",
@@ -27,6 +29,12 @@ struct User: Identifiable, Codable {
     )
 
     static let empty = User(email: "", name: "", role: .child)
+}
+
+extension User {
+    var rewardCollection: CollectionReference? {
+        return userDocRef?.collection("rewards")
+    }
 }
 
 enum Role: String, Codable {

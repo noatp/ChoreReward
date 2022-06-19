@@ -7,16 +7,9 @@
 
 import Foundation
 
-struct Reward {
-    var unit: RewardUnit
-    var amount: Int
+struct Reward: Codable {
+    let name: String
+    let value: Float
 
-    static let previewReward = Reward(unit: RewardUnit.percentOfCurrentGoal, amount: 1)
-}
-
-enum RewardUnit: String, CaseIterable, Identifiable {
-    case percentOfCurrentGoal
-    case dollar
-
-    var id: String {self.rawValue}
+    static let empty = Reward(name: "", value: 0.00)
 }

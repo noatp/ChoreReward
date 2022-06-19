@@ -28,11 +28,4 @@ struct Chore: Identifiable, Codable {
         description: "",
         choreImageUrl: ""
     )
-
-    enum RewardType: String, CaseIterable, Identifiable {
-        case goal
-        case monetary
-
-        var id: String {self.rawValue}
-    }
 }

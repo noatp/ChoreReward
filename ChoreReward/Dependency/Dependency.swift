@@ -13,24 +13,28 @@ class Dependency {
     let familyRepository: FamilyRepository
     let choreRepository: ChoreRepository
     let storageRepository: StorageRepository
+    let rewardRepository: RewardRepository
 
     init(
-        userRepository: UserRepository = UserRepository(),
-        familyRepository: FamilyRepository = FamilyRepository(),
-        choreRepository: ChoreRepository = ChoreRepository(),
-        storageRepository: StorageRepository = StorageRepository()
+        userRepository: UserRepository = .init(),
+        familyRepository: FamilyRepository = .init(),
+        choreRepository: ChoreRepository = .init(),
+        storageRepository: StorageRepository = .init(),
+        rewardRepository: RewardRepository = .init()
     ) {
         self.userRepository = userRepository
         self.familyRepository = familyRepository
         self.choreRepository = choreRepository
         self.storageRepository = storageRepository
+        self.rewardRepository = rewardRepository
     }
 
     static let preview = Dependency(
         userRepository: MockUserRepository(),
         familyRepository: MockFamilyRepository(),
         choreRepository: MockChoreRepository(),
-        storageRepository: MockStorageRepository()
+        storageRepository: MockStorageRepository(),
+        rewardRepository: MockRewardRepository()
     )
 
     class Repositories {
@@ -38,13 +42,14 @@ class Dependency {
         let familyRepository: FamilyRepository
         let choreRepository: ChoreRepository
         let storageRepository: StorageRepository
+        let rewardRepository: RewardRepository
 
         init(dependency: Dependency) {
             self.userRepository = dependency.userRepository
             self.familyRepository = dependency.familyRepository
             self.choreRepository = dependency.choreRepository
             self.storageRepository = dependency.storageRepository
-
+            self.rewardRepository = dependency.rewardRepository
         }
     }
 
@@ -56,6 +61,7 @@ class Dependency {
         let userService: UserService
         let familyService: FamilyService
         let choreService: ChoreService
+        let rewardService: RewardService
         let repositories: Repositories
 
         init(repositories: Repositories) {
@@ -73,6 +79,11 @@ class Dependency {
                 familyRepository: repositories.familyRepository,
                 choreRepository: repositories.choreRepository,
                 storageRepository: repositories.storageRepository)
+
+            self.rewardService = RewardService(
+                userRepository: repositories.userRepository,
+                rewardRepository: repositories.rewardRepository
+            )
         }
     }
 
@@ -116,3 +127,5 @@ class MockFamilyRepository: FamilyRepository {}
 class MockChoreRepository: ChoreRepository {}
 
 class MockStorageRepository: StorageRepository {}
+
+class MockRewardRepository: RewardRepository {}

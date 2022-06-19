@@ -15,7 +15,6 @@ class ChoreService: ObservableObject {
     @Published var isBusy: Bool = false
     private var currentChoreCollection: CollectionReference?
 
-    private let userRepository: UserRepository
     private let familyRepository: FamilyRepository
     private let choreRepository: ChoreRepository
     private let storageRepository: StorageRepository
@@ -29,7 +28,6 @@ class ChoreService: ObservableObject {
         choreRepository: ChoreRepository,
         storageRepository: StorageRepository
     ) {
-        self.userRepository = userRepository
         self.familyRepository = familyRepository
         self.choreRepository = choreRepository
         self.storageRepository = storageRepository
