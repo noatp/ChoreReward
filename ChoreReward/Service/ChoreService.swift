@@ -23,7 +23,6 @@ class ChoreService: ObservableObject {
     private var familyChoresSubscription: AnyCancellable?
 
     init(
-        userRepository: UserRepository,
         familyRepository: FamilyRepository,
         choreRepository: ChoreRepository,
         storageRepository: StorageRepository

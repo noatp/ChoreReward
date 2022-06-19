@@ -62,10 +62,8 @@ class Dependency {
         let familyService: FamilyService
         let choreService: ChoreService
         let rewardService: RewardService
-        let repositories: Repositories
 
         init(repositories: Repositories) {
-            self.repositories = repositories
             self.userService = UserService(
                 currentUserRepository: repositories.userRepository,
                 storageRepository: repositories.storageRepository
@@ -75,7 +73,6 @@ class Dependency {
                 familyRepository: repositories.familyRepository
             )
             self.choreService = ChoreService(
-                userRepository: repositories.userRepository,
                 familyRepository: repositories.familyRepository,
                 choreRepository: repositories.choreRepository,
                 storageRepository: repositories.storageRepository)
