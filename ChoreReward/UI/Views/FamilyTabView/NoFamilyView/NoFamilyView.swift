@@ -23,6 +23,7 @@ struct NoFamilyView: View {
 
     var body: some View {
         VStack(spacing: 16) {
+            Spacer()
             Text("Please ask your family's admin to invite you to the family using the following QR code")
                 .multilineTextAlignment(.center)
             Image(uiImage: generateQRImage(from: noFamilyViewModel.state.currentUserId))
@@ -36,6 +37,7 @@ struct NoFamilyView: View {
                     noFamilyViewModel.perform(action: .createFamily)
                 }
             }
+            Spacer()
         }
         .padding()
     }
@@ -58,16 +60,16 @@ struct NoFamilyView: View {
 
 struct NoFamilyView_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationView {
-            NoFamilyView(
-                noFamilyViewModel: .init(
-                    staticState: .init(
-                        shouldRenderCreateFamilyButton: true,
-                        currentUserId: "preview userId"
-                    )
-                ),
-                views: Dependency.preview.views())
-        }
+        NoFamilyView(
+            noFamilyViewModel: .init(
+                staticState: .init(
+                    shouldRenderCreateFamilyButton: true,
+                    currentUserId: "preview userId"
+                )
+            ),
+            views: Dependency.preview.views()
+        )
+        .previewLayout(.sizeThatFits)
     }
 }
 

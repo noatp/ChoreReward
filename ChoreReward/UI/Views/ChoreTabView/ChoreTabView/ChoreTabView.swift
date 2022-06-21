@@ -55,16 +55,6 @@ struct ChoreTabView: View {
                     }
                 }
 
-                //                    List(choreTabViewModel.state.displayingChoreList){chore in
-                //                        NavigationLink {
-                //                            views.choreDetailView(chore: chore)
-                //                        } label: {
-                //                            ChoreCardView(chore: chore)
-                //                        }
-                //                        .transition(.asymmetric(insertion: .move(edge: .leading), removal: .move(edge: .trailing)))
-                //                    }
-                //                    .animation(.easeInOut, value: choreTabViewModel.state.chorePickerState)
-
                 if presentFilterMenu {
                     VStack {
                         filterMenu
@@ -79,16 +69,13 @@ struct ChoreTabView: View {
 
 struct ChoreTabView_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationView {
-            ChoreTabView(
-                choreTabViewModel: ObservableViewModel(
-                    staticState: .empty
-                ),
-                views: Dependency.preview.views()
-            )
-            .navigationBarHidden(true)
-        }
-        .preferredColorScheme(.dark)
+        ChoreTabView(
+            choreTabViewModel: ObservableViewModel(
+                staticState: .empty
+            ),
+            views: Dependency.preview.views()
+        )
+        .previewLayout(.sizeThatFits)
     }
 }
 

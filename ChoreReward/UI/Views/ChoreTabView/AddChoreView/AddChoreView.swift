@@ -10,6 +10,7 @@ import SwiftUI
 struct AddChoreView: View {
     @ObservedObject var addChoreViewModel: ObservableViewModel<AddChoreState, AddChoreAction>
     @State var choreTitle = ""
+    @State var choreRewardValue = ""
     @State var choreDescription = ""
     @State var isPresentingImagePicker = false
     @State var choreImageUrl: String?
@@ -26,7 +27,10 @@ struct AddChoreView: View {
 
     var body: some View {
         RegularNavBarView(navTitle: "New Chore") {
-
+            EmptyView()
+        } rightItem: {
+            EmptyView()
+        } content: {
             VStack {
                 Group {
                     if let choreImageUrl = choreImageUrl {
@@ -49,7 +53,10 @@ struct AddChoreView: View {
                 .onTapGesture {
                     isPresentingImagePicker = true
                 }
+
                 TextFieldView(title: "Title", textInput: $choreTitle)
+                    .padding([.horizontal, .bottom])
+                TextFieldView(title: "Reward", textInput: $choreRewardValue)
                     .padding([.horizontal, .bottom])
                 ZStack(alignment: .leading) {
                     TextEditor(text: $choreDescription)
@@ -72,7 +79,11 @@ struct AddChoreView: View {
                     ButtonView(buttonTitle: "Create Chore", buttonImage: "plus") {
                         dismiss()
                         addChoreViewModel.perform(
-                            action: .createChore(choreTitle: choreTitle, choreDescription: choreDescription, choreImageUrl: choreImageUrl)
+                            action: .createChore(
+                                choreTitle: choreTitle,
+                                choreDescription: choreDescription,
+                                choreImageUrl: choreImageUrl,
+                                choreRewardValue: choreRewardValue)
                         )
                     }
                     .padding()

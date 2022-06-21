@@ -29,6 +29,8 @@
 		45429DB1279B608C00FA9670 /* ChoreCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45429DB0279B608C00FA9670 /* ChoreCardView.swift */; };
 		45429DC227A518B600FA9670 /* ChoreDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45429DC127A518B600FA9670 /* ChoreDetailViewModel.swift */; };
 		45429DC427A518CC00FA9670 /* ChoreDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45429DC327A518CC00FA9670 /* ChoreDetailView.swift */; };
+		4544C86528617CC800D7B8AB /* AddUserRewardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4544C86428617CC800D7B8AB /* AddUserRewardView.swift */; };
+		4544C86728617CF300D7B8AB /* AddUserRewardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4544C86628617CF300D7B8AB /* AddUserRewardViewModel.swift */; };
 		455ECC86275DA7A100438A43 /* RolePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 455ECC85275DA7A100438A43 /* RolePickerView.swift */; };
 		456D46E927EBFFE800B2AC07 /* NavDrawerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456D46E827EBFFE800B2AC07 /* NavDrawerView.swift */; };
 		456EA4B6278A127E00ADA2CD /* ButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456EA4B5278A127E00ADA2CD /* ButtonView.swift */; };
@@ -36,8 +38,8 @@
 		45750CDC27FC075300274617 /* ChoreTabDrawerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45750CDB27FC075300274617 /* ChoreTabDrawerView.swift */; };
 		45750CDE27FCE4B700274617 /* FamilyTabDrawerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45750CDD27FCE4B700274617 /* FamilyTabDrawerView.swift */; };
 		45750CE027FD270A00274617 /* RegularNavBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45750CDF27FD270A00274617 /* RegularNavBarView.swift */; };
-		4583C12B285E717300E77427 /* UserGoalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4583C12A285E717300E77427 /* UserGoalView.swift */; };
-		4583C12D285E718600E77427 /* UserGoalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4583C12C285E718600E77427 /* UserGoalViewModel.swift */; };
+		4583C12B285E717300E77427 /* UserRewardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4583C12A285E717300E77427 /* UserRewardView.swift */; };
+		4583C12D285E718600E77427 /* UserRewardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4583C12C285E718600E77427 /* UserRewardViewModel.swift */; };
 		4583C131285E7A5900E77427 /* RewardRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4583C130285E7A5900E77427 /* RewardRepository.swift */; };
 		4583C133285EB7EC00E77427 /* RewardService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4583C132285EB7EC00E77427 /* RewardService.swift */; };
 		458C76BD2851736000119E68 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 458C76BC2851736000119E68 /* Date.swift */; };
@@ -88,6 +90,7 @@
 		45EAF0C027FA407A005655D4 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45EAF0BF27FA407A005655D4 /* ImagePicker.swift */; };
 		45F784962793D84400C8B197 /* AddChoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F784952793D84400C8B197 /* AddChoreView.swift */; };
 		45F784982793D86F00C8B197 /* AddChoreViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F784972793D86F00C8B197 /* AddChoreViewModel.swift */; };
+		45FC9A25285FC217009EC84C /* RewardCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45FC9A24285FC217009EC84C /* RewardCardView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -130,6 +133,8 @@
 		45429DB0279B608C00FA9670 /* ChoreCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoreCardView.swift; sourceTree = "<group>"; };
 		45429DC127A518B600FA9670 /* ChoreDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoreDetailViewModel.swift; sourceTree = "<group>"; };
 		45429DC327A518CC00FA9670 /* ChoreDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoreDetailView.swift; sourceTree = "<group>"; };
+		4544C86428617CC800D7B8AB /* AddUserRewardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddUserRewardView.swift; sourceTree = "<group>"; };
+		4544C86628617CF300D7B8AB /* AddUserRewardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddUserRewardViewModel.swift; sourceTree = "<group>"; };
 		455ECC85275DA7A100438A43 /* RolePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RolePickerView.swift; sourceTree = "<group>"; };
 		456D46E827EBFFE800B2AC07 /* NavDrawerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavDrawerView.swift; sourceTree = "<group>"; };
 		456EA4B5278A127E00ADA2CD /* ButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonView.swift; sourceTree = "<group>"; };
@@ -137,8 +142,8 @@
 		45750CDB27FC075300274617 /* ChoreTabDrawerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoreTabDrawerView.swift; sourceTree = "<group>"; };
 		45750CDD27FCE4B700274617 /* FamilyTabDrawerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyTabDrawerView.swift; sourceTree = "<group>"; };
 		45750CDF27FD270A00274617 /* RegularNavBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegularNavBarView.swift; sourceTree = "<group>"; };
-		4583C12A285E717300E77427 /* UserGoalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserGoalView.swift; sourceTree = "<group>"; };
-		4583C12C285E718600E77427 /* UserGoalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserGoalViewModel.swift; sourceTree = "<group>"; };
+		4583C12A285E717300E77427 /* UserRewardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRewardView.swift; sourceTree = "<group>"; };
+		4583C12C285E718600E77427 /* UserRewardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRewardViewModel.swift; sourceTree = "<group>"; };
 		4583C130285E7A5900E77427 /* RewardRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RewardRepository.swift; sourceTree = "<group>"; };
 		4583C132285EB7EC00E77427 /* RewardService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RewardService.swift; sourceTree = "<group>"; };
 		458C76BC2851736000119E68 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
@@ -185,6 +190,7 @@
 		45EAF0BF27FA407A005655D4 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		45F784952793D84400C8B197 /* AddChoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddChoreView.swift; sourceTree = "<group>"; };
 		45F784972793D86F00C8B197 /* AddChoreViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddChoreViewModel.swift; sourceTree = "<group>"; };
+		45FC9A24285FC217009EC84C /* RewardCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RewardCardView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -269,7 +275,7 @@
 		45395C54272A253E00F50B70 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				4583C125285E710D00E77427 /* UserGoalView */,
+				4583C125285E710D00E77427 /* UserRewardView */,
 				45429DC027A5187E00FA9670 /* ChoreDetailView */,
 				45D8D395275E77670026ABE3 /* ChoreTabView */,
 				45D8D394275E77500026ABE3 /* FamilyTabView */,
@@ -319,6 +325,15 @@
 			path = ChoreDetailView;
 			sourceTree = "<group>";
 		};
+		4544C86828617CFF00D7B8AB /* AddUserRewardView */ = {
+			isa = PBXGroup;
+			children = (
+				4544C86428617CC800D7B8AB /* AddUserRewardView.swift */,
+				4544C86628617CF300D7B8AB /* AddUserRewardViewModel.swift */,
+			);
+			path = AddUserRewardView;
+			sourceTree = "<group>";
+		};
 		45553389277C1CBF00375927 /* AddFamilyMemberView */ = {
 			isa = PBXGroup;
 			children = (
@@ -347,13 +362,14 @@
 			path = Drawers;
 			sourceTree = "<group>";
 		};
-		4583C125285E710D00E77427 /* UserGoalView */ = {
+		4583C125285E710D00E77427 /* UserRewardView */ = {
 			isa = PBXGroup;
 			children = (
-				4583C12A285E717300E77427 /* UserGoalView.swift */,
-				4583C12C285E718600E77427 /* UserGoalViewModel.swift */,
+				4544C86828617CFF00D7B8AB /* AddUserRewardView */,
+				4583C12A285E717300E77427 /* UserRewardView.swift */,
+				4583C12C285E718600E77427 /* UserRewardViewModel.swift */,
 			);
-			path = UserGoalView;
+			path = UserRewardView;
 			sourceTree = "<group>";
 		};
 		45A31BF927E2CB290060B8AB /* Extention */ = {
@@ -479,6 +495,7 @@
 				45EAF0BF27FA407A005655D4 /* ImagePicker.swift */,
 				4538D0422839DFEE00368C98 /* RemoteImageView.swift */,
 				4538D044283A288D00368C98 /* ImageView.swift */,
+				45FC9A24285FC217009EC84C /* RewardCardView.swift */,
 			);
 			path = ComponentViews;
 			sourceTree = "<group>";
@@ -727,6 +744,7 @@
 				45DCD52C277965E900A1037B /* NoFamilyViewModel.swift in Sources */,
 				45ACB4AE2724AD1A000E04A0 /* ContentView.swift in Sources */,
 				45395C5B272B20F600F50B70 /* Dependency.swift in Sources */,
+				4544C86728617CF300D7B8AB /* AddUserRewardViewModel.swift in Sources */,
 				45C1FA652767163F00BF11E3 /* FamilyRepository.swift in Sources */,
 				45243EFF276E9F9000D2EACB /* UserCardView.swift in Sources */,
 				45429DC227A518B600FA9670 /* ChoreDetailViewModel.swift in Sources */,
@@ -734,11 +752,12 @@
 				45750CDE27FCE4B700274617 /* FamilyTabDrawerView.swift in Sources */,
 				45D8D39F275ED2BE0026ABE3 /* FamilyTabViewModel.swift in Sources */,
 				45ACB4DC2724AE00000E04A0 /* Chore.swift in Sources */,
+				4544C86528617CC800D7B8AB /* AddUserRewardView.swift in Sources */,
 				455ECC86275DA7A100438A43 /* RolePickerView.swift in Sources */,
-				4583C12B285E717300E77427 /* UserGoalView.swift in Sources */,
+				4583C12B285E717300E77427 /* UserRewardView.swift in Sources */,
 				45A31BFB27E2CB340060B8AB /* Color.swift in Sources */,
 				45B6BB39272FC72100F89D74 /* AppView.swift in Sources */,
-				4583C12D285E718600E77427 /* UserGoalViewModel.swift in Sources */,
+				4583C12D285E718600E77427 /* UserRewardViewModel.swift in Sources */,
 				4531476B2751FFBD000A85D7 /* UserService.swift in Sources */,
 				45EAF0BA27EE6F8B005655D4 /* CircularButton.swift in Sources */,
 				452AFECE275443720060BD43 /* SignUpView.swift in Sources */,
@@ -770,6 +789,7 @@
 				45E5FB1427E5A65C008B20A8 /* View.swift in Sources */,
 				45750CD927FB938100274617 /* TabNavBarView.swift in Sources */,
 				45750CE027FD270A00274617 /* RegularNavBarView.swift in Sources */,
+				45FC9A25285FC217009EC84C /* RewardCardView.swift in Sources */,
 				452AFED0275444020060BD43 /* SignUpViewModel.swift in Sources */,
 				45A4754C27931F1C00322BCE /* ChoreService.swift in Sources */,
 				453147662751C83E000A85D7 /* LoginView.swift in Sources */,
@@ -890,8 +910,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = ChoreReward/ChoreReward.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"ChoreReward/Preview Content\"";
 				DEVELOPMENT_TEAM = ZRF6QZUXP5;
@@ -912,7 +932,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = noat.ChoreReward;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = ChoreRewardDevProfile;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1089,8 +1109,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = ChoreReward/ChoreReward.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"ChoreReward/Preview Content\"";
 				DEVELOPMENT_TEAM = ZRF6QZUXP5;
@@ -1111,7 +1131,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = noat.ChoreReward;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = ChoreRewardDevProfile;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1124,8 +1144,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = ChoreReward/ChoreReward.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"ChoreReward/Preview Content\"";
 				DEVELOPMENT_TEAM = ZRF6QZUXP5;
@@ -1146,7 +1166,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = noat.ChoreReward;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = ChoreRewardDevProfile;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;

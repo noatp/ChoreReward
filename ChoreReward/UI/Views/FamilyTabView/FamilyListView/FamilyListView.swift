@@ -39,7 +39,6 @@ struct FamilyListView: View {
                     }
                 }
             }
-
         }
         .padding()
         .sheet(isPresented: $presentedSheet) {
@@ -50,16 +49,16 @@ struct FamilyListView: View {
 
 struct FamilyListView_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationView {
-            FamilyListView(
-                familyListViewModel: .init(
-                    staticState: .init(
-                        members: [DenormUser.preview],
-                        shouldRenderAddMemberButton: true
-                    )
-                ),
-                views: Dependency.preview.views())
-        }
+        FamilyListView(
+            familyListViewModel: .init(
+                staticState: .init(
+                    members: [DenormUser.preview],
+                    shouldRenderAddMemberButton: true
+                )
+            ),
+            views: Dependency.preview.views()
+        )
+        .previewLayout(.sizeThatFits)
     }
 }
 

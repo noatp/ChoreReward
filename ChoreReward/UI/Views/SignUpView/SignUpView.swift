@@ -28,6 +28,7 @@ struct SignUpView: View {
 
     var body: some View {
         VStack {
+            Spacer()
             Button {
                 shouldShowImagePicker = true
             } label: {
@@ -67,6 +68,7 @@ struct SignUpView: View {
                     )
                 )
             }
+            Spacer()
         }
         .fullScreenCover(isPresented: $shouldShowImagePicker, onDismiss: nil) {
             ImagePicker(sourceType: .photoLibrary, didFinishPickingMediaHandler: { newUserImageUrl in
@@ -80,12 +82,11 @@ struct SignUpView: View {
 
 struct SignupView_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationView {
-            SignUpView(
-                signUpViewModel: .init(staticState: .init(errorMessage: "")),
-                views: Dependency.preview.views()
-            )
-        }
+        SignUpView(
+            signUpViewModel: .init(staticState: .init(errorMessage: "")),
+            views: Dependency.preview.views()
+        )
+        .previewLayout(.sizeThatFits)
     }
 }
 

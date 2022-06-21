@@ -181,10 +181,10 @@
             filePath = "ChoreReward/UI/Views/UserProfileView/EditUserProfileView/EditUserProfileView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "15"
-            endingLineNumber = "15"
-            landmarkName = "EditUserProfileView"
-            landmarkType = "14">
+            startingLineNumber = "16"
+            endingLineNumber = "16"
+            landmarkName = "shouldShowActionSheet"
+            landmarkType = "24">
             <Locations>
                <Location
                   uuid = "226B63A0-48A7-4961-AADC-465733C655CC - ea6259ab54e94966"
@@ -229,8 +229,8 @@
             filePath = "ChoreReward/UI/Views/UserProfileView/EditUserProfileView/EditUserProfileView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "108"
-            endingLineNumber = "108"
+            startingLineNumber = "115"
+            endingLineNumber = "115"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -245,8 +245,8 @@
             filePath = "ChoreReward/UI/Views/UserProfileView/EditUserProfileView/EditUserProfileView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "16"
-            endingLineNumber = "16"
+            startingLineNumber = "17"
+            endingLineNumber = "17"
             landmarkName = "EditUserProfileView"
             landmarkType = "14">
          </BreakpointContent>
@@ -261,8 +261,8 @@
             filePath = "ChoreReward/UI/Views/UserProfileView/EditUserProfileView/EditUserProfileView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "18"
-            endingLineNumber = "18"
+            startingLineNumber = "19"
+            endingLineNumber = "19"
             landmarkName = "EditUserProfileView"
             landmarkType = "14">
          </BreakpointContent>

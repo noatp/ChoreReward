@@ -35,6 +35,9 @@ extension User {
     var rewardCollection: CollectionReference? {
         return userDocRef?.collection("rewards")
     }
+//    var roundedBalance: Float? {
+//        return balance == nil ? nil : (round(balance! * 100) / 100.0)
+//    }
 }
 
 enum Role: String, Codable {

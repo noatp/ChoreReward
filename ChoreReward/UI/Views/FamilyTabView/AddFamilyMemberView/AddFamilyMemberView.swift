@@ -27,23 +27,24 @@ struct AddFamilyMemberView: View {
             ButtonView(buttonTitle: "Submit") {
                 addFamilyMemberViewModel.perform(action: .addMember(userId: userIdInput))
             }
-        }
-        ZStack {
-            CodeScannerView(codeTypes: [.qr]) { result in
-                handleScan(result: result)
-            }
-            VStack {
-                HStack {
-                    CircularButton(action: {
-                        dismiss()
-                    }, icon: "xmark")
-                    .padding()
+            ZStack {
+                CodeScannerView(codeTypes: [.qr]) { result in
+                    handleScan(result: result)
+                }
+                VStack {
+                    HStack {
+                        CircularButton(action: {
+                            dismiss()
+                        }, icon: "xmark")
+                        .padding()
+                        Spacer()
+                    }
                     Spacer()
                 }
-                Spacer()
-            }
 
+            }
         }
+
     }
 
     func handleScan(result: Result<ScanResult, ScanError>) {
@@ -61,15 +62,13 @@ struct AddFamilyMemberView: View {
 
 struct AddFamilyMemberView_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationView {
-            AddFamilyMemberView(
-                addFamilyMemberViewModel: ObservableViewModel(
-                    staticState: ()
-                ),
-                views: Dependency.preview.views()
-            )
-
-        }
+        AddFamilyMemberView(
+            addFamilyMemberViewModel: ObservableViewModel(
+                staticState: ()
+            ),
+            views: Dependency.preview.views()
+        )
+        .previewLayout(.sizeThatFits)
     }
 }
 

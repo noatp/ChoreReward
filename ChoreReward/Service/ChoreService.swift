@@ -12,7 +12,6 @@ import FirebaseFirestore
 
 class ChoreService: ObservableObject {
     @Published var familyChores: [Chore]?
-    @Published var isBusy: Bool = false
     private var currentChoreCollection: CollectionReference?
 
     private let familyRepository: FamilyRepository
@@ -33,27 +32,33 @@ class ChoreService: ObservableObject {
         addSubscription()
     }
 
-    func createChore(choreTitle: String, choreDescription: String, currentUser: User, choreImageUrl: String) {
-        isBusy = true
-        guard let currentUserId = currentUser.id, let currentChoreCollection = currentChoreCollection else {
+    func createChore(
+        withTitle title: String,
+        withDescription description: String,
+        withImageUrl choreImageUrl: String,
+        withRewardValue rewardValue: String,
+        byUser currentUser: User) {
+        guard let currentUserId = currentUser.id,
+              let currentChoreCollection = currentChoreCollection,
+              let rewardValueFloat = Float(rewardValue)
+        else {
             return
         }
 
         let newChoreId = UUID().uuidString
-
         let newChore = Chore(
-            title: choreTitle,
+            title: title,
             assignerId: currentUserId,
             assigneeId: "",
             created: Date.now.intTimestamp,
-            description: choreDescription,
-            choreImageUrl: choreImageUrl
+            description: description,
+            choreImageUrl: choreImageUrl,
+            rewardValue: rewardValueFloat
         )
         choreRepository.create(newChore, with: newChoreId, in: currentChoreCollection)
         storageRepository.uploadChoreImage(with: choreImageUrl) { [weak self] newChoreImageUrl in
             self?.updateChoreImage(for: newChoreId, with: newChoreImageUrl)
         }
-        isBusy = false
     }
 
     func takeChore (choreId: String?, currentUserId: String?) {
