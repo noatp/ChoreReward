@@ -80,20 +80,18 @@ struct UserProfileView: View {
 
 struct UserTabView_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationView {
-            UserProfileView(
-                userProfileViewModel: ObservableViewModel(
-                    staticState: UserProfileState(
-                        currentUserEmail: "toan.chpham@gmail.com",
-                        currentUserName: "Toan Pham",
-                        currentUserRole: "Child",
-                        currentUserProfileImageUrl: nil
-                    )
-                ),
-                views: Dependency.preview.views()
-            )
-        }
-        .preferredColorScheme(.dark)
+        UserProfileView(
+            userProfileViewModel: ObservableViewModel(
+                staticState: UserProfileState(
+                    currentUserEmail: "toan.chpham@gmail.com",
+                    currentUserName: "Toan Pham",
+                    currentUserRole: "Child",
+                    currentUserProfileImageUrl: nil
+                )
+            ),
+            views: Dependency.preview.views()
+        )
+        .previewLayout(.sizeThatFits)
     }
 }
 

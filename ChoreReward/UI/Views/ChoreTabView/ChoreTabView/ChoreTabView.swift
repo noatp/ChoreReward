@@ -69,16 +69,13 @@ struct ChoreTabView: View {
 
 struct ChoreTabView_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationView {
-            ChoreTabView(
-                choreTabViewModel: ObservableViewModel(
-                    staticState: .empty
-                ),
-                views: Dependency.preview.views()
-            )
-            .navigationBarHidden(true)
-        }
-        .preferredColorScheme(.dark)
+        ChoreTabView(
+            choreTabViewModel: ObservableViewModel(
+                staticState: .empty
+            ),
+            views: Dependency.preview.views()
+        )
+        .previewLayout(.sizeThatFits)
     }
 }
 

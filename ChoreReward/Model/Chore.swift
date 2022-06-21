@@ -29,4 +29,21 @@ struct Chore: Identifiable, Codable {
         description: "",
         choreImageUrl: ""
     )
+
+    static let previewChoreFinished = Chore(
+        id: "id",
+        title: "Wash the dishes",
+        assignerId: "preview assignerId",
+        assigneeId: "preview assigneeId",
+        completed: Date.now.intTimestamp,
+        created: Date.now.intTimestamp,
+        description: """
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, \
+                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Interdum \
+                posuere lorem ipsum dolor sit amet consectetur. Amet consectetur adipiscing \
+                elit pellentesque. Id venenatis a con
+            """,
+        choreImageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTvaNbNa9E_46fY75AFA9N8dhocKjEdDegvrN5QbBHH-WX-oij4xtjeYijvpC_kHB9-FiU&usqp=CAU"
+    )
+
 }

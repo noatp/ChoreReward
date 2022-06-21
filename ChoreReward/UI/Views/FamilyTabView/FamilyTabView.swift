@@ -29,26 +29,15 @@ struct FamilyTabView: View {
 
 struct FamilyTabView_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationView {
-            FamilyTabView(
-                familyTabViewModel: .init(
-                    staticState: .init(
-                        hasCurrentFamily: true
-                    )
-                ),
-                views: Dependency.preview.views()
-            )
-        }
-        NavigationView {
-            FamilyTabView(
-                familyTabViewModel: .init(
-                    staticState: .init(
-                        hasCurrentFamily: false
-                    )
-                ),
-                views: Dependency.preview.views()
-            )
-        }
+        FamilyTabView(
+            familyTabViewModel: .init(
+                staticState: .init(
+                    hasCurrentFamily: false
+                )
+            ),
+            views: Dependency.preview.views()
+        )
+        .previewLayout(.sizeThatFits)
     }
 }
 

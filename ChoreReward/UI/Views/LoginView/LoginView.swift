@@ -51,12 +51,11 @@ struct LoginView: View {
 
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationView {
-            LoginView(
-                loginViewModel: .init(staticState: .init(errorMessage: "")),
-                views: Dependency.preview.views()
-            )
-        }
+        LoginView(
+            loginViewModel: .init(staticState: .init(errorMessage: "")),
+            views: Dependency.preview.views()
+        )
+        .previewLayout(.sizeThatFits)
     }
 }
 
