@@ -1,38 +1,61 @@
 //
-//  FamilyTabViewModel.swift
+//  FamilyListViewModel.swift
 //  ChoreReward
 //
-//  Created by Toan Pham on 12/6/21.
+//  Created by Toan Pham on 12/18/21.
 //
 
 import Foundation
 import Combine
 
 class FamilyTabViewModel: StatefulViewModel {
-    @Published var _state: FamilyTabState = empty
-    static let empty = FamilyTabState(hasCurrentFamily: false)
+    @Published var _state: FamilyTabState
+    static let empty = FamilyTabState(
+        members: [],
+        shouldRenderAddMemberButton: false
+    )
     var state: AnyPublisher<FamilyTabState, Never> {
         return $_state.eraseToAnyPublisher()
     }
 
     private let familyService: FamilyService
-    private var currentFamilySubscription: AnyCancellable?
+    private let userService: UserService
+    private var familyMemberSubscription: AnyCancellable?
+    private var currentUserSubscription: AnyCancellable?
 
     init(
-        familyService: FamilyService
+        familyService: FamilyService,
+        userService: UserService
     ) {
         self.familyService = familyService
+        self.userService = userService
+        self._state = .init(
+            members: [],
+            shouldRenderAddMemberButton: false
+        )
         addSubscription()
     }
 
     func addSubscription() {
-        currentFamilySubscription = familyService.$currentFamily
-            .sink(receiveValue: {[weak self] receivedFamily in
-                guard receivedFamily != nil else {
-                    self?._state = .init(hasCurrentFamily: false)
+        familyMemberSubscription = familyService.$currentFamily
+            .sink(receiveValue: { [weak self] receivedFamily in
+                guard let oldState = self?._state, let currentFamily = receivedFamily else {
                     return
                 }
-                self?._state = .init(hasCurrentFamily: true)
+                self?._state = .init(
+                    members: currentFamily.members,
+                    shouldRenderAddMemberButton: oldState.shouldRenderAddMemberButton
+                )
+            })
+        currentUserSubscription = userService.$currentUser
+            .sink(receiveValue: { [weak self] receivedUser in
+                guard let oldState = self?._state else {
+                    return
+                }
+                self?._state = .init(
+                    members: oldState.members,
+                    shouldRenderAddMemberButton: receivedUser?.role == .admin
+                )
             })
     }
 
@@ -40,11 +63,15 @@ class FamilyTabViewModel: StatefulViewModel {
 }
 
 struct FamilyTabState {
-    let hasCurrentFamily: Bool
+    let members: [DenormUser]
+    let shouldRenderAddMemberButton: Bool
 }
 
 extension Dependency.ViewModels {
     var familyTabViewModel: FamilyTabViewModel {
-        FamilyTabViewModel(familyService: services.familyService)
+        FamilyTabViewModel(
+            familyService: services.familyService,
+            userService: services.userService
+        )
     }
 }

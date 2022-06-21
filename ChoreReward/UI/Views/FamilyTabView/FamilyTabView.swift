@@ -1,14 +1,15 @@
 //
-//  FamilyTabView.swift
+//  FamilyListView.swift
 //  ChoreReward
 //
-//  Created by Toan Pham on 12/6/21.
+//  Created by Toan Pham on 12/18/21.
 //
 
 import SwiftUI
 
 struct FamilyTabView: View {
     @ObservedObject var familyTabViewModel: ObservableViewModel<FamilyTabState, Void>
+    @State var presentedSheet = false
     private var views: Dependency.Views
 
     init(
@@ -18,21 +19,41 @@ struct FamilyTabView: View {
         self.familyTabViewModel = familyTabViewModel
         self.views = views
     }
+
     var body: some View {
-        if familyTabViewModel.state.hasCurrentFamily {
-            views.familyListView
-        } else {
-            views.noFamilyView
+        ZStack {
+            ScrollView {
+                ForEach(familyTabViewModel.state.members) { member in
+                    UserCardView(user: member)
+                }
+            }
+            VStack {
+                Spacer()
+                HStack {
+                    Spacer()
+                    if familyTabViewModel.state.shouldRenderAddMemberButton {
+                        CircularButton(action: {
+                            presentedSheet = true
+                        }, icon: "plus")
+                        .padding()
+                    }
+                }
+            }
+        }
+        .padding()
+        .sheet(isPresented: $presentedSheet) {
+            views.addFamilyMemberView()
         }
     }
 }
 
-struct FamilyTabView_Previews: PreviewProvider {
+struct FamilyListView_Previews: PreviewProvider {
     static var previews: some View {
         FamilyTabView(
             familyTabViewModel: .init(
                 staticState: .init(
-                    hasCurrentFamily: false
+                    members: [DenormUser.preview],
+                    shouldRenderAddMemberButton: true
                 )
             ),
             views: Dependency.preview.views()

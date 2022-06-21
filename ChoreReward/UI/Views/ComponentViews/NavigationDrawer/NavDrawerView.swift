@@ -120,8 +120,8 @@ extension NavDrawerView {
                 views.userGoalView
             } label: {
                 HStack {
-                    Image(systemName: "person.crop.circle")
-                    Text("Your Goal")
+                    Image(systemName: "bookmark")
+                    Text("Your Reward")
                 }
             }
             // .buttonStyle(.plain)
