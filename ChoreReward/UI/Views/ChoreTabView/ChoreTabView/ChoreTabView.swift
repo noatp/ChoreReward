@@ -55,16 +55,6 @@ struct ChoreTabView: View {
                     }
                 }
 
-                //                    List(choreTabViewModel.state.displayingChoreList){chore in
-                //                        NavigationLink {
-                //                            views.choreDetailView(chore: chore)
-                //                        } label: {
-                //                            ChoreCardView(chore: chore)
-                //                        }
-                //                        .transition(.asymmetric(insertion: .move(edge: .leading), removal: .move(edge: .trailing)))
-                //                    }
-                //                    .animation(.easeInOut, value: choreTabViewModel.state.chorePickerState)
-
                 if presentFilterMenu {
                     VStack {
                         filterMenu

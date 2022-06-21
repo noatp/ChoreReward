@@ -29,6 +29,8 @@
 		45429DB1279B608C00FA9670 /* ChoreCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45429DB0279B608C00FA9670 /* ChoreCardView.swift */; };
 		45429DC227A518B600FA9670 /* ChoreDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45429DC127A518B600FA9670 /* ChoreDetailViewModel.swift */; };
 		45429DC427A518CC00FA9670 /* ChoreDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45429DC327A518CC00FA9670 /* ChoreDetailView.swift */; };
+		4544C86528617CC800D7B8AB /* AddUserRewardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4544C86428617CC800D7B8AB /* AddUserRewardView.swift */; };
+		4544C86728617CF300D7B8AB /* AddUserRewardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4544C86628617CF300D7B8AB /* AddUserRewardViewModel.swift */; };
 		455ECC86275DA7A100438A43 /* RolePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 455ECC85275DA7A100438A43 /* RolePickerView.swift */; };
 		456D46E927EBFFE800B2AC07 /* NavDrawerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456D46E827EBFFE800B2AC07 /* NavDrawerView.swift */; };
 		456EA4B6278A127E00ADA2CD /* ButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456EA4B5278A127E00ADA2CD /* ButtonView.swift */; };
@@ -131,6 +133,8 @@
 		45429DB0279B608C00FA9670 /* ChoreCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoreCardView.swift; sourceTree = "<group>"; };
 		45429DC127A518B600FA9670 /* ChoreDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoreDetailViewModel.swift; sourceTree = "<group>"; };
 		45429DC327A518CC00FA9670 /* ChoreDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoreDetailView.swift; sourceTree = "<group>"; };
+		4544C86428617CC800D7B8AB /* AddUserRewardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddUserRewardView.swift; sourceTree = "<group>"; };
+		4544C86628617CF300D7B8AB /* AddUserRewardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddUserRewardViewModel.swift; sourceTree = "<group>"; };
 		455ECC85275DA7A100438A43 /* RolePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RolePickerView.swift; sourceTree = "<group>"; };
 		456D46E827EBFFE800B2AC07 /* NavDrawerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavDrawerView.swift; sourceTree = "<group>"; };
 		456EA4B5278A127E00ADA2CD /* ButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonView.swift; sourceTree = "<group>"; };
@@ -321,6 +325,15 @@
 			path = ChoreDetailView;
 			sourceTree = "<group>";
 		};
+		4544C86828617CFF00D7B8AB /* AddUserRewardView */ = {
+			isa = PBXGroup;
+			children = (
+				4544C86428617CC800D7B8AB /* AddUserRewardView.swift */,
+				4544C86628617CF300D7B8AB /* AddUserRewardViewModel.swift */,
+			);
+			path = AddUserRewardView;
+			sourceTree = "<group>";
+		};
 		45553389277C1CBF00375927 /* AddFamilyMemberView */ = {
 			isa = PBXGroup;
 			children = (
@@ -352,6 +365,7 @@
 		4583C125285E710D00E77427 /* UserRewardView */ = {
 			isa = PBXGroup;
 			children = (
+				4544C86828617CFF00D7B8AB /* AddUserRewardView */,
 				4583C12A285E717300E77427 /* UserRewardView.swift */,
 				4583C12C285E718600E77427 /* UserRewardViewModel.swift */,
 			);
@@ -730,6 +744,7 @@
 				45DCD52C277965E900A1037B /* NoFamilyViewModel.swift in Sources */,
 				45ACB4AE2724AD1A000E04A0 /* ContentView.swift in Sources */,
 				45395C5B272B20F600F50B70 /* Dependency.swift in Sources */,
+				4544C86728617CF300D7B8AB /* AddUserRewardViewModel.swift in Sources */,
 				45C1FA652767163F00BF11E3 /* FamilyRepository.swift in Sources */,
 				45243EFF276E9F9000D2EACB /* UserCardView.swift in Sources */,
 				45429DC227A518B600FA9670 /* ChoreDetailViewModel.swift in Sources */,
@@ -737,6 +752,7 @@
 				45750CDE27FCE4B700274617 /* FamilyTabDrawerView.swift in Sources */,
 				45D8D39F275ED2BE0026ABE3 /* FamilyTabViewModel.swift in Sources */,
 				45ACB4DC2724AE00000E04A0 /* Chore.swift in Sources */,
+				4544C86528617CC800D7B8AB /* AddUserRewardView.swift in Sources */,
 				455ECC86275DA7A100438A43 /* RolePickerView.swift in Sources */,
 				4583C12B285E717300E77427 /* UserRewardView.swift in Sources */,
 				45A31BFB27E2CB340060B8AB /* Color.swift in Sources */,

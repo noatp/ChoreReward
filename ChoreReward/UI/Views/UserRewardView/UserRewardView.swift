@@ -11,8 +11,6 @@ struct UserRewardView: View {
     @Environment(\.dismiss) private var dismiss
     @ObservedObject var userRewardViewModel: ObservableViewModel<UserRewardViewState, UserRewardViewAction>
     @State var presentSheet: Bool = false
-    @State var rewardName: String = ""
-    @State var rewardValue: String = ""
 
     private var views: Dependency.Views
 
@@ -45,7 +43,8 @@ struct UserRewardView: View {
                             RewardCardView(
                                 rewardName: reward.name,
                                 rewardValue: reward.value,
-                                userBalance: userRewardViewModel.state.balance)
+                                userBalance: userRewardViewModel.state.balance
+                            )
 
                         }
                     }
@@ -54,19 +53,8 @@ struct UserRewardView: View {
             .padding()
         }
         .navigationBarHidden(true)
-        .sheet(isPresented: $presentSheet) {
-            VStack {
-                TextFieldView(title: "Reward name", textInput: $rewardName)
-                HStack {
-                    Text("$")
-                    TextFieldView(title: "Reward value", textInput: $rewardValue)
-                }
-                ButtonView(buttonTitle: "Add new reward") {
-                    userRewardViewModel.perform(action: .addNewReward(name: rewardName, value: rewardValue))
-                    dismiss()
-                }
-            }
-            .padding()
+        .fullScreenCover(isPresented: $presentSheet) {
+            views.addUserRewardView
         }
     }
 }
