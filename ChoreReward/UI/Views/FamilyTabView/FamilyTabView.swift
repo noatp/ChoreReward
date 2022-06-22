@@ -41,7 +41,7 @@ struct FamilyTabView: View {
             }
         }
         .padding()
-        .sheet(isPresented: $presentedSheet) {
+        .fullScreenCover(isPresented: $presentedSheet) {
             views.addFamilyMemberView()
         }
     }

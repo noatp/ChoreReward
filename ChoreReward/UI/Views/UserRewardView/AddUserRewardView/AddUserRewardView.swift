@@ -36,6 +36,11 @@ struct AddUserRewardView: View {
             }
         }
         .padding()
+        .vNavBar(NavigationBar(
+            title: "Add reward",
+            leftItem: dismissButton,
+            rightItem: EmptyView()
+        ))
     }
 }
 
@@ -57,5 +62,13 @@ extension Dependency.Views {
             addUserRewardViewModel: ObservableViewModel(viewModel: viewModels.addUserRewardViewModel),
             views: self
         )
+    }
+}
+
+extension AddUserRewardView {
+    var dismissButton: some View {
+        CircularButton(action: {
+            dismiss()
+        }, icon: "xmark")
     }
 }

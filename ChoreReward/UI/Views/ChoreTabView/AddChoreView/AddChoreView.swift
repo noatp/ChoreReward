@@ -86,7 +86,7 @@ struct AddChoreView: View {
         }
         .vNavBar(NavigationBar(
             title: "Add chore",
-            leftItem: EmptyView(),
+            leftItem: dismissButton,
             rightItem: EmptyView()
         ))
         .sheet(isPresented: $isPresentingImagePicker) {
@@ -124,5 +124,13 @@ extension Dependency.Views {
             ),
             views: self
         )
+    }
+}
+
+extension AddChoreView {
+    var dismissButton: some View {
+        CircularButton(action: {
+            dismiss()
+        }, icon: "xmark")
     }
 }

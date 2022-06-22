@@ -27,23 +27,15 @@ struct AddFamilyMemberView: View {
             ButtonView(buttonTitle: "Submit") {
                 addFamilyMemberViewModel.perform(action: .addMember(userId: userIdInput))
             }
-            ZStack {
-                CodeScannerView(codeTypes: [.qr]) { result in
-                    handleScan(result: result)
-                }
-                VStack {
-                    HStack {
-                        CircularButton(action: {
-                            dismiss()
-                        }, icon: "xmark")
-                        .padding()
-                        Spacer()
-                    }
-                    Spacer()
-                }
-
+            CodeScannerView(codeTypes: [.qr]) { result in
+                handleScan(result: result)
             }
         }
+        .vNavBar(NavigationBar(
+            title: "Scan QR code",
+            leftItem: dismissButton,
+            rightItem: EmptyView())
+        )
 
     }
 
@@ -80,5 +72,13 @@ extension Dependency.Views {
             ),
             views: self
         )
+    }
+}
+
+extension AddFamilyMemberView {
+    var dismissButton: some View {
+        CircularButton(action: {
+            dismiss()
+        }, icon: "xmark")
     }
 }
