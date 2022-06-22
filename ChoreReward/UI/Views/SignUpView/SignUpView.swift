@@ -50,7 +50,7 @@ struct SignUpView: View {
 
             }
             .foregroundColor(.acc)
-            // .buttonStyle(.plain)
+            Spacer()
             Text(signUpViewModel.state.errorMessage)
 
             TextFieldView(title: "Name", textInput: $nameInput)
@@ -71,6 +71,7 @@ struct SignUpView: View {
             }
             Spacer()
         }
+        .padding()
         .vNavBar(NavigationBar(
             title: "Sign up",
             leftItem: backButton,

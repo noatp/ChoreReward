@@ -24,7 +24,6 @@ struct TextFieldView: View {
     }
 
     var body: some View {
-
         Group {
             if secured {
                 SecureField(text: $textInput) {
@@ -43,6 +42,7 @@ struct TextFieldView: View {
         .overlay(RoundedRectangle(cornerRadius: 12).stroke(Color.gray))
         .shadow(radius: 1)
         .autocapitalization(UITextAutocapitalizationType.none)
+        .disableAutocorrection(true)
     }
 }
 
