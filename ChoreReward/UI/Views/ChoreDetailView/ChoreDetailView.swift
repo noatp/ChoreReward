@@ -42,7 +42,6 @@ struct ChoreDetailView: View {
                 }
             }
         }
-        .navigationBarHidden(true)
         .ignoresSafeArea(edges: .top)
         .zNavBar(NavigationBar(
             title: chore.title,

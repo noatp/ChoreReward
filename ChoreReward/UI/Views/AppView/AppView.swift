@@ -36,7 +36,6 @@ struct AppView: View {
                 } drawerContent: {
                     drawerContent
                 }
-                .navigationBarHidden(true)
             }
             .padding(.vertical)
             .ignoresSafeArea()
