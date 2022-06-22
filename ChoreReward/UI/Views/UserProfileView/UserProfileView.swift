@@ -32,7 +32,7 @@ struct UserProfileView: View {
             }
             .frame(width: 200, height: 200, alignment: .center)
             .clipShape(Circle())
-
+            Divider()
             Text(userProfileViewModel.state.currentUserName)
                 .font(.title)
 

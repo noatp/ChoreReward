@@ -51,6 +51,7 @@ struct EditUserProfileView: View {
                 shouldShowActionSheet = true
             })
             .foregroundColor(.acc)
+
             Divider()
             VStack {
                 HStack {
@@ -120,7 +121,7 @@ struct EditUserProfileView_Previews: PreviewProvider {
             ),
             views: Dependency.preview.views()
         )
-        .preferredColorScheme(.light)
+        .previewLayout(.sizeThatFits)
     }
 }
 
