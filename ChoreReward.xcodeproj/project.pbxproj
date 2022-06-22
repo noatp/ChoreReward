@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4509FB392862907600F84B42 /* NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4509FB382862907600F84B42 /* NavigationBar.swift */; };
 		45243EFF276E9F9000D2EACB /* UserCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45243EFE276E9F9000D2EACB /* UserCardView.swift */; };
 		45243F0E276EB5DA00D2EACB /* FamilyTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45243F0D276EB5DA00D2EACB /* FamilyTabView.swift */; };
 		45243F10276EB5F700D2EACB /* FamilyTabViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45243F0F276EB5F700D2EACB /* FamilyTabViewModel.swift */; };
@@ -109,6 +110,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4509FB382862907600F84B42 /* NavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBar.swift; sourceTree = "<group>"; };
 		45243EFE276E9F9000D2EACB /* UserCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCardView.swift; sourceTree = "<group>"; };
 		45243F0D276EB5DA00D2EACB /* FamilyTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyTabView.swift; sourceTree = "<group>"; };
 		45243F0F276EB5F700D2EACB /* FamilyTabViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyTabViewModel.swift; sourceTree = "<group>"; };
@@ -483,6 +485,7 @@
 				4538D0422839DFEE00368C98 /* RemoteImageView.swift */,
 				4538D044283A288D00368C98 /* ImageView.swift */,
 				45FC9A24285FC217009EC84C /* RewardCardView.swift */,
+				4509FB382862907600F84B42 /* NavigationBar.swift */,
 			);
 			path = ComponentViews;
 			sourceTree = "<group>";
@@ -767,6 +770,7 @@
 				45C1FA672767ABBB00BF11E3 /* FamilyService.swift in Sources */,
 				45E5FB1727E5A732008B20A8 /* ChoreDetailNavBarView.swift in Sources */,
 				453CC1A62787FBFB002996AF /* ChoreTabViewModel.swift in Sources */,
+				4509FB392862907600F84B42 /* NavigationBar.swift in Sources */,
 				45EAF0BC27EEA484005655D4 /* EnvironmentKey.swift in Sources */,
 				456D46E927EBFFE800B2AC07 /* NavDrawerView.swift in Sources */,
 				45ACB4AC2724AD1A000E04A0 /* ChoreRewardApp.swift in Sources */,

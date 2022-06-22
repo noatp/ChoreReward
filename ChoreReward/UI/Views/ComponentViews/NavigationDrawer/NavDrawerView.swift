@@ -28,13 +28,20 @@ struct NavDrawerView<MainContent: View, DrawerContent: View>: View {
     }
 
     var body: some View {
-        ZStack {
-            // main content: nav bar on top of content
-            VStack(alignment: .leading, spacing: 0) {
-                TabNavBarView(presentingSideDrawer: $presentingSideDrawer, navTitle: navTitle)
-                mainContent
-                Spacer(minLength: 0)
+        let menuButton = ButtonView(buttonImage: "line.3.horizontal", action: {
+            withAnimation {
+                presentingSideDrawer = true
             }
+        }).foregroundColor(.fg)
+
+        return ZStack {
+            mainContent
+                .vNavBar(NavigationBar(
+                    title: navTitle,
+                    leftItem: menuButton,
+                    rightItem: EmptyView(),
+                    navBarLayout: .largeLeftTitle
+                ))
 
             // side drawer content
             GeometryReader { geoProxy in

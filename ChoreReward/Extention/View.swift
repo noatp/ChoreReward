@@ -18,4 +18,22 @@ extension View {
             return Color.clear
         })
     }
+    func vNavBar<NavBarContent: View>(_ navBarContent: NavBarContent) -> some View {
+        return VStack(alignment: .leading, spacing: 0) {
+            navBarContent
+            self
+            Spacer(minLength: 0)
+        }
+        .navigationBarHidden(true)
+    }
+    func zNavBar<NavBarContent: View>(_ navBarContent: NavBarContent) -> some View {
+        return ZStack(alignment: .leading) {
+            self
+            VStack {
+                navBarContent
+                Spacer()
+            }
+        }
+        .navigationBarHidden(true)
+    }
 }

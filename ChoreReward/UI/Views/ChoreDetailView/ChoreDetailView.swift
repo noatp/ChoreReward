@@ -9,6 +9,7 @@ import SwiftUI
 import Kingfisher
 
 struct ChoreDetailView: View {
+    @Environment(\.dismiss) private var dismiss
     @ObservedObject var choreDetailViewModel: ObservableViewModel<ChoreDetailState, ChoreDetailAction>
     @State private var navBarOpacity: Double = 0
     @State private var scrollPos: Double = 0
@@ -25,32 +26,34 @@ struct ChoreDetailView: View {
     }
 
     var body: some View {
-//        print("\(#fileID) \(#function): \(chore)")
-        return ChoreDetailNavBarView(navTitle: chore.title, opacity: navBarOpacity) {
-            ScrollView {
-//                RemoteImageView(
-//                    imageUrl: chore.choreImageUrl,
-//                    size: .init(width: 400, height: 400),
-//                    cachingSize: .init(width: 400, height: 400)
-//                )
-//                .clipped()
-                RemoteImageView(imageUrl: chore.choreImageUrl, isThumbnail: false)
-                    .frame(maxWidth: .infinity, maxHeight: 400, alignment: .center)
-                    .clipped()
-                    .scrollViewOffset($navBarOpacity)
+        let dismissButton = CircularButton(action: {
+            dismiss()
+        }, icon: "xmark")
 
-                choreDetailText
+        return ScrollView {
+            RemoteImageView(imageUrl: chore.choreImageUrl, isThumbnail: false)
+                .frame(maxWidth: .infinity, maxHeight: 400, alignment: .center)
+                .clipped()
+                .scrollViewOffset($navBarOpacity)
 
-                if !choreDetailViewModel.state.choreTaken {
-                    takeChoreButton
-                } else {
-                    if !choreDetailViewModel.state.choreCompleted {
-                        completeChoreButton
-                    }
+            choreDetailText
+
+            if !choreDetailViewModel.state.choreTaken {
+                takeChoreButton
+            } else {
+                if !choreDetailViewModel.state.choreCompleted {
+                    completeChoreButton
                 }
             }
-            .ignoresSafeArea(edges: .top)
         }
+        .navigationBarHidden(true)
+        .ignoresSafeArea(edges: .top)
+        .zNavBar(NavigationBar(
+            title: chore.title,
+            leftItem: dismissButton,
+            rightItem: EmptyView(),
+            opacity: navBarOpacity
+        ))
     }
 }
 
