@@ -47,7 +47,7 @@ struct EditUserProfileView: View {
             .frame(width: 200, height: 200, alignment: .center)
             .clipShape(Circle())
 
-            ButtonView(buttonTitle: "Change profile picture", action: {
+            RegularButtonView(buttonTitle: "Change profile picture", action: {
                 shouldShowActionSheet = true
             })
             .foregroundColor(.acc)
@@ -136,7 +136,7 @@ extension Dependency.Views {
 
 extension EditUserProfileView {
     var backButton: some View {
-        ButtonView(buttonImage: "chevron.left") {
+        RegularButtonView(buttonImage: "chevron.left") {
             dismiss()
         }
     }

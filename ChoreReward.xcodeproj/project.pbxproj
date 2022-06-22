@@ -22,6 +22,7 @@
 		45395C5B272B20F600F50B70 /* Dependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45395C5A272B20F600F50B70 /* Dependency.swift */; };
 		45395C5D272B2A6B00F50B70 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 45395C5C272B2A6B00F50B70 /* Assets.xcassets */; };
 		45395C5F272B2E2700F50B70 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 45395C5E272B2E2700F50B70 /* GoogleService-Info.plist */; };
+		453C84B02863CA6C008E6215 /* FilledButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453C84AF2863CA6C008E6215 /* FilledButtonView.swift */; };
 		453CC1A22787B41F002996AF /* ObservableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453CC1A12787B41F002996AF /* ObservableViewModel.swift */; };
 		453CC1A62787FBFB002996AF /* ChoreTabViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453CC1A52787FBFB002996AF /* ChoreTabViewModel.swift */; };
 		453CC1A827880047002996AF /* ChoreTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453CC1A727880047002996AF /* ChoreTabView.swift */; };
@@ -34,7 +35,7 @@
 		4544C86728617CF300D7B8AB /* AddUserRewardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4544C86628617CF300D7B8AB /* AddUserRewardViewModel.swift */; };
 		455ECC86275DA7A100438A43 /* RolePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 455ECC85275DA7A100438A43 /* RolePickerView.swift */; };
 		456D46E927EBFFE800B2AC07 /* NavDrawerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456D46E827EBFFE800B2AC07 /* NavDrawerView.swift */; };
-		456EA4B6278A127E00ADA2CD /* ButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456EA4B5278A127E00ADA2CD /* ButtonView.swift */; };
+		456EA4B6278A127E00ADA2CD /* RegularButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456EA4B5278A127E00ADA2CD /* RegularButtonView.swift */; };
 		45750CDC27FC075300274617 /* ChoreTabDrawerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45750CDB27FC075300274617 /* ChoreTabDrawerView.swift */; };
 		45750CDE27FCE4B700274617 /* FamilyTabDrawerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45750CDD27FCE4B700274617 /* FamilyTabDrawerView.swift */; };
 		4583C12B285E717300E77427 /* UserRewardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4583C12A285E717300E77427 /* UserRewardView.swift */; };
@@ -122,6 +123,7 @@
 		45395C5A272B20F600F50B70 /* Dependency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dependency.swift; sourceTree = "<group>"; };
 		45395C5C272B2A6B00F50B70 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		45395C5E272B2E2700F50B70 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		453C84AF2863CA6C008E6215 /* FilledButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilledButtonView.swift; sourceTree = "<group>"; };
 		453CC1A12787B41F002996AF /* ObservableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableViewModel.swift; sourceTree = "<group>"; };
 		453CC1A52787FBFB002996AF /* ChoreTabViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoreTabViewModel.swift; sourceTree = "<group>"; };
 		453CC1A727880047002996AF /* ChoreTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoreTabView.swift; sourceTree = "<group>"; };
@@ -134,7 +136,7 @@
 		4544C86628617CF300D7B8AB /* AddUserRewardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddUserRewardViewModel.swift; sourceTree = "<group>"; };
 		455ECC85275DA7A100438A43 /* RolePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RolePickerView.swift; sourceTree = "<group>"; };
 		456D46E827EBFFE800B2AC07 /* NavDrawerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavDrawerView.swift; sourceTree = "<group>"; };
-		456EA4B5278A127E00ADA2CD /* ButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonView.swift; sourceTree = "<group>"; };
+		456EA4B5278A127E00ADA2CD /* RegularButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegularButtonView.swift; sourceTree = "<group>"; };
 		45750CDB27FC075300274617 /* ChoreTabDrawerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoreTabDrawerView.swift; sourceTree = "<group>"; };
 		45750CDD27FCE4B700274617 /* FamilyTabDrawerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyTabDrawerView.swift; sourceTree = "<group>"; };
 		4583C12A285E717300E77427 /* UserRewardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRewardView.swift; sourceTree = "<group>"; };
@@ -279,6 +281,15 @@
 				45395C5A272B20F600F50B70 /* Dependency.swift */,
 			);
 			path = Dependency;
+			sourceTree = "<group>";
+		};
+		453C84AE2863CA39008E6215 /* ButtonViews */ = {
+			isa = PBXGroup;
+			children = (
+				456EA4B5278A127E00ADA2CD /* RegularButtonView.swift */,
+				453C84AF2863CA6C008E6215 /* FilledButtonView.swift */,
+			);
+			path = ButtonViews;
 			sourceTree = "<group>";
 		};
 		45429DBE27A5135D00FA9670 /* ChoreTabView */ = {
@@ -467,9 +478,9 @@
 		45D7AE8A27346E7600A53812 /* ComponentViews */ = {
 			isa = PBXGroup;
 			children = (
+				453C84AE2863CA39008E6215 /* ButtonViews */,
 				456D46E727EBFFDA00B2AC07 /* NavigationDrawer */,
 				455ECC85275DA7A100438A43 /* RolePickerView.swift */,
-				456EA4B5278A127E00ADA2CD /* ButtonView.swift */,
 				45D7AE8B27346E9900A53812 /* TextFieldView.swift */,
 				45243EFE276E9F9000D2EACB /* UserCardView.swift */,
 				45429DB0279B608C00FA9670 /* ChoreCardView.swift */,
@@ -711,7 +722,7 @@
 				4538D045283A288D00368C98 /* ImageView.swift in Sources */,
 				45DCD52E2779660700A1037B /* NoFamilyView.swift in Sources */,
 				45E483CA275402F6009DA543 /* RootView.swift in Sources */,
-				456EA4B6278A127E00ADA2CD /* ButtonView.swift in Sources */,
+				456EA4B6278A127E00ADA2CD /* RegularButtonView.swift in Sources */,
 				45EAF0C027FA407A005655D4 /* ImagePicker.swift in Sources */,
 				45DCD52C277965E900A1037B /* NoFamilyViewModel.swift in Sources */,
 				45ACB4AE2724AD1A000E04A0 /* ContentView.swift in Sources */,
@@ -753,6 +764,7 @@
 				45C1FA672767ABBB00BF11E3 /* FamilyService.swift in Sources */,
 				453CC1A62787FBFB002996AF /* ChoreTabViewModel.swift in Sources */,
 				4509FB392862907600F84B42 /* NavigationBar.swift in Sources */,
+				453C84B02863CA6C008E6215 /* FilledButtonView.swift in Sources */,
 				45EAF0BC27EEA484005655D4 /* EnvironmentKey.swift in Sources */,
 				456D46E927EBFFE800B2AC07 /* NavDrawerView.swift in Sources */,
 				45ACB4AC2724AD1A000E04A0 /* ChoreRewardApp.swift in Sources */,

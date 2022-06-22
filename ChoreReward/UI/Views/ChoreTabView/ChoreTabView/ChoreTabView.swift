@@ -93,7 +93,7 @@ extension Dependency.Views {
 extension ChoreTabView {
     private var choreStatusPicker: some View {
         HStack(spacing: 0) {
-            ButtonView(buttonTitle: "Unfinished") {
+            RegularButtonView(buttonTitle: "Unfinished") {
                 choreTabViewModel.perform(action: .updatePickerState(.unfinished))
             }
             .padding(.horizontal)
@@ -106,7 +106,7 @@ extension ChoreTabView {
                         .matchedGeometryEffect(id: "pickerBackground", in: animation)
                 }
             }
-            ButtonView(buttonTitle: "Finished", action: {
+            RegularButtonView(buttonTitle: "Finished", action: {
                 choreTabViewModel.perform(action: .updatePickerState(.finished))
             })
             .padding(.horizontal)
@@ -128,7 +128,7 @@ extension ChoreTabView {
     }
 
     private var filterButton: some View {
-        ButtonView(buttonTitle: "Filter", buttonImage: "tray") {
+        RegularButtonView(buttonTitle: "Filter", buttonImage: "tray") {
             withAnimation(.easeInOut(duration: 0.2)) {
                 presentFilterMenu.toggle()
             }
@@ -139,12 +139,12 @@ extension ChoreTabView {
     private var filterMenu: some View {
         VStack(alignment: .leading) {
             Divider()
-            ButtonView(buttonTitle: "All", buttonImage: "house") {
+            RegularButtonView(buttonTitle: "All", buttonImage: "house") {
                 choreTabViewModel.perform(action: .updateFilterState(.all))
                 presentFilterMenu.toggle()
             }
             Divider()
-            ButtonView(buttonTitle: "Yours", buttonImage: "person") {
+            RegularButtonView(buttonTitle: "Yours", buttonImage: "person") {
                 choreTabViewModel.perform(action: .updateFilterState(.takenByCurrentUser))
                 presentFilterMenu.toggle()
             }

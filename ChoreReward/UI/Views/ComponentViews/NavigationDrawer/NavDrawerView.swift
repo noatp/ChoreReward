@@ -54,7 +54,7 @@ struct NavDrawerView<MainContent: View, DrawerContent: View>: View {
                         // side menu
                         HStack(spacing: 0) {
                             VStack {
-                                ButtonView(buttonImage: "xmark", action: {
+                                RegularButtonView(buttonImage: "xmark", action: {
                                     withAnimation {
                                         presentingSideDrawer = false
                                     }
@@ -139,7 +139,7 @@ extension NavDrawerView {
             // .buttonStyle(.plain)
             .padding([.horizontal, .top])
 
-            ButtonView(buttonTitle: "Settings", buttonImage: "gearshape") {
+            RegularButtonView(buttonTitle: "Settings", buttonImage: "gearshape") {
 
             }
             .padding([.horizontal, .top])
@@ -149,7 +149,7 @@ extension NavDrawerView {
 
 extension NavDrawerView {
     var menuButton: some View {
-        ButtonView(buttonImage: "line.3.horizontal", action: {
+        RegularButtonView(buttonImage: "line.3.horizontal", action: {
             withAnimation {
                 presentingSideDrawer = true
             }

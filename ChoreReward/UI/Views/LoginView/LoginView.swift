@@ -13,6 +13,9 @@ struct LoginView: View {
 
     @State var emailInput: String = ""
     @State var passwordInput: String = ""
+    var shouldAlert: Bool {
+        loginViewModel.state.shouldAlert
+    }
 
     init(
         loginViewModel: ObservableViewModel<LoginViewState, LoginViewAction>,
@@ -25,26 +28,45 @@ struct LoginView: View {
     var body: some View {
         NavigationView {
             VStack {
-                Text(loginViewModel.state.errorMessage)
-                    .padding()
+                Spacer()
 
                 TextFieldView(title: "Email", textInput: $emailInput)
+                    .smallVerticalPadding()
                 TextFieldView(title: "Password", textInput: $passwordInput, secured: true)
+                    .smallVerticalPadding()
 
-                ButtonView(buttonTitle: "Login", buttonImage: "arrow.forward.to.line") {
+                FilledButtonView(buttonTitle: "Login", buttonImage: "arrow.forward.to.line") {
                     loginViewModel.perform(action: .signIn(emailInput: emailInput, passwordInput: passwordInput))
                 }
+                .smallVerticalPadding()
 
-                NavigationLink(destination: views.signUpView) {
-                    Label("Sign Up with Email", systemImage: "arrow.turn.right.up")
+                Spacer()
+
+                Divider()
+                HStack {
+                    Text("Don't have an account?")
+                    NavigationLink(destination: views.signUpView) {
+                        Text("Sign Up")
+                    }
                 }
-                .padding()
             }
             .padding()
             .vNavBar(NavigationBar(title: "Log in", leftItem: EmptyView(), rightItem: EmptyView()))
             .onAppear(perform: {
                 loginViewModel.perform(action: .silentSignIn)
             })
+            .alert(
+                loginViewModel.state.errorMessage,
+                isPresented: Binding<Bool>(
+                    get: {
+                        loginViewModel.state.shouldAlert
+                    },
+                    set: { newState in
+                        loginViewModel.perform(action: .updateShouldAlertState(newState: newState))
+                    })
+            ) {
+                RegularButtonView(buttonTitle: "OK") {}
+            }
         }
 
     }
@@ -53,7 +75,7 @@ struct LoginView: View {
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
         LoginView(
-            loginViewModel: .init(staticState: .init(errorMessage: "")),
+            loginViewModel: .init(staticState: .preview),
             views: Dependency.preview.views()
         )
         .previewLayout(.sizeThatFits)

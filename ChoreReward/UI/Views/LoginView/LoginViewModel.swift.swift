@@ -12,7 +12,7 @@ import Combine
 
 class LoginViewModel: StatefulViewModel {
     @Published var _state: LoginViewState = empty
-    static let empty = LoginViewState(errorMessage: "")
+    static let empty: LoginViewState = .empty
     var state: AnyPublisher<LoginViewState, Never> {
         return $_state.eraseToAnyPublisher()
     }
@@ -32,19 +32,29 @@ class LoginViewModel: StatefulViewModel {
                 case .signedIn:
                     break
                 case .signedOut(let error):
-                    self?._state = .init(errorMessage: error?.localizedDescription ?? "")
+                    guard let error = error else {
+                        return
+                    }
+                    self?._state = LoginViewState(
+                        errorMessage: error.localizedDescription,
+                        shouldAlert: true
+                    )
                 }
             })
     }
 
-    func signIn(emailInput: String, passwordInput: String) {
+    private func signIn(emailInput: String, passwordInput: String) {
         Task {
             await userService.signIn(email: emailInput, password: passwordInput)
         }
     }
 
-    func silentSignIn() {
+    private func silentSignIn() {
         userService.silentSignIn()
+    }
+
+    private func updateShouldAlertState(newState: Bool) {
+        self._state = LoginViewState(errorMessage: "", shouldAlert: newState)
     }
 
     func performAction(_ action: LoginViewAction) {
@@ -53,18 +63,24 @@ class LoginViewModel: StatefulViewModel {
             signIn(emailInput: emailInput, passwordInput: passwordInput)
         case .silentSignIn:
             silentSignIn()
+        case .updateShouldAlertState(let newState):
+            updateShouldAlertState(newState: newState)
         }
-
     }
 }
 
 struct LoginViewState {
     let errorMessage: String
+    var shouldAlert: Bool
+
+    static let empty: LoginViewState = .init(errorMessage: "", shouldAlert: false)
+    static let preview: LoginViewState = .init(errorMessage: "preview error", shouldAlert: true)
 }
 
 enum LoginViewAction {
     case signIn(emailInput: String, passwordInput: String)
     case silentSignIn
+    case updateShouldAlertState(newState: Bool)
 }
 
 extension Dependency.ViewModels {

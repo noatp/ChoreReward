@@ -56,7 +56,7 @@ struct UserProfileView: View {
                 }
             }
 
-            ButtonView(buttonTitle: "Log out", buttonImage: "arrow.backward.to.line") {
+            RegularButtonView(buttonTitle: "Log out", buttonImage: "arrow.backward.to.line") {
                 userProfileViewModel.perform(action: .signOut)
             }
         }
@@ -96,7 +96,7 @@ extension Dependency.Views {
 
 extension UserProfileView {
     var backButton: some View {
-        ButtonView(buttonImage: "chevron.left") {
+        RegularButtonView(buttonImage: "chevron.left") {
             dismiss()
         }
     }

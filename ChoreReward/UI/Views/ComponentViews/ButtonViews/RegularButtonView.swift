@@ -7,10 +7,10 @@
 
 import SwiftUI
 
-struct ButtonView: View {
-    private var action: () -> Void
-    private var buttonTitle: String?
-    private var buttonImage: String?
+struct RegularButtonView: View {
+    private let action: () -> Void
+    private let buttonTitle: String?
+    private let buttonImage: String?
 
     init(
         buttonTitle: String? = nil,
@@ -35,22 +35,33 @@ struct ButtonView: View {
                 }
             }
         }
+        .buttonStyle(RegularButton())
     }
 }
 
 struct ButtonView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            ButtonView(buttonTitle: "Preview", buttonImage: "person") {
+            RegularButtonView(buttonTitle: "Preview", buttonImage: "person") {
 
             }
-            ButtonView(buttonImage: "person") {
+            RegularButtonView(buttonImage: "person") {
 
             }
-            ButtonView(buttonTitle: "Preview") {
+            RegularButtonView(buttonTitle: "Log in") {
 
             }
         }
         .previewLayout(.sizeThatFits)
+    }
+}
+
+struct RegularButton: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .padding()
+            .foregroundColor(.bg)
+            .scaleEffect(configuration.isPressed ? 1.2 : 1)
+            .animation(.easeOut(duration: 0.2), value: configuration.isPressed)
     }
 }

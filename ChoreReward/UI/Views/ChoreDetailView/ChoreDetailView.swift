@@ -105,13 +105,13 @@ extension ChoreDetailView {
     }
 
     private var takeChoreButton: some View {
-        ButtonView(buttonTitle: "Take chore", buttonImage: "figure.wave") {
+        RegularButtonView(buttonTitle: "Take chore", buttonImage: "figure.wave") {
             choreDetailViewModel.perform(action: .takeChore)
         }
     }
 
     private var completeChoreButton: some View {
-        ButtonView(buttonTitle: "Complete chore", buttonImage: "checkmark.seal.fill") {
+        RegularButtonView(buttonTitle: "Complete chore", buttonImage: "checkmark.seal.fill") {
             choreDetailViewModel.perform(action: .completeChore)
         }
     }

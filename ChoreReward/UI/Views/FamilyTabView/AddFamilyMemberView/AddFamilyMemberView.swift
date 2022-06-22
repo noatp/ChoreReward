@@ -24,7 +24,7 @@ struct AddFamilyMemberView: View {
     var body: some View {
         VStack {
             TextFieldView(title: "UserId", textInput: $userIdInput)
-            ButtonView(buttonTitle: "Submit") {
+            RegularButtonView(buttonTitle: "Submit") {
                 addFamilyMemberViewModel.perform(action: .addMember(userId: userIdInput))
             }
             CodeScannerView(codeTypes: [.qr]) { result in

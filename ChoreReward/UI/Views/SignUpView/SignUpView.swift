@@ -58,7 +58,7 @@ struct SignUpView: View {
             TextFieldView(title: "Password", textInput: $passwordInput, secured: true)
             RolePickerView(roleSelection: $roleSelection)
 
-            ButtonView(buttonTitle: "Sign up", buttonImage: "arrow.turn.right.up") {
+            RegularButtonView(buttonTitle: "Sign up", buttonImage: "arrow.turn.right.up") {
                 signUpViewModel.perform(
                     action: .signUp(
                         emailInput: emailInput,
@@ -108,7 +108,7 @@ extension Dependency.Views {
 
 extension SignUpView {
     private var backButton: some View {
-        ButtonView(buttonImage: "chevron.left") {
+        RegularButtonView(buttonImage: "chevron.left") {
             dismiss()
         }
     }

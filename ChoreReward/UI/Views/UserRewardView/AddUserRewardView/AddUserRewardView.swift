@@ -30,7 +30,7 @@ struct AddUserRewardView: View {
                 Text("$")
                 TextFieldView(title: "Reward value", textInput: $rewardValue)
             }
-            ButtonView(buttonTitle: "Add new reward") {
+            RegularButtonView(buttonTitle: "Add new reward") {
                 addUserRewardViewModel.perform(action: .addNewReward(name: rewardName, value: rewardValue))
                 dismiss()
             }

@@ -71,7 +71,7 @@ struct AddChoreView: View {
             .frame(maxHeight: 200)
             Spacer()
             if let choreImageUrl = choreImageUrl {
-                ButtonView(buttonTitle: "Create Chore", buttonImage: "plus") {
+                RegularButtonView(buttonTitle: "Create Chore", buttonImage: "plus") {
                     dismiss()
                     addChoreViewModel.perform(
                         action: .createChore(

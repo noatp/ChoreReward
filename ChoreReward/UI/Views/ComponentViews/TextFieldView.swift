@@ -35,7 +35,7 @@ struct TextFieldView: View {
                 }
             }
         }
-        .frame(height: 55)
+        .frame(height: 40)
         .textFieldStyle(PlainTextFieldStyle())
         .padding([.horizontal], 15)
         .cornerRadius(12)

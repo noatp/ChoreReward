@@ -18,6 +18,7 @@ extension View {
             return Color.clear
         })
     }
+
     func vNavBar<NavBarContent: View>(_ navBarContent: NavBarContent) -> some View {
         return VStack(alignment: .leading, spacing: 0) {
             navBarContent
@@ -26,6 +27,7 @@ extension View {
         }
         .navigationBarHidden(true)
     }
+
     func zNavBar<NavBarContent: View>(_ navBarContent: NavBarContent) -> some View {
         return ZStack {
             self
@@ -35,5 +37,9 @@ extension View {
             }
         }
         .navigationBarHidden(true)
+    }
+
+    func smallVerticalPadding() -> some View {
+        return self.padding([.vertical], 5)
     }
 }
