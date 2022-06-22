@@ -35,10 +35,8 @@
 		455ECC86275DA7A100438A43 /* RolePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 455ECC85275DA7A100438A43 /* RolePickerView.swift */; };
 		456D46E927EBFFE800B2AC07 /* NavDrawerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456D46E827EBFFE800B2AC07 /* NavDrawerView.swift */; };
 		456EA4B6278A127E00ADA2CD /* ButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456EA4B5278A127E00ADA2CD /* ButtonView.swift */; };
-		45750CD927FB938100274617 /* TabNavBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45750CD827FB938100274617 /* TabNavBarView.swift */; };
 		45750CDC27FC075300274617 /* ChoreTabDrawerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45750CDB27FC075300274617 /* ChoreTabDrawerView.swift */; };
 		45750CDE27FCE4B700274617 /* FamilyTabDrawerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45750CDD27FCE4B700274617 /* FamilyTabDrawerView.swift */; };
-		45750CE027FD270A00274617 /* RegularNavBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45750CDF27FD270A00274617 /* RegularNavBarView.swift */; };
 		4583C12B285E717300E77427 /* UserRewardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4583C12A285E717300E77427 /* UserRewardView.swift */; };
 		4583C12D285E718600E77427 /* UserRewardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4583C12C285E718600E77427 /* UserRewardViewModel.swift */; };
 		4583C131285E7A5900E77427 /* RewardRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4583C130285E7A5900E77427 /* RewardRepository.swift */; };
@@ -83,7 +81,6 @@
 		45E483CA275402F6009DA543 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E483C9275402F6009DA543 /* RootView.swift */; };
 		45E483CC27540305009DA543 /* RootViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E483CB27540305009DA543 /* RootViewModel.swift */; };
 		45E5FB1427E5A65C008B20A8 /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E5FB1327E5A65C008B20A8 /* View.swift */; };
-		45E5FB1727E5A732008B20A8 /* ChoreDetailNavBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E5FB1627E5A732008B20A8 /* ChoreDetailNavBarView.swift */; };
 		45EAF0BA27EE6F8B005655D4 /* CircularButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45EAF0B927EE6F8B005655D4 /* CircularButton.swift */; };
 		45EAF0BC27EEA484005655D4 /* EnvironmentKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45EAF0BB27EEA484005655D4 /* EnvironmentKey.swift */; };
 		45EAF0C027FA407A005655D4 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45EAF0BF27FA407A005655D4 /* ImagePicker.swift */; };
@@ -138,10 +135,8 @@
 		455ECC85275DA7A100438A43 /* RolePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RolePickerView.swift; sourceTree = "<group>"; };
 		456D46E827EBFFE800B2AC07 /* NavDrawerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavDrawerView.swift; sourceTree = "<group>"; };
 		456EA4B5278A127E00ADA2CD /* ButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonView.swift; sourceTree = "<group>"; };
-		45750CD827FB938100274617 /* TabNavBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabNavBarView.swift; sourceTree = "<group>"; };
 		45750CDB27FC075300274617 /* ChoreTabDrawerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoreTabDrawerView.swift; sourceTree = "<group>"; };
 		45750CDD27FCE4B700274617 /* FamilyTabDrawerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyTabDrawerView.swift; sourceTree = "<group>"; };
-		45750CDF27FD270A00274617 /* RegularNavBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegularNavBarView.swift; sourceTree = "<group>"; };
 		4583C12A285E717300E77427 /* UserRewardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRewardView.swift; sourceTree = "<group>"; };
 		4583C12C285E718600E77427 /* UserRewardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRewardViewModel.swift; sourceTree = "<group>"; };
 		4583C130285E7A5900E77427 /* RewardRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RewardRepository.swift; sourceTree = "<group>"; };
@@ -182,7 +177,6 @@
 		45E483C9275402F6009DA543 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		45E483CB27540305009DA543 /* RootViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewModel.swift; sourceTree = "<group>"; };
 		45E5FB1327E5A65C008B20A8 /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
-		45E5FB1627E5A732008B20A8 /* ChoreDetailNavBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoreDetailNavBarView.swift; sourceTree = "<group>"; };
 		45EAF0B927EE6F8B005655D4 /* CircularButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularButton.swift; sourceTree = "<group>"; };
 		45EAF0BB27EEA484005655D4 /* EnvironmentKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentKey.swift; sourceTree = "<group>"; };
 		45EAF0BF27FA407A005655D4 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
@@ -337,7 +331,6 @@
 			children = (
 				456D46E827EBFFE800B2AC07 /* NavDrawerView.swift */,
 				45750CDA27FC073900274617 /* Drawers */,
-				45E5FB1527E5A722008B20A8 /* NavBars */,
 			);
 			path = NavigationDrawer;
 			sourceTree = "<group>";
@@ -545,16 +538,6 @@
 				452AFECF275444020060BD43 /* SignUpViewModel.swift */,
 			);
 			path = SignUpView;
-			sourceTree = "<group>";
-		};
-		45E5FB1527E5A722008B20A8 /* NavBars */ = {
-			isa = PBXGroup;
-			children = (
-				45E5FB1627E5A732008B20A8 /* ChoreDetailNavBarView.swift */,
-				45750CD827FB938100274617 /* TabNavBarView.swift */,
-				45750CDF27FD270A00274617 /* RegularNavBarView.swift */,
-			);
-			path = NavBars;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -768,15 +751,12 @@
 				45D7AE952735B4A100A53812 /* Family.swift in Sources */,
 				4583C131285E7A5900E77427 /* RewardRepository.swift in Sources */,
 				45C1FA672767ABBB00BF11E3 /* FamilyService.swift in Sources */,
-				45E5FB1727E5A732008B20A8 /* ChoreDetailNavBarView.swift in Sources */,
 				453CC1A62787FBFB002996AF /* ChoreTabViewModel.swift in Sources */,
 				4509FB392862907600F84B42 /* NavigationBar.swift in Sources */,
 				45EAF0BC27EEA484005655D4 /* EnvironmentKey.swift in Sources */,
 				456D46E927EBFFE800B2AC07 /* NavDrawerView.swift in Sources */,
 				45ACB4AC2724AD1A000E04A0 /* ChoreRewardApp.swift in Sources */,
 				45E5FB1427E5A65C008B20A8 /* View.swift in Sources */,
-				45750CD927FB938100274617 /* TabNavBarView.swift in Sources */,
-				45750CE027FD270A00274617 /* RegularNavBarView.swift in Sources */,
 				45FC9A25285FC217009EC84C /* RewardCardView.swift in Sources */,
 				452AFED0275444020060BD43 /* SignUpViewModel.swift in Sources */,
 				45A4754C27931F1C00322BCE /* ChoreService.swift in Sources */,

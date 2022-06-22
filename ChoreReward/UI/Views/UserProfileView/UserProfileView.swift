@@ -22,59 +22,49 @@ struct UserProfileView: View {
     }
 
     var body: some View {
-        RegularNavBarView(navTitle: userProfileViewModel.state.currentUserName) {
-            ButtonView(buttonImage: "chevron.left") {
-                dismiss()
-            }
-        } rightItem: {
-            EmptyView()
-        } content: {
-            VStack(spacing: 16) {
-                Group {
-                    if let userImageUrl = userProfileViewModel.state.currentUserProfileImageUrl {
-                        //                        RemoteImageView(
-                        //                            imageUrl: userImageUrl,
-                        //                            size: .init(width: 200, height: 200),
-                        //                            cachingSize: .init(width: 200, height: 200)
-                        //                        )
-                        RemoteImageView(imageUrl: userImageUrl, isThumbnail: false)
-                    } else {
-                        ImageView(systemImage: "person.fill")
-                    }
-                }
-                .frame(width: 200, height: 200, alignment: .center)
-                .clipShape(Circle())
-
-                Text(userProfileViewModel.state.currentUserName)
-                    .font(.title)
-
-                HStack {
-                    Text("Email:")
-                    Text(userProfileViewModel.state.currentUserEmail)
-                }
-                HStack {
-                    Text("Role:")
-                    Text(userProfileViewModel.state.currentUserRole)
-                }
-
-                Spacer()
-
-                NavigationLink {
-                    views.editUserProfileView
-                } label: {
-                    HStack {
-                        Image(systemName: "pencil")
-                        Text("Edit profile")
-                    }
-                }
-
-                ButtonView(buttonTitle: "Log out", buttonImage: "arrow.backward.to.line") {
-                    userProfileViewModel.perform(action: .signOut)
+        VStack(spacing: 16) {
+            Group {
+                if let userImageUrl = userProfileViewModel.state.currentUserProfileImageUrl {
+                    RemoteImageView(imageUrl: userImageUrl, isThumbnail: false)
+                } else {
+                    ImageView(systemImage: "person.fill")
                 }
             }
-            .padding()
+            .frame(width: 200, height: 200, alignment: .center)
+            .clipShape(Circle())
+
+            Text(userProfileViewModel.state.currentUserName)
+                .font(.title)
+
+            HStack {
+                Text("Email:")
+                Text(userProfileViewModel.state.currentUserEmail)
+            }
+            HStack {
+                Text("Role:")
+                Text(userProfileViewModel.state.currentUserRole)
+            }
+
+            Spacer()
+
+            NavigationLink {
+                views.editUserProfileView
+            } label: {
+                HStack {
+                    Image(systemName: "pencil")
+                    Text("Edit profile")
+                }
+            }
+
+            ButtonView(buttonTitle: "Log out", buttonImage: "arrow.backward.to.line") {
+                userProfileViewModel.perform(action: .signOut)
+            }
         }
-        .navigationBarHidden(true)
+        .padding()
+        .vNavBar(NavigationBar(
+            title: userProfileViewModel.state.currentUserName,
+            leftItem: backButton,
+            rightItem: EmptyView()))
     }
 }
 
@@ -101,5 +91,13 @@ extension Dependency.Views {
             userProfileViewModel: ObservableViewModel(viewModel: viewModels.userProfileViewModel),
             views: self
         )
+    }
+}
+
+extension UserProfileView {
+    var backButton: some View {
+        ButtonView(buttonImage: "chevron.left") {
+            dismiss()
+        }
     }
 }

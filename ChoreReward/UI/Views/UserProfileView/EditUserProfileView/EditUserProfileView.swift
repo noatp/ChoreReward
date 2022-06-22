@@ -28,66 +28,61 @@ struct EditUserProfileView: View {
     }
 
     var body: some View {
-        RegularNavBarView(navTitle: editUserProfileViewModel.state.currentUserName) {
-            ButtonView(buttonImage: "chevron.left") {
-                dismiss()
-            }
-        } rightItem: {
-            EmptyView()
-        } content: {
-            VStack(spacing: 16) {
-                Group {
-                    if userImageDidChange {
-                        if let userImageUrl = userImageUrl {
-                            RemoteImageView(imageUrl: userImageUrl, isThumbnail: false)
-                        } else {
-                            ImageView(systemImage: "person.fill")
-                        }
+        VStack(spacing: 16) {
+            Group {
+                if userImageDidChange {
+                    if let userImageUrl = userImageUrl {
+                        RemoteImageView(imageUrl: userImageUrl, isThumbnail: false)
                     } else {
-                        if let userImageUrl = editUserProfileViewModel.state.currentUserProfileImageUrl {
-                            RemoteImageView(imageUrl: userImageUrl, isThumbnail: false)
-                        } else {
-                            ImageView(systemImage: "person.fill")
-                        }
+                        ImageView(systemImage: "person.fill")
+                    }
+                } else {
+                    if let userImageUrl = editUserProfileViewModel.state.currentUserProfileImageUrl {
+                        RemoteImageView(imageUrl: userImageUrl, isThumbnail: false)
+                    } else {
+                        ImageView(systemImage: "person.fill")
                     }
                 }
-                .frame(width: 200, height: 200, alignment: .center)
-                .clipShape(Circle())
-
-                ButtonView(buttonTitle: "Change profile picture", action: {
-                    shouldShowActionSheet = true
-                })
-                .foregroundColor(.acc)
-                Divider()
-                VStack {
-                    HStack {
-                        Text("Name: ")
-                            .frame(width: 60)
-                        TextFieldView(title: editUserProfileViewModel.state.currentUserName, textInput: $userName)
-                    }
-                    HStack {
-                        Text("Email: ")
-                            .frame(width: 60)
-                        TextFieldView(title: editUserProfileViewModel.state.currentUserEmail, textInput: $userEmail)
-                    }
-                }
-
-                Divider()
-                Button {
-                    editUserProfileViewModel.perform(action: .updateUserProfile(
-                        userName: userName,
-                        userEmail: userEmail,
-                        newUserImageUrl: userImageUrl,
-                        userImageDidChange: userImageDidChange
-                    ))
-                } label: {
-                    Text("Apply changes")
-                }
-                .disabled(userName == "" && userEmail == "" && !userImageDidChange)
             }
-            .padding()
+            .frame(width: 200, height: 200, alignment: .center)
+            .clipShape(Circle())
+
+            ButtonView(buttonTitle: "Change profile picture", action: {
+                shouldShowActionSheet = true
+            })
+            .foregroundColor(.acc)
+            Divider()
+            VStack {
+                HStack {
+                    Text("Name: ")
+                        .frame(width: 60)
+                    TextFieldView(title: editUserProfileViewModel.state.currentUserName, textInput: $userName)
+                }
+                HStack {
+                    Text("Email: ")
+                        .frame(width: 60)
+                    TextFieldView(title: editUserProfileViewModel.state.currentUserEmail, textInput: $userEmail)
+                }
+            }
+
+            Divider()
+            Button {
+                editUserProfileViewModel.perform(action: .updateUserProfile(
+                    userName: userName,
+                    userEmail: userEmail,
+                    newUserImageUrl: userImageUrl,
+                    userImageDidChange: userImageDidChange
+                ))
+            } label: {
+                Text("Apply changes")
+            }
+            .disabled(userName == "" && userEmail == "" && !userImageDidChange)
         }
-        .navigationBarHidden(true)
+        .padding()
+        .vNavBar(NavigationBar(
+            title: editUserProfileViewModel.state.currentUserName,
+            leftItem: backButton,
+            rightItem: EmptyView()))
         .confirmationDialog(
             "Change profile picture",
             isPresented: $shouldShowActionSheet,
@@ -135,5 +130,13 @@ extension Dependency.Views {
             editUserProfileViewModel: ObservableViewModel(viewModel: viewModels.editUserProfileViewModel),
             views: self
         )
+    }
+}
+
+extension EditUserProfileView {
+    var backButton: some View {
+        ButtonView(buttonImage: "chevron.left") {
+            dismiss()
+        }
     }
 }

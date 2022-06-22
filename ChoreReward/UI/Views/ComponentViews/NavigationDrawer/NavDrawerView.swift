@@ -28,13 +28,7 @@ struct NavDrawerView<MainContent: View, DrawerContent: View>: View {
     }
 
     var body: some View {
-        let menuButton = ButtonView(buttonImage: "line.3.horizontal", action: {
-            withAnimation {
-                presentingSideDrawer = true
-            }
-        }).foregroundColor(.fg)
-
-        return ZStack {
+        ZStack {
             mainContent
                 .vNavBar(NavigationBar(
                     title: navTitle,
@@ -150,5 +144,16 @@ extension NavDrawerView {
             }
             .padding([.horizontal, .top])
         }
+    }
+}
+
+extension NavDrawerView {
+    var menuButton: some View {
+        ButtonView(buttonImage: "line.3.horizontal", action: {
+            withAnimation {
+                presentingSideDrawer = true
+            }
+        })
+        .foregroundColor(.fg)
     }
 }

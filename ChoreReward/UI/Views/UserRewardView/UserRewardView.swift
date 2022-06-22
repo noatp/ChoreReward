@@ -23,36 +23,30 @@ struct UserRewardView: View {
     }
 
     var body: some View {
-        RegularNavBarView(navTitle: "Reward") {
-            ButtonView(buttonImage: "chevron.left") {
-                dismiss()
-            }
-        } rightItem: {
-            ButtonView(buttonImage: "plus") {
-                presentSheet = true
-            }
-        } content: {
-            VStack(alignment: .leading) {
-                Text(String(format: "Current balance is ", userRewardViewModel.state.balance))
-                    .font(.system(size: 20, weight: .light, design: .default))
-                + Text(String(format: "$%.2f", userRewardViewModel.state.balance))
-                    .font(.system(size: 30, weight: .bold, design: .rounded))
-                ScrollView(showsIndicators: false) {
-                    LazyVStack(spacing: 0) {
-                        ForEach(userRewardViewModel.state.rewards, id: \.name) {reward in
-                            RewardCardView(
-                                rewardName: reward.name,
-                                rewardValue: reward.value,
-                                userBalance: userRewardViewModel.state.balance
-                            )
+        VStack(alignment: .leading) {
+            Text(String(format: "Current balance is ", userRewardViewModel.state.balance))
+                .font(.system(size: 20, weight: .light, design: .default))
+            + Text(String(format: "$%.2f", userRewardViewModel.state.balance))
+                .font(.system(size: 30, weight: .bold, design: .rounded))
+            ScrollView(showsIndicators: false) {
+                LazyVStack(spacing: 0) {
+                    ForEach(userRewardViewModel.state.rewards, id: \.name) {reward in
+                        RewardCardView(
+                            rewardName: reward.name,
+                            rewardValue: reward.value,
+                            userBalance: userRewardViewModel.state.balance
+                        )
 
-                        }
                     }
                 }
             }
-            .padding()
         }
-        .navigationBarHidden(true)
+        .padding()
+        .vNavBar(NavigationBar(
+            title: "Reward",
+            leftItem: backButton,
+            rightItem: addRewardButton)
+        )
         .fullScreenCover(isPresented: $presentSheet) {
             views.addUserRewardView
         }
@@ -77,5 +71,20 @@ extension Dependency.Views {
             userGoalViewModel: ObservableViewModel(viewModel: viewModels.userGoalViewModel),
             views: self
         )
+    }
+}
+
+extension UserRewardView {
+    private var backButton: some View {
+        ButtonView(buttonImage: "chevron.left") {
+            dismiss()
+        }
+    }
+
+    private var addRewardButton: some View {
+        ButtonView(buttonImage: "plus") {
+            presentSheet = true
+        }
+
     }
 }

@@ -26,11 +26,7 @@ struct ChoreDetailView: View {
     }
 
     var body: some View {
-        let dismissButton = CircularButton(action: {
-            dismiss()
-        }, icon: "xmark")
-
-        return ScrollView {
+        ScrollView {
             RemoteImageView(imageUrl: chore.choreImageUrl, isThumbnail: false)
                 .frame(maxWidth: .infinity, maxHeight: 400, alignment: .center)
                 .clipped()
@@ -119,5 +115,13 @@ extension ChoreDetailView {
         ButtonView(buttonTitle: "Complete chore", buttonImage: "checkmark.seal.fill") {
             choreDetailViewModel.perform(action: .completeChore)
         }
+    }
+}
+
+extension ChoreDetailView {
+    var dismissButton: some View {
+        CircularButton(action: {
+            dismiss()
+        }, icon: "xmark")
     }
 }

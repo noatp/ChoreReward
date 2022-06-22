@@ -27,7 +27,7 @@ extension View {
         .navigationBarHidden(true)
     }
     func zNavBar<NavBarContent: View>(_ navBarContent: NavBarContent) -> some View {
-        return ZStack(alignment: .leading) {
+        return ZStack {
             self
             VStack {
                 navBarContent
