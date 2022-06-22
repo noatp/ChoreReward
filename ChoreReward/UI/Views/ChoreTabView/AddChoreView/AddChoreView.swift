@@ -34,7 +34,7 @@ struct AddChoreView: View {
                         .clipped()
                 } else {
                     ZStack {
-                        RoundedRectangle(cornerRadius: 25)
+                        RoundedRectangle(cornerRadius: 12)
                             .frame(maxWidth: .infinity, maxHeight: 200)
                             .foregroundColor(.textFieldPlaceholder)
 
@@ -55,7 +55,7 @@ struct AddChoreView: View {
                 .padding([.horizontal, .bottom])
             ZStack(alignment: .leading) {
                 TextEditor(text: $choreDescription)
-                    .clipShape(RoundedRectangle(cornerRadius: 8))
+                    .clipShape(RoundedRectangle(cornerRadius: 12))
                     .shadow(radius: 1)
                 if choreDescription.isEmpty {
                     VStack {

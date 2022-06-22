@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct SignUpView: View {
+    @Environment(\.dismiss) var dismiss
     @ObservedObject var signUpViewModel: ObservableViewModel<SignUpState, SignUpAction>
     private var views: Dependency.Views
 
@@ -70,6 +71,11 @@ struct SignUpView: View {
             }
             Spacer()
         }
+        .vNavBar(NavigationBar(
+            title: "Sign up",
+            leftItem: backButton,
+            rightItem: EmptyView())
+        )
         .fullScreenCover(isPresented: $shouldShowImagePicker, onDismiss: nil) {
             ImagePicker(sourceType: .photoLibrary, didFinishPickingMediaHandler: { newUserImageUrl in
                 userImageUrl = newUserImageUrl
@@ -96,5 +102,13 @@ extension Dependency.Views {
             signUpViewModel: ObservableViewModel(viewModel: viewModels.signUpViewModel),
             views: self
         )
+    }
+}
+
+extension SignUpView {
+    private var backButton: some View {
+        ButtonView(buttonImage: "chevron.left") {
+            dismiss()
+        }
     }
 }

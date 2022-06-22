@@ -36,9 +36,13 @@ struct TextFieldView: View {
                 }
             }
         }
-        .autocapitalization(UITextAutocapitalizationType.none)
-        .textFieldStyle(RoundedBorderTextFieldStyle())
+        .frame(height: 55)
+        .textFieldStyle(PlainTextFieldStyle())
+        .padding([.horizontal], 15)
+        .cornerRadius(12)
+        .overlay(RoundedRectangle(cornerRadius: 12).stroke(Color.gray))
         .shadow(radius: 1)
+        .autocapitalization(UITextAutocapitalizationType.none)
     }
 }
 

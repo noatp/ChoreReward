@@ -41,11 +41,12 @@ struct LoginView: View {
                 .padding()
             }
             .padding()
+            .vNavBar(NavigationBar(title: "Log in", leftItem: EmptyView(), rightItem: EmptyView()))
+            .onAppear(perform: {
+                loginViewModel.perform(action: .silentSignIn)
+            })
         }
-        .navigationViewStyle(.stack)
-        .onAppear(perform: {
-             loginViewModel.perform(action: .silentSignIn)
-        })
+
     }
 }
 
