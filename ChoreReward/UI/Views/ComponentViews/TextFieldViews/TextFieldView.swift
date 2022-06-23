@@ -41,6 +41,7 @@ struct TextFieldView: View {
         .cornerRadius(12)
         .overlay(RoundedRectangle(cornerRadius: 12).stroke(Color.gray))
         .shadow(radius: 1)
+        .smallVerticalPadding()
         .autocapitalization(UITextAutocapitalizationType.none)
         .disableAutocorrection(true)
     }

@@ -28,48 +28,30 @@ struct SignUpView: View {
     }
 
     var body: some View {
-        VStack {
-            Spacer()
-            Button {
-                shouldShowImagePicker = true
-            } label: {
-                if let userImageUrl = userImageUrl {
-                    RemoteImageView(imageUrl: userImageUrl, isThumbnail: false)
-                        .frame(width: 200, height: 200)
-                        .clipShape(Circle())
-                        .shadow(radius: 5)
-                } else {
-                    ZStack {
-                        Circle()
-                            .frame(width: 200, height: 200)
-                            .foregroundColor(.fg)
-                            .shadow(radius: 5)
-                        Text("Add profile picture")
+        ScrollView {
+            VStack {
+                Spacer()
+
+                pickUserImageButton
+
+                rolePicker
+                    .smallVerticalPadding()
+                NameTextField(textInput: $nameInput)
+                    .submitLabel(.next)
+                EmailTextField(textInput: $emailInput)
+                    .submitLabel(.next)
+                PasswordTextField(textInput: $passwordInput)
+                    .submitLabel(.done)
+                    .onSubmit {
+                        signUp()
                     }
+
+                FilledButtonView(buttonTitle: "Sign up.", buttonImage: "arrow.turn.right.up") {
+                    signUp()
                 }
-
+                .smallVerticalPadding()
+                Spacer()
             }
-            .foregroundColor(.acc)
-            Spacer()
-            Text(signUpViewModel.state.errorMessage)
-
-            TextFieldView(title: "Name", textInput: $nameInput)
-            TextFieldView(title: "Email", textInput: $emailInput)
-            TextFieldView(title: "Password", textInput: $passwordInput, secured: true)
-            RolePickerView(roleSelection: $roleSelection)
-
-            RegularButtonView(buttonTitle: "Sign up", buttonImage: "arrow.turn.right.up") {
-                signUpViewModel.perform(
-                    action: .signUp(
-                        emailInput: emailInput,
-                        nameInput: nameInput,
-                        passwordInput: passwordInput,
-                        roleSelection: roleSelection,
-                        userImageUrl: userImageUrl
-                    )
-                )
-            }
-            Spacer()
         }
         .padding()
         .vNavBar(NavigationBar(
@@ -83,6 +65,18 @@ struct SignUpView: View {
             })
             .ignoresSafeArea()
         }
+        .alert(
+            signUpViewModel.state.errorMessage,
+            isPresented: Binding<Bool>(
+                get: {
+                    signUpViewModel.state.shouldAlert
+                },
+                set: { newState in
+                    signUpViewModel.perform(action: .updateShouldAlertState(newState: newState))
+                })
+        ) {
+            RegularButtonView(buttonTitle: "OK") {}
+        }
     }
 
 }
@@ -90,7 +84,7 @@ struct SignUpView: View {
 struct SignupView_Previews: PreviewProvider {
     static var previews: some View {
         SignUpView(
-            signUpViewModel: .init(staticState: .init(errorMessage: "")),
+            signUpViewModel: .init(staticState: .empty),
             views: Dependency.preview.views()
         )
         .previewLayout(.sizeThatFits)
@@ -111,5 +105,52 @@ extension SignUpView {
         RegularButtonView(buttonImage: "chevron.left") {
             dismiss()
         }
+    }
+
+    private var pickUserImageButton: some View {
+        Button {
+            shouldShowImagePicker = true
+        } label: {
+            if let userImageUrl = userImageUrl {
+                RemoteImageView(imageUrl: userImageUrl, isThumbnail: false)
+                    .frame(width: 200, height: 200)
+                    .clipShape(Circle())
+                    .shadow(radius: 5)
+            } else {
+                ZStack {
+                    Circle()
+                        .frame(width: 200, height: 200)
+                        .foregroundColor(.fg)
+                        .shadow(radius: 5)
+                    Text("Add profile picture")
+                }
+            }
+
+        }
+        .foregroundColor(.acc)
+    }
+
+    private var rolePicker: some View {
+        HStack {
+            Text("You are a: ")
+            Picker("Role", selection: $roleSelection) {
+                Text("Parent").tag(Role.parent)
+                Text("Child").tag(Role.child)
+            }
+            .pickerStyle(SegmentedPickerStyle())
+        }
+        .padding()
+    }
+
+    private func signUp() {
+        signUpViewModel.perform(
+            action: .signUp(
+                emailInput: emailInput,
+                nameInput: nameInput,
+                passwordInput: passwordInput,
+                roleSelection: roleSelection,
+                userImageUrl: userImageUrl
+            )
+        )
     }
 }

@@ -25,7 +25,7 @@ class LoginViewModel: StatefulViewModel {
         addSubscription()
     }
 
-    func addSubscription() {
+    private func addSubscription() {
         useCaseSubscription = userService.$authState
             .sink(receiveValue: {[weak self] authState in
                 switch authState {
@@ -35,7 +35,7 @@ class LoginViewModel: StatefulViewModel {
                     guard let error = error else {
                         return
                     }
-                    self?._state = LoginViewState(
+                    self?._state = .init(
                         errorMessage: error.localizedDescription,
                         shouldAlert: true
                     )
@@ -54,7 +54,7 @@ class LoginViewModel: StatefulViewModel {
     }
 
     private func updateShouldAlertState(newState: Bool) {
-        self._state = LoginViewState(errorMessage: "", shouldAlert: newState)
+        self._state = .init(errorMessage: "", shouldAlert: newState)
     }
 
     func performAction(_ action: LoginViewAction) {
@@ -71,7 +71,7 @@ class LoginViewModel: StatefulViewModel {
 
 struct LoginViewState {
     let errorMessage: String
-    var shouldAlert: Bool
+    let shouldAlert: Bool
 
     static let empty: LoginViewState = .init(errorMessage: "", shouldAlert: false)
     static let preview: LoginViewState = .init(errorMessage: "preview error", shouldAlert: true)

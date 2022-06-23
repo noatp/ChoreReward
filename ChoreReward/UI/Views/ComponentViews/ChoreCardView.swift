@@ -17,13 +17,6 @@ struct `ChoreCardView`: View {
 
     var body: some View {
         HStack {
-//            RemoteImageView(
-//                imageUrl: chore.choreImageUrl,
-//                size: .init(width: 100, height: 100),
-//                cachingSize: .init(width: 100, height: 100)
-//            )
-//            .clipped()
-
             RemoteImageView(imageUrl: chore.choreImageUrl, isThumbnail: true)
                 .frame(width: 100, height: 100, alignment: .center)
                 .clipped()

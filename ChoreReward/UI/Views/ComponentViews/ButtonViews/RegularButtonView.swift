@@ -52,6 +52,7 @@ struct ButtonView_Previews: PreviewProvider {
 
             }
         }
+        .background(Color.bg)
         .previewLayout(.sizeThatFits)
     }
 }
@@ -59,8 +60,7 @@ struct ButtonView_Previews: PreviewProvider {
 struct RegularButton: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
-            .padding()
-            .foregroundColor(.bg)
+            .foregroundColor(.fg)
             .scaleEffect(configuration.isPressed ? 1.2 : 1)
             .animation(.easeOut(duration: 0.2), value: configuration.isPressed)
     }

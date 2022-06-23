@@ -35,7 +35,7 @@ struct LoginView: View {
                 TextFieldView(title: "Password", textInput: $passwordInput, secured: true)
                     .smallVerticalPadding()
 
-                FilledButtonView(buttonTitle: "Login", buttonImage: "arrow.forward.to.line") {
+                FilledButtonView(buttonTitle: "Log in", buttonImage: "arrow.forward.to.line") {
                     loginViewModel.perform(action: .signIn(emailInput: emailInput, passwordInput: passwordInput))
                 }
                 .smallVerticalPadding()
