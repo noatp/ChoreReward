@@ -290,6 +290,7 @@
 		453C84AE2863CA39008E6215 /* ButtonViews */ = {
 			isa = PBXGroup;
 			children = (
+				45EAF0B927EE6F8B005655D4 /* CircularButton.swift */,
 				456EA4B5278A127E00ADA2CD /* RegularButtonView.swift */,
 				453C84AF2863CA6C008E6215 /* FilledButtonView.swift */,
 			);
@@ -305,6 +306,25 @@
 				453C84B62863F9FA008E6215 /* PasswordTextField.swift */,
 			);
 			path = TextFieldViews;
+			sourceTree = "<group>";
+		};
+		453C84B82864082B008E6215 /* CardViews */ = {
+			isa = PBXGroup;
+			children = (
+				45FC9A24285FC217009EC84C /* RewardCardView.swift */,
+				45243EFE276E9F9000D2EACB /* UserCardView.swift */,
+				45429DB0279B608C00FA9670 /* ChoreCardView.swift */,
+			);
+			path = CardViews;
+			sourceTree = "<group>";
+		};
+		453C84B92864085D008E6215 /* ImageViews */ = {
+			isa = PBXGroup;
+			children = (
+				4538D0422839DFEE00368C98 /* RemoteImageView.swift */,
+				4538D044283A288D00368C98 /* ImageView.swift */,
+			);
+			path = ImageViews;
 			sourceTree = "<group>";
 		};
 		45429DBE27A5135D00FA9670 /* ChoreTabView */ = {
@@ -493,16 +513,12 @@
 		45D7AE8A27346E7600A53812 /* ComponentViews */ = {
 			isa = PBXGroup;
 			children = (
+				453C84B92864085D008E6215 /* ImageViews */,
+				453C84B82864082B008E6215 /* CardViews */,
 				453C84B12863F303008E6215 /* TextFieldViews */,
 				453C84AE2863CA39008E6215 /* ButtonViews */,
 				456D46E727EBFFDA00B2AC07 /* NavigationDrawer */,
-				45243EFE276E9F9000D2EACB /* UserCardView.swift */,
-				45429DB0279B608C00FA9670 /* ChoreCardView.swift */,
-				45EAF0B927EE6F8B005655D4 /* CircularButton.swift */,
 				45EAF0BF27FA407A005655D4 /* ImagePicker.swift */,
-				4538D0422839DFEE00368C98 /* RemoteImageView.swift */,
-				4538D044283A288D00368C98 /* ImageView.swift */,
-				45FC9A24285FC217009EC84C /* RewardCardView.swift */,
 				4509FB382862907600F84B42 /* NavigationBar.swift */,
 			);
 			path = ComponentViews;
