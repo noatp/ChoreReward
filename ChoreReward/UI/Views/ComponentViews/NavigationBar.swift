@@ -19,7 +19,7 @@ struct NavigationBar<LeftItem: View, RightItem: View>: View {
         leftItem: LeftItem,
         rightItem: RightItem,
         opacity: Double = 1,
-        navBarLayout: NavBarLayout = .smallMiddleTitle
+        navBarLayout: NavBarLayout = .middleTitle
     ) {
         self.title = title
         self.leftItem = leftItem
@@ -32,17 +32,17 @@ struct NavigationBar<LeftItem: View, RightItem: View>: View {
         ZStack {
             HStack {
                 switch navBarLayout {
-                case .largeLeftTitle:
+                case .leftTitle:
                     HStack {
                         leftItem.frame(width: 30, height: 30, alignment: .center)
                         Text(title)
                             .lineLimit(1)
                             .truncationMode(.tail)
-                            .font(.title2)
+                            .font(.system(size: 25, weight: .bold, design: .rounded))
                         Spacer()
                         rightItem
                     }
-                case .smallMiddleTitle:
+                case .middleTitle:
                     ZStack {
                         HStack {
                             leftItem
@@ -55,7 +55,7 @@ struct NavigationBar<LeftItem: View, RightItem: View>: View {
                             Text(title)
                                 .lineLimit(1)
                                 .truncationMode(.tail)
-                                .font(.title2)
+                                .font(.system(size: 25, weight: .semibold, design: .rounded))
                                 .opacity(opacity)
                             Spacer(minLength: 50)
                         }
@@ -75,18 +75,21 @@ struct NavigationBar<LeftItem: View, RightItem: View>: View {
 struct NavigationBar_Previews: PreviewProvider {
     static var previews: some View {
         let leftItem = Button {} label: {
-            Image(systemName: "person")
+            Image(systemName: "chevron.left")
         }
 
         let rightItem = Button {} label: {
-            Text("LUL")
+            Text("Next")
         }
-        return NavigationBar(title: "Navigation Bar", leftItem: leftItem, rightItem: rightItem)
+        return Group {
+            NavigationBar(title: "Navigation Bar", leftItem: leftItem, rightItem: rightItem)
+            NavigationBar(title: "Navigation Bar", leftItem: leftItem, rightItem: rightItem, navBarLayout: .leftTitle)
+        }
         .previewLayout(.sizeThatFits)
     }
 }
 
 enum NavBarLayout {
-    case largeLeftTitle
-    case smallMiddleTitle
+    case leftTitle
+    case middleTitle
 }

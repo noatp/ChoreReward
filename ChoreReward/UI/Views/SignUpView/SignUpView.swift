@@ -31,39 +31,42 @@ struct SignUpView: View {
     }
 
     var body: some View {
-        ScrollView {
-            VStack {
-                Spacer()
-
-                pickUserImageButton
-
-                rolePicker
-                    .smallVerticalPadding()
-                NameTextField(textInput: $nameInput)
-                    .submitLabel(.next)
-                    .focused($focusedField, equals: .name)
-                    .onSubmit {
-                        focusedField = .email
-                    }
-                EmailTextField(textInput: $emailInput)
-                    .submitLabel(.next)
-                    .focused($focusedField, equals: .email
-                    )
-                    .onSubmit {
-                        focusedField = .password
-                    }
-                PasswordTextField(textInput: $passwordInput)
-                    .submitLabel(.done)
-                    .focused($focusedField, equals: .password)
-                    .onSubmit {
+        GeometryReader { proxy in
+            ScrollView (.vertical, showsIndicators: false) {
+                VStack {
+                    Spacer()
+                    
+                    pickUserImageButton
+                    
+                    rolePicker
+                        .smallVerticalPadding()
+                    NameTextField(textInput: $nameInput)
+                        .submitLabel(.next)
+                        .focused($focusedField, equals: .name)
+                        .onSubmit {
+                            focusedField = .email
+                        }
+                    EmailTextField(textInput: $emailInput)
+                        .submitLabel(.next)
+                        .focused($focusedField, equals: .email
+                        )
+                        .onSubmit {
+                            focusedField = .password
+                        }
+                    PasswordTextField(textInput: $passwordInput)
+                        .submitLabel(.done)
+                        .focused($focusedField, equals: .password)
+                        .onSubmit {
+                            signUp()
+                        }
+                    
+                    FilledButtonView(buttonTitle: "Sign up.", buttonImage: "arrow.turn.right.up") {
                         signUp()
                     }
-
-                FilledButtonView(buttonTitle: "Sign up.", buttonImage: "arrow.turn.right.up") {
-                    signUp()
+                    .smallVerticalPadding()
+                    Spacer()
                 }
-                .smallVerticalPadding()
-                Spacer()
+                .frame(height: proxy.size.height)
             }
         }
         .padding()

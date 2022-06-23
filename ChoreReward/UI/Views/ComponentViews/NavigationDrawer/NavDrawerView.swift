@@ -34,7 +34,7 @@ struct NavDrawerView<MainContent: View, DrawerContent: View>: View {
                     title: navTitle,
                     leftItem: menuButton,
                     rightItem: EmptyView(),
-                    navBarLayout: .largeLeftTitle
+                    navBarLayout: .leftTitle
                 ))
 
             // side drawer content
