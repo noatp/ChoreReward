@@ -32,12 +32,12 @@ struct SignUpView: View {
 
     var body: some View {
         GeometryReader { proxy in
-            ScrollView (.vertical, showsIndicators: false) {
+            ScrollView(.vertical, showsIndicators: false) {
                 VStack {
                     Spacer()
-                    
+
                     pickUserImageButton
-                    
+
                     rolePicker
                         .smallVerticalPadding()
                     NameTextField(textInput: $nameInput)
@@ -59,7 +59,7 @@ struct SignUpView: View {
                         .onSubmit {
                             signUp()
                         }
-                    
+
                     FilledButtonView(buttonTitle: "Sign up.", buttonImage: "arrow.turn.right.up") {
                         signUp()
                     }

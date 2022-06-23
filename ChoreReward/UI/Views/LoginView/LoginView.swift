@@ -46,16 +46,16 @@ struct LoginView: View {
                             .onSubmit {
                                 login()
                             }
-                        
+
                         FilledButtonView(buttonTitle: "Log in", buttonImage: "arrow.forward.to.line") {
                             login()
                         }
                         .smallVerticalPadding()
-                        
+
                         Spacer()
-                        
+
                         Divider()
-                        
+
                         HStack {
                             Text("Don't have an account?")
                             NavigationLink(destination: views.signUpView) {

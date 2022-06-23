@@ -17,6 +17,7 @@ struct ContentView: View {
 
     var body: some View {
         views.rootView
+            .font(StylingFont.regular)
     }
 }
 

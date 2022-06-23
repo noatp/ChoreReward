@@ -25,9 +25,9 @@ struct UserRewardView: View {
     var body: some View {
         VStack(alignment: .leading) {
             Text(String(format: "Current balance is ", userRewardViewModel.state.balance))
-                .font(.system(size: 20, weight: .light, design: .default))
+                .font(StylingFont.regular)
             + Text(String(format: "$%.2f", userRewardViewModel.state.balance))
-                .font(.system(size: 30, weight: .bold, design: .rounded))
+                .font(StylingFont.title)
             ScrollView(showsIndicators: false) {
                 LazyVStack(spacing: 0) {
                     ForEach(userRewardViewModel.state.rewards, id: \.name) {reward in

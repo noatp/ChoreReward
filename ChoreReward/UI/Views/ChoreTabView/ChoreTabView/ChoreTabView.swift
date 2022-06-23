@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+// MARK: Main Implementaion
+
 struct ChoreTabView: View {
     @ObservedObject var choreTabViewModel: ObservableViewModel<ChoreTabState, ChoreTabAction>
     @State private var presentedSheet = false
@@ -24,13 +26,7 @@ struct ChoreTabView: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            HStack {
-                choreStatusPicker
-                Spacer()
-                filterButton
-            }
-            .padding([.leading, .bottom, .trailing])
-            .background(Color.bg)
+            filterAndPickerBar
 
             ZStack {
                 if choreTabViewModel.state.displayingChoreList.isEmpty {
@@ -56,16 +52,15 @@ struct ChoreTabView: View {
                 }
 
                 if presentFilterMenu {
-                    VStack {
-                        filterMenu
-                        Spacer()
-                    }
+                    filterMenu
                 }
             }
 
         }
     }
 }
+
+// MARK: Preview
 
 struct ChoreTabView_Previews: PreviewProvider {
     static var previews: some View {
@@ -79,6 +74,8 @@ struct ChoreTabView_Previews: PreviewProvider {
     }
 }
 
+// MARK: Add to Dependency
+
 extension Dependency.Views {
     func choreTabView() -> ChoreTabView {
         return ChoreTabView(
@@ -89,6 +86,8 @@ extension Dependency.Views {
         )
     }
 }
+
+// MARK: Subviews
 
 extension ChoreTabView {
     private var choreStatusPicker: some View {
@@ -137,21 +136,35 @@ extension ChoreTabView {
     }
 
     private var filterMenu: some View {
-        VStack(alignment: .leading) {
-            Divider()
-            RegularButtonView(buttonTitle: "All", buttonImage: "house") {
-                choreTabViewModel.perform(action: .updateFilterState(.all))
-                presentFilterMenu.toggle()
-            }
-            Divider()
-            RegularButtonView(buttonTitle: "Yours", buttonImage: "person") {
-                choreTabViewModel.perform(action: .updateFilterState(.takenByCurrentUser))
-                presentFilterMenu.toggle()
-            }
+        VStack {
+            VStack(alignment: .leading) {
+                Divider()
+                RegularButtonView(buttonTitle: "All", buttonImage: "house") {
+                    choreTabViewModel.perform(action: .updateFilterState(.all))
+                    presentFilterMenu.toggle()
+                }
+                Divider()
+                RegularButtonView(buttonTitle: "Yours", buttonImage: "person") {
+                    choreTabViewModel.perform(action: .updateFilterState(.takenByCurrentUser))
+                    presentFilterMenu.toggle()
+                }
 
+            }
+            .padding([.leading, .bottom, .trailing])
+            .background(Color.bg)
+            .foregroundColor(.fg)
+            Spacer()
+        }
+
+    }
+
+    private var filterAndPickerBar: some View {
+        HStack {
+            choreStatusPicker
+            Spacer()
+            filterButton
         }
         .padding([.leading, .bottom, .trailing])
         .background(Color.bg)
-        .foregroundColor(.fg)
     }
 }

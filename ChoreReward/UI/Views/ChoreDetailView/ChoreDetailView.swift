@@ -79,16 +79,16 @@ extension ChoreDetailView {
     private var choreDetailText: some View {
         VStack(alignment: .leading) {
             Text("\(chore.title)")
-                .font(.title)
+                .font(StylingFont.title)
                 .frame(maxWidth: .infinity, alignment: .leading)
             Text("Chore put up by: \(chore.assignerId)")
-                .font(.footnote)
+                .font(StylingFont.medium)
             Text("on \(chore.created.dateTimestamp.formatted(date: .abbreviated, time: .omitted))")
-                .font(.footnote)
+                .font(StylingFont.medium)
                 .padding(.bottom)
 
             Text("Detail")
-                .font(.headline)
+                .font(StylingFont.large)
             Text(chore.description)
                 .padding(.bottom)
 

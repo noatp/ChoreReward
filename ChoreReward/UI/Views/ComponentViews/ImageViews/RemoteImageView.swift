@@ -9,6 +9,8 @@ import SwiftUI
 import Kingfisher
 import SDWebImageSwiftUI
 
+// MARK: Main Implementaion
+
 struct RemoteImageView: View {
     private let imageUrl: String
     private let isThumbnail: Bool
@@ -22,31 +24,40 @@ struct RemoteImageView: View {
     }
 
     var body: some View {
-        if isThumbnail {
-            WebImage(url: URL(string: imageUrl)!)
-                .resizable()
-                .cancelOnDisappear(true)
-                .placeholder(content: {
-                    ProgressView()
-                })
-                .transition(.fade(duration: 0.5))
-                .scaledToFill()
-        } else {
-            WebImage(url: URL(string: imageUrl)!)
-                .resizable()
-                .cancelOnDisappear(true)
-                .placeholder(content: {
-                    ProgressView()
-                })
-                .transition(.fade(duration: 0.5))
-                .scaledToFill()
+        Group {
+            if let url = URL(string: imageUrl) {
+                if isThumbnail {
+                    WebImage(url: url)
+                        .resizable()
+                        .cancelOnDisappear(true)
+                        .placeholder(content: {
+                            ProgressView()
+                        })
+                        .transition(.fade(duration: 0.5))
+                        .scaledToFill()
+                } else {
+                    WebImage(url: url)
+                        .resizable()
+                        .cancelOnDisappear(true)
+                        .placeholder(content: {
+                            ProgressView()
+                        })
+                        .transition(.fade(duration: 0.5))
+                        .scaledToFill()
+                }
+            } else {
+                Image(systemName: "person")
+            }
         }
 
     }
 }
 
+// MARK: Preview
+
 struct RemoteImageView_Previews: PreviewProvider {
     static var previews: some View {
         RemoteImageView(imageUrl: "https://s3.amazonaws.com/brt.org/tim-cook.png", isThumbnail: false)
+            .previewLayout(.sizeThatFits)
     }
 }
