@@ -7,15 +7,15 @@
 
 import SwiftUI
 
+// MARK: Main Implementaion
+
 struct LoginView: View {
     @ObservedObject var loginViewModel: ObservableViewModel<LoginViewState, LoginViewAction>
     private var views: Dependency.Views
 
     @State var emailInput: String = ""
     @State var passwordInput: String = ""
-    var shouldAlert: Bool {
-        loginViewModel.state.shouldAlert
-    }
+    @FocusState private var focusedField: LoginFields?
 
     init(
         loginViewModel: ObservableViewModel<LoginViewState, LoginViewAction>,
@@ -30,19 +30,28 @@ struct LoginView: View {
             VStack {
                 Spacer()
 
-                TextFieldView(title: "Email", textInput: $emailInput)
-                    .smallVerticalPadding()
-                TextFieldView(title: "Password", textInput: $passwordInput, secured: true)
-                    .smallVerticalPadding()
+                EmailTextField(textInput: $emailInput)
+                    .submitLabel(.next)
+                    .focused($focusedField, equals: .email)
+                    .onSubmit {
+                        focusedField = .password
+                    }
+                PasswordTextField(textInput: $passwordInput)
+                    .submitLabel(.done)
+                    .focused($focusedField, equals: .password)
+                    .onSubmit {
+                        login()
+                    }
 
                 FilledButtonView(buttonTitle: "Log in", buttonImage: "arrow.forward.to.line") {
-                    loginViewModel.perform(action: .signIn(emailInput: emailInput, passwordInput: passwordInput))
+                    login()
                 }
                 .smallVerticalPadding()
 
                 Spacer()
 
                 Divider()
+
                 HStack {
                     Text("Don't have an account?")
                     NavigationLink(destination: views.signUpView) {
@@ -72,6 +81,8 @@ struct LoginView: View {
     }
 }
 
+// MARK: Preview
+
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
         LoginView(
@@ -82,11 +93,28 @@ struct LoginView_Previews: PreviewProvider {
     }
 }
 
+// MARK: Add to Dependency
+
 extension Dependency.Views {
     var loginView: LoginView {
         return LoginView(
             loginViewModel: ObservableViewModel(viewModel: viewModels.loginViewModel),
             views: self
         )
+    }
+}
+
+// MARK: Additional functionality
+
+extension LoginView {
+    private func login() {
+        loginViewModel.perform(action: .signIn(
+            emailInput: emailInput,
+            passwordInput: passwordInput
+        ))
+    }
+
+    private enum LoginFields: Int, Hashable {
+        case email, password
     }
 }

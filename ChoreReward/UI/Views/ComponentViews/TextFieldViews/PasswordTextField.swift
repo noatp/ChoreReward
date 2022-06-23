@@ -9,7 +9,7 @@ import SwiftUI
 
 struct PasswordTextField: View {
     @Binding var textInput: String
-    
+
     init(
         textInput: Binding<String>
     ) {

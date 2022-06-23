@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+// MARK: Main Implementaion
+
 struct SignUpView: View {
     @Environment(\.dismiss) var dismiss
     @ObservedObject var signUpViewModel: ObservableViewModel<SignUpState, SignUpAction>
@@ -18,6 +20,7 @@ struct SignUpView: View {
     @State var roleSelection: Role = .parent
     @State var shouldShowImagePicker: Bool = false
     @State var userImageUrl: String?
+    @FocusState private var focusedField: SignUpFields?
 
     init(
         signUpViewModel: ObservableViewModel<SignUpState, SignUpAction>,
@@ -38,10 +41,20 @@ struct SignUpView: View {
                     .smallVerticalPadding()
                 NameTextField(textInput: $nameInput)
                     .submitLabel(.next)
+                    .focused($focusedField, equals: .name)
+                    .onSubmit {
+                        focusedField = .email
+                    }
                 EmailTextField(textInput: $emailInput)
                     .submitLabel(.next)
+                    .focused($focusedField, equals: .email
+                    )
+                    .onSubmit {
+                        focusedField = .password
+                    }
                 PasswordTextField(textInput: $passwordInput)
                     .submitLabel(.done)
+                    .focused($focusedField, equals: .password)
                     .onSubmit {
                         signUp()
                     }
@@ -81,6 +94,8 @@ struct SignUpView: View {
 
 }
 
+// MARK: Preview
+
 struct SignupView_Previews: PreviewProvider {
     static var previews: some View {
         SignUpView(
@@ -91,6 +106,8 @@ struct SignupView_Previews: PreviewProvider {
     }
 }
 
+// MARK: Add to Dependency
+
 extension Dependency.Views {
     var signUpView: SignUpView {
         return SignUpView(
@@ -99,6 +116,8 @@ extension Dependency.Views {
         )
     }
 }
+
+// MARK: Subviews
 
 extension SignUpView {
     private var backButton: some View {
@@ -141,7 +160,11 @@ extension SignUpView {
         }
         .padding()
     }
+}
 
+// MARK: Additional functionality
+
+extension SignUpView {
     private func signUp() {
         signUpViewModel.perform(
             action: .signUp(
@@ -152,5 +175,9 @@ extension SignUpView {
                 userImageUrl: userImageUrl
             )
         )
+    }
+
+    private enum SignUpFields: Int, Hashable {
+        case name, email, password
     }
 }
