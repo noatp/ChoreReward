@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+// MARK: Main Implementaion
+
 struct UserProfileView: View {
     @Environment(\.dismiss) private var dismiss
     @ObservedObject var userProfileViewModel: ObservableViewModel<UserProfileState, UserProfileAction>
@@ -55,7 +57,7 @@ struct UserProfileView: View {
                 }
             }
 
-            RegularButtonView(buttonTitle: "Log out", buttonImage: "arrow.backward.to.line") {
+            FilledButtonView(buttonTitle: "Log out", buttonImage: "arrow.backward.to.line") {
                 userProfileViewModel.perform(action: .signOut)
             }
         }
@@ -66,6 +68,8 @@ struct UserProfileView: View {
             rightItem: EmptyView()))
     }
 }
+
+// MARK: Preview
 
 struct UserTabView_Previews: PreviewProvider {
     static var previews: some View {
@@ -80,9 +84,12 @@ struct UserTabView_Previews: PreviewProvider {
             ),
             views: Dependency.preview.views()
         )
+        .font(StylingFont.regular)
         .previewLayout(.sizeThatFits)
     }
 }
+
+// MARK: Add to Dependency
 
 extension Dependency.Views {
     var userProfileView: UserProfileView {
@@ -92,6 +99,8 @@ extension Dependency.Views {
         )
     }
 }
+
+// MARK: Subviews
 
 extension UserProfileView {
     var backButton: some View {

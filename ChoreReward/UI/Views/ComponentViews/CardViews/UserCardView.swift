@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+// MARK: Main Implementaion
+
 struct UserCardView: View {
     private let user: DenormUser
 
@@ -30,16 +32,19 @@ struct UserCardView: View {
             .padding(.trailing)
 
             Text(user.name ?? "")
-                .font(.headline)
+                .font(StylingFont.large)
 
             Spacer()
         }
     }
 }
 
+// MARK: Preview
+
 struct UserCardView_Previews: PreviewProvider {
     static var previews: some View {
         UserCardView(user: DenormUser.preview)
+            .font(StylingFont.regular)
             .previewLayout(.sizeThatFits)
     }
 }

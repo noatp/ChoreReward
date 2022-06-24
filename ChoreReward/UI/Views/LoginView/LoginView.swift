@@ -96,6 +96,7 @@ struct LoginView_Previews: PreviewProvider {
             loginViewModel: .init(staticState: .preview),
             views: Dependency.preview.views()
         )
+        .font(StylingFont.regular)
         .previewLayout(.sizeThatFits)
     }
 }

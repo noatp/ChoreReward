@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+// MARK: Main Implementaion
+
 struct AddChoreView: View {
     @ObservedObject var addChoreViewModel: ObservableViewModel<AddChoreState, AddChoreAction>
     @State var choreTitle = ""
@@ -65,6 +67,8 @@ struct AddChoreView: View {
     }
 }
 
+// MARK: Preview
+
 struct AddChoreView_Previews: PreviewProvider {
     static var previews: some View {
         AddChoreView(
@@ -78,6 +82,8 @@ struct AddChoreView_Previews: PreviewProvider {
     }
 }
 
+// MARK: Add to Dependency
+
 extension Dependency.Views {
     func addChoreView() -> AddChoreView {
         return AddChoreView(
@@ -88,6 +94,8 @@ extension Dependency.Views {
         )
     }
 }
+
+// MARK: Subviews
 
 extension AddChoreView {
     private var dismissButton: some View {
@@ -105,15 +113,17 @@ extension AddChoreView {
             } else {
                 ZStack {
                     RoundedRectangle(cornerRadius: 12)
+                        .stroke(Color.gray)
                         .frame(maxWidth: .infinity, maxHeight: 200)
-                        .foregroundColor(.textFieldPlaceholder)
+                        .foregroundColor(.clear)
+                        .shadow(radius: 1)
 
                     Text("Add photo")
+                        .foregroundColor(.textFieldPlaceholder)
                 }
 
             }
         }
-        .shadow(radius: 1)
         .smallVerticalPadding()
         .onTapGesture {
             isPresentingImagePicker = true

@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+// MARK: Main Implementaion
+
 struct RewardCardView: View {
     let rewardName: String
     let rewardValue: Float
@@ -19,13 +21,11 @@ struct RewardCardView: View {
         VStack {
             HStack {
                 Text(rewardName)
-                    .font(.system(size: 16, weight: .bold, design: .rounded))
-                    .padding(.bottom, 10)
                 Spacer()
                 Text(String(format: "$%.2f", rewardValue))
-                    .font(.system(size: 16, weight: .bold, design: .rounded))
-                    .padding(.bottom, 10)
             }
+            .font(StylingFont.large)
+            .smallVerticalPadding()
 
             HStack {
                 Group {
@@ -33,14 +33,14 @@ struct RewardCardView: View {
                     + Text(String(format: "$%.2f of ", userBalance))
                     + Text(String(format: "$%.2f", rewardValue))
                 }
-                .font(.system(size: 12, weight: .regular, design: .default))
                 Spacer()
                 Group {
                     Text(String(format: "%.0f", progress * 100))
                     + Text("%")
                 }
-                .font(.system(size: 12, weight: .regular, design: .default))
             }
+            .font(StylingFont.small)
+            .smallVerticalPadding()
             ProgressView(value: userBalance/rewardValue)
                 .progressViewStyle(.linear)
                 .shadow(color: Color(red: 0, green: 0, blue: 0.6),
@@ -51,9 +51,12 @@ struct RewardCardView: View {
     }
 }
 
+// MARK: Preview
+
 struct RewardCardView_Previews: PreviewProvider {
     static var previews: some View {
         RewardCardView(rewardName: "Chipotle Meal", rewardValue: 10.50, userBalance: 5.00)
+            .font(StylingFont.regular)
             .previewLayout(.sizeThatFits)
     }
 }

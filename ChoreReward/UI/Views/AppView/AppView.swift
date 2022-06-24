@@ -7,10 +7,7 @@
 
 import SwiftUI
 
-enum Tabs: String {
-    case choreTab = "Chores"
-    case familyTab = "Family Members"
-}
+// MARK: Main Implementaion
 
 struct AppView: View {
     @ObservedObject var appViewModel: ObservableViewModel<AppViewState, Void>
@@ -47,15 +44,20 @@ struct AppView: View {
     }
 }
 
+// MARK: Preview
+
 struct AppView_Previews: PreviewProvider {
     static var previews: some View {
         AppView(
             appViewModel: .init(staticState: .empty),
             views: Dependency.preview.views()
         )
+        .font(StylingFont.regular)
         .preferredColorScheme(.light)
     }
 }
+
+// MARK: Add to Dependency
 
 extension Dependency.Views {
     var appView: AppView {
@@ -65,6 +67,8 @@ extension Dependency.Views {
         )
     }
 }
+
+// MARK: Subviews
 
 extension AppView {
     var mainContent: some View {
@@ -103,7 +107,7 @@ extension AppView {
                 VStack {
                     Image(systemName: (selectedTab == .choreTab ? "checkmark.seal.fill" : "checkmark.seal"))
                     Text("Chores")
-                        .font(.footnote)
+                        .font(StylingFont.medium)
                         .fontWeight(.light)
                 }
             }
@@ -119,12 +123,11 @@ extension AppView {
                         Image(systemName: "plus.app.fill")
                             .font(.system(size: 40, weight: .bold))
                         Text("New Chore")
-                            .font(.footnote)
+                            .font(StylingFont.medium)
                             .fontWeight(.light)
                     }
                 }
                 .foregroundColor(.acc)
-                // .buttonStyle(.plain)
             }
 
             Spacer()
@@ -134,14 +137,22 @@ extension AppView {
                 VStack {
                     Image(systemName: (selectedTab == .familyTab ? "house.fill" : "house"))
                     Text("Family")
-                        .font(.footnote)
+                        .font(StylingFont.medium)
                         .fontWeight(.light)
                 }
             }
             .foregroundColor(selectedTab == .familyTab ? Color.accLight : Color.accDark)
-            // .buttonStyle(.plain)
             Spacer()
         }
         .overlay(Divider(), alignment: .top)
+    }
+}
+
+// MARK: Additional functionality
+
+extension AppView {
+    enum Tabs: String {
+        case choreTab = "Chores"
+        case familyTab = "Family Members"
     }
 }

@@ -27,7 +27,6 @@ struct UserRewardView: View {
     var body: some View {
         VStack(alignment: .leading) {
             Text(String(format: "Current balance is ", userRewardViewModel.state.balance))
-                .font(StylingFont.regular)
             + Text(String(format: "$%.2f", userRewardViewModel.state.balance))
                 .font(StylingFont.title)
             ScrollView(showsIndicators: false) {
@@ -65,6 +64,7 @@ struct UserGoalView_Previews: PreviewProvider {
             ),
             views: Dependency.preview.views()
         )
+        .font(StylingFont.regular)
         .previewLayout(.sizeThatFits)
     }
 }

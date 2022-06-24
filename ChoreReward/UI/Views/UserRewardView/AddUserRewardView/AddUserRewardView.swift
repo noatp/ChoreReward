@@ -30,7 +30,7 @@ struct AddUserRewardView: View {
             Spacer()
             TextFieldView(title: "Reward name", textInput: $rewardName)
             HStack {
-                Text("$").font(StylingFont.regular)
+                Text("$")
                 TextFieldView(title: "Reward value", textInput: $rewardValue)
             }
             FilledButtonView(buttonTitle: "Add new reward") {
@@ -58,8 +58,8 @@ struct AddUserRewardView_Previews: PreviewProvider {
             ),
             views: Dependency.preview.views()
         )
-        .preferredColorScheme(.dark)
         .previewLayout(.sizeThatFits)
+        .font(StylingFont.regular)
     }
 }
 

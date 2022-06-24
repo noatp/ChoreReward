@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+// MARK: Main Implementaion
+
 struct NavigationBar<LeftItem: View, RightItem: View>: View {
     let title: String
     let leftItem: LeftItem
@@ -38,7 +40,7 @@ struct NavigationBar<LeftItem: View, RightItem: View>: View {
                         Text(title)
                             .lineLimit(1)
                             .truncationMode(.tail)
-                            .font(.system(size: 25, weight: .bold, design: .rounded))
+                            .font(StylingFont.title)
                         Spacer()
                         rightItem
                     }
@@ -55,7 +57,7 @@ struct NavigationBar<LeftItem: View, RightItem: View>: View {
                             Text(title)
                                 .lineLimit(1)
                                 .truncationMode(.tail)
-                                .font(.system(size: 25, weight: .semibold, design: .rounded))
+                                .font(StylingFont.title)
                                 .opacity(opacity)
                             Spacer(minLength: 50)
                         }
@@ -72,6 +74,8 @@ struct NavigationBar<LeftItem: View, RightItem: View>: View {
     }
 }
 
+// MARK: Preview
+
 struct NavigationBar_Previews: PreviewProvider {
     static var previews: some View {
         let leftItem = Button {} label: {
@@ -85,9 +89,12 @@ struct NavigationBar_Previews: PreviewProvider {
             NavigationBar(title: "Navigation Bar", leftItem: leftItem, rightItem: rightItem)
             NavigationBar(title: "Navigation Bar", leftItem: leftItem, rightItem: rightItem, navBarLayout: .leftTitle)
         }
+        .font(StylingFont.regular)
         .previewLayout(.sizeThatFits)
     }
 }
+
+// MARK: Additional functionality
 
 enum NavBarLayout {
     case leftTitle

@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+// MARK: Main Implementaion
+
 struct TextEditorView: View {
     @Binding var textInput: String
     private var title: String
@@ -48,6 +50,8 @@ struct TextEditorView: View {
         .smallVerticalPadding()
     }
 }
+
+// MARK: Preview
 
 struct TextEditorView_Previews: PreviewProvider {
     static var previews: some View {

@@ -27,16 +27,15 @@ struct `ChoreCardView`: View {
                         .multilineTextAlignment(.leading)
                         .lineLimit(1)
                         .truncationMode(.tail)
-                        .font(.system(size: 17, weight: .bold, design: .rounded))
+                        .font(StylingFont.large)
                     Spacer()
                     Text(chore.created.dateTimestamp.formatted(date: .numeric, time: .omitted))
-                        .font(.caption.weight(.thin))
+                        .font(StylingFont.small)
                 }
                 Text(chore.description)
                     .multilineTextAlignment(.leading)
                     .lineLimit(3)
                     .truncationMode(.tail)
-                    .font(.body.weight(.light))
                 Spacer(minLength: 0)
             }
             .padding([.horizontal], 5)
@@ -61,6 +60,7 @@ struct ChoreCardView_Previews: PreviewProvider {
                          description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do",
                          choreImageUrl: "https://s3.amazonaws.com/brt.org/tim-cook.png"
                         ))
-            .previewLayout(.sizeThatFits)
+        .font(StylingFont.regular)
+        .previewLayout(.sizeThatFits)
     }
 }
