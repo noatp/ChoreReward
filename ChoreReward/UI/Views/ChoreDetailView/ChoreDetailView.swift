@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+// MARK: Main Implementaion
+
 struct ChoreDetailView: View {
     @Environment(\.dismiss) private var dismiss
     @ObservedObject var choreDetailViewModel: ObservableViewModel<ChoreDetailState, ChoreDetailAction>
@@ -51,6 +53,8 @@ struct ChoreDetailView: View {
     }
 }
 
+// MARK: Preview
+
 struct ChoreDetailView_Previews: PreviewProvider {
     static var previews: some View {
         ChoreDetailView(
@@ -63,6 +67,8 @@ struct ChoreDetailView_Previews: PreviewProvider {
     }
 }
 
+// MARK: Add to Dependency
+
 extension Dependency.Views {
     func choreDetailView(chore: Chore) -> ChoreDetailView {
         return ChoreDetailView(
@@ -73,6 +79,8 @@ extension Dependency.Views {
         )
     }
 }
+
+// MARK: Subviews
 
 extension ChoreDetailView {
     private var choreDetailText: some View {
@@ -118,10 +126,8 @@ extension ChoreDetailView {
             choreDetailViewModel.perform(action: .completeChore)
         }
     }
-}
 
-extension ChoreDetailView {
-    var dismissButton: some View {
+    private var dismissButton: some View {
         CircularButton(action: {
             dismiss()
         }, icon: "xmark")
