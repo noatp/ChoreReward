@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+// MARK: Main Implementaion
+
 struct UserRewardView: View {
     @Environment(\.dismiss) private var dismiss
     @ObservedObject var userRewardViewModel: ObservableViewModel<UserRewardViewState, UserRewardViewAction>
@@ -53,6 +55,8 @@ struct UserRewardView: View {
     }
 }
 
+// MARK: Preview
+
 struct UserGoalView_Previews: PreviewProvider {
     static var previews: some View {
         UserRewardView(
@@ -61,9 +65,11 @@ struct UserGoalView_Previews: PreviewProvider {
             ),
             views: Dependency.preview.views()
         )
-        .preferredColorScheme(.dark)
+        .previewLayout(.sizeThatFits)
     }
 }
+
+// MARK: Add to Dependency
 
 extension Dependency.Views {
     var userGoalView: UserRewardView {
@@ -73,6 +79,8 @@ extension Dependency.Views {
         )
     }
 }
+
+// MARK: Subviews
 
 extension UserRewardView {
     private var backButton: some View {
