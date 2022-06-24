@@ -123,7 +123,7 @@ extension ChoreDetailView {
             choreDetailViewModel.perform(action: .completeChore)
         }
     }
-    
+
     private var dismissButton: some View {
         CircularButton(action: {
             dismiss()

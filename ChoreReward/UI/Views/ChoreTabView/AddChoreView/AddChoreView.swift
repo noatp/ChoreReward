@@ -27,50 +27,16 @@ struct AddChoreView: View {
 
     var body: some View {
         VStack {
-            Group {
-                if let choreImageUrl = choreImageUrl {
-                    RemoteImageView(imageUrl: choreImageUrl, isThumbnail: false)
-                        .frame(maxWidth: .infinity, maxHeight: 200)
-                        .clipped()
-                } else {
-                    ZStack {
-                        RoundedRectangle(cornerRadius: 12)
-                            .frame(maxWidth: .infinity, maxHeight: 200)
-                            .foregroundColor(.textFieldPlaceholder)
-
-                        Text("Add photo")
-                            .font(StylingFont.regular)
-                    }
-
-                }
-            }
-            .shadow(radius: 1)
-            .padding([.horizontal, .bottom])
-            .onTapGesture {
-                isPresentingImagePicker = true
-            }
+            imagePickerButton
 
             TextFieldView(title: "Title", textInput: $choreTitle)
-                .padding([.horizontal, .bottom])
-            TextFieldView(title: "Reward", textInput: $choreRewardValue)
-                .padding([.horizontal, .bottom])
-            ZStack(alignment: .leading) {
-                TextEditor(text: $choreDescription)
-                    .clipShape(RoundedRectangle(cornerRadius: 12))
-                    .shadow(radius: 1)
-                if choreDescription.isEmpty {
-                    VStack {
-                        Text("Description")
-                            .foregroundColor(.textFieldPlaceholder)
-                            .padding(.all, 8)
 
-                        Spacer()
-                    }
-                }
-            }
-            .padding(.horizontal)
-            .frame(maxHeight: 200)
+            TextFieldView(title: "Reward", textInput: $choreRewardValue)
+
+            TextEditorView(title: "Description", textInput: $choreDescription)
+
             Spacer()
+
             if let choreImageUrl = choreImageUrl {
                 RegularButtonView(buttonTitle: "Create Chore", buttonImage: "plus") {
                     dismiss()
@@ -85,6 +51,7 @@ struct AddChoreView: View {
                 .padding()
             }
         }
+        .padding()
         .vNavBar(NavigationBar(
             title: "Add chore",
             leftItem: dismissButton,
@@ -106,14 +73,8 @@ struct AddChoreView_Previews: PreviewProvider {
             ),
             views: Dependency.preview.views()
         )
-
-        AddChoreView(
-            addChoreViewModel: ObservableViewModel(
-                staticState: AddChoreState()
-            ),
-            views: Dependency.preview.views()
-        )
-        .preferredColorScheme(.dark)
+        .font(StylingFont.regular)
+        .previewLayout(.sizeThatFits)
     }
 }
 
@@ -129,9 +90,33 @@ extension Dependency.Views {
 }
 
 extension AddChoreView {
-    var dismissButton: some View {
+    private var dismissButton: some View {
         CircularButton(action: {
             dismiss()
         }, icon: "xmark")
+    }
+
+    private var imagePickerButton: some View {
+        Group {
+            if let choreImageUrl = choreImageUrl {
+                RemoteImageView(imageUrl: choreImageUrl, isThumbnail: false)
+                    .frame(maxWidth: .infinity, maxHeight: 200)
+                    .clipped()
+            } else {
+                ZStack {
+                    RoundedRectangle(cornerRadius: 12)
+                        .frame(maxWidth: .infinity, maxHeight: 200)
+                        .foregroundColor(.textFieldPlaceholder)
+
+                    Text("Add photo")
+                }
+
+            }
+        }
+        .shadow(radius: 1)
+        .smallVerticalPadding()
+        .onTapGesture {
+            isPresentingImagePicker = true
+        }
     }
 }

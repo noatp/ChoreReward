@@ -84,6 +84,7 @@
 		45E483CA275402F6009DA543 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E483C9275402F6009DA543 /* RootView.swift */; };
 		45E483CC27540305009DA543 /* RootViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E483CB27540305009DA543 /* RootViewModel.swift */; };
 		45E5FB1427E5A65C008B20A8 /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E5FB1327E5A65C008B20A8 /* View.swift */; };
+		45E8605E2865FFE7007E4B80 /* TextEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E8605D2865FFE7007E4B80 /* TextEditorView.swift */; };
 		45EAF0BA27EE6F8B005655D4 /* CircularButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45EAF0B927EE6F8B005655D4 /* CircularButton.swift */; };
 		45EAF0BC27EEA484005655D4 /* EnvironmentKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45EAF0BB27EEA484005655D4 /* EnvironmentKey.swift */; };
 		45EAF0C027FA407A005655D4 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45EAF0BF27FA407A005655D4 /* ImagePicker.swift */; };
@@ -183,6 +184,7 @@
 		45E483C9275402F6009DA543 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		45E483CB27540305009DA543 /* RootViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewModel.swift; sourceTree = "<group>"; };
 		45E5FB1327E5A65C008B20A8 /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
+		45E8605D2865FFE7007E4B80 /* TextEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEditorView.swift; sourceTree = "<group>"; };
 		45EAF0B927EE6F8B005655D4 /* CircularButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularButton.swift; sourceTree = "<group>"; };
 		45EAF0BB27EEA484005655D4 /* EnvironmentKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentKey.swift; sourceTree = "<group>"; };
 		45EAF0BF27FA407A005655D4 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
@@ -519,6 +521,7 @@
 				456D46E727EBFFDA00B2AC07 /* NavigationDrawer */,
 				45EAF0BF27FA407A005655D4 /* ImagePicker.swift */,
 				4509FB382862907600F84B42 /* NavigationBar.swift */,
+				45E8605D2865FFE7007E4B80 /* TextEditorView.swift */,
 			);
 			path = ComponentViews;
 			sourceTree = "<group>";
@@ -785,6 +788,7 @@
 				453AEC1228645BF400907250 /* StylingConstant.swift in Sources */,
 				453CC1AA278807AA002996AF /* AddFamilyMemberViewModel.swift in Sources */,
 				453CC1A22787B41F002996AF /* ObservableViewModel.swift in Sources */,
+				45E8605E2865FFE7007E4B80 /* TextEditorView.swift in Sources */,
 				45ACB4DE2724AEBE000E04A0 /* Reward.swift in Sources */,
 				45429DB1279B608C00FA9670 /* ChoreCardView.swift in Sources */,
 				45F784982793D86F00C8B197 /* AddChoreViewModel.swift in Sources */,
@@ -920,7 +924,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = ChoreReward/ChoreReward.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "\"ChoreReward/Preview Content\"";
@@ -942,7 +946,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = noat.ChoreReward;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = ChoreReward_AppStore;
+				PROVISIONING_PROFILE_SPECIFIER = ChoreReward_Development;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1119,7 +1123,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = ChoreReward/ChoreReward.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "\"ChoreReward/Preview Content\"";
@@ -1141,7 +1145,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = noat.ChoreReward;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = ChoreReward_AppStore;
+				PROVISIONING_PROFILE_SPECIFIER = ChoreReward_Development;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1154,7 +1158,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = ChoreReward/ChoreReward.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "\"ChoreReward/Preview Content\"";
@@ -1176,7 +1180,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = noat.ChoreReward;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = ChoreReward_AppStore;
+				PROVISIONING_PROFILE_SPECIFIER = ChoreReward_Development;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;

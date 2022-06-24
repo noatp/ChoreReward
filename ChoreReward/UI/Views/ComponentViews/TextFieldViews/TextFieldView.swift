@@ -24,34 +24,49 @@ struct TextFieldView: View {
     }
 
     var body: some View {
-        Group {
-            if secured {
-                SecureField(text: $textInput) {
-                    Text(title)
+        ZStack {
+            Group {
+                if secured {
+                    SecureField(text: $textInput) {}
+                } else {
+                    TextField(text: $textInput) {}
                 }
-            } else {
-                TextField(text: $textInput) {
-                    Text(title)
+            }
+            .textFieldStyle(PlainTextFieldStyle())
+            .padding([.horizontal], 15)
+            .cornerRadius(12)
+            .autocapitalization(UITextAutocapitalizationType.none)
+            .disableAutocorrection(true)
+
+            if textInput.isEmpty {
+                VStack {
+                    HStack {
+                        Text(title)
+                            .padding([.leading], 15)
+                            .padding([.top], 10)
+                            .foregroundColor(.textFieldPlaceholder)
+                        Spacer()
+                    }
+                    Spacer()
                 }
+                .allowsHitTesting(false)
             }
         }
         .frame(height: 40)
-        .textFieldStyle(PlainTextFieldStyle())
-        .padding([.horizontal], 15)
-        .cornerRadius(12)
-        .overlay(RoundedRectangle(cornerRadius: 12).stroke(Color.gray))
-        .shadow(radius: 1)
+        .overlay {
+            RoundedRectangle(cornerRadius: 12)
+                .stroke(Color.gray)
+                .shadow(radius: 1)
+        }
         .smallVerticalPadding()
-        .autocapitalization(UITextAutocapitalizationType.none)
-        .disableAutocorrection(true)
     }
 }
 
 struct TextFieldView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            TextFieldView(title: "Preview", textInput: .constant(""), secured: true)
-            TextFieldView(title: "Preview", textInput: .constant(""))
+            TextFieldView(title: "Password", textInput: .constant(""), secured: true)
+            TextFieldView(title: "Name", textInput: .constant(""))
         }
         .previewLayout(.sizeThatFits)
     }
