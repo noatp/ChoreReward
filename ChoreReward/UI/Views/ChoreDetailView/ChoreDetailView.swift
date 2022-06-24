@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import Kingfisher
 
 struct ChoreDetailView: View {
     @Environment(\.dismiss) private var dismiss
@@ -90,14 +89,18 @@ extension ChoreDetailView {
             Text("Detail")
                 .font(StylingFont.large)
             Text(chore.description)
+                .font(StylingFont.regular)
                 .padding(.bottom)
 
             if choreDetailViewModel.state.choreTaken {
                 Text("Chore taken by: \(chore.assigneeId)")
+                    .font(StylingFont.regular)
                 if choreDetailViewModel.state.choreCompleted {
                     Text("Chore is completed on \(chore.completed!.dateTimestamp.formatted(date: .abbreviated, time: .omitted))")
+                        .font(StylingFont.regular)
                 } else {
                     Text("Chore is not completed")
+                        .font(StylingFont.regular)
                 }
             }
         }

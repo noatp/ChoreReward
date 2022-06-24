@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+// MARK: Main Implementaion
+
 struct AddUserRewardView: View {
     @Environment(\.dismiss) private var dismiss
     @ObservedObject var addUserRewardViewModel: ObservableViewModel<AddUserRewardState, AddUserRewardAction>
@@ -25,15 +27,17 @@ struct AddUserRewardView: View {
 
     var body: some View {
         VStack {
+            Spacer()
             TextFieldView(title: "Reward name", textInput: $rewardName)
             HStack {
-                Text("$")
+                Text("$").font(StylingFont.regular)
                 TextFieldView(title: "Reward value", textInput: $rewardValue)
             }
-            RegularButtonView(buttonTitle: "Add new reward") {
+            FilledButtonView(buttonTitle: "Add new reward") {
                 addUserRewardViewModel.perform(action: .addNewReward(name: rewardName, value: rewardValue))
                 dismiss()
             }
+            Spacer()
         }
         .padding()
         .vNavBar(NavigationBar(
@@ -44,6 +48,8 @@ struct AddUserRewardView: View {
     }
 }
 
+// MARK: Preview
+
 struct AddUserRewardView_Previews: PreviewProvider {
     static var previews: some View {
         AddUserRewardView(
@@ -53,8 +59,11 @@ struct AddUserRewardView_Previews: PreviewProvider {
             views: Dependency.preview.views()
         )
         .preferredColorScheme(.dark)
+        .previewLayout(.sizeThatFits)
     }
 }
+
+// MARK: Add to Dependency
 
 extension Dependency.Views {
     var addUserRewardView: AddUserRewardView {
@@ -64,6 +73,8 @@ extension Dependency.Views {
         )
     }
 }
+
+// MARK: Subviews
 
 extension AddUserRewardView {
     var dismissButton: some View {

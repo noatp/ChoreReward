@@ -9,7 +9,6 @@ import SwiftUI
 import Firebase
 import FirebaseAuth
 import FirebaseStorage
-import Kingfisher
 
 @main
 struct ChoreRewardApp: App {
@@ -39,11 +38,6 @@ struct ChoreRewardApp: App {
         """)
 #endif
         self.dependency = .init()
-        let cache = ImageCache.default
-        cache.clearCache()
-        cache.clearDiskCache {
-            print("DONE")
-        }
     }
 
     var body: some Scene {

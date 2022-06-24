@@ -39,6 +39,7 @@ struct AddChoreView: View {
                             .foregroundColor(.textFieldPlaceholder)
 
                         Text("Add photo")
+                            .font(StylingFont.regular)
                     }
 
                 }

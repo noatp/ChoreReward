@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import Kingfisher
 
 struct EditUserProfileView: View {
     @Environment(\.dismiss) private var dismiss

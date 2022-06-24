@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import Kingfisher
 
 struct UserProfileView: View {
     @Environment(\.dismiss) private var dismiss
@@ -34,7 +33,7 @@ struct UserProfileView: View {
             .clipShape(Circle())
             Divider()
             Text(userProfileViewModel.state.currentUserName)
-                .font(.title)
+                .font(StylingFont.large)
 
             HStack {
                 Text("Email:")
