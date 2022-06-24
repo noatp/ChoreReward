@@ -108,7 +108,6 @@ extension AppView {
                     Image(systemName: (selectedTab == .choreTab ? "checkmark.seal.fill" : "checkmark.seal"))
                     Text("Chores")
                         .font(StylingFont.medium)
-                        .fontWeight(.light)
                 }
             }
             .foregroundColor(selectedTab == .choreTab ? Color.accLight : Color.accDark)
@@ -124,7 +123,6 @@ extension AppView {
                             .font(.system(size: 40, weight: .bold))
                         Text("New Chore")
                             .font(StylingFont.medium)
-                            .fontWeight(.light)
                     }
                 }
                 .foregroundColor(.acc)
@@ -138,7 +136,6 @@ extension AppView {
                     Image(systemName: (selectedTab == .familyTab ? "house.fill" : "house"))
                     Text("Family")
                         .font(StylingFont.medium)
-                        .fontWeight(.light)
                 }
             }
             .foregroundColor(selectedTab == .familyTab ? Color.accLight : Color.accDark)
