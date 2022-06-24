@@ -44,6 +44,7 @@ struct ChoreTabView: View {
                                 } label: {
                                     ChoreCardView(chore: chore)
                                 }
+
                                 .transition(.move(edge: choreTabViewModel.state.chorePickerState == .unfinished ? .leading : .trailing))
                             }
                         }
@@ -66,7 +67,15 @@ struct ChoreTabView_Previews: PreviewProvider {
     static var previews: some View {
         ChoreTabView(
             choreTabViewModel: ObservableViewModel(
-                staticState: .empty
+                staticState: .init(
+                    displayingChoreList: [
+                        Chore.previewChoreFinished,
+                        Chore.previewChoreFinished_1,
+                        Chore.previewChoreUnfinished
+                    ],
+                    choreFilterState: .all,
+                    chorePickerState: .unfinished
+                )
             ),
             views: Dependency.preview.views()
         )

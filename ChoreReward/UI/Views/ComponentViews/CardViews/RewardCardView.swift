@@ -10,6 +10,7 @@ import SwiftUI
 // MARK: Main Implementaion
 
 struct RewardCardView: View {
+    @Environment(\.colorScheme) private var colorScheme
     let rewardName: String
     let rewardValue: Float
     let userBalance: Float
@@ -48,6 +49,12 @@ struct RewardCardView: View {
                 .padding(.bottom, 10)
         }
         .padding()
+        .background {
+            colorScheme == .light ?
+            Color.white.shadow(color: .accDark, radius: 3, x: 0, y: 0)
+            : Color.black.shadow(color: .accDark, radius: 3, x: 0, y: 0)
+        }
+        .padding([.bottom], 10)
     }
 }
 

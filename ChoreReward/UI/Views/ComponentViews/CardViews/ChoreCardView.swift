@@ -10,6 +10,7 @@ import SwiftUI
 // MARK: Main Implementaion
 
 struct `ChoreCardView`: View {
+    @Environment(\.colorScheme) private var colorScheme
     private let chore: Chore
 
     init(chore: Chore) {
@@ -40,9 +41,14 @@ struct `ChoreCardView`: View {
             }
             .padding([.horizontal], 5)
         }
-        .frame(maxHeight: 100)
-        .padding([.bottom], 5)
+        .background {
+            colorScheme == .light ?
+            Color.white.shadow(color: .accDark, radius: 3, x: 0, y: 0)
+            : Color.black.shadow(color: .accDark, radius: 3, x: 0, y: 0)
+        }
         .foregroundColor(.fg2)
+        .frame(maxHeight: 100)
+        .padding([.bottom], 10)
     }
 }
 
