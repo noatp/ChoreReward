@@ -149,7 +149,7 @@ extension SignUpView {
             }
 
         }
-        .foregroundColor(.acc)
+        .foregroundColor(.accent)
     }
 
     private var rolePicker: some View {

@@ -42,7 +42,7 @@ struct NavDrawerView<MainContent: View, DrawerContent: View>: View {
                 ZStack(alignment: .leading) {
                     // transparent layer to prevent interaction with main content
                     if presentingSideDrawer {
-                        Color.bg2.opacity(0.4)
+                        Color.bg.opacity(0.4)
                             .ignoresSafeArea()
                             .onTapGesture {
                                 withAnimation(.spring()) {
@@ -77,7 +77,7 @@ struct NavDrawerView<MainContent: View, DrawerContent: View>: View {
                             .padding(.horizontal)
                         }
                         .frame(width: geoProxy.size.width * 0.75)
-                        .background(Color.bg2.ignoresSafeArea())
+                        .background(Color.bg.ignoresSafeArea())
                         .transition(.move(edge: .leading))
                     }
                 }

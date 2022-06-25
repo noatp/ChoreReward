@@ -49,7 +49,7 @@ struct EditUserProfileView: View {
             RegularButtonView(buttonTitle: "Change profile picture", action: {
                 shouldShowActionSheet = true
             })
-            .foregroundColor(.acc)
+            .foregroundColor(.accent)
 
             Divider()
             VStack {
@@ -66,17 +66,20 @@ struct EditUserProfileView: View {
             }
 
             Divider()
-            Button {
+            RegularButtonView(buttonTitle: "Apply changes") {
                 editUserProfileViewModel.perform(action: .updateUserProfile(
                     userName: userName,
                     userEmail: userEmail,
                     newUserImageUrl: userImageUrl,
                     userImageDidChange: userImageDidChange
                 ))
-            } label: {
-                Text("Apply changes")
             }
-            .disabled(userName == "" && userEmail == "" && !userImageDidChange)
+//            Button {
+//                
+//            } label: {
+//                Text("Apply changes")
+//            }
+//            .disabled(userName == "" && userEmail == "" && !userImageDidChange)
         }
         .padding()
         .vNavBar(NavigationBar(

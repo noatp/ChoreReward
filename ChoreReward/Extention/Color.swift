@@ -11,11 +11,8 @@ import SwiftUI
 extension Color {
     static let bg = Color("background")
     static let fg = Color("foreground")
-    static let bg2 = Color("background2")
-    static let bg3 = Color("background3")
-    static let fg2 = Color("foreground2")
-    static let acc = Color("accent")
-    static let accLight = Color("accent-light")
-    static let accDark = Color("accent-dark")
-    static let textFieldPlaceholder = Color("textFieldPlaceholder")
+    static let accent = Color("accent")
+    static let accentSecondary = Color("accentSecondary")
+    static let accentGray = Color("accentGray")
+    static let accentGraySecondary = Color("accentGraySecondary")
 }

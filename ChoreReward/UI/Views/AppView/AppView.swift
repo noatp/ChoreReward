@@ -110,8 +110,7 @@ extension AppView {
                         .font(StylingFont.medium)
                 }
             }
-            .foregroundColor(selectedTab == .choreTab ? Color.accLight : Color.accDark)
-            // .buttonStyle(.plain)
+            .foregroundColor(selectedTab == .choreTab ? Color.accent : Color.accentGray)
             Spacer()
 
             if appViewModel.state.shouldRenderAddChoreButton {
@@ -125,7 +124,7 @@ extension AppView {
                             .font(StylingFont.medium)
                     }
                 }
-                .foregroundColor(.acc)
+                .foregroundColor(.accent)
             }
 
             Spacer()
@@ -138,7 +137,7 @@ extension AppView {
                         .font(StylingFont.medium)
                 }
             }
-            .foregroundColor(selectedTab == .familyTab ? Color.accLight : Color.accDark)
+            .foregroundColor(selectedTab == .familyTab ? Color.accent : Color.accentGray)
             Spacer()
         }
         .overlay(Divider(), alignment: .top)

@@ -44,7 +44,7 @@ struct TextFieldView: View {
                         Text(title)
                             .padding([.leading], 15)
                             .padding([.top], 10)
-                            .foregroundColor(.textFieldPlaceholder)
+                            .foregroundColor(.accentGraySecondary)
                         Spacer()
                     }
                     Spacer()

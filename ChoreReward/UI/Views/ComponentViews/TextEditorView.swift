@@ -33,7 +33,7 @@ struct TextEditorView: View {
                         Text(title)
                             .padding([.leading], 15)
                             .padding([.top], 10)
-                            .foregroundColor(.textFieldPlaceholder)
+                            .foregroundColor(.accentGraySecondary)
                         Spacer()
                     }
                     Spacer()
@@ -41,7 +41,7 @@ struct TextEditorView: View {
                 .allowsHitTesting(false)
             }
         }
-        .frame(height: 200)
+        .frame(height: 100)
         .overlay {
             RoundedRectangle(cornerRadius: 12)
                 .stroke(Color.gray)

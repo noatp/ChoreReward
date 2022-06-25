@@ -80,6 +80,7 @@ struct ChoreTabView_Previews: PreviewProvider {
             views: Dependency.preview.views()
         )
         .previewLayout(.sizeThatFits)
+
     }
 }
 
@@ -101,38 +102,33 @@ extension Dependency.Views {
 extension ChoreTabView {
     private var choreStatusPicker: some View {
         HStack(spacing: 0) {
-            RegularButtonView(buttonTitle: "Unfinished") {
-                choreTabViewModel.perform(action: .updatePickerState(.unfinished))
-            }
-            .padding(.horizontal)
-            .padding(.vertical, 5)
-            .foregroundColor(.fg)
-            .background {
+            VStack(spacing: 5) {
+                RegularButtonView(buttonTitle: "Unfinished") {
+                    choreTabViewModel.perform(action: .updatePickerState(.unfinished))
+                }
                 if choreTabViewModel.state.chorePickerState == .unfinished {
-                    RoundedRectangle(cornerRadius: .infinity)
-                        .foregroundColor(.bg3)
+                    Color.accent
+                        .frame(height: 2)
                         .matchedGeometryEffect(id: "pickerBackground", in: animation)
+                } else {
+                    Color.clear.frame(height: 2)
                 }
             }
-            RegularButtonView(buttonTitle: "Finished", action: {
-                choreTabViewModel.perform(action: .updatePickerState(.finished))
-            })
-            .padding(.horizontal)
-            .padding(.vertical, 5)
-            .foregroundColor(.fg)
-            .background {
+
+            VStack(spacing: 5) {
+                RegularButtonView(buttonTitle: "Finished", action: {
+                    choreTabViewModel.perform(action: .updatePickerState(.finished))
+                })
                 if choreTabViewModel.state.chorePickerState == .finished {
-                    RoundedRectangle(cornerRadius: .infinity)
-                        .foregroundColor(.bg3)
+                    Color.accent
+                        .frame(height: 2)
                         .matchedGeometryEffect(id: "pickerBackground", in: animation)
+                } else {
+                    Color.clear.frame(height: 2)
                 }
             }
         }
-        .background {
-            RoundedRectangle(cornerRadius: .infinity)
-                .foregroundColor(.bg2)
-        }
-        .animation(.easeInOut(duration: 0.2), value: choreTabViewModel.state.chorePickerState)
+        .animation(.spring(), value: choreTabViewModel.state.chorePickerState)
     }
 
     private var filterButton: some View {

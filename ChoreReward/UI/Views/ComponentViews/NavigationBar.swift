@@ -41,6 +41,7 @@ struct NavigationBar<LeftItem: View, RightItem: View>: View {
                             .lineLimit(1)
                             .truncationMode(.tail)
                             .font(StylingFont.title)
+                            .foregroundColor(.accent)
                         Spacer()
                         rightItem
                     }
@@ -54,11 +55,14 @@ struct NavigationBar<LeftItem: View, RightItem: View>: View {
 
                         HStack {
                             Spacer(minLength: 50)
+
                             Text(title)
                                 .lineLimit(1)
                                 .truncationMode(.tail)
                                 .font(StylingFont.title)
+                                .foregroundColor(.accent)
                                 .opacity(opacity)
+
                             Spacer(minLength: 50)
                         }
                     }
