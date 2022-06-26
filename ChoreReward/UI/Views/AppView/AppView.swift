@@ -13,7 +13,8 @@ struct AppView: View {
     @ObservedObject var appViewModel: ObservableViewModel<AppViewState, Void>
     @State var selectedTab: Tabs = .choreTab
     @State var presentingAddChoreView: Bool = false
-    
+    @State var presentedDrawer: Bool = false
+
     private var views: Dependency.Views
 
     init(
@@ -33,10 +34,11 @@ struct AppView: View {
                     // main view
                     switch selectedTab {
                     case .choreTab:
-                        views.choreTabView()
+                        views.choreTabView(presentedDrawer: $presentedDrawer)
                     case .familyTab:
                         views.familyTabView
                     }
+
                     Spacer(minLength: 0)
                     // tab bar
                     tabBar
@@ -44,6 +46,7 @@ struct AppView: View {
             }
             .padding(.vertical)
             .ignoresSafeArea()
+            .sideDrawer(views: views, presentedDrawer: $presentedDrawer)
             .fullScreenCover(isPresented: $presentingAddChoreView) {
                 views.addChoreView()
             }

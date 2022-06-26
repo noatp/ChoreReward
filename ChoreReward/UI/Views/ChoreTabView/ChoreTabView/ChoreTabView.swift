@@ -10,27 +10,24 @@ import SwiftUI
 // MARK: Main Implementaion
 
 struct ChoreTabView: View {
+    @Namespace private var animation
     @ObservedObject var choreTabViewModel: ObservableViewModel<ChoreTabState, ChoreTabAction>
     @State private var presentedFilterDropdown = false
-    @State private var presentedDrawer = false
+    @Binding private var presentedDrawer: Bool
 
-    @Namespace private var animation
     private var views: Dependency.Views
 
     init(
+        presentedDrawer: Binding<Bool>,
         choreTabViewModel: ObservableViewModel<ChoreTabState, ChoreTabAction>,
         views: Dependency.Views
     ) {
+        self._presentedDrawer = presentedDrawer
         self.choreTabViewModel = choreTabViewModel
         self.views = views
     }
 
     var body: some View {
-//        NavDrawerView(views: views, presentedDrawer: $presentedDrawer) {
-//
-//        } drawerContent: {
-//            EmptyView()
-//        }
         VStack(spacing: 0) {
             choreStatusPicker
 
@@ -45,10 +42,8 @@ struct ChoreTabView: View {
                     filterMenu
                 }
             }
-
         }
         .vNavBar(navigationBar)
-        .sideDrawer(views: views, presentedDrawer: $presentedDrawer)
     }
 }
 
@@ -57,6 +52,7 @@ struct ChoreTabView: View {
 struct ChoreTabView_Previews: PreviewProvider {
     static var previews: some View {
         ChoreTabView(
+            presentedDrawer: .constant(false),
             choreTabViewModel: ObservableViewModel(
                 staticState: .init(
                     displayingChoreList: [
@@ -78,8 +74,9 @@ struct ChoreTabView_Previews: PreviewProvider {
 // MARK: Add to Dependency
 
 extension Dependency.Views {
-    func choreTabView() -> ChoreTabView {
+    func choreTabView(presentedDrawer: Binding<Bool>) -> ChoreTabView {
         return ChoreTabView(
+            presentedDrawer: presentedDrawer,
             choreTabViewModel: ObservableViewModel(
                 viewModel: viewModels.choreTabViewModel
             ),
