@@ -139,10 +139,6 @@ extension AddChoreView {
         }
         .disabled(choreTitle.isEmpty || choreDescription.isEmpty || choreRewardValue.isEmpty || choreImageUrl == nil)
     }
-
-    private enum AddChoreFields: Int, Hashable {
-        case title, rewardValue, description
-    }
 }
 
 // MARK: Additional functionality
@@ -157,5 +153,9 @@ extension AddChoreView {
                 choreImageUrl: choreImageUrl!,
                 choreRewardValue: choreRewardValue)
         )
+    }
+
+    private enum AddChoreFields: Int, Hashable {
+        case title, rewardValue, description
     }
 }

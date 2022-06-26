@@ -37,7 +37,7 @@
 		45429DC427A518CC00FA9670 /* ChoreDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45429DC327A518CC00FA9670 /* ChoreDetailView.swift */; };
 		4544C86528617CC800D7B8AB /* AddUserRewardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4544C86428617CC800D7B8AB /* AddUserRewardView.swift */; };
 		4544C86728617CF300D7B8AB /* AddUserRewardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4544C86628617CF300D7B8AB /* AddUserRewardViewModel.swift */; };
-		456D46E927EBFFE800B2AC07 /* NavDrawerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456D46E827EBFFE800B2AC07 /* NavDrawerView.swift */; };
+		456D46E927EBFFE800B2AC07 /* DrawerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456D46E827EBFFE800B2AC07 /* DrawerView.swift */; };
 		456EA4B6278A127E00ADA2CD /* RegularButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456EA4B5278A127E00ADA2CD /* RegularButtonView.swift */; };
 		45750CDC27FC075300274617 /* ChoreTabDrawerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45750CDB27FC075300274617 /* ChoreTabDrawerView.swift */; };
 		45750CDE27FCE4B700274617 /* FamilyTabDrawerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45750CDD27FCE4B700274617 /* FamilyTabDrawerView.swift */; };
@@ -141,7 +141,7 @@
 		45429DC327A518CC00FA9670 /* ChoreDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoreDetailView.swift; sourceTree = "<group>"; };
 		4544C86428617CC800D7B8AB /* AddUserRewardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddUserRewardView.swift; sourceTree = "<group>"; };
 		4544C86628617CF300D7B8AB /* AddUserRewardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddUserRewardViewModel.swift; sourceTree = "<group>"; };
-		456D46E827EBFFE800B2AC07 /* NavDrawerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavDrawerView.swift; sourceTree = "<group>"; };
+		456D46E827EBFFE800B2AC07 /* DrawerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawerView.swift; sourceTree = "<group>"; };
 		456EA4B5278A127E00ADA2CD /* RegularButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegularButtonView.swift; sourceTree = "<group>"; };
 		45750CDB27FC075300274617 /* ChoreTabDrawerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoreTabDrawerView.swift; sourceTree = "<group>"; };
 		45750CDD27FCE4B700274617 /* FamilyTabDrawerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyTabDrawerView.swift; sourceTree = "<group>"; };
@@ -377,7 +377,7 @@
 		456D46E727EBFFDA00B2AC07 /* NavigationDrawer */ = {
 			isa = PBXGroup;
 			children = (
-				456D46E827EBFFE800B2AC07 /* NavDrawerView.swift */,
+				456D46E827EBFFE800B2AC07 /* DrawerView.swift */,
 				45750CDA27FC073900274617 /* Drawers */,
 			);
 			path = NavigationDrawer;
@@ -799,7 +799,7 @@
 				4509FB392862907600F84B42 /* NavigationBar.swift in Sources */,
 				453C84B02863CA6C008E6215 /* FilledButtonView.swift in Sources */,
 				45EAF0BC27EEA484005655D4 /* EnvironmentKey.swift in Sources */,
-				456D46E927EBFFE800B2AC07 /* NavDrawerView.swift in Sources */,
+				456D46E927EBFFE800B2AC07 /* DrawerView.swift in Sources */,
 				453C84B72863F9FA008E6215 /* PasswordTextField.swift in Sources */,
 				45ACB4AC2724AD1A000E04A0 /* ChoreRewardApp.swift in Sources */,
 				45E5FB1427E5A65C008B20A8 /* View.swift in Sources */,

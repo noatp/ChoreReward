@@ -13,6 +13,7 @@ struct AppView: View {
     @ObservedObject var appViewModel: ObservableViewModel<AppViewState, Void>
     @State var selectedTab: Tabs = .choreTab
     @State var presentingAddChoreView: Bool = false
+    
     private var views: Dependency.Views
 
     init(
@@ -28,10 +29,17 @@ struct AppView: View {
             views.noFamilyView
         } else {
             NavigationView {
-                views.navDrawerView(navTitle: selectedTab.rawValue) {
-                    mainContent
-                } drawerContent: {
-                    drawerContent
+                VStack {
+                    // main view
+                    switch selectedTab {
+                    case .choreTab:
+                        views.choreTabView()
+                    case .familyTab:
+                        views.familyTabView
+                    }
+                    Spacer(minLength: 0)
+                    // tab bar
+                    tabBar
                 }
             }
             .padding(.vertical)
@@ -71,32 +79,6 @@ extension Dependency.Views {
 // MARK: Subviews
 
 extension AppView {
-    var mainContent: some View {
-        VStack {
-            // main view
-            switch selectedTab {
-            case .choreTab:
-                views.choreTabView()
-            case .familyTab:
-                views.familyTabView
-            }
-            Spacer(minLength: 0)
-            // tab bar
-            tabBar
-        }
-    }
-
-    var drawerContent: some View {
-        VStack {
-            switch selectedTab {
-            case .choreTab:
-                ChoreTabDrawerView()
-            case .familyTab:
-                FamilyTabDrawerView()
-            }
-            Spacer(minLength: 0)
-        }
-    }
 
     var tabBar: some View {
         HStack {

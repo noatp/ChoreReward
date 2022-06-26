@@ -7,60 +7,40 @@
 
 import SwiftUI
 
-struct NavDrawerView<MainContent: View, DrawerContent: View>: View {
-    @State var presentingSideDrawer: Bool = false
+struct DrawerView<MainContent: View, DrawerContent: View>: View {
+    @Binding private var presentedDrawer: Bool
 
     private var views: Dependency.Views
     private let mainContent: MainContent
     private let drawerContent: DrawerContent
-    private let navTitle: String
 
     init(
-        navTitle: String,
         views: Dependency.Views,
+        presentedDrawer: Binding<Bool>,
         mainContent: () -> MainContent,
         drawerContent: () -> DrawerContent
     ) {
-        self.navTitle = navTitle
+        self.views = views
+        self._presentedDrawer = presentedDrawer
         self.mainContent = mainContent()
         self.drawerContent = drawerContent()
-        self.views = views
     }
 
     var body: some View {
         ZStack {
             mainContent
-                .vNavBar(NavigationBar(
-                    title: navTitle,
-                    leftItem: menuButton,
-                    rightItem: EmptyView(),
-                    navBarLayout: .leftTitle
-                ))
 
             // side drawer content
             GeometryReader { geoProxy in
                 ZStack(alignment: .leading) {
                     // transparent layer to prevent interaction with main content
-                    if presentingSideDrawer {
-                        Color.bg.opacity(0.4)
-                            .ignoresSafeArea()
-                            .onTapGesture {
-                                withAnimation(.spring()) {
-                                    presentingSideDrawer = false
-                                }
-                            }
-                            .transition(.opacity)
+                    if presentedDrawer {
+                        transparentBackground
 
                         // side menu
                         HStack(spacing: 0) {
                             VStack {
-                                RegularButtonView(buttonImage: "xmark", action: {
-                                    withAnimation {
-                                        presentingSideDrawer = false
-                                    }
-                                })
-                                .foregroundColor(.fg)
-
+                                drawerDismissButton
                                 Spacer()
                             }
                             .padding(.horizontal)
@@ -68,9 +48,7 @@ struct NavDrawerView<MainContent: View, DrawerContent: View>: View {
                             Divider()
 
                             VStack(alignment: .leading) {
-                                drawerContent
-                                Spacer()
-                                    .frame(maxWidth: .infinity)
+                                Spacer().frame(maxWidth: .infinity)
                                 basicDrawerContent
                             }
                             .foregroundColor(.fg)
@@ -88,34 +66,37 @@ struct NavDrawerView<MainContent: View, DrawerContent: View>: View {
 
 struct SideDrawerView_Previews: PreviewProvider {
     static var previews: some View {
-        NavDrawerView(
-            navTitle: "Preview",
-            views: Dependency.preview.views()
+        DrawerView<Text, EmptyView>(
+            views: Dependency.preview.views(), presentedDrawer: .constant(false)
         ) {
             Text("This is a Preview of NavDrawerView")
         } drawerContent: {
-            ChoreTabDrawerView()
+            EmptyView()
         }
     }
 }
 
-extension Dependency.Views {
-    func navDrawerView<MainContent: View, DrawerContent: View>(
-        navTitle: String,
-        mainContent: () -> MainContent,
-        drawerContent: () -> DrawerContent
-    ) -> NavDrawerView<MainContent, DrawerContent> {
-        return NavDrawerView(
-            navTitle: navTitle,
-            views: self,
-            mainContent: mainContent,
-            drawerContent: drawerContent
-        )
+extension DrawerView {
+    private var transparentBackground: some View {
+        Color.bg.opacity(0.4)
+            .ignoresSafeArea()
+            .onTapGesture {
+                withAnimation(.spring()) {
+                    presentedDrawer = false
+                }
+            }
+            .transition(.opacity)
     }
-}
 
-extension NavDrawerView {
-    var basicDrawerContent: some View {
+    private var drawerDismissButton: some View {
+        RegularButtonView(buttonImage: "xmark", action: {
+            withAnimation {
+                presentedDrawer = false
+            }
+        })
+    }
+
+    private var basicDrawerContent: some View {
         VStack(alignment: .leading) {
             NavigationLink {
                 views.userGoalView
@@ -145,15 +126,5 @@ extension NavDrawerView {
             .padding([.horizontal, .top])
         }
     }
-}
 
-extension NavDrawerView {
-    var menuButton: some View {
-        RegularButtonView(buttonImage: "line.3.horizontal", action: {
-            withAnimation {
-                presentingSideDrawer = true
-            }
-        })
-        .foregroundColor(.fg)
-    }
 }

@@ -11,8 +11,9 @@ import SwiftUI
 
 struct ChoreTabView: View {
     @ObservedObject var choreTabViewModel: ObservableViewModel<ChoreTabState, ChoreTabAction>
-    @State private var presentedSheet = false
-    @State private var presentFilterMenu = false
+    @State private var presentedFilterDropdown = false
+    @State private var presentedDrawer = false
+
     @Namespace private var animation
     private var views: Dependency.Views
 
@@ -25,39 +26,29 @@ struct ChoreTabView: View {
     }
 
     var body: some View {
+//        NavDrawerView(views: views, presentedDrawer: $presentedDrawer) {
+//
+//        } drawerContent: {
+//            EmptyView()
+//        }
         VStack(spacing: 0) {
-            filterAndPickerBar
+            choreStatusPicker
 
             ZStack {
                 if choreTabViewModel.state.displayingChoreList.isEmpty {
-                    VStack {
-                        Spacer()
-                        Text("No chores")
-                        Spacer()
-                    }
+                    emptyChoreList
                 } else {
-                    ScrollView(showsIndicators: false) {
-                        LazyVStack(spacing: 0) {
-                            ForEach(choreTabViewModel.state.displayingChoreList) {chore in
-                                NavigationLink {
-                                    views.choreDetailView(chore: chore)
-                                } label: {
-                                    ChoreCardView(chore: chore)
-                                }
-
-                                .transition(.move(edge: choreTabViewModel.state.chorePickerState == .unfinished ? .leading : .trailing))
-                            }
-                        }
-                        .animation(.easeInOut, value: choreTabViewModel.state.chorePickerState)
-                    }
+                    choreList
                 }
 
-                if presentFilterMenu {
+                if presentedFilterDropdown {
                     filterMenu
                 }
             }
 
         }
+        .vNavBar(navigationBar)
+        .sideDrawer(views: views, presentedDrawer: $presentedDrawer)
     }
 }
 
@@ -134,7 +125,7 @@ extension ChoreTabView {
     private var filterButton: some View {
         RegularButtonView(buttonTitle: "Filter", buttonImage: "tray") {
             withAnimation(.easeInOut(duration: 0.2)) {
-                presentFilterMenu.toggle()
+                presentedFilterDropdown.toggle()
             }
         }
         .foregroundColor(.white)
@@ -146,12 +137,12 @@ extension ChoreTabView {
                 Divider()
                 RegularButtonView(buttonTitle: "All", buttonImage: "house") {
                     choreTabViewModel.perform(action: .updateFilterState(.all))
-                    presentFilterMenu.toggle()
+                    presentedFilterDropdown.toggle()
                 }
                 Divider()
                 RegularButtonView(buttonTitle: "Yours", buttonImage: "person") {
                     choreTabViewModel.perform(action: .updateFilterState(.takenByCurrentUser))
-                    presentFilterMenu.toggle()
+                    presentedFilterDropdown.toggle()
                 }
 
             }
@@ -163,13 +154,46 @@ extension ChoreTabView {
 
     }
 
-    private var filterAndPickerBar: some View {
-        HStack {
-            choreStatusPicker
-            Spacer()
-            filterButton
-        }
-        .padding([.leading, .bottom, .trailing])
-        .background(Color.bg)
+    private var menuButton: some View {
+        RegularButtonView(buttonImage: "line.3.horizontal", action: {
+            withAnimation {
+                presentedDrawer = true
+            }
+        })
     }
+
+    private var navigationBar: some View {
+        NavigationBar(
+            title: "Chore",
+            leftItem: menuButton,
+            rightItem: filterButton,
+            navBarLayout: .leftTitle
+        )
+    }
+
+    private var choreList: some View {
+        ScrollView(showsIndicators: false) {
+            LazyVStack(spacing: 0) {
+                ForEach(choreTabViewModel.state.displayingChoreList) {chore in
+                    NavigationLink {
+                        views.choreDetailView(chore: chore)
+                    } label: {
+                        ChoreCardView(chore: chore)
+                    }
+
+                    .transition(.move(edge: choreTabViewModel.state.chorePickerState == .unfinished ? .leading : .trailing))
+                }
+            }
+            .animation(.easeInOut, value: choreTabViewModel.state.chorePickerState)
+        }
+    }
+
+    private var emptyChoreList: some View {
+        VStack {
+            Spacer()
+            Text("No chores")
+            Spacer()
+        }
+    }
+
 }

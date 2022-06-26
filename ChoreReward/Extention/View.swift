@@ -39,6 +39,18 @@ extension View {
         .navigationBarHidden(true)
     }
 
+    func sideDrawer(
+        views: Dependency.Views,
+        presentedDrawer: Binding<Bool>
+    ) -> some View {
+        return DrawerView(
+            views: views,
+            presentedDrawer: presentedDrawer,
+            mainContent: {self},
+            drawerContent: {EmptyView()}
+        )
+    }
+
     func smallVerticalPadding() -> some View {
         return self.padding([.vertical], 5)
     }
