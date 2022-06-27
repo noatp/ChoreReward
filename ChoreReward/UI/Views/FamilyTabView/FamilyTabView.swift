@@ -7,15 +7,21 @@
 
 import SwiftUI
 
+// MARK: Main Implementaion
+
 struct FamilyTabView: View {
     @ObservedObject var familyTabViewModel: ObservableViewModel<FamilyTabState, Void>
-    @State var presentedSheet = false
+    @State var presentedAddMemberSheet = false
+    @Binding private var presentedDrawer: Bool
+
     private var views: Dependency.Views
 
     init(
+        presentedDrawer: Binding<Bool>,
         familyTabViewModel: ObservableViewModel<FamilyTabState, Void>,
         views: Dependency.Views
     ) {
+        self._presentedDrawer = presentedDrawer
         self.familyTabViewModel = familyTabViewModel
         self.views = views
     }
@@ -27,29 +33,26 @@ struct FamilyTabView: View {
                     UserCardView(user: member)
                 }
             }
-            VStack {
-                Spacer()
-                HStack {
-                    Spacer()
-                    if familyTabViewModel.state.shouldRenderAddMemberButton {
-                        CircularButton(action: {
-                            presentedSheet = true
-                        }, icon: "plus")
-                        .padding()
-                    }
-                }
-            }
         }
         .padding()
-        .fullScreenCover(isPresented: $presentedSheet) {
+        .vNavBar(NavigationBar(
+            title: "Family",
+            leftItem: menuButton,
+            rightItem: addFamilyMemberButton,
+            navBarLayout: .leftTitle
+        ))
+        .fullScreenCover(isPresented: $presentedAddMemberSheet) {
             views.addFamilyMemberView()
         }
     }
 }
 
+// MARK: Preview
+
 struct FamilyListView_Previews: PreviewProvider {
     static var previews: some View {
         FamilyTabView(
+            presentedDrawer: .constant(false),
             familyTabViewModel: .init(
                 staticState: .init(
                     members: [DenormUser.preview],
@@ -62,11 +65,32 @@ struct FamilyListView_Previews: PreviewProvider {
     }
 }
 
+// MARK: Add to Dependency
+
 extension Dependency.Views {
-    var familyTabView: FamilyTabView {
+    func familyTabView(presentedDrawer: Binding<Bool>) -> FamilyTabView {
         return FamilyTabView(
+            presentedDrawer: presentedDrawer,
             familyTabViewModel: ObservableViewModel(viewModel: viewModels.familyTabViewModel),
             views: self
         )
+    }
+}
+
+// MARK: Subviews
+
+extension FamilyTabView {
+    private var menuButton: some View {
+        RegularButtonView(buttonImage: "line.3.horizontal", action: {
+            withAnimation {
+                presentedDrawer = true
+            }
+        })
+    }
+
+    private var addFamilyMemberButton: some View {
+        RegularButtonView(buttonImage: "plus") {
+            presentedAddMemberSheet = true
+        }
     }
 }

@@ -36,7 +36,7 @@ struct AppView: View {
                     case .choreTab:
                         views.choreTabView(presentedDrawer: $presentedDrawer)
                     case .familyTab:
-                        views.familyTabView
+                        views.familyTabView(presentedDrawer: $presentedDrawer)
                     }
 
                     Spacer(minLength: 0)

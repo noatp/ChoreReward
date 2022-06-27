@@ -19,7 +19,7 @@ extension View {
         })
     }
 
-    func vNavBar<NavBarContent: View>(_ navBarContent: NavBarContent) -> some View {
+    func vNavBar<LeftItem: View, RightItem: View>(_ navBarContent: NavigationBar<LeftItem, RightItem>) -> some View {
         return VStack(alignment: .leading, spacing: 0) {
             navBarContent
             self
@@ -28,7 +28,7 @@ extension View {
         .navigationBarHidden(true)
     }
 
-    func zNavBar<NavBarContent: View>(_ navBarContent: NavBarContent) -> some View {
+    func zNavBar<LeftItem: View, RightItem: View>(_ navBarContent: NavigationBar<LeftItem, RightItem>) -> some View {
         return ZStack {
             self
             VStack {

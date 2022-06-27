@@ -43,7 +43,12 @@ struct ChoreTabView: View {
                 }
             }
         }
-        .vNavBar(navigationBar)
+        .vNavBar(NavigationBar(
+            title: "Chore",
+            leftItem: menuButton,
+            rightItem: filterButton,
+            navBarLayout: .leftTitle
+        ))
     }
 }
 
@@ -157,15 +162,6 @@ extension ChoreTabView {
                 presentedDrawer = true
             }
         })
-    }
-
-    private var navigationBar: some View {
-        NavigationBar(
-            title: "Chore",
-            leftItem: menuButton,
-            rightItem: filterButton,
-            navBarLayout: .leftTitle
-        )
     }
 
     private var choreList: some View {
