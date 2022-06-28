@@ -31,20 +31,20 @@ class RootViewModel: StatefulViewModel {
     func addSubscription() {
         authStateSubscription = userService.$authState
             .sink(receiveValue: {[weak self] authState in
-                print("Here \(authState)")
-                guard let oldState = self?._state else {
+                guard let strongSelf = self else {
                     return
                 }
+
+                print("Here \(authState)")
+
                 switch authState {
                 case .signedIn:
-                    self?._state = .init(
-                        shouldRenderLoginView: false,
-                        shouldRenderProgressView: oldState.shouldRenderProgressView
+                    strongSelf._state = .init(
+                        shouldRenderLoginView: false
                     )
                 case .signedOut:
-                    self?._state = .init(
-                        shouldRenderLoginView: true,
-                        shouldRenderProgressView: oldState.shouldRenderProgressView
+                    strongSelf._state = .init(
+                        shouldRenderLoginView: true
                     )
                 }
             })
@@ -55,9 +55,8 @@ class RootViewModel: StatefulViewModel {
 
 struct RootViewState {
     let shouldRenderLoginView: Bool
-    let shouldRenderProgressView: Bool
 
-    static let empty: RootViewState = .init(shouldRenderLoginView: true, shouldRenderProgressView: false)
+    static let empty: RootViewState = .init(shouldRenderLoginView: true)
 }
 
 extension Dependency.ViewModels {
