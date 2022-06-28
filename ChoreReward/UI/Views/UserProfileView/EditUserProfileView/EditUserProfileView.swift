@@ -57,11 +57,15 @@ struct EditUserProfileView: View {
                     Text("Name: ")
                         .frame(width: 60)
                     TextFieldView(title: editUserProfileViewModel.state.currentUserName, textInput: $userName)
+                        .textContentType(.name)
+                        .keyboardType(.namePhonePad)
                 }
                 HStack {
                     Text("Email: ")
                         .frame(width: 60)
                     TextFieldView(title: editUserProfileViewModel.state.currentUserEmail, textInput: $userEmail)
+                        .textContentType(.password)
+                        .keyboardType(.emailAddress)
                 }
             }
 

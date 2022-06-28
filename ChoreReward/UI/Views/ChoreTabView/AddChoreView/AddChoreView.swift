@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Combine
 
 // MARK: Main Implementaion
 
@@ -29,60 +30,50 @@ struct AddChoreView: View {
     }
 
     var body: some View {
-        GeometryReader { proxy in
-            ScrollView(showsIndicators: false) {
-                VStack {
-                    if let choreImageUrl = choreImageUrl {
-                        RemoteImageView(imageUrl: choreImageUrl, isThumbnail: false)
-                            .frame(maxWidth: proxy.size.width, minHeight: 200, maxHeight: 300)
-                            .clipped()
-                            .smallVerticalPadding()
-                            .onTapGesture {
-                                isPresentingImagePicker = true
-                            }
-                    } else {
-                        RoundedRectangle(cornerRadius: 12)
-                            .stroke(Color.gray)
-                            .frame(maxWidth: proxy.size.width, minHeight: 200, maxHeight: 300)
-                            .foregroundColor(.clear)
-                            .shadow(radius: 1)
-                            .overlay {
-                                Text("Add photo").foregroundColor(.accentGraySecondary)
-                            }
-                            .smallVerticalPadding()
-                            .onTapGesture {
-                                isPresentingImagePicker = true
-                            }
-                    }
 
-                    TextFieldView(title: "Title", textInput: $choreTitle)
-                        .submitLabel(.next)
-                        .focused($focusedField, equals: .title)
-                        .onSubmit {
-                            focusedField = .rewardValue
+        VStack {
+
+            Form {
+                if let choreImageUrl = choreImageUrl {
+                    RemoteImageView(imageUrl: choreImageUrl, isThumbnail: false)
+                        .frame(maxWidth: .infinity, minHeight: 200, maxHeight: 300)
+                        .clipped()
+                        .smallVerticalPadding()
+                        .onTapGesture {
+                            isPresentingImagePicker = true
                         }
-
-                    TextFieldView(title: "Reward", textInput: $choreRewardValue)
+                } else {
+                    RegularButton(buttonTitle: "Add photo", buttonImage: "plus") {
+                        isPresentingImagePicker = true
+                    }
+                }
+                TextField("Title", text: $choreTitle)
+                    .submitLabel(.next)
+                    .focused($focusedField, equals: .title)
+                    .onSubmit {
+                        focusedField = .rewardValue
+                    }
+                HStack {
+                    Text("$")
+                    TextField("Reward Amount", text: $choreRewardValue)
                         .submitLabel(.next)
                         .focused($focusedField, equals: .rewardValue)
                         .onSubmit {
                             focusedField = .description
                         }
+                }
 
-                    TextEditorView(title: "Description", textInput: $choreDescription)
+                Section("Description", content: {
+                    TextEditor(text: $choreDescription)
                         .submitLabel(.done)
                         .focused($focusedField, equals: .description)
                         .onSubmit {
                             focusedField = .none
                         }
-
-                    addButton
-                    Spacer()
-                }
-                .frame(height: proxy.size.height)
+                })
             }
+
         }
-        .padding()
         .vNavBar(NavigationBar(
             title: "Add chore",
             leftItem: dismissButton,
@@ -107,7 +98,6 @@ struct AddChoreView_Previews: PreviewProvider {
             views: Dependency.preview.views()
         )
         .font(StylingFont.regular)
-        .previewLayout(.sizeThatFits)
     }
 }
 

@@ -34,13 +34,16 @@ struct LoginView: View {
                         Text("Chore Reward")
                             .font(.system(size: 40, weight: .bold, design: .rounded))
                         Spacer()
-                        EmailTextField(textInput: $emailInput)
+                        TextFieldView(title: "Email", textInput: $emailInput)
+                            .textContentType(.emailAddress)
+                            .keyboardType(.emailAddress)
                             .submitLabel(.next)
                             .focused($focusedField, equals: .email)
                             .onSubmit {
                                 focusedField = .password
                             }
-                        PasswordTextField(textInput: $passwordInput)
+                        TextFieldView(title: "Password", textInput: $passwordInput, secured: true)
+                            .textContentType(.password)
                             .submitLabel(.done)
                             .focused($focusedField, equals: .password)
                             .onSubmit {

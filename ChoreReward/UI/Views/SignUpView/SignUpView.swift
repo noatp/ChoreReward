@@ -40,20 +40,25 @@ struct SignUpView: View {
 
                     rolePicker
                         .smallVerticalPadding()
-                    NameTextField(textInput: $nameInput)
+                    TextFieldView(title: "Name", textInput: $nameInput)
+                        .textContentType(.name)
+                        .keyboardType(.namePhonePad)
                         .submitLabel(.next)
                         .focused($focusedField, equals: .name)
                         .onSubmit {
                             focusedField = .email
                         }
-                    EmailTextField(textInput: $emailInput)
+                    TextFieldView(title: "Email", textInput: $emailInput)
+                        .textContentType(.emailAddress)
+                        .keyboardType(.emailAddress)
                         .submitLabel(.next)
                         .focused($focusedField, equals: .email
                         )
                         .onSubmit {
                             focusedField = .password
                         }
-                    PasswordTextField(textInput: $passwordInput)
+                    TextFieldView(title: "Password", textInput: $passwordInput, secured: true)
+                        .textContentType(.password)
                         .submitLabel(.done)
                         .focused($focusedField, equals: .password)
                         .onSubmit {

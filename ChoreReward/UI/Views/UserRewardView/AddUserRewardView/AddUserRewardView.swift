@@ -14,6 +14,7 @@ struct AddUserRewardView: View {
     @ObservedObject var addUserRewardViewModel: ObservableViewModel<AddUserRewardState, AddUserRewardAction>
     @State var rewardName: String = ""
     @State var rewardValue: String = ""
+    @FocusState private var focusedField: AddUserRewardFields?
 
     private var views: Dependency.Views
 
@@ -29,13 +30,22 @@ struct AddUserRewardView: View {
         VStack {
             Spacer()
             TextFieldView(title: "Reward name", textInput: $rewardName)
+                .submitLabel(.next)
+                .focused($focusedField, equals: .name)
+                .onSubmit {
+                    focusedField = .rewardAmount
+                }
+
             HStack {
                 Text("$")
                 TextFieldView(title: "Reward value", textInput: $rewardValue)
-            }
-            FilledButton(buttonTitle: "Add new reward") {
-                addUserRewardViewModel.perform(action: .addNewReward(name: rewardName, value: rewardValue))
-                dismiss()
+                    .submitLabel(.done)
+                    .keyboardType(.numberPad)
+                    .focused($focusedField, equals: .rewardAmount)
+                    .onSubmit {
+                        focusedField = .none
+                        addNewReward()
+                    }
             }
             Spacer()
         }
@@ -43,7 +53,7 @@ struct AddUserRewardView: View {
         .vNavBar(NavigationBar(
             title: "Add reward",
             leftItem: dismissButton,
-            rightItem: EmptyView()
+            rightItem: addRewardButton
         ))
     }
 }
@@ -81,5 +91,24 @@ extension AddUserRewardView {
         CircularButton(action: {
             dismiss()
         }, icon: "xmark")
+    }
+
+    var addRewardButton: some View {
+        RegularButton(buttonTitle: "Done") {
+            addNewReward()
+        }
+    }
+}
+
+// MARK: Additional functionality
+
+extension AddUserRewardView {
+    private func addNewReward() {
+        addUserRewardViewModel.perform(action: .addNewReward(name: rewardName, value: rewardValue))
+        dismiss()
+    }
+
+    private enum AddUserRewardFields: Int, Hashable {
+        case name, rewardAmount
     }
 }

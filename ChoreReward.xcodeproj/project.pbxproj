@@ -24,9 +24,6 @@
 		45395C5F272B2E2700F50B70 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 45395C5E272B2E2700F50B70 /* GoogleService-Info.plist */; };
 		453AEC1228645BF400907250 /* StylingConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453AEC1128645BF400907250 /* StylingConstant.swift */; };
 		453C84B02863CA6C008E6215 /* FilledButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453C84AF2863CA6C008E6215 /* FilledButton.swift */; };
-		453C84B32863F31C008E6215 /* NameTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453C84B22863F31C008E6215 /* NameTextField.swift */; };
-		453C84B52863F961008E6215 /* EmailTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453C84B42863F961008E6215 /* EmailTextField.swift */; };
-		453C84B72863F9FA008E6215 /* PasswordTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453C84B62863F9FA008E6215 /* PasswordTextField.swift */; };
 		453CC1A22787B41F002996AF /* ObservableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453CC1A12787B41F002996AF /* ObservableViewModel.swift */; };
 		453CC1A62787FBFB002996AF /* ChoreTabViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453CC1A52787FBFB002996AF /* ChoreTabViewModel.swift */; };
 		453CC1A827880047002996AF /* ChoreTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453CC1A727880047002996AF /* ChoreTabView.swift */; };
@@ -129,9 +126,6 @@
 		45395C5E272B2E2700F50B70 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		453AEC1128645BF400907250 /* StylingConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StylingConstant.swift; sourceTree = "<group>"; };
 		453C84AF2863CA6C008E6215 /* FilledButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilledButton.swift; sourceTree = "<group>"; };
-		453C84B22863F31C008E6215 /* NameTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameTextField.swift; sourceTree = "<group>"; };
-		453C84B42863F961008E6215 /* EmailTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailTextField.swift; sourceTree = "<group>"; };
-		453C84B62863F9FA008E6215 /* PasswordTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordTextField.swift; sourceTree = "<group>"; };
 		453CC1A12787B41F002996AF /* ObservableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableViewModel.swift; sourceTree = "<group>"; };
 		453CC1A52787FBFB002996AF /* ChoreTabViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoreTabViewModel.swift; sourceTree = "<group>"; };
 		453CC1A727880047002996AF /* ChoreTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoreTabView.swift; sourceTree = "<group>"; };
@@ -306,9 +300,6 @@
 			isa = PBXGroup;
 			children = (
 				45D7AE8B27346E9900A53812 /* TextFieldView.swift */,
-				453C84B22863F31C008E6215 /* NameTextField.swift */,
-				453C84B42863F961008E6215 /* EmailTextField.swift */,
-				453C84B62863F9FA008E6215 /* PasswordTextField.swift */,
 			);
 			path = TextFieldViews;
 			sourceTree = "<group>";
@@ -754,7 +745,6 @@
 			files = (
 				4538D045283A288D00368C98 /* ImageView.swift in Sources */,
 				45DCD52E2779660700A1037B /* NoFamilyView.swift in Sources */,
-				453C84B52863F961008E6215 /* EmailTextField.swift in Sources */,
 				45E483CA275402F6009DA543 /* RootView.swift in Sources */,
 				456EA4B6278A127E00ADA2CD /* RegularButton.swift in Sources */,
 				45EAF0C027FA407A005655D4 /* ImagePicker.swift in Sources */,
@@ -767,7 +757,6 @@
 				45429DC227A518B600FA9670 /* ChoreDetailViewModel.swift in Sources */,
 				45A4754A279215A100322BCE /* ChoreRepository.swift in Sources */,
 				45750CDE27FCE4B700274617 /* FamilyTabDrawerView.swift in Sources */,
-				453C84B32863F31C008E6215 /* NameTextField.swift in Sources */,
 				45ACB4DC2724AE00000E04A0 /* Chore.swift in Sources */,
 				4544C86528617CC800D7B8AB /* AddUserRewardView.swift in Sources */,
 				4583C12B285E717300E77427 /* UserRewardView.swift in Sources */,
@@ -804,7 +793,6 @@
 				453C84B02863CA6C008E6215 /* FilledButton.swift in Sources */,
 				45EAF0BC27EEA484005655D4 /* EnvironmentKey.swift in Sources */,
 				456D46E927EBFFE800B2AC07 /* DrawerView.swift in Sources */,
-				453C84B72863F9FA008E6215 /* PasswordTextField.swift in Sources */,
 				45ACB4AC2724AD1A000E04A0 /* ChoreRewardApp.swift in Sources */,
 				45E5FB1427E5A65C008B20A8 /* View.swift in Sources */,
 				45FC9A25285FC217009EC84C /* RewardCardView.swift in Sources */,
