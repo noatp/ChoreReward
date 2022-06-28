@@ -35,8 +35,8 @@ struct NavigationBar<LeftItem: View, RightItem: View>: View {
             HStack {
                 switch navBarLayout {
                 case .leftTitle:
-                    HStack {
-                        leftItem.frame(width: 30, height: 30, alignment: .center)
+                    HStack(spacing: 0) {
+                        leftItem
                         Text(title)
                             .lineLimit(1)
                             .truncationMode(.tail)
@@ -68,7 +68,7 @@ struct NavigationBar<LeftItem: View, RightItem: View>: View {
                     }
                 }
             }
-            .padding([.leading, .bottom, .trailing])
+            .padding([.bottom])
             .background(
                 Color.bg.ignoresSafeArea(edges: .top)
                     .opacity(opacity)
@@ -81,20 +81,29 @@ struct NavigationBar<LeftItem: View, RightItem: View>: View {
 // MARK: Preview
 
 struct NavigationBar_Previews: PreviewProvider {
-    static var previews: some View {
-        let leftItem = Button {} label: {
-            Image(systemName: "chevron.left")
-        }
+    static let leftItem = Button {} label: {
+        RegularButton(buttonImage: "chevron.left", action: {})
+    }
 
-        let rightItem = Button {} label: {
-            Text("Next")
-        }
+    static let rightItem = Button {} label: {
+        RegularButton(buttonTitle: "Next", action: {})
+    }
+    static var previews: some View {
+
         return Group {
-            NavigationBar(title: "Navigation Bar", leftItem: leftItem, rightItem: rightItem)
-            NavigationBar(title: "Navigation Bar", leftItem: leftItem, rightItem: rightItem, navBarLayout: .leftTitle)
+            VStack {
+                Text("Preview")
+            }
+            .vNavBar(NavigationBar(title: "Navigation Bar", leftItem: leftItem, rightItem: rightItem, navBarLayout: .leftTitle))
+
+            VStack {
+                Text("Preview")
+            }
+            .zNavBar(NavigationBar(title: "Navigation Bar", leftItem: leftItem, rightItem: rightItem))
+
         }
         .font(StylingFont.regular)
-        .previewLayout(.sizeThatFits)
+        .preferredColorScheme(.dark)
     }
 }
 

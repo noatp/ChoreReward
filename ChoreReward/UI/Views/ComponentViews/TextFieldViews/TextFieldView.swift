@@ -43,7 +43,7 @@ struct TextFieldView: View {
                     HStack {
                         Text(title)
                             .padding([.leading], 15)
-                            .padding([.top], 10)
+                            .padding([.top], 12)
                             .foregroundColor(.accentGraySecondary)
                         Spacer()
                     }
@@ -52,7 +52,7 @@ struct TextFieldView: View {
                 .allowsHitTesting(false)
             }
         }
-        .frame(height: 40)
+        .tappableFrame()
         .overlay {
             RoundedRectangle(cornerRadius: 12)
                 .stroke(Color.gray)

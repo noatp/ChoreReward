@@ -1,13 +1,13 @@
 //
-//  FilledButtonView.swift
+//  ButtonView.swift
 //  ChoreReward
 //
-//  Created by Toan Pham on 6/22/22.
+//  Created by Toan Pham on 1/8/22.
 //
 
 import SwiftUI
 
-struct FilledButtonView: View {
+struct RegularButton: View {
     private let action: () -> Void
     private let buttonTitle: String?
     private let buttonImage: String?
@@ -35,37 +35,35 @@ struct FilledButtonView: View {
                 }
             }
         }
-        .buttonStyle(FilledButton())
+        .smallHorizontalPadding()
+        .tappableFrame()
+        .buttonStyle(RegularButtonStyle())
+
     }
 }
 
-struct FilledButtonView_Previews: PreviewProvider {
+struct RegularButton_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            FilledButtonView(buttonTitle: "Preview", buttonImage: "person") {
+            RegularButton(buttonTitle: "Preview", buttonImage: "person") {
 
             }
-            FilledButtonView(buttonImage: "person") {
+            RegularButton(buttonImage: "person") {
 
             }
-            FilledButtonView(buttonTitle: "Log in") {
+            RegularButton(buttonTitle: "Log in") {
 
             }
         }
-        .padding()
+        .background(Color.bg)
         .previewLayout(.sizeThatFits)
     }
 }
 
-struct FilledButton: ButtonStyle {
+struct RegularButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
-            .padding()
-            .frame(maxWidth: .infinity, maxHeight: 40)
-            .background(Color.bg)
             .foregroundColor(.fg)
-            .clipShape(RoundedRectangle(cornerRadius: 12))
-            .shadow(radius: 1)
             .scaleEffect(configuration.isPressed ? 1.2 : 1)
             .animation(.easeOut(duration: 0.2), value: configuration.isPressed)
     }

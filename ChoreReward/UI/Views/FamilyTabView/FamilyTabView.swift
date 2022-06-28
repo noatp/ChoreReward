@@ -81,7 +81,7 @@ extension Dependency.Views {
 
 extension FamilyTabView {
     private var menuButton: some View {
-        RegularButtonView(buttonImage: "line.3.horizontal", action: {
+        RegularButton(buttonImage: "line.3.horizontal", action: {
             withAnimation {
                 presentedDrawer = true
             }
@@ -89,7 +89,7 @@ extension FamilyTabView {
     }
 
     private var addFamilyMemberButton: some View {
-        RegularButtonView(buttonImage: "plus") {
+        RegularButton(buttonImage: "plus") {
             presentedAddMemberSheet = true
         }
     }

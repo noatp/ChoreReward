@@ -26,6 +26,9 @@ extension View {
             Spacer(minLength: 0)
         }
         .navigationBarHidden(true)
+        .background {
+            Color.clear.ignoresSafeArea()
+        }
     }
 
     func zNavBar<LeftItem: View, RightItem: View>(_ navBarContent: NavigationBar<LeftItem, RightItem>) -> some View {
@@ -37,6 +40,9 @@ extension View {
             }
         }
         .navigationBarHidden(true)
+        .background {
+            Color.clear.ignoresSafeArea()
+        }
     }
 
     func sideDrawer(
@@ -53,5 +59,13 @@ extension View {
 
     func smallVerticalPadding() -> some View {
         return self.padding([.vertical], 5)
+    }
+
+    func smallHorizontalPadding() -> some View {
+        return self.padding([.horizontal], 5)
+    }
+
+    func tappableFrame() -> some View {
+        return self.frame(minWidth: StylingSize.tappableWidth, minHeight: StylingSize.tappableHeight, maxHeight: StylingSize.tappableHeight)
     }
 }

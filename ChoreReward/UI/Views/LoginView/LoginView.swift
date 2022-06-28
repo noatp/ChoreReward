@@ -47,7 +47,7 @@ struct LoginView: View {
                                 login()
                             }
 
-                        FilledButtonView(buttonTitle: "Log in", buttonImage: "arrow.forward.to.line") {
+                        FilledButton(buttonTitle: "Log in", buttonImage: "arrow.forward.to.line") {
                             login()
                         }
                         .smallVerticalPadding()
@@ -81,7 +81,7 @@ struct LoginView: View {
                         loginViewModel.perform(action: .updateShouldAlertState(newState: newState))
                     })
             ) {
-                RegularButtonView(buttonTitle: "OK") {}
+                RegularButton(buttonTitle: "OK") {}
             }
         }
 

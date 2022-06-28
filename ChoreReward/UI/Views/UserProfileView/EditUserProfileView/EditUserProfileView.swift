@@ -46,7 +46,7 @@ struct EditUserProfileView: View {
             .frame(width: 200, height: 200, alignment: .center)
             .clipShape(Circle())
 
-            RegularButtonView(buttonTitle: "Change profile picture", action: {
+            RegularButton(buttonTitle: "Change profile picture", action: {
                 shouldShowActionSheet = true
             })
             .foregroundColor(.accent)
@@ -66,7 +66,7 @@ struct EditUserProfileView: View {
             }
 
             Divider()
-            RegularButtonView(buttonTitle: "Apply changes") {
+            RegularButton(buttonTitle: "Apply changes") {
                 editUserProfileViewModel.perform(action: .updateUserProfile(
                     userName: userName,
                     userEmail: userEmail,
@@ -74,12 +74,6 @@ struct EditUserProfileView: View {
                     userImageDidChange: userImageDidChange
                 ))
             }
-//            Button {
-//                
-//            } label: {
-//                Text("Apply changes")
-//            }
-//            .disabled(userName == "" && userEmail == "" && !userImageDidChange)
         }
         .padding()
         .vNavBar(NavigationBar(
@@ -138,7 +132,7 @@ extension Dependency.Views {
 
 extension EditUserProfileView {
     var backButton: some View {
-        RegularButtonView(buttonImage: "chevron.left") {
+        RegularButton(buttonImage: "chevron.left") {
             dismiss()
         }
     }

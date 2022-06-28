@@ -19,16 +19,16 @@ struct CircularButton: View {
     }
 
     var body: some View {
-        Button {
-            action()
-        } label: {
+        CustomizableRegularButton {
             Image(systemName: icon)
-                .font(.body.bold())
-                .frame(width: 40, height: 40)
-                .foregroundColor(Color.fg)
-                .background(Color.bg)
-                .clipShape(Circle())
+                .tappableFrame()
+                .background {
+                    Color.bg.clipShape(Circle())
+                }
+        } action: {
+            action()
         }
+
     }
 }
 
@@ -38,5 +38,6 @@ struct CircularButton_Previews: PreviewProvider {
     static var previews: some View {
         CircularButton(action: {}, icon: "xmark")
             .previewLayout(.sizeThatFits)
+            .preferredColorScheme(.dark)
     }
 }

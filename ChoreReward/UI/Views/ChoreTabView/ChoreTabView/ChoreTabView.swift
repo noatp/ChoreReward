@@ -71,7 +71,7 @@ struct ChoreTabView_Previews: PreviewProvider {
             ),
             views: Dependency.preview.views()
         )
-        .previewLayout(.sizeThatFits)
+        .preferredColorScheme(.dark)
 
     }
 }
@@ -94,38 +94,52 @@ extension Dependency.Views {
 
 extension ChoreTabView {
     private var choreStatusPicker: some View {
-        HStack(spacing: 0) {
-            VStack(spacing: 5) {
-                RegularButtonView(buttonTitle: "Unfinished") {
-                    choreTabViewModel.perform(action: .updatePickerState(.unfinished))
-                }
-                if choreTabViewModel.state.chorePickerState == .unfinished {
-                    Color.accent
-                        .frame(height: 2)
-                        .matchedGeometryEffect(id: "pickerBackground", in: animation)
-                } else {
-                    Color.clear.frame(height: 2)
-                }
-            }
+        VStack(spacing: 0) {
+            HStack(spacing: 0) {
+                VStack(spacing: 5) {
+                    CustomizableRegularButton {
+                        Text("Unfinished")
+                            .frame(maxWidth: .infinity)
+                    } action: {
+                        choreTabViewModel.perform(action: .updatePickerState(.unfinished))
+                    }
 
-            VStack(spacing: 5) {
-                RegularButtonView(buttonTitle: "Finished", action: {
-                    choreTabViewModel.perform(action: .updatePickerState(.finished))
-                })
-                if choreTabViewModel.state.chorePickerState == .finished {
-                    Color.accent
-                        .frame(height: 2)
-                        .matchedGeometryEffect(id: "pickerBackground", in: animation)
-                } else {
-                    Color.clear.frame(height: 2)
+                    if choreTabViewModel.state.chorePickerState == .unfinished {
+                        Color.accent
+                            .frame(height: 3)
+                            .matchedGeometryEffect(id: "pickerBackground", in: animation)
+                    } else {
+                        Color.clear.frame(height: 3)
+                    }
+                }
+
+                VStack(spacing: 5) {
+                    CustomizableRegularButton {
+                        Text("Finished")
+                            .frame(maxWidth: .infinity)
+                    } action: {
+                        choreTabViewModel.perform(action: .updatePickerState(.finished))
+                    }
+
+                    if choreTabViewModel.state.chorePickerState == .finished {
+                        Color.accent
+                            .frame(height: 3)
+                            .matchedGeometryEffect(id: "pickerBackground", in: animation)
+                    } else {
+                        Color.clear.frame(height: 3)
+                    }
                 }
             }
+            Color.accentGraySecondary.frame(maxHeight: 1)
+        }
+        .background {
+            Color.bg
         }
         .animation(.spring(), value: choreTabViewModel.state.chorePickerState)
     }
 
     private var filterButton: some View {
-        RegularButtonView(buttonTitle: "Filter", buttonImage: "tray") {
+        RegularButton(buttonTitle: "Filter", buttonImage: "tray") {
             withAnimation(.easeInOut(duration: 0.2)) {
                 presentedFilterDropdown.toggle()
             }
@@ -137,12 +151,19 @@ extension ChoreTabView {
         VStack {
             VStack(alignment: .leading) {
                 Divider()
-                RegularButtonView(buttonTitle: "All", buttonImage: "house") {
+                CustomizableRegularButton {
+                    Text("All")
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                } action: {
                     choreTabViewModel.perform(action: .updateFilterState(.all))
                     presentedFilterDropdown.toggle()
                 }
+
                 Divider()
-                RegularButtonView(buttonTitle: "Yours", buttonImage: "person") {
+                CustomizableRegularButton {
+                    Text("Yours")
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                } action: {
                     choreTabViewModel.perform(action: .updateFilterState(.takenByCurrentUser))
                     presentedFilterDropdown.toggle()
                 }
@@ -157,7 +178,7 @@ extension ChoreTabView {
     }
 
     private var menuButton: some View {
-        RegularButtonView(buttonImage: "line.3.horizontal", action: {
+        RegularButton(buttonImage: "line.3.horizontal", action: {
             withAnimation {
                 presentedDrawer = true
             }
@@ -166,7 +187,7 @@ extension ChoreTabView {
 
     private var choreList: some View {
         ScrollView(showsIndicators: false) {
-            LazyVStack(spacing: 0) {
+            VStack(spacing: 0) {
                 ForEach(choreTabViewModel.state.displayingChoreList) {chore in
                     NavigationLink {
                         views.choreDetailView(chore: chore)

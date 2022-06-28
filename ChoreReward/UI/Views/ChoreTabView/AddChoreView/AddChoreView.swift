@@ -134,7 +134,7 @@ extension AddChoreView {
     }
 
     private var addButton: some View {
-        RegularButtonView(buttonTitle: "Done") {
+        RegularButton(buttonTitle: "Done") {
             addChoreAndDismiss()
         }
         .disabled(choreTitle.isEmpty || choreDescription.isEmpty || choreRewardValue.isEmpty || choreImageUrl == nil)

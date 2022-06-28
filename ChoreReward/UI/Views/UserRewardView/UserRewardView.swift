@@ -84,13 +84,13 @@ extension Dependency.Views {
 
 extension UserRewardView {
     private var backButton: some View {
-        RegularButtonView(buttonImage: "chevron.left") {
+        RegularButton(buttonImage: "chevron.left") {
             dismiss()
         }
     }
 
     private var addRewardButton: some View {
-        RegularButtonView(buttonImage: "plus") {
+        RegularButton(buttonImage: "plus") {
             presentSheet = true
         }
 

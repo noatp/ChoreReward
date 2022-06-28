@@ -60,7 +60,7 @@ struct SignUpView: View {
                             signUp()
                         }
 
-                    FilledButtonView(buttonTitle: "Sign up.", buttonImage: "arrow.turn.right.up") {
+                    FilledButton(buttonTitle: "Sign up.", buttonImage: "arrow.turn.right.up") {
                         signUp()
                     }
                     .smallVerticalPadding()
@@ -91,7 +91,7 @@ struct SignUpView: View {
                     signUpViewModel.perform(action: .updateShouldAlertState(newState: newState))
                 })
         ) {
-            RegularButtonView(buttonTitle: "OK") {}
+            RegularButton(buttonTitle: "OK") {}
         }
     }
 
@@ -124,7 +124,7 @@ extension Dependency.Views {
 
 extension SignUpView {
     private var backButton: some View {
-        RegularButtonView(buttonImage: "chevron.left") {
+        RegularButton(buttonImage: "chevron.left") {
             dismiss()
         }
     }

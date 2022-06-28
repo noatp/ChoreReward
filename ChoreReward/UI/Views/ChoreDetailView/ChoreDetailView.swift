@@ -63,7 +63,7 @@ struct ChoreDetailView_Previews: PreviewProvider {
             ),
             views: Dependency.preview.views()
         )
-        .previewLayout(.sizeThatFits)
+//        .previewLayout(.sizeThatFits)
         .font(StylingFont.regular)
     }
 }
@@ -113,13 +113,13 @@ extension ChoreDetailView {
     }
 
     private var takeChoreButton: some View {
-        RegularButtonView(buttonTitle: "Take chore", buttonImage: "figure.wave") {
+        RegularButton(buttonTitle: "Take chore", buttonImage: "figure.wave") {
             choreDetailViewModel.perform(action: .takeChore)
         }
     }
 
     private var completeChoreButton: some View {
-        RegularButtonView(buttonTitle: "Complete chore", buttonImage: "checkmark.seal.fill") {
+        RegularButton(buttonTitle: "Complete chore", buttonImage: "checkmark.seal.fill") {
             choreDetailViewModel.perform(action: .completeChore)
         }
     }

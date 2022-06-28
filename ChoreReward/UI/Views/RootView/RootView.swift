@@ -22,24 +22,13 @@ struct RootView: View {
 
     var body: some View {
         ZStack {
-            if rootViewModel.state.shouldRenderLoginView {
-                views.loginView
-            } else {
-                views.appView
-            }
-            if rootViewModel.state.shouldRenderProgressView {
-                VStack {
-                    Spacer()
-                    ProgressView()
-                        .shadow(
-                            color: Color(red: 0, green: 0, blue: 0.6),
-                            radius: 4.0, x: 1.0, y: 2.0)
-                        .frame(maxWidth: .infinity)
-
-                    Spacer()
-                }
-                .background(Color.fg.opacity(0.7))
-            }
+            views.appView
+                .fullScreenCover(
+                    isPresented: Binding(get: {
+                        rootViewModel.state.shouldRenderLoginView
+                    }, set: {_ in})) {
+                        views.loginView
+                    }
         }
     }
 }

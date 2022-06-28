@@ -26,5 +26,6 @@ struct NameTextField: View {
 struct NameTextField_Previews: PreviewProvider {
     static var previews: some View {
         NameTextField.init(textInput: .constant(""))
+            .previewLayout(.sizeThatFits)
     }
 }

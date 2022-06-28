@@ -25,5 +25,6 @@ struct PasswordTextField: View {
 struct PasswordTextField_Previews: PreviewProvider {
     static var previews: some View {
         PasswordTextField.init(textInput: .constant(""))
+            .previewLayout(.sizeThatFits)
     }
 }

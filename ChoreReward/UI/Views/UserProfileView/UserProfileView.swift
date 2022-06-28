@@ -57,7 +57,7 @@ struct UserProfileView: View {
                 }
             }
 
-            FilledButtonView(buttonTitle: "Log out", buttonImage: "arrow.backward.to.line") {
+            FilledButton(buttonTitle: "Log out", buttonImage: "arrow.backward.to.line") {
                 userProfileViewModel.perform(action: .signOut)
             }
         }
@@ -104,7 +104,7 @@ extension Dependency.Views {
 
 extension UserProfileView {
     var backButton: some View {
-        RegularButtonView(buttonImage: "chevron.left") {
+        RegularButton(buttonImage: "chevron.left") {
             dismiss()
         }
     }

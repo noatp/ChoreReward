@@ -26,10 +26,10 @@ struct AppView: View {
     }
 
     var body: some View {
-        if appViewModel.state.shouldPresentNoFamilyView {
-            views.noFamilyView
-        } else {
-            NavigationView {
+        NavigationView {
+            if appViewModel.state.shouldPresentNoFamilyView {
+                views.noFamilyView
+            } else {
                 VStack {
                     // main view
                     switch selectedTab {
@@ -43,14 +43,11 @@ struct AppView: View {
                     // tab bar
                     tabBar
                 }
+                .sideDrawer(views: views, presentedDrawer: $presentedDrawer)
+                .fullScreenCover(isPresented: $presentingAddChoreView) {
+                    views.addChoreView()
+                }
             }
-            .padding(.vertical)
-            .ignoresSafeArea()
-            .sideDrawer(views: views, presentedDrawer: $presentedDrawer)
-            .fullScreenCover(isPresented: $presentingAddChoreView) {
-                views.addChoreView()
-            }
-
         }
     }
 }
@@ -64,7 +61,7 @@ struct AppView_Previews: PreviewProvider {
             views: Dependency.preview.views()
         )
         .font(StylingFont.regular)
-        .preferredColorScheme(.light)
+        .preferredColorScheme(.dark)
     }
 }
 
@@ -125,7 +122,9 @@ extension AppView {
             .foregroundColor(selectedTab == .familyTab ? Color.accent : Color.accentGray)
             Spacer()
         }
-        .overlay(Divider(), alignment: .top)
+        .background {
+            Color.bg.ignoresSafeArea()
+        }
     }
 }
 

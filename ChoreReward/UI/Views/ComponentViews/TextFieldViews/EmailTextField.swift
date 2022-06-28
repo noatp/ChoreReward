@@ -26,5 +26,6 @@ struct EmailTextField: View {
 struct EmailTextField_Previews: PreviewProvider {
     static var previews: some View {
         EmailTextField.init(textInput: .constant(""))
+            .previewLayout(.sizeThatFits)
     }
 }

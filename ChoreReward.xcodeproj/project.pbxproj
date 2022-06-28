@@ -23,7 +23,7 @@
 		45395C5D272B2A6B00F50B70 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 45395C5C272B2A6B00F50B70 /* Assets.xcassets */; };
 		45395C5F272B2E2700F50B70 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 45395C5E272B2E2700F50B70 /* GoogleService-Info.plist */; };
 		453AEC1228645BF400907250 /* StylingConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453AEC1128645BF400907250 /* StylingConstant.swift */; };
-		453C84B02863CA6C008E6215 /* FilledButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453C84AF2863CA6C008E6215 /* FilledButtonView.swift */; };
+		453C84B02863CA6C008E6215 /* FilledButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453C84AF2863CA6C008E6215 /* FilledButton.swift */; };
 		453C84B32863F31C008E6215 /* NameTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453C84B22863F31C008E6215 /* NameTextField.swift */; };
 		453C84B52863F961008E6215 /* EmailTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453C84B42863F961008E6215 /* EmailTextField.swift */; };
 		453C84B72863F9FA008E6215 /* PasswordTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453C84B62863F9FA008E6215 /* PasswordTextField.swift */; };
@@ -38,7 +38,7 @@
 		4544C86528617CC800D7B8AB /* AddUserRewardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4544C86428617CC800D7B8AB /* AddUserRewardView.swift */; };
 		4544C86728617CF300D7B8AB /* AddUserRewardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4544C86628617CF300D7B8AB /* AddUserRewardViewModel.swift */; };
 		456D46E927EBFFE800B2AC07 /* DrawerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456D46E827EBFFE800B2AC07 /* DrawerView.swift */; };
-		456EA4B6278A127E00ADA2CD /* RegularButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456EA4B5278A127E00ADA2CD /* RegularButtonView.swift */; };
+		456EA4B6278A127E00ADA2CD /* RegularButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456EA4B5278A127E00ADA2CD /* RegularButton.swift */; };
 		45750CDC27FC075300274617 /* ChoreTabDrawerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45750CDB27FC075300274617 /* ChoreTabDrawerView.swift */; };
 		45750CDE27FCE4B700274617 /* FamilyTabDrawerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45750CDD27FCE4B700274617 /* FamilyTabDrawerView.swift */; };
 		4583C12B285E717300E77427 /* UserRewardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4583C12A285E717300E77427 /* UserRewardView.swift */; };
@@ -85,6 +85,7 @@
 		45E483CC27540305009DA543 /* RootViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E483CB27540305009DA543 /* RootViewModel.swift */; };
 		45E5FB1427E5A65C008B20A8 /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E5FB1327E5A65C008B20A8 /* View.swift */; };
 		45E8605E2865FFE7007E4B80 /* TextEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E8605D2865FFE7007E4B80 /* TextEditorView.swift */; };
+		45E86060286AA3C1007E4B80 /* CustomizableRegularButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E8605F286AA3C1007E4B80 /* CustomizableRegularButton.swift */; };
 		45EAF0BA27EE6F8B005655D4 /* CircularButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45EAF0B927EE6F8B005655D4 /* CircularButton.swift */; };
 		45EAF0BC27EEA484005655D4 /* EnvironmentKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45EAF0BB27EEA484005655D4 /* EnvironmentKey.swift */; };
 		45EAF0C027FA407A005655D4 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45EAF0BF27FA407A005655D4 /* ImagePicker.swift */; };
@@ -127,7 +128,7 @@
 		45395C5C272B2A6B00F50B70 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		45395C5E272B2E2700F50B70 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		453AEC1128645BF400907250 /* StylingConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StylingConstant.swift; sourceTree = "<group>"; };
-		453C84AF2863CA6C008E6215 /* FilledButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilledButtonView.swift; sourceTree = "<group>"; };
+		453C84AF2863CA6C008E6215 /* FilledButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilledButton.swift; sourceTree = "<group>"; };
 		453C84B22863F31C008E6215 /* NameTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameTextField.swift; sourceTree = "<group>"; };
 		453C84B42863F961008E6215 /* EmailTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailTextField.swift; sourceTree = "<group>"; };
 		453C84B62863F9FA008E6215 /* PasswordTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordTextField.swift; sourceTree = "<group>"; };
@@ -142,7 +143,7 @@
 		4544C86428617CC800D7B8AB /* AddUserRewardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddUserRewardView.swift; sourceTree = "<group>"; };
 		4544C86628617CF300D7B8AB /* AddUserRewardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddUserRewardViewModel.swift; sourceTree = "<group>"; };
 		456D46E827EBFFE800B2AC07 /* DrawerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawerView.swift; sourceTree = "<group>"; };
-		456EA4B5278A127E00ADA2CD /* RegularButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegularButtonView.swift; sourceTree = "<group>"; };
+		456EA4B5278A127E00ADA2CD /* RegularButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegularButton.swift; sourceTree = "<group>"; };
 		45750CDB27FC075300274617 /* ChoreTabDrawerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoreTabDrawerView.swift; sourceTree = "<group>"; };
 		45750CDD27FCE4B700274617 /* FamilyTabDrawerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyTabDrawerView.swift; sourceTree = "<group>"; };
 		4583C12A285E717300E77427 /* UserRewardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRewardView.swift; sourceTree = "<group>"; };
@@ -185,6 +186,7 @@
 		45E483CB27540305009DA543 /* RootViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewModel.swift; sourceTree = "<group>"; };
 		45E5FB1327E5A65C008B20A8 /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
 		45E8605D2865FFE7007E4B80 /* TextEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEditorView.swift; sourceTree = "<group>"; };
+		45E8605F286AA3C1007E4B80 /* CustomizableRegularButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomizableRegularButton.swift; sourceTree = "<group>"; };
 		45EAF0B927EE6F8B005655D4 /* CircularButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularButton.swift; sourceTree = "<group>"; };
 		45EAF0BB27EEA484005655D4 /* EnvironmentKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentKey.swift; sourceTree = "<group>"; };
 		45EAF0BF27FA407A005655D4 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
@@ -293,8 +295,9 @@
 			isa = PBXGroup;
 			children = (
 				45EAF0B927EE6F8B005655D4 /* CircularButton.swift */,
-				456EA4B5278A127E00ADA2CD /* RegularButtonView.swift */,
-				453C84AF2863CA6C008E6215 /* FilledButtonView.swift */,
+				456EA4B5278A127E00ADA2CD /* RegularButton.swift */,
+				453C84AF2863CA6C008E6215 /* FilledButton.swift */,
+				45E8605F286AA3C1007E4B80 /* CustomizableRegularButton.swift */,
 			);
 			path = ButtonViews;
 			sourceTree = "<group>";
@@ -753,7 +756,7 @@
 				45DCD52E2779660700A1037B /* NoFamilyView.swift in Sources */,
 				453C84B52863F961008E6215 /* EmailTextField.swift in Sources */,
 				45E483CA275402F6009DA543 /* RootView.swift in Sources */,
-				456EA4B6278A127E00ADA2CD /* RegularButtonView.swift in Sources */,
+				456EA4B6278A127E00ADA2CD /* RegularButton.swift in Sources */,
 				45EAF0C027FA407A005655D4 /* ImagePicker.swift in Sources */,
 				45DCD52C277965E900A1037B /* NoFamilyViewModel.swift in Sources */,
 				45ACB4AE2724AD1A000E04A0 /* ContentView.swift in Sources */,
@@ -783,6 +786,7 @@
 				458C76BD2851736000119E68 /* Date.swift in Sources */,
 				45D7AE9327347D2900A53812 /* User.swift in Sources */,
 				4583C133285EB7EC00E77427 /* RewardService.swift in Sources */,
+				45E86060286AA3C1007E4B80 /* CustomizableRegularButton.swift in Sources */,
 				45B2FF4328106A9800120921 /* EditUserProfileViewModel.swift in Sources */,
 				45D8D39D275E784E0026ABE3 /* UserProfileViewModel.swift in Sources */,
 				453AEC1228645BF400907250 /* StylingConstant.swift in Sources */,
@@ -797,7 +801,7 @@
 				45C1FA672767ABBB00BF11E3 /* FamilyService.swift in Sources */,
 				453CC1A62787FBFB002996AF /* ChoreTabViewModel.swift in Sources */,
 				4509FB392862907600F84B42 /* NavigationBar.swift in Sources */,
-				453C84B02863CA6C008E6215 /* FilledButtonView.swift in Sources */,
+				453C84B02863CA6C008E6215 /* FilledButton.swift in Sources */,
 				45EAF0BC27EEA484005655D4 /* EnvironmentKey.swift in Sources */,
 				456D46E927EBFFE800B2AC07 /* DrawerView.swift in Sources */,
 				453C84B72863F9FA008E6215 /* PasswordTextField.swift in Sources */,

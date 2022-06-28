@@ -43,9 +43,9 @@ struct DrawerView<MainContent: View, DrawerContent: View>: View {
                                 drawerDismissButton
                                 Spacer()
                             }
-                            .padding(.horizontal)
 
                             Divider()
+                                .ignoresSafeArea()
 
                             VStack(alignment: .leading) {
                                 Spacer().frame(maxWidth: .infinity)
@@ -53,26 +53,39 @@ struct DrawerView<MainContent: View, DrawerContent: View>: View {
                             }
                             .foregroundColor(.fg)
                             .padding(.horizontal)
+
+                            Color.accentGraySecondary
+                                .ignoresSafeArea()
+                                .frame(maxWidth: 2)
                         }
                         .frame(width: geoProxy.size.width * 0.75)
-                        .background(Color.bg.ignoresSafeArea())
+                        .background(
+                            Color.bg.ignoresSafeArea()
+                        )
                         .transition(.move(edge: .leading))
                     }
                 }
             }
+
         }
     }
 }
 
 struct SideDrawerView_Previews: PreviewProvider {
+    static let leftItem = Button {} label: {
+        RegularButton(buttonImage: "chevron.left", action: {})
+    }
+
+    static let rightItem = Button {} label: {
+        RegularButton(buttonTitle: "Next", action: {})
+    }
     static var previews: some View {
-        DrawerView<Text, EmptyView>(
-            views: Dependency.preview.views(), presentedDrawer: .constant(false)
-        ) {
-            Text("This is a Preview of NavDrawerView")
-        } drawerContent: {
-            EmptyView()
+        VStack {
+            Text("This is a Preview of NavDrawerVie")
         }
+        .vNavBar(NavigationBar(title: "Navigation Bar", leftItem: leftItem, rightItem: rightItem, navBarLayout: .leftTitle))
+        .sideDrawer(views: Dependency.preview.views(), presentedDrawer: .constant(true))
+        .preferredColorScheme(.light)
     }
 }
 
@@ -89,11 +102,11 @@ extension DrawerView {
     }
 
     private var drawerDismissButton: some View {
-        RegularButtonView(buttonImage: "xmark", action: {
+        CircularButton(action: {
             withAnimation {
                 presentedDrawer = false
             }
-        })
+        }, icon: "xmark")
     }
 
     private var basicDrawerContent: some View {
@@ -106,7 +119,6 @@ extension DrawerView {
                     Text("Your Reward")
                 }
             }
-            // .buttonStyle(.plain)
             .padding([.horizontal, .top])
 
             NavigationLink {
@@ -117,13 +129,8 @@ extension DrawerView {
                     Text("Your Profile")
                 }
             }
-            // .buttonStyle(.plain)
             .padding([.horizontal, .top])
 
-            RegularButtonView(buttonTitle: "Settings", buttonImage: "gearshape") {
-
-            }
-            .padding([.horizontal, .top])
         }
     }
 

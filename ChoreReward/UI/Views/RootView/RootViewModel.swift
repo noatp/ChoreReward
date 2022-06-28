@@ -31,6 +31,7 @@ class RootViewModel: StatefulViewModel {
     func addSubscription() {
         authStateSubscription = userService.$authState
             .sink(receiveValue: {[weak self] authState in
+                print("Here \(authState)")
                 guard let oldState = self?._state else {
                     return
                 }
