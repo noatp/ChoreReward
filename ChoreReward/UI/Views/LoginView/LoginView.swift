@@ -78,10 +78,10 @@ struct LoginView: View {
                 loginViewModel.state.errorMessage,
                 isPresented: Binding<Bool>(
                     get: {
-                        loginViewModel.state.shouldAlert
+                        loginViewModel.state.shouldShowAlert
                     },
                     set: { newState in
-                        loginViewModel.perform(action: .updateShouldAlertState(newState: newState))
+                        loginViewModel.perform(action: .updateShouldShowAlertState(newState: newState))
                     })
             ) {
                 RegularButton(buttonTitle: "OK") {}

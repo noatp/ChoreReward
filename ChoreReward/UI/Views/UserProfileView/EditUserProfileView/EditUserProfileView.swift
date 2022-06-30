@@ -7,11 +7,14 @@
 
 import SwiftUI
 
+// MARK: Main Implementation
+
 struct EditUserProfileView: View {
     @Environment(\.dismiss) private var dismiss
     @ObservedObject var editUserProfileViewModel: ObservableViewModel<EditUserProfileState, EditUserProfileAction>
     @State var shouldShowImagePicker: Bool = false
     @State var shouldShowActionSheet: Bool = false
+    @State var shouldShowAlert: Bool = false
     @State var userImageUrl: String?
     @State var userName: String = ""
     @State var userEmail: String = ""
@@ -51,39 +54,28 @@ struct EditUserProfileView: View {
             })
             .foregroundColor(.accent)
 
-            Divider()
-            VStack {
+            Form {
                 HStack {
                     Text("Name: ")
                         .frame(width: 60)
-                    TextFieldView(title: editUserProfileViewModel.state.currentUserName, textInput: $userName)
+                    RegularTextField(title: editUserProfileViewModel.state.currentUserName, textInput: $userName)
                         .textContentType(.name)
                         .keyboardType(.namePhonePad)
                 }
                 HStack {
                     Text("Email: ")
                         .frame(width: 60)
-                    TextFieldView(title: editUserProfileViewModel.state.currentUserEmail, textInput: $userEmail)
+                    RegularTextField(title: editUserProfileViewModel.state.currentUserEmail, textInput: $userEmail)
                         .textContentType(.password)
                         .keyboardType(.emailAddress)
                 }
             }
-
-            Divider()
-            RegularButton(buttonTitle: "Apply changes") {
-                editUserProfileViewModel.perform(action: .updateUserProfile(
-                    userName: userName,
-                    userEmail: userEmail,
-                    newUserImageUrl: userImageUrl,
-                    userImageDidChange: userImageDidChange
-                ))
-            }
         }
-        .padding()
         .vNavBar(NavigationBar(
             title: editUserProfileViewModel.state.currentUserName,
             leftItem: backButton,
-            rightItem: EmptyView()))
+            rightItem: doneButton)
+        )
         .confirmationDialog(
             "Change profile picture",
             isPresented: $shouldShowActionSheet,
@@ -113,6 +105,8 @@ struct EditUserProfileView: View {
     }
 }
 
+// MARK: Preview
+
 struct EditUserProfileView_Previews: PreviewProvider {
     static var previews: some View {
         EditUserProfileView(
@@ -125,6 +119,8 @@ struct EditUserProfileView_Previews: PreviewProvider {
     }
 }
 
+// MARK: Add to Dependency
+
 extension Dependency.Views {
     var editUserProfileView: EditUserProfileView {
         return EditUserProfileView(
@@ -134,10 +130,38 @@ extension Dependency.Views {
     }
 }
 
+// MARK: Subviews
+
 extension EditUserProfileView {
     var backButton: some View {
         RegularButton(buttonImage: "chevron.left") {
             dismiss()
         }
+    }
+
+    var doneButton: some View {
+        RegularButton(buttonTitle: "Done") {
+            submitChanges()
+        }
+    }
+}
+
+// MARK: Extra functionalities
+
+extension EditUserProfileView {
+    private func submitChanges() {
+        if didMakeChanges() {
+            editUserProfileViewModel.perform(action: .updateUserProfile(
+                userName: userName,
+                userEmail: userEmail,
+                newUserImageUrl: userImageUrl,
+                userImageDidChange: userImageDidChange
+            ))
+        }
+        dismiss()
+    }
+
+    private func didMakeChanges() -> Bool {
+        return userImageDidChange || !userName.isEmpty || !userEmail.isEmpty
     }
 }

@@ -12,6 +12,7 @@ import SwiftUI
 struct AddUserRewardView: View {
     @Environment(\.dismiss) private var dismiss
     @ObservedObject var addUserRewardViewModel: ObservableViewModel<AddUserRewardState, AddUserRewardAction>
+    @State var shouldShowAlert: Bool = false
     @State var rewardName: String = ""
     @State var rewardValue: String = ""
     @FocusState private var focusedField: AddUserRewardFields?
@@ -27,34 +28,34 @@ struct AddUserRewardView: View {
     }
 
     var body: some View {
-        VStack {
-            Spacer()
-            TextFieldView(title: "Reward name", textInput: $rewardName)
+        Form {
+            RegularTextField(title: "Reward name", textInput: $rewardName)
                 .submitLabel(.next)
-                .focused($focusedField, equals: .name)
+                .focused($focusedField, equals: .rewardName)
                 .onSubmit {
                     focusedField = .rewardAmount
                 }
-
             HStack {
                 Text("$")
-                TextFieldView(title: "Reward value", textInput: $rewardValue)
-                    .submitLabel(.done)
+                RegularTextField(title: "Reward value", textInput: $rewardValue)
                     .keyboardType(.numberPad)
+                    .submitLabel(.done)
                     .focused($focusedField, equals: .rewardAmount)
                     .onSubmit {
-                        focusedField = .none
-                        addNewReward()
+                        addNewRewardAndDismiss()
                     }
             }
-            Spacer()
         }
-        .padding()
         .vNavBar(NavigationBar(
             title: "Add reward",
             leftItem: dismissButton,
             rightItem: addRewardButton
         ))
+        .alert(
+            "Please fill out all information.",
+            isPresented: $shouldShowAlert) {
+                RegularButton(buttonTitle: "OK", action: {})
+            }
     }
 }
 
@@ -94,8 +95,12 @@ extension AddUserRewardView {
     }
 
     var addRewardButton: some View {
-        RegularButton(buttonTitle: "Done") {
-            addNewReward()
+        RegularButton(buttonTitle: "Add") {
+            if missingInfo() {
+                shouldShowAlert = true
+                return
+            }
+            addNewRewardAndDismiss()
         }
     }
 }
@@ -103,12 +108,16 @@ extension AddUserRewardView {
 // MARK: Additional functionality
 
 extension AddUserRewardView {
-    private func addNewReward() {
+    private func addNewRewardAndDismiss() {
         addUserRewardViewModel.perform(action: .addNewReward(name: rewardName, value: rewardValue))
         dismiss()
     }
 
+    private func missingInfo() -> Bool {
+        return rewardName.isEmpty || rewardValue.isEmpty
+    }
+
     private enum AddUserRewardFields: Int, Hashable {
-        case name, rewardAmount
+        case rewardName, rewardAmount
     }
 }

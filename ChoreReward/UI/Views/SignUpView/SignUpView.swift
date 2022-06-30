@@ -90,10 +90,10 @@ struct SignUpView: View {
             signUpViewModel.state.errorMessage,
             isPresented: Binding<Bool>(
                 get: {
-                    signUpViewModel.state.shouldAlert
+                    signUpViewModel.state.shouldShowAlert
                 },
                 set: { newState in
-                    signUpViewModel.perform(action: .updateShouldAlertState(newState: newState))
+                    signUpViewModel.perform(action: .updateShouldShowAlertState(newState: newState))
                 })
         ) {
             RegularButton(buttonTitle: "OK") {}

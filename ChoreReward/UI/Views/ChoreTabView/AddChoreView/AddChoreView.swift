@@ -18,6 +18,7 @@ struct AddChoreView: View {
     @State var choreDescription = ""
     @State var isPresentingImagePicker = false
     @State var choreImageUrl: String?
+    @State var shouldShowAlert: Bool = false
     @FocusState private var focusedField: AddChoreFields?
     private var views: Dependency.Views
 
@@ -31,48 +32,45 @@ struct AddChoreView: View {
 
     var body: some View {
 
-        VStack {
-
-            Form {
-                if let choreImageUrl = choreImageUrl {
-                    RemoteImageView(imageUrl: choreImageUrl, isThumbnail: false)
-                        .frame(maxWidth: .infinity, minHeight: 200, maxHeight: 300)
-                        .clipped()
-                        .smallVerticalPadding()
-                        .onTapGesture {
-                            isPresentingImagePicker = true
-                        }
-                } else {
-                    RegularButton(buttonTitle: "Add photo", buttonImage: "plus") {
+        Form {
+            if let choreImageUrl = choreImageUrl {
+                RemoteImageView(imageUrl: choreImageUrl, isThumbnail: false)
+                    .frame(maxWidth: .infinity, minHeight: 200, maxHeight: 300)
+                    .clipped()
+                    .smallVerticalPadding()
+                    .onTapGesture {
                         isPresentingImagePicker = true
                     }
+            } else {
+                RegularButton(buttonTitle: "Add photo", buttonImage: "plus") {
+                    isPresentingImagePicker = true
                 }
-                TextField("Title", text: $choreTitle)
+            }
+            RegularTextField(title: "Title", textInput: $choreTitle)
+                .submitLabel(.next)
+                .focused($focusedField, equals: .title)
+                .onSubmit {
+                    focusedField = .rewardValue
+                }
+            HStack {
+                Text("$")
+                RegularTextField(title: "Reward amount", textInput: $choreRewardValue)
+                    .keyboardType(.numberPad)
                     .submitLabel(.next)
-                    .focused($focusedField, equals: .title)
+                    .focused($focusedField, equals: .rewardValue)
                     .onSubmit {
-                        focusedField = .rewardValue
+                        focusedField = .description
                     }
-                HStack {
-                    Text("$")
-                    TextField("Reward Amount", text: $choreRewardValue)
-                        .submitLabel(.next)
-                        .focused($focusedField, equals: .rewardValue)
-                        .onSubmit {
-                            focusedField = .description
-                        }
-                }
-
-                Section("Description", content: {
-                    TextEditor(text: $choreDescription)
-                        .submitLabel(.done)
-                        .focused($focusedField, equals: .description)
-                        .onSubmit {
-                            focusedField = .none
-                        }
-                })
             }
 
+            Section("Description", content: {
+                TextEditor(text: $choreDescription)
+                    .submitLabel(.done)
+                    .focused($focusedField, equals: .description)
+                    .onSubmit {
+                        focusedField = .none
+                    }
+            })
         }
         .vNavBar(NavigationBar(
             title: "Add chore",
@@ -84,6 +82,11 @@ struct AddChoreView: View {
                 choreImageUrl = newChoreImageUrl
             }
         }
+        .alert(
+            "Please fill out all information.",
+            isPresented: $shouldShowAlert) {
+                RegularButton(buttonTitle: "OK", action: {})
+            }
     }
 }
 
@@ -125,9 +128,12 @@ extension AddChoreView {
 
     private var addButton: some View {
         RegularButton(buttonTitle: "Done") {
+            if missingInfo() {
+                shouldShowAlert = true
+                return
+            }
             addChoreAndDismiss()
         }
-        .disabled(choreTitle.isEmpty || choreDescription.isEmpty || choreRewardValue.isEmpty || choreImageUrl == nil)
     }
 }
 
@@ -145,7 +151,12 @@ extension AddChoreView {
         )
     }
 
+    private func missingInfo() -> Bool {
+        return choreTitle.isEmpty || choreDescription.isEmpty || choreRewardValue.isEmpty || choreImageUrl == nil
+    }
+
     private enum AddChoreFields: Int, Hashable {
         case title, rewardValue, description
     }
+
 }

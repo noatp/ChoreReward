@@ -37,7 +37,7 @@ class LoginViewModel: StatefulViewModel {
                     }
                     self?._state = .init(
                         errorMessage: error.localizedDescription,
-                        shouldAlert: true
+                        shouldShowAlert: true
                     )
                 }
             })
@@ -53,8 +53,8 @@ class LoginViewModel: StatefulViewModel {
         userService.silentSignIn()
     }
 
-    private func updateShouldAlertState(newState: Bool) {
-        self._state = .init(errorMessage: "", shouldAlert: newState)
+    private func updateShouldShowAlertState(newState: Bool) {
+        self._state = .init(errorMessage: "", shouldShowAlert: newState)
     }
 
     func performAction(_ action: LoginViewAction) {
@@ -63,24 +63,24 @@ class LoginViewModel: StatefulViewModel {
             signIn(emailInput: emailInput, passwordInput: passwordInput)
         case .silentSignIn:
             silentSignIn()
-        case .updateShouldAlertState(let newState):
-            updateShouldAlertState(newState: newState)
+        case .updateShouldShowAlertState(let newState):
+            updateShouldShowAlertState(newState: newState)
         }
     }
 }
 
 struct LoginViewState {
     let errorMessage: String
-    let shouldAlert: Bool
+    let shouldShowAlert: Bool
 
-    static let empty: LoginViewState = .init(errorMessage: "", shouldAlert: false)
-    static let preview: LoginViewState = .init(errorMessage: "preview error", shouldAlert: true)
+    static let empty: LoginViewState = .init(errorMessage: "", shouldShowAlert: false)
+    static let preview: LoginViewState = .init(errorMessage: "preview error", shouldShowAlert: true)
 }
 
 enum LoginViewAction {
     case signIn(emailInput: String, passwordInput: String)
     case silentSignIn
-    case updateShouldAlertState(newState: Bool)
+    case updateShouldShowAlertState(newState: Bool)
 }
 
 extension Dependency.ViewModels {

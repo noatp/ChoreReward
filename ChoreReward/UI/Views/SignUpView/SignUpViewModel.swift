@@ -38,7 +38,7 @@ class SignUpViewModel: StatefulViewModel {
                     }
                     self?._state = .init(
                         errorMessage: error.localizedDescription,
-                        shouldAlert: true
+                        shouldShowAlert: true
                     )
                 }
 
@@ -62,8 +62,8 @@ class SignUpViewModel: StatefulViewModel {
         }
     }
 
-    private func updateShouldAlertState(newState: Bool) {
-        self._state = .init(errorMessage: "", shouldAlert: newState)
+    private func updateShouldShowAlertState(newState: Bool) {
+        self._state = .init(errorMessage: "", shouldShowAlert: newState)
     }
 
     func performAction(_ action: SignUpAction) {
@@ -76,18 +76,18 @@ class SignUpViewModel: StatefulViewModel {
                 roleSelection: roleSelection,
                 userImageUrl: userImageUrl
             )
-        case .updateShouldAlertState(let newState):
-            updateShouldAlertState(newState: newState)
+        case .updateShouldShowAlertState(let newState):
+            updateShouldShowAlertState(newState: newState)
         }
     }
 }
 
 struct SignUpState {
     let errorMessage: String
-    let shouldAlert: Bool
+    let shouldShowAlert: Bool
 
-    static let empty: SignUpState = .init(errorMessage: "", shouldAlert: false)
-    static let preview: SignUpState = .init(errorMessage: "preview error", shouldAlert: true)
+    static let empty: SignUpState = .init(errorMessage: "", shouldShowAlert: false)
+    static let preview: SignUpState = .init(errorMessage: "preview error", shouldShowAlert: true)
 }
 
 enum SignUpAction {
@@ -98,7 +98,7 @@ enum SignUpAction {
         roleSelection: Role,
         userImageUrl: String?
     )
-    case updateShouldAlertState(newState: Bool)
+    case updateShouldShowAlertState(newState: Bool)
 }
 
 extension Dependency.ViewModels {
