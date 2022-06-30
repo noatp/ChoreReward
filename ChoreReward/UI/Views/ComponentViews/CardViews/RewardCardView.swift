@@ -34,11 +34,7 @@ struct RewardCardView: View {
             }
             .font(StylingFont.small)
             .smallVerticalPadding()
-            ProgressView(value: Float(userBalance)/Float(rewardValue))
-                .progressViewStyle(.linear)
-                .shadow(color: Color(red: 0, green: 0, blue: 0.6),
-                        radius: 4.0, x: 1.0, y: 2.0)
-                .padding(.bottom, 10)
+            CustomProgressBar(progress: progress)
         }
         .padding()
         .background {
