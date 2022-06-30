@@ -24,10 +24,10 @@ class AddUserRewardViewModel: StatefulViewModel {
     }
 
     private func addNewReward(name: String, value: String) {
-        guard let floatValue = Float(value) else {
+        guard let intValue = Int(value) else {
             return
         }
-        rewardService.createReward(withName: name, andValue: floatValue)
+        rewardService.createReward(withName: name, andValue: intValue)
     }
 
     func performAction(_ action: AddUserRewardAction) {

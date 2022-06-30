@@ -28,7 +28,7 @@ struct `ChoreCardView`: View {
                         .lineLimit(1)
                         .truncationMode(.tail)
                     Spacer()
-                    Text(chore.rewardValue != nil ? String(format: "$%.2f", chore.rewardValue!) : "$0")
+                    Text(chore.rewardValue != nil ? "$\(chore.rewardValue!)" : "$0")
                 }
                 .font(StylingFont.large)
                 Text(chore.created.dateTimestamp.formatted(date: .numeric, time: .omitted))

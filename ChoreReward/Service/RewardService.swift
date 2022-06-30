@@ -11,7 +11,7 @@ import FirebaseFirestore
 
 class RewardService: ObservableObject {
     @Published var userRewards: [Reward]?
-    @Published var userBalance: Float?
+    @Published var userBalance: Int?
     private var rewardCollection: CollectionReference?
 
     private let userRepository: UserRepository
@@ -29,7 +29,7 @@ class RewardService: ObservableObject {
         addSubscription()
     }
 
-    func createReward(withName name: String, andValue value: Float) {
+    func createReward(withName name: String, andValue value: Int) {
         guard let currentRewardCollection = rewardCollection else {
             return
         }

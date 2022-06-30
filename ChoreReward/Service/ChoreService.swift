@@ -40,7 +40,7 @@ class ChoreService: ObservableObject {
         byUser currentUser: User) {
         guard let currentUserId = currentUser.id,
               let currentChoreCollection = currentChoreCollection,
-              let rewardValueFloat = Float(rewardValue)
+              let rewardValueInt = Int(rewardValue)
         else {
             return
         }
@@ -53,7 +53,7 @@ class ChoreService: ObservableObject {
             created: Date.now.intTimestamp,
             description: description,
             choreImageUrl: choreImageUrl,
-            rewardValue: rewardValueFloat
+            rewardValue: rewardValueInt
         )
         choreRepository.create(newChore, with: newChoreId, in: currentChoreCollection)
         storageRepository.uploadChoreImage(with: choreImageUrl) { [weak self] newChoreImageUrl in

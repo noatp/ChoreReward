@@ -16,7 +16,7 @@ struct User: Identifiable, Codable {
     var role: Role
     var familyId: String?
     var userImageUrl: String?
-    var balance: Float?
+    var balance: Int?
     var userDocRef: DocumentReference?
 
     static let preview = User(

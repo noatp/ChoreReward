@@ -26,8 +26,8 @@ struct UserRewardView: View {
 
     var body: some View {
         VStack(alignment: .leading) {
-            Text(String(format: "Current balance is ", userRewardViewModel.state.balance))
-            + Text(String(format: "$%.2f", userRewardViewModel.state.balance))
+            Text("Current balance is ")
+            + Text("$\(userRewardViewModel.state.balance)")
                 .font(StylingFont.title)
             ScrollView(showsIndicators: false) {
                 LazyVStack(spacing: 0) {
@@ -60,7 +60,7 @@ struct UserGoalView_Previews: PreviewProvider {
     static var previews: some View {
         UserRewardView(
             userGoalViewModel: ObservableViewModel(
-                staticState: UserRewardViewState(rewards: [], balance: 0.00)
+                staticState: UserRewardViewState(rewards: [], balance: 0)
             ),
             views: Dependency.preview.views()
         )

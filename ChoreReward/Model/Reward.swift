@@ -9,7 +9,7 @@ import Foundation
 
 struct Reward: Codable {
     let name: String
-    let value: Float
+    let value: Int
 
-    static let empty = Reward(name: "", value: 0.00)
+    static let empty = Reward(name: "", value: 0)
 }

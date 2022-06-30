@@ -56,7 +56,7 @@ class UserRewardViewModel: StatefulViewModel {
 
 struct UserRewardViewState {
     let rewards: [Reward]
-    let balance: Float
+    let balance: Int
 
     static let empty: UserRewardViewState = .init(rewards: [], balance: 0)
 }

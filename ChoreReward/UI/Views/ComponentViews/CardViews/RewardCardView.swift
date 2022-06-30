@@ -11,10 +11,10 @@ import SwiftUI
 
 struct RewardCardView: View {
     let rewardName: String
-    let rewardValue: Float
-    let userBalance: Float
-    var progress: Float {
-        userBalance / rewardValue
+    let rewardValue: Int
+    let userBalance: Int
+    var progress: Int {
+        userBalance * 100 / rewardValue
     }
 
     var body: some View {
@@ -22,26 +22,19 @@ struct RewardCardView: View {
             HStack {
                 Text(rewardName)
                 Spacer()
-                Text(String(format: "$%.2f", rewardValue))
+                Text("$\(rewardValue)")
             }
             .font(StylingFont.large)
             .smallVerticalPadding()
 
             HStack {
-                Group {
-                    Text("Earned: ")
-                    + Text(String(format: "$%.2f of ", userBalance))
-                    + Text(String(format: "$%.2f", rewardValue))
-                }
+                Text("Earned: $\(userBalance) of $\(rewardValue)")
                 Spacer()
-                Group {
-                    Text(String(format: "%.0f", progress * 100))
-                    + Text("%")
-                }
+                Text("\(progress)%")
             }
             .font(StylingFont.small)
             .smallVerticalPadding()
-            ProgressView(value: userBalance/rewardValue)
+            ProgressView(value: Float(userBalance)/Float(rewardValue))
                 .progressViewStyle(.linear)
                 .shadow(color: Color(red: 0, green: 0, blue: 0.6),
                         radius: 4.0, x: 1.0, y: 2.0)
@@ -59,7 +52,7 @@ struct RewardCardView: View {
 
 struct RewardCardView_Previews: PreviewProvider {
     static var previews: some View {
-        RewardCardView(rewardName: "Chipotle Meal", rewardValue: 10.50, userBalance: 5.00)
+        RewardCardView(rewardName: "Chipotle Meal", rewardValue: 10, userBalance: 5)
             .font(StylingFont.regular)
             .previewLayout(.sizeThatFits)
     }
