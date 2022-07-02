@@ -49,7 +49,7 @@ extension View {
         views: Dependency.Views,
         presentedDrawer: Binding<Bool>
     ) -> some View {
-        return DrawerView(
+        return SideDrawer(
             views: views,
             presentedDrawer: presentedDrawer,
             mainContent: {self},
