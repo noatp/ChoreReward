@@ -42,7 +42,8 @@ class ChoreTabViewModel: StatefulViewModel {
                         choreList: familyChores
                     ) ?? [],
                     choreFilterState: oldState.choreFilterState,
-                    chorePickerState: oldState.chorePickerState
+                    chorePickerState: oldState.chorePickerState,
+                    deletableChore: self?.userService.currentUser?.role != .child
                 )
             })
     }
@@ -91,7 +92,8 @@ class ChoreTabViewModel: StatefulViewModel {
                 choreList: choreService.familyChores ?? []
             ),
             choreFilterState: newState,
-            chorePickerState: oldState.chorePickerState
+            chorePickerState: oldState.chorePickerState,
+            deletableChore: oldState.deletableChore
         )
     }
 
@@ -105,7 +107,8 @@ class ChoreTabViewModel: StatefulViewModel {
                 choreList: choreService.familyChores ?? []
             ),
             choreFilterState: oldState.choreFilterState,
-            chorePickerState: newState
+            chorePickerState: newState,
+            deletableChore: oldState.deletableChore
         )
     }
 
@@ -143,11 +146,13 @@ struct ChoreTabState {
     let displayingChoreList: [Chore]
     let choreFilterState: ChoreFilterState
     let chorePickerState: ChorePickerState
+    let deletableChore: Bool
 
     static let empty: ChoreTabState = .init(
         displayingChoreList: [],
         choreFilterState: .all,
-        chorePickerState: .unfinished
+        chorePickerState: .unfinished,
+        deletableChore: false
     )
 }
 

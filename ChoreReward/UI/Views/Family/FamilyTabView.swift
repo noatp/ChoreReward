@@ -27,13 +27,14 @@ struct FamilyTabView: View {
     }
 
     var body: some View {
-        ZStack {
-            ScrollView {
-                ForEach(familyTabViewModel.state.members) { member in
-                    UserCard(user: member)
-                }
+        List {
+            ForEach(familyTabViewModel.state.members) { member in
+                UserCard(user: member)
             }
+            .listRowInsets(.init(top: 5, leading: 0, bottom: 5, trailing: 0))
+            .listRowSeparator(.hidden)
         }
+        .listStyle(.plain)
         .padding()
         .vNavBar(NavigationBar(
             title: "Family",

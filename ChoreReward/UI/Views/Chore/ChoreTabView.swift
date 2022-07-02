@@ -74,7 +74,8 @@ struct ChoreTabView_Previews: PreviewProvider {
                         Chore.previewChoreUnfinished
                     ],
                     choreFilterState: .all,
-                    chorePickerState: .unfinished
+                    chorePickerState: .unfinished,
+                    deletableChore: true
                 )
             ),
             views: Dependency.preview.views()
@@ -172,30 +173,57 @@ extension ChoreTabView {
         })
     }
 
+    @ViewBuilder
     private var choreList: some View {
-        List {
-            ForEach(choreTabViewModel.state.displayingChoreList) {chore in
+        if choreTabViewModel.state.deletableChore {
+            List {
+                ForEach(choreTabViewModel.state.displayingChoreList) {chore in
 
-                ZStack(alignment: .leading) {
-                    NavigationLink {
-                        views.choreDetailView(chore: chore)
-                    } label: {
-                        EmptyView()
+                    ZStack(alignment: .leading) {
+                        NavigationLink {
+                            views.choreDetailView(chore: chore)
+                        } label: {
+                            EmptyView()
+                        }
+                        .opacity(0)
+                        ChoreCard(chore: chore)
                     }
-                    .opacity(0)
-                    ChoreCard(chore: chore)
-                }
 
+                }
+                .onDelete(perform: { offsets in
+                    choreTabViewModel.perform(action: .deleteChore(offsets))
+                })
+                .listRowInsets(.init(top: 5, leading: 0, bottom: 5, trailing: 0))
+                .listRowSeparator(.hidden)
             }
-            .onDelete(perform: { offsets in
-                choreTabViewModel.perform(action: .deleteChore(offsets))
-            })
-            .listRowInsets(.init(top: 5, leading: 0, bottom: 5, trailing: 0))
+            .listStyle(.plain)
+            .refreshable {
+                choreTabViewModel.perform(action: .refreshChoreList)
+            }
+        } else {
+            List {
+                ForEach(choreTabViewModel.state.displayingChoreList) {chore in
+
+                    ZStack(alignment: .leading) {
+                        NavigationLink {
+                            views.choreDetailView(chore: chore)
+                        } label: {
+                            EmptyView()
+                        }
+                        .opacity(0)
+                        ChoreCard(chore: chore)
+                    }
+
+                }
+                .listRowInsets(.init(top: 5, leading: 0, bottom: 5, trailing: 0))
+                .listRowSeparator(.hidden)
+            }
+            .listStyle(.plain)
+            .refreshable {
+                choreTabViewModel.perform(action: .refreshChoreList)
+            }
         }
-        .listStyle(.plain)
-        .refreshable {
-            choreTabViewModel.perform(action: .refreshChoreList)
-        }
+
     }
 
     private var emptyChoreList: some View {
