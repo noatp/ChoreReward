@@ -9,11 +9,17 @@ import SwiftUI
 
 // MARK: Main Implementaion
 
+enum FilterOptions: String {
+    case all = "All chores"
+    case yours = "Your chores"
+}
+
 struct ChoreTabView: View {
     @Namespace private var animation
     @ObservedObject var choreTabViewModel: ObservableViewModel<ChoreTabState, ChoreTabAction>
     @State private var presentedFilterDropdown = false
     @Binding private var presentedDrawer: Bool
+    @State private var filterState: FilterOptions = .all
 
     private var views: Dependency.Views
 
@@ -29,24 +35,26 @@ struct ChoreTabView: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            choreStatusPicker
+            HStack(alignment: .top, spacing: 0) {
+                choreStatusPicker
+                Spacer()
+                filterMenu
+            }
+            .background {
+                Color.bg
+            }
+            Color.accentGraySecondary.frame(maxHeight: 1)
 
-            ZStack {
-                if choreTabViewModel.state.displayingChoreList.isEmpty {
-                    emptyChoreList
-                } else {
-                    choreList
-                }
-
-                if presentedFilterDropdown {
-                    filterMenu
-                }
+            if choreTabViewModel.state.displayingChoreList.isEmpty {
+                emptyChoreList
+            } else {
+                choreList
             }
         }
         .vNavBar(NavigationBar(
             title: "Chore",
             leftItem: menuButton,
-            rightItem: filterButton,
+            rightItem: EmptyView(),
             navBarLayout: .leftTitle
         ))
     }
@@ -96,7 +104,7 @@ extension ChoreTabView {
     private var choreStatusPicker: some View {
         VStack(spacing: 0) {
             HStack(spacing: 0) {
-                VStack(spacing: 5) {
+                VStack(spacing: 0) {
                     CustomizableRegularButton {
                         Text("Unfinished")
                             .frame(maxWidth: .infinity)
@@ -113,7 +121,7 @@ extension ChoreTabView {
                     }
                 }
 
-                VStack(spacing: 5) {
+                VStack(spacing: 0) {
                     CustomizableRegularButton {
                         Text("Finished")
                             .frame(maxWidth: .infinity)
@@ -130,7 +138,6 @@ extension ChoreTabView {
                     }
                 }
             }
-            Color.accentGraySecondary.frame(maxHeight: 1)
         }
         .background {
             Color.bg
@@ -138,43 +145,23 @@ extension ChoreTabView {
         .animation(.spring(), value: choreTabViewModel.state.chorePickerState)
     }
 
-    private var filterButton: some View {
-        RegularButton(buttonTitle: "Filter", buttonImage: "tray") {
-            withAnimation(.easeInOut(duration: 0.2)) {
-                presentedFilterDropdown.toggle()
-            }
-        }
-        .foregroundColor(.white)
-    }
-
     private var filterMenu: some View {
-        VStack {
-            VStack(alignment: .leading) {
-                Divider()
-                CustomizableRegularButton {
-                    Text("All")
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                } action: {
-                    choreTabViewModel.perform(action: .updateFilterState(.all))
-                    presentedFilterDropdown.toggle()
-                }
-
-                Divider()
-                CustomizableRegularButton {
-                    Text("Yours")
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                } action: {
-                    choreTabViewModel.perform(action: .updateFilterState(.takenByCurrentUser))
-                    presentedFilterDropdown.toggle()
-                }
-
-            }
-            .padding([.leading, .bottom, .trailing])
-            .background(Color.bg)
-            .foregroundColor(.fg)
-            Spacer()
+        Menu {
+            RegularButton(buttonTitle: "All chores", action: {
+                filterState = .all
+                choreTabViewModel.perform(action: .updateFilterState(.all))
+            })
+            RegularButton(buttonTitle: "Your chores", action: {
+                filterState = .yours
+                choreTabViewModel.perform(action: .updateFilterState(.takenByCurrentUser))
+            })
+        } label: {
+            Text(filterState.rawValue)
+                .fixedSize()
         }
-
+        .foregroundColor(.accent)
+        .tappableFrame()
+        .smallHorizontalPadding()
     }
 
     private var menuButton: some View {
@@ -186,19 +173,28 @@ extension ChoreTabView {
     }
 
     private var choreList: some View {
-        ScrollView(showsIndicators: false) {
-            VStack(spacing: 0) {
-                ForEach(choreTabViewModel.state.displayingChoreList) {chore in
+        List {
+            ForEach(choreTabViewModel.state.displayingChoreList) {chore in
+
+                ZStack(alignment: .leading) {
                     NavigationLink {
                         views.choreDetailView(chore: chore)
                     } label: {
-                        ChoreCardView(chore: chore)
+                        EmptyView()
                     }
-
-                    .transition(.move(edge: choreTabViewModel.state.chorePickerState == .unfinished ? .leading : .trailing))
+                    .opacity(0)
+                    ChoreCardView(chore: chore)
                 }
+
             }
-            .animation(.easeInOut, value: choreTabViewModel.state.chorePickerState)
+            .onDelete(perform: { offsets in
+                choreTabViewModel.perform(action: .deleteChore(offsets))
+            })
+            .listRowInsets(.init(top: 5, leading: 0, bottom: 5, trailing: 0))
+        }
+        .listStyle(.plain)
+        .refreshable {
+            print("BERERERERERERERER")
         }
     }
 

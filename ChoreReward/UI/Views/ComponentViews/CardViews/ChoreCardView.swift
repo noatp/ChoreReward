@@ -25,28 +25,21 @@ struct `ChoreCardView`: View {
                 HStack {
                     Text(chore.title)
                         .multilineTextAlignment(.leading)
-                        .lineLimit(1)
-                        .truncationMode(.tail)
+                        .lineLimit(0)
                     Spacer()
                     Text(chore.rewardValue != nil ? "$\(chore.rewardValue!)" : "$0")
                 }
                 .font(StylingFont.large)
                 Text(chore.created.dateTimestamp.formatted(date: .numeric, time: .omitted))
                     .font(StylingFont.small)
-                Text(chore.description)
-                    .multilineTextAlignment(.leading)
-                    .lineLimit(3)
-                    .truncationMode(.tail)
-                Spacer(minLength: 0)
             }
-            .padding([.horizontal], 5)
+            .smallHorizontalPadding()
         }
         .background {
             Color.bg.shadow(color: .accentGraySecondary, radius: 3, x: 0, y: 0)
         }
         .foregroundColor(.fg)
         .frame(maxHeight: 100)
-        .padding([.bottom], 10)
     }
 }
 

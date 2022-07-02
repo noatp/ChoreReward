@@ -29,7 +29,9 @@ class AddChoreViewModel: StatefulViewModel {
     }
 
     func createChore(choreTitle: String, choreDescription: String, choreImageUrl: String, choreRewardValue: String) {
-        guard let currentUser = userService.currentUser else {
+        guard let currentUser = userService.currentUser,
+                currentUser.role != .child
+        else {
             return
         }
         choreService.createChore(

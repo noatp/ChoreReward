@@ -40,7 +40,8 @@ class ChoreService: ObservableObject {
         byUser currentUser: User) {
         guard let currentUserId = currentUser.id,
               let currentChoreCollection = currentChoreCollection,
-              let rewardValueInt = Int(rewardValue)
+              let rewardValueInt = Int(rewardValue),
+              currentUser.role != .child
         else {
             return
         }
@@ -80,6 +81,17 @@ class ChoreService: ObservableObject {
             return
         }
         choreRepository.update(completedTimestampForChoreAtId: choreId, in: currentChoreCollection)
+    }
+
+    func delete (choreAtId choreId: String?, byUser currentUser: User) {
+        guard let choreId = choreId,
+              let currentChoreCollection = currentChoreCollection,
+              currentUser.role != .child
+        else {
+            return
+        }
+        choreRepository.delete(choreAtId: choreId, in: currentChoreCollection)
+
     }
 
     private func getChoresOfCurrentFamilyWith(choreCollection: CollectionReference) {

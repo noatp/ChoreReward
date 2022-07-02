@@ -109,12 +109,27 @@ class ChoreTabViewModel: StatefulViewModel {
         )
     }
 
+    private func delete(choreAtOffsets offsets: IndexSet) {
+        guard let currentUser = userService.currentUser,
+              currentUser.role != .child
+        else {
+            return
+        }
+        for offset in offsets {
+            let choreToDelete = self._state.displayingChoreList[offset]
+            choreService.delete(choreAtId: choreToDelete.id, byUser: currentUser)
+        }
+
+    }
+
     func performAction(_ action: ChoreTabAction) {
         switch action {
         case .updateFilterState(let choreFilterState):
             updateFilterState(choreFilterState)
         case .updatePickerState(let chorePickerState):
             updatePickerState(chorePickerState)
+        case .deleteChore(let offsets):
+            delete(choreAtOffsets: offsets)
         }
     }
 }
@@ -134,6 +149,7 @@ struct ChoreTabState {
 enum ChoreTabAction {
     case updatePickerState(ChorePickerState)
     case updateFilterState(ChoreFilterState)
+    case deleteChore(IndexSet)
 }
 
 enum ChoreFilterState {

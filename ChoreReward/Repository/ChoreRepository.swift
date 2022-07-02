@@ -82,6 +82,12 @@ class ChoreRepository: ObservableObject {
             }
     }
 
+    func delete(choreAtId choreId: String, in choreCollection: CollectionReference) {
+        choreCollection
+            .document(choreId)
+            .delete()
+    }
+
     func reset() {
         self.familyChoresPublisher.send(nil)
         self.familyChoresListener?.remove()
