@@ -119,7 +119,10 @@ class ChoreTabViewModel: StatefulViewModel {
             let choreToDelete = self._state.displayingChoreList[offset]
             choreService.delete(choreAtId: choreToDelete.id, byUser: currentUser)
         }
+    }
 
+    private func refreshChoreList() {
+        choreService.refreshChoreList()
     }
 
     func performAction(_ action: ChoreTabAction) {
@@ -130,6 +133,8 @@ class ChoreTabViewModel: StatefulViewModel {
             updatePickerState(chorePickerState)
         case .deleteChore(let offsets):
             delete(choreAtOffsets: offsets)
+        case .refreshChoreList:
+            refreshChoreList()
         }
     }
 }
@@ -150,6 +155,7 @@ enum ChoreTabAction {
     case updatePickerState(ChorePickerState)
     case updateFilterState(ChoreFilterState)
     case deleteChore(IndexSet)
+    case refreshChoreList
 }
 
 enum ChoreFilterState {

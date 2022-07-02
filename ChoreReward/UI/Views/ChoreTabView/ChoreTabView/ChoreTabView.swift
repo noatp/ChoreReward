@@ -194,7 +194,7 @@ extension ChoreTabView {
         }
         .listStyle(.plain)
         .refreshable {
-            print("BERERERERERERERER")
+            choreTabViewModel.perform(action: .refreshChoreList)
         }
     }
 

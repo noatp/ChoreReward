@@ -94,6 +94,14 @@ class ChoreService: ObservableObject {
 
     }
 
+    func refreshChoreList() {
+        guard let currentChoreCollection = currentChoreCollection else {
+            print("\(#fileID) \(#function): tryin to refresh chores data, but currentChoreCollection is nil")
+            return
+        }
+        getChoresOfCurrentFamilyWith(choreCollection: currentChoreCollection)
+    }
+
     private func getChoresOfCurrentFamilyWith(choreCollection: CollectionReference) {
         choreRepository.read(choreCollection)
     }
