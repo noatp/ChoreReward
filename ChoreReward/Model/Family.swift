@@ -51,7 +51,7 @@ struct DenormChore: Codable, Identifiable {
 
     static let preview: DenormChore = .init(
         id: "chore_id",
-        title: "Wash the dishes",
+        title: "Wash the dishes. Then wash it again. Then wash it once again. Then wash it once again. Then wash it once again.",
         choreImageUrl: "preview_denorm_chore_url",
         assigneeId: nil,
         finished: false,

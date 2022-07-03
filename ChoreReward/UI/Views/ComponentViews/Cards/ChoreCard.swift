@@ -25,15 +25,22 @@ struct ChoreCard: View {
                 HStack {
                     Text(chore.title)
                         .multilineTextAlignment(.leading)
-                        .lineLimit(0)
+                        .lineLimit(nil)
                     Spacer()
+
                     Text("$\(chore.value)")
                 }
                 .font(StylingFont.large)
-//                Text(chore.created.dateTimestamp.formatted(date: .numeric, time: .omitted))
-//                    .font(StylingFont.small)
+                Spacer(minLength: 0)
+                HStack {
+                    Spacer()
+                    Text(chore.assigneeId == nil ? "Available" : "In progress")
+                        .foregroundColor(chore.assigneeId == nil ? .green : .accent)
+                }
+
             }
             .smallHorizontalPadding()
+            .smallVerticalPadding()
         }
         .background {
             Color.bg.shadow(color: .accentGraySecondary, radius: 3, x: 0, y: 0)
