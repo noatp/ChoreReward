@@ -38,7 +38,7 @@ struct ChoreDetailView: View {
             if !choreDetailViewModel.state.choreTaken {
                 takeChoreButton
             } else {
-                if !choreDetailViewModel.state.choreCompleted {
+                if !choreDetailViewModel.state.choreFinished {
                     completeChoreButton
                 }
             }
@@ -101,9 +101,9 @@ extension ChoreDetailView {
                 .padding(.bottom)
 
             if choreDetailViewModel.state.choreTaken {
-                Text("Chore taken by: \(chore.assigneeId)")
-                if choreDetailViewModel.state.choreCompleted {
-                    Text("Chore is completed on \(chore.completed!.dateTimestamp.formatted(date: .abbreviated, time: .omitted))")
+                Text("Chore taken by: \(chore.assigneeId ?? "")")
+                if choreDetailViewModel.state.choreFinished {
+                    Text("Chore is completed on \(chore.finished!.dateTimestamp.formatted(date: .abbreviated, time: .omitted))")
                 } else {
                     Text("Chore is not completed")
                 }

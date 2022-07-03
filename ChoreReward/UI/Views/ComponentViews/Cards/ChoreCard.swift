@@ -10,9 +10,9 @@ import SwiftUI
 // MARK: Main Implementaion
 
 struct ChoreCard: View {
-    private let chore: Chore
+    private let chore: DenormChore
 
-    init(chore: Chore) {
+    init(chore: DenormChore) {
         self.chore = chore
     }
 
@@ -27,11 +27,11 @@ struct ChoreCard: View {
                         .multilineTextAlignment(.leading)
                         .lineLimit(0)
                     Spacer()
-                    Text(chore.rewardValue != nil ? "$\(chore.rewardValue!)" : "$0")
+                    Text("$\(chore.value)")
                 }
                 .font(StylingFont.large)
-                Text(chore.created.dateTimestamp.formatted(date: .numeric, time: .omitted))
-                    .font(StylingFont.small)
+//                Text(chore.created.dateTimestamp.formatted(date: .numeric, time: .omitted))
+//                    .font(StylingFont.small)
             }
             .smallHorizontalPadding()
         }
@@ -48,15 +48,7 @@ struct ChoreCard: View {
 struct ChoreCardView_Previews: PreviewProvider {
 
     static var previews: some View {
-        ChoreCard(
-            chore: Chore(id: "previewChoreID",
-                         title: "Preview Chore",
-                         assignerId: "123",
-                         assigneeId: "456",
-                         created: Date().intTimestamp,
-                         description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do",
-                         choreImageUrl: "https://s3.amazonaws.com/brt.org/tim-cook.png"
-                        ))
+        ChoreCard(chore: .preview)
         .font(StylingFont.regular)
         .previewLayout(.sizeThatFits)
     }

@@ -14,6 +14,7 @@ struct Family: Identifiable, Codable {
     var familyDocRef: DocumentReference?
     var adminId: String // store the uid of the family creator
     var members: [DenormUser]
+    var chores: [DenormChore]?
 
     static let preview = Family(
         id: "tranfam",
@@ -34,8 +35,26 @@ struct DenormUser: Codable, Identifiable {
     let userImageUrl: String?
 
     static let preview: DenormUser = .init(
-        id: "preview_denorm_user_id",
-        name: "preview_denorm_user_name",
+        id: "user_id",
+        name: "John Doe",
         userImageUrl: "preview_denorm_user_url"
+    )
+}
+
+struct DenormChore: Codable, Identifiable {
+    let id: String
+    let title: String
+    let choreImageUrl: String
+    let assigneeId: String?
+    let finished: Bool
+    let value: Int
+
+    static let preview: DenormChore = .init(
+        id: "chore_id",
+        title: "Wash the dishes",
+        choreImageUrl: "preview_denorm_chore_url",
+        assigneeId: nil,
+        finished: false,
+        value: 12
     )
 }

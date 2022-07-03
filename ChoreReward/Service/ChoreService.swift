@@ -11,8 +11,8 @@ import UIKit
 import FirebaseFirestore
 
 class ChoreService: ObservableObject {
-    @Published var familyChores: [Chore]?
-    private var currentChoreCollection: CollectionReference?
+    @Published var choreList: [DenormChore]?
+    private var choreCollection: CollectionReference?
 
     private let familyRepository: FamilyRepository
     private let choreRepository: ChoreRepository
@@ -39,7 +39,7 @@ class ChoreService: ObservableObject {
         withRewardValue rewardValue: String,
         byUser currentUser: User) {
         guard let currentUserId = currentUser.id,
-              let currentChoreCollection = currentChoreCollection,
+              let currentChoreCollection = choreCollection,
               let rewardValueInt = Int(rewardValue),
               currentUser.role != .child
         else {
@@ -50,7 +50,6 @@ class ChoreService: ObservableObject {
         let newChore = Chore(
             title: title,
             assignerId: currentUserId,
-            assigneeId: "",
             created: Date.now.intTimestamp,
             description: description,
             choreImageUrl: choreImageUrl,
@@ -65,7 +64,7 @@ class ChoreService: ObservableObject {
     func takeChore (choreId: String?, currentUserId: String?) {
         guard let choreId = choreId,
               let currentUserId = currentUserId,
-              let currentChoreCollection = currentChoreCollection
+              let currentChoreCollection = choreCollection
         else {
             print("\(#fileID) \(#function): missing choreId and/or currentUserId")
             return
@@ -75,7 +74,7 @@ class ChoreService: ObservableObject {
 
     func completeChore (choreId: String?) {
         guard let choreId = choreId,
-              let currentChoreCollection = currentChoreCollection
+              let currentChoreCollection = choreCollection
         else {
             print("\(#fileID) \(#function): missing choreId")
             return
@@ -85,7 +84,7 @@ class ChoreService: ObservableObject {
 
     func delete (choreAtId choreId: String?, byUser currentUser: User) {
         guard let choreId = choreId,
-              let currentChoreCollection = currentChoreCollection,
+              let currentChoreCollection = choreCollection,
               currentUser.role != .child
         else {
             return
@@ -95,7 +94,7 @@ class ChoreService: ObservableObject {
     }
 
     func refreshChoreList() {
-        guard let currentChoreCollection = currentChoreCollection else {
+        guard let currentChoreCollection = choreCollection else {
             print("\(#fileID) \(#function): tryin to refresh chores data, but currentChoreCollection is nil")
             return
         }
@@ -107,7 +106,7 @@ class ChoreService: ObservableObject {
     }
 
     private func updateChoreImage(for choreId: String?, with imageUrl: String) {
-        guard let choreId = choreId, let currentChoreCollection = currentChoreCollection else {
+        guard let choreId = choreId, let currentChoreCollection = choreCollection else {
             print("\(#fileID) \(#function): missing choreId or currentChoreCollection")
             return
         }
@@ -115,33 +114,21 @@ class ChoreService: ObservableObject {
     }
 
     private func addSubscription() {
-        familyChoresSubscription = choreRepository.familyChoresPublisher
-            .sink(receiveValue: { [weak self] receivedFamilyChores in
-                guard let familyChores = receivedFamilyChores else {
-                    return
-                }
-                self?.familyChores = familyChores
-                print("\(#fileID) \(#function): received and cached a non-nil chore list")
-            })
         currentFamilySubscription = familyRepository.familyPublisher
             .sink(receiveValue: { [weak self] receivedFamily in
-                if let currentFamily = receivedFamily {
+                if let receivedFamily = receivedFamily {
                     print("\(#fileID) \(#function): received a non-nil family, checking for chore collection ref")
-                    guard let receivedChoreCollection = currentFamily.choreCollection else {
-                        print("\(#fileID) \(#function): received family does not have a chore collection")
-                        self?.familyChores = []
-                        return
-                    }
-                    if let currentChoreCollection = self?.currentChoreCollection, currentChoreCollection == receivedChoreCollection {
-                        print("\(#fileID) \(#function): received-family has same chore collection as the cached chore collection -> doing nothing")
-                        return
+                    if let receivedChoreCollection = receivedFamily.choreCollection,
+                          let receivedChoreList = receivedFamily.chores {
+                        print("\(#fileID) \(#function): received family has a chore collection and a chore list -> caching")
+                        self?.choreList = receivedChoreList
+                        self?.choreCollection = receivedChoreCollection
                     } else {
-                        print("\(#fileID) \(#function): received-family has diff chore collection from the cached family -> resetting chore service & fetch new chore data")
-                        self?.reset()
-                        self?.currentChoreCollection = receivedChoreCollection
-                        self?.getChoresOfCurrentFamilyWith(choreCollection: receivedChoreCollection)
-                        return
+                        print("\(#fileID) \(#function): received family does not have a chore collection or a chore list")
+                        self?.choreList = nil
+                        self?.choreCollection = nil
                     }
+
                 } else {
                     print("\(#fileID) \(#function): received reset signal from FamilyRepository, reset chore service")
                     self?.reset()
@@ -151,8 +138,8 @@ class ChoreService: ObservableObject {
     }
 
     private func reset() {
-        familyChores = []
-        currentChoreCollection = nil
+        choreList = nil
+        choreCollection = nil
         choreRepository.reset()
     }
 }

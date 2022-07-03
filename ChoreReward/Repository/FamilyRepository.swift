@@ -25,7 +25,8 @@ class FamilyRepository: ObservableObject {
         let newFamilyDocRef: DocumentReference = database.collection("families").document()
         let newFamily: Family = .init(
             adminId: currentUserId,
-            members: []
+            members: [],
+            chores: []
         )
         do {
             let data = try Firestore.Encoder().encode(newFamily)

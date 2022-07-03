@@ -45,7 +45,7 @@ struct ChoreTabView: View {
             }
             Color.accentGraySecondary.frame(maxHeight: 1)
 
-            if choreTabViewModel.state.displayingChoreList.isEmpty {
+            if choreTabViewModel.state.choreList.isEmpty {
                 emptyChoreList
             } else {
                 choreList
@@ -68,10 +68,8 @@ struct ChoreTabView_Previews: PreviewProvider {
             presentedDrawer: .constant(false),
             choreTabViewModel: ObservableViewModel(
                 staticState: .init(
-                    displayingChoreList: [
-                        Chore.previewChoreFinished,
-                        Chore.previewChoreFinished_1,
-                        Chore.previewChoreUnfinished
+                    choreList: [
+                        DenormChore.preview
                     ],
                     choreFilterState: .all,
                     chorePickerState: .unfinished,
@@ -177,11 +175,11 @@ extension ChoreTabView {
     private var choreList: some View {
         if choreTabViewModel.state.deletableChore {
             List {
-                ForEach(choreTabViewModel.state.displayingChoreList) {chore in
+                ForEach(choreTabViewModel.state.choreList) {chore in
 
                     ZStack(alignment: .leading) {
                         NavigationLink {
-                            views.choreDetailView(chore: chore)
+//                            views.choreDetailView(chore: chore)
                         } label: {
                             EmptyView()
                         }
@@ -202,11 +200,10 @@ extension ChoreTabView {
             }
         } else {
             List {
-                ForEach(choreTabViewModel.state.displayingChoreList) {chore in
-
+                ForEach(choreTabViewModel.state.choreList) {chore in
                     ZStack(alignment: .leading) {
                         NavigationLink {
-                            views.choreDetailView(chore: chore)
+//                            views.choreDetailView(chore: chore)
                         } label: {
                             EmptyView()
                         }
