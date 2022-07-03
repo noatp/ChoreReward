@@ -25,13 +25,23 @@ struct ChoreCard: View {
                 HStack {
                     Text(chore.title)
                         .multilineTextAlignment(.leading)
-                        .lineLimit(0)
+                        .lineLimit(nil)
                     Spacer()
                     Text(chore.rewardValue != nil ? "$\(chore.rewardValue!)" : "$0")
                 }
                 .font(StylingFont.large)
-                Text(chore.created.dateTimestamp.formatted(date: .numeric, time: .omitted))
-                    .font(StylingFont.small)
+                Spacer()
+                HStack {
+                    Text(chore.created.dateTimestamp.formatted(date: .numeric, time: .omitted))
+                        .font(StylingFont.small)
+                    Spacer()
+                    if chore.finished == nil {
+                        Text(chore.assigneeId == nil ? "Available" : "In progress")
+                            .font(StylingFont.small)
+                            .foregroundColor(chore.assigneeId == nil ? .green : .accent)
+                    }
+                }
+                .smallVerticalPadding()
             }
             .smallHorizontalPadding()
         }
@@ -50,7 +60,7 @@ struct ChoreCardView_Previews: PreviewProvider {
     static var previews: some View {
         ChoreCard(
             chore: Chore(id: "previewChoreID",
-                         title: "Preview Chore",
+                         title: "Wash the dishes, and then wash them again, and then wash them for the third time.",
                          assignerId: "123",
                          assigneeId: "456",
                          created: Date().intTimestamp,
