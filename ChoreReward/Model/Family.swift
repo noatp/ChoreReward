@@ -36,6 +36,8 @@ struct DenormUser: Codable, Identifiable {
     static let preview: DenormUser = .init(
         id: "preview_denorm_user_id",
         name: "preview_denorm_user_name",
-        userImageUrl: "preview_denorm_user_url"
+        userImageUrl: "https://www.apple.com/leadership/images/bio/tim-cook_image.png.og.png?1656498323724"
     )
+
+    static let empty: DenormUser = .init(id: "", name: "", userImageUrl: "")
 }

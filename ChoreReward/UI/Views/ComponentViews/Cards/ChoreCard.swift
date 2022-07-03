@@ -27,7 +27,7 @@ struct ChoreCard: View {
                         .multilineTextAlignment(.leading)
                         .lineLimit(nil)
                     Spacer()
-                    Text(chore.rewardValue != nil ? "$\(chore.rewardValue!)" : "$0")
+                    Text("$\(chore.rewardValue)")
                 }
                 .font(StylingFont.large)
                 Spacer()
@@ -36,9 +36,9 @@ struct ChoreCard: View {
                         .font(StylingFont.small)
                     Spacer()
                     if chore.finished == nil {
-                        Text(chore.assigneeId == nil ? "Available" : "In progress")
+                        Text(chore.assignee == nil ? "Available" : "In progress")
                             .font(StylingFont.small)
-                            .foregroundColor(chore.assigneeId == nil ? .green : .accent)
+                            .foregroundColor(chore.assignee == nil ? .green : .accent)
                     }
                 }
                 .smallVerticalPadding()
@@ -58,15 +58,7 @@ struct ChoreCard: View {
 struct ChoreCardView_Previews: PreviewProvider {
 
     static var previews: some View {
-        ChoreCard(
-            chore: Chore(id: "previewChoreID",
-                         title: "Wash the dishes, and then wash them again, and then wash them for the third time.",
-                         assignerId: "123",
-                         assigneeId: "456",
-                         created: Date().intTimestamp,
-                         description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do",
-                         choreImageUrl: "https://s3.amazonaws.com/brt.org/tim-cook.png"
-                        ))
+        ChoreCard(chore: .previewChoreUnfinished)
         .font(StylingFont.regular)
         .previewLayout(.sizeThatFits)
     }

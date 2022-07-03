@@ -52,10 +52,17 @@ class ChoreRepository: ObservableObject {
         }
     }
 
-    func update(choreAtId choreId: String, in choreCollection: CollectionReference, withAssigneeId assigneeId: String) {
+    func update(choreAtId choreId: String, in choreCollection: CollectionReference, withAssignee assignee: DenormUser) {
         choreCollection
             .document(choreId)
-            .updateData(["assigneeId": assigneeId]) { error in
+            .updateData(
+                ["assignee":
+                    [
+                        "id": assignee.id,
+                        "name": assignee.name,
+                        "userImageUrl": assignee.userImageUrl
+                    ]
+                ]) { error in
                 if let error = error {
                     print("\(#fileID) \(#function): \(error)")
                 }

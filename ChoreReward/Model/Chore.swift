@@ -12,29 +12,30 @@ import FirebaseFirestoreSwift
 struct Chore: Identifiable, Codable {
     @DocumentID var id: String?
     var title: String
-    var assignerId: String
-    var assigneeId: String?
+    var assigner: DenormUser
+    var assignee: DenormUser?
     var finished: Int?
     var created: Int
     var description: String
     var choreImageUrl: String
-    var rewardValue: Int?
+    var rewardValue: Int
 
     static let empty = Chore(
         id: "",
         title: "",
-        assignerId: "",
-        assigneeId: "",
+        assigner: .empty,
+        assignee: .empty,
         created: 0,
         description: "",
-        choreImageUrl: ""
+        choreImageUrl: "",
+        rewardValue: 0
     )
 
     static let previewChoreFinished = Chore(
         id: "id",
         title: "Wash the dishes",
-        assignerId: "preview assignerId",
-        assigneeId: "preview assigneeId",
+        assigner: .preview,
+        assignee: .preview,
         finished: Date.now.intTimestamp,
         created: Date.now.intTimestamp,
         description: """
@@ -43,14 +44,15 @@ struct Chore: Identifiable, Codable {
                 posuere lorem ipsum dolor sit amet consectetur. Amet consectetur adipiscing \
                 elit pellentesque. Id venenatis a con
             """,
-        choreImageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTvaNbNa9E_46fY75AFA9N8dhocKjEdDegvrN5QbBHH-WX-oij4xtjeYijvpC_kHB9-FiU&usqp=CAU"
+        choreImageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTvaNbNa9E_46fY75AFA9N8dhocKjEdDegvrN5QbBHH-WX-oij4xtjeYijvpC_kHB9-FiU&usqp=CAU",
+        rewardValue: 12
     )
 
     static let previewChoreFinished_1 = Chore(
         id: "id_1",
         title: "Wash the dishes",
-        assignerId: "preview assignerId",
-        assigneeId: "preview assigneeId",
+        assigner: .preview,
+        assignee: .preview,
         finished: Date.now.intTimestamp,
         created: Date.now.intTimestamp,
         description: """
@@ -59,14 +61,15 @@ struct Chore: Identifiable, Codable {
                 posuere lorem ipsum dolor sit amet consectetur. Amet consectetur adipiscing \
                 elit pellentesque. Id venenatis a con
             """,
-        choreImageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTvaNbNa9E_46fY75AFA9N8dhocKjEdDegvrN5QbBHH-WX-oij4xtjeYijvpC_kHB9-FiU&usqp=CAU"
+        choreImageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTvaNbNa9E_46fY75AFA9N8dhocKjEdDegvrN5QbBHH-WX-oij4xtjeYijvpC_kHB9-FiU&usqp=CAU",
+        rewardValue: 12
     )
 
     static let previewChoreUnfinished = Chore(
         id: "id_2",
         title: "Wash the dishes",
-        assignerId: "preview assignerId",
-        assigneeId: "preview assigneeId",
+        assigner: .preview,
+        assignee: .preview,
         created: Date.now.intTimestamp,
         description: """
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, \
@@ -74,6 +77,7 @@ struct Chore: Identifiable, Codable {
                 posuere lorem ipsum dolor sit amet consectetur. Amet consectetur adipiscing \
                 elit pellentesque. Id venenatis a con
             """,
-        choreImageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTvaNbNa9E_46fY75AFA9N8dhocKjEdDegvrN5QbBHH-WX-oij4xtjeYijvpC_kHB9-FiU&usqp=CAU"
+        choreImageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTvaNbNa9E_46fY75AFA9N8dhocKjEdDegvrN5QbBHH-WX-oij4xtjeYijvpC_kHB9-FiU&usqp=CAU",
+        rewardValue: 12
     )
 }

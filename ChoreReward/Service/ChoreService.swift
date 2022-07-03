@@ -49,7 +49,11 @@ class ChoreService: ObservableObject {
         let newChoreId = UUID().uuidString
         let newChore = Chore(
             title: title,
-            assignerId: currentUserId,
+            assigner: .init(
+                id: currentUserId,
+                name: currentUser.name,
+                userImageUrl: currentUser.userImageUrl
+            ),
             created: Date.now.intTimestamp,
             description: description,
             choreImageUrl: choreImageUrl,
@@ -61,15 +65,21 @@ class ChoreService: ObservableObject {
         }
     }
 
-    func takeChore (choreId: String?, currentUserId: String?) {
+    func takeChore (choreId: String?, currentUser: User?) {
         guard let choreId = choreId,
-              let currentUserId = currentUserId,
+              let currentUser = currentUser,
+              let currentUserId = currentUser.id,
               let currentChoreCollection = currentChoreCollection
         else {
-            print("\(#fileID) \(#function): missing choreId and/or currentUserId")
+            print("\(#fileID) \(#function): missing choreId and/or currentUser")
             return
         }
-        choreRepository.update(choreAtId: choreId, in: currentChoreCollection, withAssigneeId: currentUserId)
+        let denormAssignee: DenormUser = .init(
+            id: currentUserId,
+            name: currentUser.name,
+            userImageUrl: currentUser.userImageUrl
+        )
+        choreRepository.update(choreAtId: choreId, in: currentChoreCollection, withAssignee: denormAssignee)
     }
 
     func completeChore (choreId: String?) {
