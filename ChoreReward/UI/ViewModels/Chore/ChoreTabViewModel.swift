@@ -63,11 +63,11 @@ class ChoreTabViewModel: StatefulViewModel {
         switch pickerState {
         case .finished:
             return choreList.filter { chore in
-                chore.completed != nil
+                chore.finished != nil
             }
         case .unfinished:
             return choreList.filter { chore in
-                chore.completed == nil
+                chore.finished == nil
             }
         }
     }

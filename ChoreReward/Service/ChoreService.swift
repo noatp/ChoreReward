@@ -50,7 +50,6 @@ class ChoreService: ObservableObject {
         let newChore = Chore(
             title: title,
             assignerId: currentUserId,
-            assigneeId: "",
             created: Date.now.intTimestamp,
             description: description,
             choreImageUrl: choreImageUrl,
@@ -80,7 +79,7 @@ class ChoreService: ObservableObject {
             print("\(#fileID) \(#function): missing choreId")
             return
         }
-        choreRepository.update(completedTimestampForChoreAtId: choreId, in: currentChoreCollection)
+        choreRepository.update(finishedTimestampForChoreAtId: choreId, in: currentChoreCollection)
     }
 
     func delete (choreAtId choreId: String?, byUser currentUser: User) {

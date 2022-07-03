@@ -13,8 +13,8 @@ struct Chore: Identifiable, Codable {
     @DocumentID var id: String?
     var title: String
     var assignerId: String
-    var assigneeId: String
-    var completed: Int?
+    var assigneeId: String?
+    var finished: Int?
     var created: Int
     var description: String
     var choreImageUrl: String
@@ -35,7 +35,7 @@ struct Chore: Identifiable, Codable {
         title: "Wash the dishes",
         assignerId: "preview assignerId",
         assigneeId: "preview assigneeId",
-        completed: Date.now.intTimestamp,
+        finished: Date.now.intTimestamp,
         created: Date.now.intTimestamp,
         description: """
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, \
@@ -51,7 +51,7 @@ struct Chore: Identifiable, Codable {
         title: "Wash the dishes",
         assignerId: "preview assignerId",
         assigneeId: "preview assigneeId",
-        completed: Date.now.intTimestamp,
+        finished: Date.now.intTimestamp,
         created: Date.now.intTimestamp,
         description: """
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, \

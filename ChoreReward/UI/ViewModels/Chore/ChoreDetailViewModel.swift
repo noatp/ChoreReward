@@ -53,14 +53,6 @@ class ChoreDetailViewModel: StatefulViewModel {
 
 struct ChoreDetailState {
     let chore: Chore
-    let choreTaken: Bool
-    let choreCompleted: Bool
-
-    init(chore: Chore) {
-        self.chore = chore
-        self.choreTaken = chore.assigneeId != ""
-        self.choreCompleted = chore.completed != nil
-    }
 }
 
 enum ChoreDetailAction {

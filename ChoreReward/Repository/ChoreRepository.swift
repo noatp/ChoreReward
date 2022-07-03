@@ -62,10 +62,10 @@ class ChoreRepository: ObservableObject {
             }
     }
 
-    func update(completedTimestampForChoreAtId choreId: String, in choreCollection: CollectionReference) {
+    func update(finishedTimestampForChoreAtId choreId: String, in choreCollection: CollectionReference) {
         choreCollection
             .document(choreId)
-            .updateData(["completed": Date.now.intTimestamp]) { error in
+            .updateData(["finished": Date.now.intTimestamp]) { error in
                 if let error = error {
                     print("\(#fileID) \(#function): \(error)")
                 }
