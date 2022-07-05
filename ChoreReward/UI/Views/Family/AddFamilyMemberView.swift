@@ -23,7 +23,7 @@ struct AddFamilyMemberView: View {
 
     var body: some View {
         VStack {
-            CustomTextField(title: "UserId", textInput: $userIdInput)
+            RegularTextField(title: "UserId", textInput: $userIdInput)
             RegularButton(buttonTitle: "Submit") {
                 addFamilyMemberViewModel.perform(action: .addMember(userId: userIdInput))
             }

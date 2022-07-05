@@ -60,7 +60,12 @@ struct FilledButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .padding()
-            .frame(minWidth: StylingSize.tappableWidth, maxWidth: .infinity, minHeight: StylingSize.tappableHeight, maxHeight: StylingSize.tappableHeight)
+            .frame(
+                minWidth: StylingSize.tappableWidth,
+                maxWidth: .infinity,
+                minHeight: StylingSize.tappableHeight,
+                maxHeight: StylingSize.tappableHeight
+            )
             .background(Color.bg)
             .foregroundColor(.fg)
             .clipShape(RoundedRectangle(cornerRadius: 12))
