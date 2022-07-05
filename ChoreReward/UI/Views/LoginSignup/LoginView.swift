@@ -27,49 +27,45 @@ struct LoginView: View {
 
     var body: some View {
         NavigationView {
-            GeometryReader { proxy in
-                ScrollView(.vertical, showsIndicators: false) {
-                    VStack {
-                        Spacer()
-                        Text("Chore Reward")
-                            .font(.system(size: 40, weight: .bold, design: .rounded))
-                        Spacer()
-                        CustomTextField(title: "Email", textInput: $emailInput)
-                            .textContentType(.emailAddress)
-                            .keyboardType(.emailAddress)
-                            .submitLabel(.next)
-                            .focused($focusedField, equals: .email)
-                            .onSubmit {
-                                focusedField = .password
-                            }
-                        CustomTextField(title: "Password", textInput: $passwordInput, secured: true)
-                            .textContentType(.password)
-                            .submitLabel(.done)
-                            .focused($focusedField, equals: .password)
-                            .onSubmit {
-                                login()
-                            }
+            VStack(spacing: 0) {
+                Text("Chore Reward")
+                    .font(.system(size: 40, weight: .bold, design: .rounded))
+                    .foregroundColor(.accent)
 
-                        FilledButton(buttonTitle: "Log in", buttonImage: "arrow.forward.to.line") {
+                Form {
+                    RegularTextField(title: "Email", textInput: $emailInput)
+                        .textContentType(.emailAddress)
+                        .keyboardType(.emailAddress)
+                        .submitLabel(.next)
+                        .focused($focusedField, equals: .email)
+                        .onSubmit {
+                            focusedField = .password
+                        }
+                    SecuredTextField(title: "Password", textInput: $passwordInput)
+                        .textContentType(.password)
+                        .submitLabel(.done)
+                        .focused($focusedField, equals: .password)
+                        .onSubmit {
                             login()
                         }
-                        .smallVerticalPadding()
-
+                    HStack {
                         Spacer()
-
-                        Divider()
-
-                        HStack {
-                            Text("Don't have an account?")
-                            NavigationLink(destination: views.signUpView) {
-                                Text("Sign Up")
-                            }
+                        RegularButton(buttonTitle: "Log in", buttonImage: "arrow.forward.to.line") {
+                            login()
                         }
+                        Spacer()
                     }
-                    .frame(height: proxy.size.height)
                 }
+                Divider()
+                HStack {
+                    Text("Don't have an account?")
+                    NavigationLink(destination: views.signUpView) {
+                        Text("Sign up!")
+                            .foregroundColor(.accent)
+                    }
+                }
+                .smallVerticalPadding()
             }
-            .padding()
             .vNavBar(NavigationBar(title: "Log in", leftItem: EmptyView(), rightItem: EmptyView()))
             .onAppear(perform: {
                 loginViewModel.perform(action: .silentSignIn)

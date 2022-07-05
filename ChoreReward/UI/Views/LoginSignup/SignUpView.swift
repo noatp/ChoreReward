@@ -31,50 +31,86 @@ struct SignUpView: View {
     }
 
     var body: some View {
-        GeometryReader { proxy in
-            ScrollView(.vertical, showsIndicators: false) {
-                VStack {
+//        GeometryReader { proxy in
+//            ScrollView(.vertical, showsIndicators: false) {
+//                VStack {
+//                    Spacer()
+//
+//                    pickUserImageButton
+//
+//                    rolePicker
+//                        .smallVerticalPadding()
+//                    CustomTextField(title: "Name", textInput: $nameInput)
+//                        .textContentType(.name)
+//                        .keyboardType(.namePhonePad)
+//                        .submitLabel(.next)
+//                        .focused($focusedField, equals: .name)
+//                        .onSubmit {
+//                            focusedField = .email
+//                        }
+//                    CustomTextField(title: "Email", textInput: $emailInput)
+//                        .textContentType(.emailAddress)
+//                        .keyboardType(.emailAddress)
+//                        .submitLabel(.next)
+//                        .focused($focusedField, equals: .email
+//                        )
+//                        .onSubmit {
+//                            focusedField = .password
+//                        }
+//                    CustomTextField(title: "Password", textInput: $passwordInput, secured: true)
+//                        .textContentType(.password)
+//                        .submitLabel(.done)
+//                        .focused($focusedField, equals: .password)
+//                        .onSubmit {
+//                            signUp()
+//                        }
+//
+//                    FilledButton(buttonTitle: "Sign up.", buttonImage: "arrow.turn.right.up") {
+//                        signUp()
+//                    }
+//                    .smallVerticalPadding()
+//                    Spacer()
+//                }
+//                .frame(height: proxy.size.height)
+//            }
+//        }
+        VStack(spacing: 0) {
+            Form {
+                HStack {
                     Spacer()
-
                     pickUserImageButton
-
-                    rolePicker
-                        .smallVerticalPadding()
-                    CustomTextField(title: "Name", textInput: $nameInput)
-                        .textContentType(.name)
-                        .keyboardType(.namePhonePad)
-                        .submitLabel(.next)
-                        .focused($focusedField, equals: .name)
-                        .onSubmit {
-                            focusedField = .email
-                        }
-                    CustomTextField(title: "Email", textInput: $emailInput)
-                        .textContentType(.emailAddress)
-                        .keyboardType(.emailAddress)
-                        .submitLabel(.next)
-                        .focused($focusedField, equals: .email
-                        )
-                        .onSubmit {
-                            focusedField = .password
-                        }
-                    CustomTextField(title: "Password", textInput: $passwordInput, secured: true)
-                        .textContentType(.password)
-                        .submitLabel(.done)
-                        .focused($focusedField, equals: .password)
-                        .onSubmit {
-                            signUp()
-                        }
-
-                    FilledButton(buttonTitle: "Sign up.", buttonImage: "arrow.turn.right.up") {
-                        signUp()
-                    }
-                    .smallVerticalPadding()
                     Spacer()
                 }
-                .frame(height: proxy.size.height)
+                rolePicker
+                RegularTextField(title: "Name", textInput: $nameInput)
+                    .textContentType(.name)
+                    .keyboardType(.namePhonePad)
+                    .submitLabel(.next)
+                    .focused($focusedField, equals: .name)
+                    .onSubmit {
+                        focusedField = .email
+                    }
+                RegularTextField(title: "Email", textInput: $emailInput)
+                    .textContentType(.emailAddress)
+                    .keyboardType(.emailAddress)
+                    .submitLabel(.next)
+                    .focused($focusedField, equals: .email
+                    )
+                    .onSubmit {
+                        focusedField = .password
+                    }
+                SecuredTextField(title: "Password", textInput: $passwordInput)
+                    .textContentType(.password)
+                    .submitLabel(.done)
+                    .focused($focusedField, equals: .password)
+                    .onSubmit {
+                        signUp()
+                    }
+            }
+            RegularButton(buttonTitle: "Sign up", buttonImage: "arrow.turn.right.up") {
+                signUp()
             }
         }
-        .padding()
         .vNavBar(NavigationBar(
             title: "Sign up",
             leftItem: backButton,
@@ -147,8 +183,8 @@ extension SignUpView {
                 ZStack {
                     Circle()
                         .frame(width: 200, height: 200)
-                        .foregroundColor(.fg)
-                        .shadow(radius: 5)
+                        .foregroundColor(.bg)
+                        .shadow(radius: 1)
                     Text("Add profile picture")
                 }
             }

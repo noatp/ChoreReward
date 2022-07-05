@@ -35,7 +35,7 @@ struct ChoreDetailView: View {
 
             choreDetailText
 
-            if choreDetailViewModel.state.chore.assigneeId == nil {
+            if choreDetailViewModel.state.chore.assignee == nil {
                 takeChoreButton
             } else {
                 if choreDetailViewModel.state.chore.finished == nil {
@@ -85,27 +85,66 @@ extension Dependency.Views {
 
 extension ChoreDetailView {
     private var choreDetailText: some View {
-        VStack(alignment: .leading) {
+        VStack(alignment: .leading, spacing: 0) {
             Text("\(chore.title)")
                 .font(StylingFont.title)
-                .frame(maxWidth: .infinity, alignment: .leading)
-            Text("Chore put up by: \(chore.assignerId)")
-                .font(StylingFont.medium)
+                .lineLimit(nil)
+                .multilineTextAlignment(.leading)
+            Text("Reward: $\(chore.rewardValue)")
+                .font(StylingFont.large)
+                .padding(.bottom)
+            HStack(spacing: 0) {
+                Text("Requested by: ")
+                Group {
+                    if let assignerImageUrl = chore.assigner.userImageUrl {
+                        RemoteImage(imageUrl: assignerImageUrl, isThumbnail: true)
+                    } else {
+                        RegularImage(systemImage: "person.fill")
+                    }
+                }
+                .frame(width: 20, height: 20, alignment: .center)
+                .clipShape(Circle())
+                Text(" \(chore.assigner.name ?? "")")
+                Spacer(minLength: 0)
+            }
+            .font(StylingFont.medium)
+
             Text("on \(chore.created.dateTimestamp.formatted(date: .abbreviated, time: .omitted))")
                 .font(StylingFont.medium)
                 .padding(.bottom)
 
-            Text("Detail")
+            Text("Description")
                 .font(StylingFont.large)
             Text(chore.description)
+                .lineLimit(nil)
+                .multilineTextAlignment(.leading)
                 .padding(.bottom)
 
-            if let assigneeId = choreDetailViewModel.state.chore.assigneeId {
-                Text("Chore taken by: \(assigneeId)")
+            if let assignee = choreDetailViewModel.state.chore.assignee {
+                HStack {
+                    Group {
+                        if let assigneeImageUrl = assignee.userImageUrl {
+                            RemoteImage(imageUrl: assigneeImageUrl, isThumbnail: true)
+                        } else {
+                            RegularImage(systemImage: "person.fill")
+                        }
+                    }
+                    .frame(width: 20, height: 20, alignment: .center)
+                    .clipShape(Circle())
+                    Text(" \(assignee.name ?? "") is working on this chore")
+                        .lineLimit(nil)
+                        .multilineTextAlignment(.leading)
+                    Spacer(minLength: 0)
+                }
+                .font(StylingFont.medium)
+                .padding(.bottom)
+
                 if let finished = choreDetailViewModel.state.chore.finished {
                     Text("Chore is finished on \(finished.dateTimestamp.formatted(date: .abbreviated, time: .omitted))")
+                        .font(StylingFont.medium)
                 } else {
                     Text("Chore is not finished")
+                        .font(StylingFont.medium)
                 }
             }
         }

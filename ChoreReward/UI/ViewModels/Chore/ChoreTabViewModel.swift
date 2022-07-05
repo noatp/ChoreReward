@@ -54,7 +54,7 @@ class ChoreTabViewModel: StatefulViewModel {
             return choreList
         case .takenByCurrentUser:
             return choreList.filter { chore in
-                chore.assigneeId == userService.currentUserId
+                chore.assignee?.id == userService.currentUserId
             }
         }
     }

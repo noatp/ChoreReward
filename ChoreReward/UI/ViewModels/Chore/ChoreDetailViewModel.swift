@@ -42,7 +42,7 @@ class ChoreDetailViewModel: StatefulViewModel {
     private func takeChore() {
         choreSerivce.takeChore(
             choreId: chore.id,
-            currentUserId: userService.currentUserId
+            currentUser: userService.currentUser
         )
     }
 
