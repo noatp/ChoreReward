@@ -81,10 +81,6 @@ struct LoginView: View {
                 }
             }
         }
-        .onAppear {
-            print("HEH")
-            loginViewModel.perform(action: .silentSignIn)
-        }
     }
 }
 

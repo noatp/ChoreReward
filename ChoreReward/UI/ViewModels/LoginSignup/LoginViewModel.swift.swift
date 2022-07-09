@@ -51,11 +51,6 @@ class LoginViewModel: StatefulViewModel {
         }
     }
 
-    private func silentSignIn() {
-        print("HERE")
-        userService.silentSignIn()
-    }
-
     private func updateShouldShowAlertState(newState: Bool) {
         self._state = .init(errorMessage: "", shouldShowAlert: newState)
     }
@@ -64,8 +59,6 @@ class LoginViewModel: StatefulViewModel {
         switch action {
         case .signIn(let emailInput, let passwordInput):
             signIn(emailInput: emailInput, passwordInput: passwordInput)
-        case .silentSignIn:
-            silentSignIn()
         case .updateShouldShowAlertState(let newState):
             updateShouldShowAlertState(newState: newState)
         }
@@ -82,7 +75,6 @@ struct LoginViewState {
 
 enum LoginViewAction {
     case signIn(emailInput: String, passwordInput: String)
-    case silentSignIn
     case updateShouldShowAlertState(newState: Bool)
 }
 

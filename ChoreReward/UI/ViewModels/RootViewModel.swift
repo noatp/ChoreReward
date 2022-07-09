@@ -35,8 +35,6 @@ class RootViewModel: StatefulViewModel {
                     return
                 }
 
-                print("Here \(authState)")
-
                 switch authState {
                 case .signedIn:
                     strongSelf._state = .init(
