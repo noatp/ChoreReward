@@ -44,7 +44,7 @@ struct Chore: Identifiable, Codable {
                 posuere lorem ipsum dolor sit amet consectetur. Amet consectetur adipiscing \
                 elit pellentesque. Id venenatis a con
             """,
-        choreImageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTvaNbNa9E_46fY75AFA9N8dhocKjEdDegvrN5QbBHH-WX-oij4xtjeYijvpC_kHB9-FiU&usqp=CAU",
+        choreImageUrl: "https://nolisoli.ph/wp-content/uploads/2020/10/pexels-cottonbro-4108715.jpg",
         rewardValue: 12
     )
 
@@ -61,7 +61,7 @@ struct Chore: Identifiable, Codable {
                 posuere lorem ipsum dolor sit amet consectetur. Amet consectetur adipiscing \
                 elit pellentesque. Id venenatis a con
             """,
-        choreImageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTvaNbNa9E_46fY75AFA9N8dhocKjEdDegvrN5QbBHH-WX-oij4xtjeYijvpC_kHB9-FiU&usqp=CAU",
+        choreImageUrl: "https://nolisoli.ph/wp-content/uploads/2020/10/pexels-cottonbro-4108715.jpg",
         rewardValue: 12
     )
 
@@ -77,7 +77,7 @@ struct Chore: Identifiable, Codable {
                 posuere lorem ipsum dolor sit amet consectetur. Amet consectetur adipiscing \
                 elit pellentesque. Id venenatis a con
             """,
-        choreImageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTvaNbNa9E_46fY75AFA9N8dhocKjEdDegvrN5QbBHH-WX-oij4xtjeYijvpC_kHB9-FiU&usqp=CAU",
+        choreImageUrl: "https://nolisoli.ph/wp-content/uploads/2020/10/pexels-cottonbro-4108715.jpg",
         rewardValue: 12
     )
 }

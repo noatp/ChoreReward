@@ -27,23 +27,25 @@ struct FamilyTabView: View {
     }
 
     var body: some View {
-        List {
-            ForEach(familyTabViewModel.state.members) { member in
-                UserCard(user: member)
+        UnwrapViewState(viewState: familyTabViewModel.viewState) { viewState in
+            List {
+                ForEach(viewState.members) { member in
+                    UserCard(user: member)
+                }
+                .listRowInsets(.init(top: 5, leading: 0, bottom: 5, trailing: 0))
+                .listRowSeparator(.hidden)
             }
-            .listRowInsets(.init(top: 5, leading: 0, bottom: 5, trailing: 0))
-            .listRowSeparator(.hidden)
-        }
-        .listStyle(.plain)
-        .padding()
-        .vNavBar(NavigationBar(
-            title: "Family",
-            leftItem: menuButton,
-            rightItem: addFamilyMemberButton,
-            navBarLayout: .leftTitle
-        ))
-        .fullScreenCover(isPresented: $presentedAddMemberSheet) {
-            views.addFamilyMemberView()
+            .listStyle(.plain)
+            .padding()
+            .vNavBar(NavigationBar(
+                title: "Family",
+                leftItem: menuButton,
+                rightItem: addFamilyMemberButton,
+                navBarLayout: .leftTitle
+            ))
+            .fullScreenCover(isPresented: $presentedAddMemberSheet) {
+                views.addFamilyMemberView()
+            }
         }
     }
 }

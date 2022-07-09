@@ -12,7 +12,7 @@ class ChoreTabViewModel: StatefulViewModel {
     @Published private var _state: ChoreTabState = empty
     static var empty: ChoreTabState = .empty
 
-    var state: AnyPublisher<ChoreTabState, Never> {
+    var viewState: AnyPublisher<ChoreTabState, Never> {
         return $_state.eraseToAnyPublisher()
     }
 
@@ -72,7 +72,10 @@ class ChoreTabViewModel: StatefulViewModel {
         }
     }
 
-    private func applyFilterAndPicker(filterState: ChoreFilterState, pickerState: ChorePickerState, choreList: [Chore]) -> [Chore] {
+    private func applyFilterAndPicker(
+        filterState: ChoreFilterState,
+        pickerState: ChorePickerState,
+        choreList: [Chore]) -> [Chore] {
         return applyFilterToChoreList(
             filterState: filterState,
             choreList: applyPickerToChoreList(

@@ -19,7 +19,7 @@ class NoFamilyViewModel: StatefulViewModel {
     private let familyService: FamilyService
     private var currentUserSubscription: AnyCancellable?
 
-    var state: AnyPublisher<NoFamilyState, Never> {
+    var viewState: AnyPublisher<NoFamilyState, Never> {
         return $_state.eraseToAnyPublisher()
     }
 

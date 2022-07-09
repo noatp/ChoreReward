@@ -15,7 +15,6 @@ struct ChoreDetailView: View {
     @State private var navBarOpacity: Double = 0
     @State private var scrollPos: Double = 0
 
-    private var chore: Chore {choreDetailViewModel.state.chore}
     private var views: Dependency.Views
 
     init(
@@ -27,29 +26,29 @@ struct ChoreDetailView: View {
     }
 
     var body: some View {
-        ScrollView {
-            RemoteImage(imageUrl: chore.choreImageUrl, isThumbnail: false)
-                .frame(maxWidth: .infinity, maxHeight: 400, alignment: .center)
-                .clipped()
-                .scrollViewOffset($navBarOpacity)
-
-            choreDetailText
-
-            if choreDetailViewModel.state.chore.assignee == nil {
-                takeChoreButton
-            } else {
-                if choreDetailViewModel.state.chore.finished == nil {
-                    completeChoreButton
+        UnwrapViewState(viewState: choreDetailViewModel.viewState) { viewState in
+            ScrollView {
+                RemoteImage(imageUrl: viewState.chore.choreImageUrl, isThumbnail: false)
+                    .frame(maxWidth: .infinity, maxHeight: 400, alignment: .center)
+                    .clipped()
+                    .scrollViewOffset($navBarOpacity)
+                choreDetailText
+                if viewState.chore.assignee == nil {
+                    takeChoreButton
+                } else {
+                    if viewState.chore.finished == nil {
+                        completeChoreButton
+                    }
                 }
             }
+            .ignoresSafeArea(edges: .top)
+            .zNavBar(NavigationBar(
+                title: viewState.chore.title,
+                leftItem: dismissButton,
+                rightItem: EmptyView(),
+                opacity: navBarOpacity
+            ))
         }
-        .ignoresSafeArea(edges: .top)
-        .zNavBar(NavigationBar(
-            title: chore.title,
-            leftItem: dismissButton,
-            rightItem: EmptyView(),
-            opacity: navBarOpacity
-        ))
     }
 }
 
@@ -85,70 +84,73 @@ extension Dependency.Views {
 
 extension ChoreDetailView {
     private var choreDetailText: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            Text("\(chore.title)")
-                .font(StylingFont.title)
-                .lineLimit(nil)
-                .multilineTextAlignment(.leading)
-            Text("Reward: $\(chore.rewardValue)")
-                .font(StylingFont.large)
-                .padding(.bottom)
-            HStack(spacing: 0) {
-                Text("Requested by: ")
-                Group {
-                    if let assignerImageUrl = chore.assigner.userImageUrl {
-                        RemoteImage(imageUrl: assignerImageUrl, isThumbnail: true)
-                    } else {
-                        RegularImage(systemImage: "person.fill")
-                    }
-                }
-                .frame(width: 20, height: 20, alignment: .center)
-                .clipShape(Circle())
-                Text(" \(chore.assigner.name ?? "")")
-                Spacer(minLength: 0)
-            }
-            .font(StylingFont.medium)
-
-            Text("on \(chore.created.dateTimestamp.formatted(date: .abbreviated, time: .omitted))")
-                .font(StylingFont.medium)
-                .padding(.bottom)
-
-            Text("Description")
-                .font(StylingFont.large)
-            Text(chore.description)
-                .lineLimit(nil)
-                .multilineTextAlignment(.leading)
-                .padding(.bottom)
-
-            if let assignee = choreDetailViewModel.state.chore.assignee {
-                HStack {
+        UnwrapViewState(viewState: choreDetailViewModel.viewState) { viewState in
+            VStack(alignment: .leading, spacing: 0) {
+                Text("\(viewState.chore.title)")
+                    .font(StylingFont.title)
+                    .lineLimit(nil)
+                    .multilineTextAlignment(.leading)
+                Text("Reward: $\(viewState.chore.rewardValue)")
+                    .font(StylingFont.large)
+                    .padding(.bottom)
+                HStack(spacing: 0) {
+                    Text("Requested by: ")
                     Group {
-                        if let assigneeImageUrl = assignee.userImageUrl {
-                            RemoteImage(imageUrl: assigneeImageUrl, isThumbnail: true)
+                        if let assignerImageUrl = viewState.chore.assigner.userImageUrl {
+                            RemoteImage(imageUrl: assignerImageUrl, isThumbnail: true)
                         } else {
                             RegularImage(systemImage: "person.fill")
                         }
                     }
                     .frame(width: 20, height: 20, alignment: .center)
                     .clipShape(Circle())
-                    Text(" \(assignee.name ?? "") is working on this chore")
-                        .lineLimit(nil)
-                        .multilineTextAlignment(.leading)
+                    Text(" \(viewState.chore.assigner.name ?? "")")
                     Spacer(minLength: 0)
                 }
                 .font(StylingFont.medium)
-                .padding(.bottom)
 
-                if let finished = choreDetailViewModel.state.chore.finished {
-                    Text("Chore is finished on \(finished.dateTimestamp.formatted(date: .abbreviated, time: .omitted))")
-                        .font(StylingFont.medium)
-                } else {
-                    Text("Chore is not finished")
-                        .font(StylingFont.medium)
+                Text("on \(viewState.chore.created.dateTimestamp.formatted(date: .abbreviated, time: .omitted))")
+                    .font(StylingFont.medium)
+                    .padding(.bottom)
+
+                Text("Description")
+                    .font(StylingFont.large)
+                Text(viewState.chore.description)
+                    .lineLimit(nil)
+                    .multilineTextAlignment(.leading)
+                    .padding(.bottom)
+
+                if let assignee = viewState.chore.assignee {
+                    HStack {
+                        Group {
+                            if let assigneeImageUrl = assignee.userImageUrl {
+                                RemoteImage(imageUrl: assigneeImageUrl, isThumbnail: true)
+                            } else {
+                                RegularImage(systemImage: "person.fill")
+                            }
+                        }
+                        .frame(width: 20, height: 20, alignment: .center)
+                        .clipShape(Circle())
+                        Text(" \(assignee.name ?? "") is working on this chore")
+                            .lineLimit(nil)
+                            .multilineTextAlignment(.leading)
+                        Spacer(minLength: 0)
+                    }
+                    .font(StylingFont.medium)
+                    .padding(.bottom)
+
+                    if let finished = viewState.chore.finished {
+                        Text("Chore is finished on "
+                             + "\(finished.dateTimestamp.formatted(date: .abbreviated, time: .omitted))")
+                            .font(StylingFont.medium)
+                    } else {
+                        Text("Chore is not finished")
+                            .font(StylingFont.medium)
+                    }
                 }
             }
+            .padding(.horizontal)
         }
-        .padding(.horizontal)
     }
 
     private var takeChoreButton: some View {

@@ -94,7 +94,14 @@ struct NavigationBar_Previews: PreviewProvider {
             VStack {
                 Text("Preview")
             }
-            .vNavBar(NavigationBar(title: "Navigation Bar", leftItem: leftItem, rightItem: rightItem, navBarLayout: .leftTitle))
+            .vNavBar(
+                NavigationBar(
+                    title: "Navigation Bar",
+                    leftItem: leftItem,
+                    rightItem: rightItem,
+                    navBarLayout: .leftTitle
+                )
+            )
 
             VStack {
                 Text("Preview")

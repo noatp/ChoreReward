@@ -83,7 +83,14 @@ struct SideDrawerView_Previews: PreviewProvider {
         VStack {
             Text("This is a Preview of NavDrawerVie")
         }
-        .vNavBar(NavigationBar(title: "Navigation Bar", leftItem: leftItem, rightItem: rightItem, navBarLayout: .leftTitle))
+        .vNavBar(
+            NavigationBar(
+                title: "Navigation Bar",
+                leftItem: leftItem,
+                rightItem: rightItem,
+                navBarLayout: .leftTitle
+            )
+        )
         .sideDrawer(views: Dependency.preview.views(), presentedDrawer: .constant(true))
         .preferredColorScheme(.light)
     }

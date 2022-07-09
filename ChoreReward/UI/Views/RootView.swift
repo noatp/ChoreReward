@@ -21,15 +21,16 @@ struct RootView: View {
     }
 
     var body: some View {
-        ZStack {
-            views.appView
-                .fullScreenCover(
-                    isPresented: Binding(get: {
-                        rootViewModel.state.shouldRenderLoginView
-                    }, set: {_ in})) {
-                        views.loginView
-                    }
+        UnwrapViewState(viewState: rootViewModel.viewState) { viewState in
+            ZStack {
+                if viewState.shouldRenderLoginView {
+                    views.loginView
+                } else {
+                    views.appView
+                }
+            }
         }
+
     }
 }
 

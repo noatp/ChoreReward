@@ -11,7 +11,7 @@ import Combine
 class UserRewardViewModel: StatefulViewModel {
     @Published var _state: UserRewardViewState = empty
     static let empty = UserRewardViewState.empty
-    var state: AnyPublisher<UserRewardViewState, Never> {
+    var viewState: AnyPublisher<UserRewardViewState, Never> {
         return $_state.eraseToAnyPublisher()
     }
 

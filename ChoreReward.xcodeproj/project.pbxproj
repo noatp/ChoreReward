@@ -31,7 +31,6 @@
 		453CC1AA278807AA002996AF /* AddFamilyMemberViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453CC1A9278807AA002996AF /* AddFamilyMemberViewModel.swift */; };
 		453CC1AC2788D936002996AF /* AddFamilyMemberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453CC1AB2788D936002996AF /* AddFamilyMemberView.swift */; };
 		4542931A286D37F400E32875 /* CustomProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45429319286D37F400E32875 /* CustomProgressBar.swift */; };
-		45429352287001BC00E32875 /* PickerMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45429351287001BC00E32875 /* PickerMenu.swift */; };
 		45429DB1279B608C00FA9670 /* ChoreCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45429DB0279B608C00FA9670 /* ChoreCard.swift */; };
 		45429DC227A518B600FA9670 /* ChoreDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45429DC127A518B600FA9670 /* ChoreDetailViewModel.swift */; };
 		45429DC427A518CC00FA9670 /* ChoreDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45429DC327A518CC00FA9670 /* ChoreDetailView.swift */; };
@@ -45,6 +44,7 @@
 		4583C133285EB7EC00E77427 /* RewardService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4583C132285EB7EC00E77427 /* RewardService.swift */; };
 		458C76BD2851736000119E68 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 458C76BC2851736000119E68 /* Date.swift */; };
 		458C76BF285174AF00119E68 /* Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 458C76BE285174AF00119E68 /* Int.swift */; };
+		458DA88E2879F89C0011FA72 /* UnwrapViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 458DA88D2879F89C0011FA72 /* UnwrapViewState.swift */; };
 		45A31BFB27E2CB340060B8AB /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A31BFA27E2CB340060B8AB /* Color.swift */; };
 		45A4754A279215A100322BCE /* ChoreRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A47549279215A100322BCE /* ChoreRepository.swift */; };
 		45A4754C27931F1C00322BCE /* ChoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A4754B27931F1C00322BCE /* ChoreService.swift */; };
@@ -133,7 +133,6 @@
 		453CC1A9278807AA002996AF /* AddFamilyMemberViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFamilyMemberViewModel.swift; sourceTree = "<group>"; };
 		453CC1AB2788D936002996AF /* AddFamilyMemberView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFamilyMemberView.swift; sourceTree = "<group>"; };
 		45429319286D37F400E32875 /* CustomProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomProgressBar.swift; sourceTree = "<group>"; };
-		45429351287001BC00E32875 /* PickerMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerMenu.swift; sourceTree = "<group>"; };
 		45429DB0279B608C00FA9670 /* ChoreCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoreCard.swift; sourceTree = "<group>"; };
 		45429DC127A518B600FA9670 /* ChoreDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoreDetailViewModel.swift; sourceTree = "<group>"; };
 		45429DC327A518CC00FA9670 /* ChoreDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoreDetailView.swift; sourceTree = "<group>"; };
@@ -147,6 +146,7 @@
 		4583C132285EB7EC00E77427 /* RewardService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RewardService.swift; sourceTree = "<group>"; };
 		458C76BC2851736000119E68 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		458C76BE285174AF00119E68 /* Int.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Int.swift; sourceTree = "<group>"; };
+		458DA88D2879F89C0011FA72 /* UnwrapViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnwrapViewState.swift; sourceTree = "<group>"; };
 		45A31BFA27E2CB340060B8AB /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		45A47549279215A100322BCE /* ChoreRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoreRepository.swift; sourceTree = "<group>"; };
 		45A4754B27931F1C00322BCE /* ChoreService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoreService.swift; sourceTree = "<group>"; };
@@ -253,6 +253,7 @@
 				45DAF19D2870C38A007266EF /* LoginSignup */,
 				45DAF19E2870C397007266EF /* UserProfile */,
 				45DAF19F2870C3A7007266EF /* UserReward */,
+				458DA88D2879F89C0011FA72 /* UnwrapViewState.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -415,7 +416,6 @@
 				456D46E827EBFFE800B2AC07 /* SideDrawer.swift */,
 				4509FB382862907600F84B42 /* NavigationBar.swift */,
 				45429319286D37F400E32875 /* CustomProgressBar.swift */,
-				45429351287001BC00E32875 /* PickerMenu.swift */,
 			);
 			path = ComponentViews;
 			sourceTree = "<group>";
@@ -686,7 +686,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nif test -d \"/opt/homebrew/bin/\"; then\n  PATH=\"/opt/homebrew/bin/:${PATH}\"\nfi\n\nexport PATH\n\nif which swiftlint >/dev/null; then\n#  swiftlint --fix && \n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nif test -d \"/opt/homebrew/bin/\"; then\n  PATH=\"/opt/homebrew/bin/:${PATH}\"\nfi\n\nexport PATH\n\nif which swiftlint >/dev/null; then\n  swiftlint --fix && swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -701,7 +701,6 @@
 				456EA4B6278A127E00ADA2CD /* RegularButton.swift in Sources */,
 				45EAF0C027FA407A005655D4 /* ImagePicker.swift in Sources */,
 				45DCD52C277965E900A1037B /* NoFamilyViewModel.swift in Sources */,
-				45429352287001BC00E32875 /* PickerMenu.swift in Sources */,
 				45ACB4AE2724AD1A000E04A0 /* ContentView.swift in Sources */,
 				45395C5B272B20F600F50B70 /* Dependency.swift in Sources */,
 				4544C86728617CF300D7B8AB /* AddUserRewardViewModel.swift in Sources */,
@@ -734,6 +733,7 @@
 				453CC1A22787B41F002996AF /* ObservableViewModel.swift in Sources */,
 				45ACB4DE2724AEBE000E04A0 /* Reward.swift in Sources */,
 				45429DB1279B608C00FA9670 /* ChoreCard.swift in Sources */,
+				458DA88E2879F89C0011FA72 /* UnwrapViewState.swift in Sources */,
 				45F784982793D86F00C8B197 /* AddChoreViewModel.swift in Sources */,
 				452B3CD42873A20C002BF93F /* SecuredTextField.swift in Sources */,
 				45D7AE952735B4A100A53812 /* Family.swift in Sources */,

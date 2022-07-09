@@ -141,12 +141,14 @@ class ChoreService: ObservableObject {
                         self?.familyChores = []
                         return
                     }
-                    if let currentChoreCollection = self?.currentChoreCollection, currentChoreCollection == receivedChoreCollection {
-                        print("\(#fileID) \(#function): received-family has same chore collection as the cached chore collection -> doing nothing")
+                    if let currentChoreCollection = self?.currentChoreCollection,
+                        currentChoreCollection == receivedChoreCollection {
+                        print("\(#fileID) \(#function): received-family has same chore collection as in cache "
+                              + "-> doing nothing")
                         return
                     } else {
-                        print("\(#fileID) \(#function): received-family has diff chore collection from the cached family -> resetting chore service & fetch new chore data")
-                        self?.reset()
+                        print("\(#fileID) \(#function): received-family has diff chore collection from cache "
+                              + "-> fetch new chore data")
                         self?.currentChoreCollection = receivedChoreCollection
                         self?.getChoresOfCurrentFamilyWith(choreCollection: receivedChoreCollection)
                         return

@@ -66,6 +66,10 @@ extension View {
     }
 
     func tappableFrame() -> some View {
-        return self.frame(minWidth: StylingSize.tappableWidth, minHeight: StylingSize.tappableHeight, maxHeight: StylingSize.tappableHeight)
+        return self.frame(
+            minWidth: StylingSize.tappableWidth,
+            minHeight: StylingSize.tappableHeight,
+            maxHeight: StylingSize.tappableHeight
+        )
     }
 }

@@ -17,7 +17,7 @@ class UserProfileViewModel: StatefulViewModel {
         currentUserRole: "",
         currentUserProfileImageUrl: nil
     )
-    var state: AnyPublisher<UserProfileState, Never> {
+    var viewState: AnyPublisher<UserProfileState, Never> {
         return $_state.eraseToAnyPublisher()
     }
 

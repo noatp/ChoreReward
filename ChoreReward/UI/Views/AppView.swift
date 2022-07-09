@@ -26,26 +26,28 @@ struct AppView: View {
     }
 
     var body: some View {
-        NavigationView {
-            if appViewModel.state.shouldPresentNoFamilyView {
-                views.noFamilyView
-            } else {
-                VStack {
-                    // main view
-                    switch selectedTab {
-                    case .choreTab:
-                        views.choreTabView(presentedDrawer: $presentedDrawer)
-                    case .familyTab:
-                        views.familyTabView(presentedDrawer: $presentedDrawer)
-                    }
+        UnwrapViewState(viewState: appViewModel.viewState) { viewState in
+            NavigationView {
+                if viewState.shouldPresentNoFamilyView {
+                    views.noFamilyView
+                } else {
+                    VStack {
+                        // main view
+                        switch selectedTab {
+                        case .choreTab:
+                            views.choreTabView(presentedDrawer: $presentedDrawer)
+                        case .familyTab:
+                            views.familyTabView(presentedDrawer: $presentedDrawer)
+                        }
 
-                    Spacer(minLength: 0)
-                    // tab bar
-                    tabBar
-                }
-                .sideDrawer(views: views, presentedDrawer: $presentedDrawer)
-                .fullScreenCover(isPresented: $presentingAddChoreView) {
-                    views.addChoreView()
+                        Spacer(minLength: 0)
+                        // tab bar
+                        tabBar
+                    }
+                    .sideDrawer(views: views, presentedDrawer: $presentedDrawer)
+                    .fullScreenCover(isPresented: $presentingAddChoreView) {
+                        views.addChoreView()
+                    }
                 }
             }
         }
@@ -81,49 +83,51 @@ extension Dependency.Views {
 extension AppView {
 
     var tabBar: some View {
-        HStack {
-            Spacer()
-            Button {
-                selectedTab = .choreTab
-            } label: {
-                VStack {
-                    Image(systemName: (selectedTab == .choreTab ? "checkmark.seal.fill" : "checkmark.seal"))
-                    Text("Chores")
-                        .font(StylingFont.medium)
-                }
-            }
-            .foregroundColor(selectedTab == .choreTab ? Color.accent : Color.accentGray)
-            Spacer()
-
-            if appViewModel.state.shouldRenderAddChoreButton {
+        UnwrapViewState(viewState: appViewModel.viewState) { viewState in
+            HStack {
+                Spacer()
                 Button {
-                    presentingAddChoreView = true
+                    selectedTab = .choreTab
                 } label: {
                     VStack {
-                        Image(systemName: "plus.app.fill")
-                            .font(.system(size: 40, weight: .bold))
-                        Text("New Chore")
+                        Image(systemName: (selectedTab == .choreTab ? "checkmark.seal.fill" : "checkmark.seal"))
+                        Text("Chores")
                             .font(StylingFont.medium)
                     }
                 }
-                .foregroundColor(.accent)
-            }
+                .foregroundColor(selectedTab == .choreTab ? Color.accent : Color.accentGray)
+                Spacer()
 
-            Spacer()
-            Button {
-                selectedTab = .familyTab
-            } label: {
-                VStack {
-                    Image(systemName: (selectedTab == .familyTab ? "house.fill" : "house"))
-                    Text("Family")
-                        .font(StylingFont.medium)
+                if viewState.shouldRenderAddChoreButton {
+                    Button {
+                        presentingAddChoreView = true
+                    } label: {
+                        VStack {
+                            Image(systemName: "plus.app.fill")
+                                .font(.system(size: 40, weight: .bold))
+                            Text("New Chore")
+                                .font(StylingFont.medium)
+                        }
+                    }
+                    .foregroundColor(.accent)
                 }
+
+                Spacer()
+                Button {
+                    selectedTab = .familyTab
+                } label: {
+                    VStack {
+                        Image(systemName: (selectedTab == .familyTab ? "house.fill" : "house"))
+                        Text("Family")
+                            .font(StylingFont.medium)
+                    }
+                }
+                .foregroundColor(selectedTab == .familyTab ? Color.accent : Color.accentGray)
+                Spacer()
             }
-            .foregroundColor(selectedTab == .familyTab ? Color.accent : Color.accentGray)
-            Spacer()
-        }
-        .background {
-            Color.bg.ignoresSafeArea()
+            .background {
+                Color.bg.ignoresSafeArea()
+            }
         }
     }
 }

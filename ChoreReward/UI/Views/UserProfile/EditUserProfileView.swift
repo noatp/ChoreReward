@@ -30,78 +30,81 @@ struct EditUserProfileView: View {
     }
 
     var body: some View {
-        VStack(spacing: 16) {
-            Group {
-                if userImageDidChange {
-                    if let userImageUrl = userImageUrl {
-                        RemoteImage(imageUrl: userImageUrl, isThumbnail: false)
+        UnwrapViewState(viewState: editUserProfileViewModel.viewState) { viewState in
+            VStack(spacing: 16) {
+                Group {
+                    if userImageDidChange {
+                        if let userImageUrl = userImageUrl {
+                            RemoteImage(imageUrl: userImageUrl, isThumbnail: false)
+                        } else {
+                            RegularImage(systemImage: "person.fill")
+                        }
                     } else {
-                        RegularImage(systemImage: "person.fill")
+                        if let userImageUrl = viewState.currentUserProfileImageUrl {
+                            RemoteImage(imageUrl: userImageUrl, isThumbnail: false)
+                        } else {
+                            RegularImage(systemImage: "person.fill")
+                        }
                     }
-                } else {
-                    if let userImageUrl = editUserProfileViewModel.state.currentUserProfileImageUrl {
-                        RemoteImage(imageUrl: userImageUrl, isThumbnail: false)
-                    } else {
-                        RegularImage(systemImage: "person.fill")
+                }
+                .frame(width: 200, height: 200, alignment: .center)
+                .clipShape(Circle())
+
+                RegularButton(buttonTitle: "Change profile picture", action: {
+                    shouldShowActionSheet = true
+                })
+                .foregroundColor(.accent)
+
+                Form {
+                    HStack {
+                        Text("Name: ")
+                            .frame(width: 60)
+                        RegularTextField(title: viewState.currentUserName, textInput: $userName)
+                            .textContentType(.name)
+                            .keyboardType(.namePhonePad)
+                    }
+                    HStack {
+                        Text("Email: ")
+                            .frame(width: 60)
+                        RegularTextField(title: viewState.currentUserEmail, textInput: $userEmail)
+                            .textContentType(.password)
+                            .keyboardType(.emailAddress)
                     }
                 }
             }
-            .frame(width: 200, height: 200, alignment: .center)
-            .clipShape(Circle())
+            .vNavBar(NavigationBar(
+                title: viewState.currentUserName,
+                leftItem: backButton,
+                rightItem: doneButton)
+            )
+            .confirmationDialog(
+                "Change profile picture",
+                isPresented: $shouldShowActionSheet,
+                titleVisibility: .visible,
+                actions: {
+                    Button {
+                        userImageUrl = nil
+                        userImageDidChange = true
+                    } label: {
+                        Text("Remove profile picture")
+                    }
 
-            RegularButton(buttonTitle: "Change profile picture", action: {
-                shouldShowActionSheet = true
-            })
-            .foregroundColor(.accent)
-
-            Form {
-                HStack {
-                    Text("Name: ")
-                        .frame(width: 60)
-                    RegularTextField(title: editUserProfileViewModel.state.currentUserName, textInput: $userName)
-                        .textContentType(.name)
-                        .keyboardType(.namePhonePad)
+                    Button {
+                        shouldShowImagePicker = true
+                    } label: {
+                        Text("Choose from library")
+                    }
                 }
-                HStack {
-                    Text("Email: ")
-                        .frame(width: 60)
-                    RegularTextField(title: editUserProfileViewModel.state.currentUserEmail, textInput: $userEmail)
-                        .textContentType(.password)
-                        .keyboardType(.emailAddress)
-                }
-            }
-        }
-        .vNavBar(NavigationBar(
-            title: editUserProfileViewModel.state.currentUserName,
-            leftItem: backButton,
-            rightItem: doneButton)
-        )
-        .confirmationDialog(
-            "Change profile picture",
-            isPresented: $shouldShowActionSheet,
-            titleVisibility: .visible,
-            actions: {
-                Button {
-                    userImageUrl = nil
+            )
+            .fullScreenCover(isPresented: $shouldShowImagePicker, onDismiss: nil) {
+                ImagePicker(sourceType: .photoLibrary, didFinishPickingMediaHandler: { newUserImageUrl in
+                    userImageUrl = newUserImageUrl
                     userImageDidChange = true
-                } label: {
-                    Text("Remove profile picture")
-                }
-
-                Button {
-                    shouldShowImagePicker = true
-                } label: {
-                    Text("Choose from library")
-                }
+                })
+                .ignoresSafeArea()
             }
-        )
-        .fullScreenCover(isPresented: $shouldShowImagePicker, onDismiss: nil) {
-            ImagePicker(sourceType: .photoLibrary, didFinishPickingMediaHandler: { newUserImageUrl in
-                userImageUrl = newUserImageUrl
-                userImageDidChange = true
-            })
-            .ignoresSafeArea()
         }
+
     }
 }
 

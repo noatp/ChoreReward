@@ -12,7 +12,7 @@ import SwiftUI
 class EditUserProfileViewModel: StatefulViewModel {
     @Published var _state: EditUserProfileState = empty
     static let empty = EditUserProfileState.empty
-    var state: AnyPublisher<EditUserProfileState, Never> {
+    var viewState: AnyPublisher<EditUserProfileState, Never> {
         return $_state.eraseToAnyPublisher()
     }
 

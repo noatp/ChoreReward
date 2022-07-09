@@ -23,49 +23,51 @@ struct UserProfileView: View {
     }
 
     var body: some View {
-        VStack(spacing: 16) {
-            Group {
-                if let userImageUrl = userProfileViewModel.state.currentUserProfileImageUrl {
-                    RemoteImage(imageUrl: userImageUrl, isThumbnail: false)
-                } else {
-                    RegularImage(systemImage: "person.fill")
+        UnwrapViewState(viewState: userProfileViewModel.viewState) { viewState in
+            VStack(spacing: 16) {
+                Group {
+                    if let userImageUrl = viewState.currentUserProfileImageUrl {
+                        RemoteImage(imageUrl: userImageUrl, isThumbnail: false)
+                    } else {
+                        RegularImage(systemImage: "person.fill")
+                    }
                 }
-            }
-            .frame(width: 200, height: 200, alignment: .center)
-            .clipShape(Circle())
-            Divider()
-            Text(userProfileViewModel.state.currentUserName)
-                .font(StylingFont.large)
+                .frame(width: 200, height: 200, alignment: .center)
+                .clipShape(Circle())
+                Divider()
+                Text(viewState.currentUserName)
+                    .font(StylingFont.large)
 
-            HStack {
-                Text("Email:")
-                Text(userProfileViewModel.state.currentUserEmail)
-            }
-            HStack {
-                Text("Role:")
-                Text(userProfileViewModel.state.currentUserRole)
-            }
-
-            Spacer()
-
-            NavigationLink {
-                views.editUserProfileView
-            } label: {
                 HStack {
-                    Image(systemName: "pencil")
-                    Text("Edit profile")
+                    Text("Email:")
+                    Text(viewState.currentUserEmail)
+                }
+                HStack {
+                    Text("Role:")
+                    Text(viewState.currentUserRole)
+                }
+
+                Spacer()
+
+                NavigationLink {
+                    views.editUserProfileView
+                } label: {
+                    HStack {
+                        Image(systemName: "pencil")
+                        Text("Edit profile")
+                    }
+                }
+
+                FilledButton(buttonTitle: "Log out", buttonImage: "arrow.backward.to.line") {
+                    userProfileViewModel.perform(action: .signOut)
                 }
             }
-
-            FilledButton(buttonTitle: "Log out", buttonImage: "arrow.backward.to.line") {
-                userProfileViewModel.perform(action: .signOut)
-            }
+            .padding()
+            .vNavBar(NavigationBar(
+                title: viewState.currentUserName,
+                leftItem: backButton,
+                rightItem: EmptyView()))
         }
-        .padding()
-        .vNavBar(NavigationBar(
-            title: userProfileViewModel.state.currentUserName,
-            leftItem: backButton,
-            rightItem: EmptyView()))
     }
 }
 

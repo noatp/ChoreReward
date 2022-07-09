@@ -14,7 +14,7 @@ class FamilyTabViewModel: StatefulViewModel {
         members: [],
         shouldRenderAddMemberButton: false
     )
-    var state: AnyPublisher<FamilyTabState, Never> {
+    var viewState: AnyPublisher<FamilyTabState, Never> {
         return $_state.eraseToAnyPublisher()
     }
 

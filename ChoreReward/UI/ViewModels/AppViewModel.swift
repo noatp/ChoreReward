@@ -11,7 +11,7 @@ import Combine
 class AppViewModel: StatefulViewModel {
     @Published var _state = empty
     static var empty: AppViewState = .empty
-    var state: AnyPublisher<AppViewState, Never> {
+    var viewState: AnyPublisher<AppViewState, Never> {
         return $_state.eraseToAnyPublisher()
     }
 

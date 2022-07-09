@@ -11,7 +11,7 @@ import Combine
 class RootViewModel: StatefulViewModel {
     @Published var _state = empty
     static let empty: RootViewState = .empty
-    var state: AnyPublisher<RootViewState, Never> {
+    var viewState: AnyPublisher<RootViewState, Never> {
         return $_state.eraseToAnyPublisher()
     }
 
@@ -46,6 +46,8 @@ class RootViewModel: StatefulViewModel {
                     strongSelf._state = .init(
                         shouldRenderLoginView: true
                     )
+                case .none:
+                    strongSelf.userService.silentSignIn()
                 }
             })
     }

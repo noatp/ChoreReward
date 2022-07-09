@@ -9,40 +9,40 @@ import Foundation
 import Combine
 
 // ObservableViewMode can either be a StatefulViewModel or a staticState
-class ObservableViewModel<State, Action>: ObservableObject {
-    @Published var state: State
+class ObservableViewModel<ViewState, ViewAction>: ObservableObject {
+    @Published var viewState: ViewState?
 
-    private let actionExecutor: (Action) -> Void
+    private let actionExecutor: (ViewAction) -> Void
     var cancellable: AnyCancellable?
 
     init(
-        staticState: State
+        staticState: ViewState
     ) {
-        self.state = staticState
+        self.viewState = staticState
         self.actionExecutor = {_ in }
     }
 
-    init<VM: StatefulViewModel>(viewModel: VM) where VM.State == State, VM.Action == Action {
-        self.state = VM.empty
+    init<VM: StatefulViewModel>(viewModel: VM) where VM.ViewState == ViewState, VM.ViewAction == ViewAction {
+        self.viewState = nil
         self.actionExecutor = {action in viewModel.performAction(action)}
-        self.cancellable = viewModel.state
+        self.cancellable = viewModel.viewState
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { [weak self] state in
-                self?.state = state
+                self?.viewState = state
             })
     }
 
-    func perform(action: Action) {
+    func perform(action: ViewAction) {
         actionExecutor(action)
     }
 }
 
 protocol StatefulViewModel {
-    associatedtype State
-    associatedtype Action
+    associatedtype ViewState
+    associatedtype ViewAction
 
-    var state: AnyPublisher<State, Never> {get}
-    func performAction(_ action: Action)
+    var viewState: AnyPublisher<ViewState, Never> {get}
+    func performAction(_ viewAction: ViewAction)
 
-    static var empty: State {get}
+    static var empty: ViewState {get}
 }

@@ -31,108 +31,67 @@ struct SignUpView: View {
     }
 
     var body: some View {
-//        GeometryReader { proxy in
-//            ScrollView(.vertical, showsIndicators: false) {
-//                VStack {
-//                    Spacer()
-//
-//                    pickUserImageButton
-//
-//                    rolePicker
-//                        .smallVerticalPadding()
-//                    CustomTextField(title: "Name", textInput: $nameInput)
-//                        .textContentType(.name)
-//                        .keyboardType(.namePhonePad)
-//                        .submitLabel(.next)
-//                        .focused($focusedField, equals: .name)
-//                        .onSubmit {
-//                            focusedField = .email
-//                        }
-//                    CustomTextField(title: "Email", textInput: $emailInput)
-//                        .textContentType(.emailAddress)
-//                        .keyboardType(.emailAddress)
-//                        .submitLabel(.next)
-//                        .focused($focusedField, equals: .email
-//                        )
-//                        .onSubmit {
-//                            focusedField = .password
-//                        }
-//                    CustomTextField(title: "Password", textInput: $passwordInput, secured: true)
-//                        .textContentType(.password)
-//                        .submitLabel(.done)
-//                        .focused($focusedField, equals: .password)
-//                        .onSubmit {
-//                            signUp()
-//                        }
-//
-//                    FilledButton(buttonTitle: "Sign up.", buttonImage: "arrow.turn.right.up") {
-//                        signUp()
-//                    }
-//                    .smallVerticalPadding()
-//                    Spacer()
-//                }
-//                .frame(height: proxy.size.height)
-//            }
-//        }
-        VStack(spacing: 0) {
-            Form {
-                HStack {
-                    Spacer()
-                    pickUserImageButton
-                    Spacer()
+        UnwrapViewState(viewState: signUpViewModel.viewState) { viewState in
+            VStack(spacing: 0) {
+                Form {
+                    HStack {
+                        Spacer()
+                        pickUserImageButton
+                        Spacer()
+                    }
+                    rolePicker
+                    RegularTextField(title: "Name", textInput: $nameInput)
+                        .textContentType(.name)
+                        .keyboardType(.namePhonePad)
+                        .submitLabel(.next)
+                        .focused($focusedField, equals: .name)
+                        .onSubmit {
+                            focusedField = .email
+                        }
+                    RegularTextField(title: "Email", textInput: $emailInput)
+                        .textContentType(.emailAddress)
+                        .keyboardType(.emailAddress)
+                        .submitLabel(.next)
+                        .focused($focusedField, equals: .email
+                        )
+                        .onSubmit {
+                            focusedField = .password
+                        }
+                    SecuredTextField(title: "Password", textInput: $passwordInput)
+                        .textContentType(.password)
+                        .submitLabel(.done)
+                        .focused($focusedField, equals: .password)
+                        .onSubmit {
+                            signUp()
+                        }
                 }
-                rolePicker
-                RegularTextField(title: "Name", textInput: $nameInput)
-                    .textContentType(.name)
-                    .keyboardType(.namePhonePad)
-                    .submitLabel(.next)
-                    .focused($focusedField, equals: .name)
-                    .onSubmit {
-                        focusedField = .email
-                    }
-                RegularTextField(title: "Email", textInput: $emailInput)
-                    .textContentType(.emailAddress)
-                    .keyboardType(.emailAddress)
-                    .submitLabel(.next)
-                    .focused($focusedField, equals: .email
-                    )
-                    .onSubmit {
-                        focusedField = .password
-                    }
-                SecuredTextField(title: "Password", textInput: $passwordInput)
-                    .textContentType(.password)
-                    .submitLabel(.done)
-                    .focused($focusedField, equals: .password)
-                    .onSubmit {
-                        signUp()
-                    }
+                RegularButton(buttonTitle: "Sign up", buttonImage: "arrow.turn.right.up") {
+                    signUp()
+                }
             }
-            RegularButton(buttonTitle: "Sign up", buttonImage: "arrow.turn.right.up") {
-                signUp()
-            }
-        }
-        .vNavBar(NavigationBar(
-            title: "Sign up",
-            leftItem: backButton,
-            rightItem: EmptyView())
-        )
-        .fullScreenCover(isPresented: $shouldShowImagePicker, onDismiss: nil) {
-            ImagePicker(sourceType: .photoLibrary, didFinishPickingMediaHandler: { newUserImageUrl in
-                userImageUrl = newUserImageUrl
-            })
-            .ignoresSafeArea()
-        }
-        .alert(
-            signUpViewModel.state.errorMessage,
-            isPresented: Binding<Bool>(
-                get: {
-                    signUpViewModel.state.shouldShowAlert
-                },
-                set: { newState in
-                    signUpViewModel.perform(action: .updateShouldShowAlertState(newState: newState))
+            .vNavBar(NavigationBar(
+                title: "Sign up",
+                leftItem: backButton,
+                rightItem: EmptyView())
+            )
+            .fullScreenCover(isPresented: $shouldShowImagePicker, onDismiss: nil) {
+                ImagePicker(sourceType: .photoLibrary, didFinishPickingMediaHandler: { newUserImageUrl in
+                    userImageUrl = newUserImageUrl
                 })
-        ) {
-            RegularButton(buttonTitle: "OK") {}
+                .ignoresSafeArea()
+            }
+            .alert(
+                viewState.errorMessage,
+                isPresented: Binding<Bool>(
+                    get: {
+                        viewState.shouldShowAlert
+                    },
+                    set: { newState in
+                        signUpViewModel.perform(action: .updateShouldShowAlertState(newState: newState))
+                    })
+            ) {
+                RegularButton(buttonTitle: "OK") {}
+            }
         }
     }
 

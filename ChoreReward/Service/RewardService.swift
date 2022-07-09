@@ -58,7 +58,8 @@ class RewardService: ObservableObject {
         currentUserSubscription = userRepository.userPublisher
             .sink(receiveValue: { [weak self] receivedUser in
                 if let receivedUser = receivedUser {
-                    print("\(#fileID) \(#function): received a non-nil user, updating cache user balance, and checking for reward collection ref")
+                    print("\(#fileID) \(#function): received a non-nil user, "
+                          + "updating cache user balance, and checking for reward collection ref")
                     self?.userBalance = receivedUser.balance
                     guard let receivedRewardCollection = receivedUser.rewardCollection else {
                         print("\(#fileID) \(#function): received user does not have a reward collection")
@@ -66,12 +67,14 @@ class RewardService: ObservableObject {
                         return
                     }
 
-                    if let rewardCollectionInCache = self?.rewardCollection, receivedRewardCollection == rewardCollectionInCache {
-                        print("\(#fileID) \(#function): received-family has same reward collection as the cached reward collection -> doing nothing")
+                    if let rewardCollectionInCache = self?.rewardCollection,
+                        receivedRewardCollection == rewardCollectionInCache {
+                        print("\(#fileID) \(#function): received-family has same reward collection as in cache "
+                              + "-> doing nothing")
                         return
                     } else {
-                        print("\(#fileID) \(#function): received-family has diff reward collection from the cached reward collection -> resetting reward service & fetch new reward data")
-                        self?.reset()
+                        print("\(#fileID) \(#function): received-family has diff reward collection from cache "
+                              + "-> fetch new reward data")
                         self?.rewardCollection = receivedRewardCollection
                         self?.getRewardsOf(rewardCollection: receivedRewardCollection)
                         return

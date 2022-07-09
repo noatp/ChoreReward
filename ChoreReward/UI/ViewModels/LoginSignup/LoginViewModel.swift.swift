@@ -13,7 +13,7 @@ import Combine
 class LoginViewModel: StatefulViewModel {
     @Published var _state: LoginViewState = empty
     static let empty: LoginViewState = .empty
-    var state: AnyPublisher<LoginViewState, Never> {
+    var viewState: AnyPublisher<LoginViewState, Never> {
         return $_state.eraseToAnyPublisher()
     }
 
@@ -39,6 +39,8 @@ class LoginViewModel: StatefulViewModel {
                         errorMessage: error.localizedDescription,
                         shouldShowAlert: true
                     )
+                case .none:
+                    break
                 }
             })
     }
@@ -50,6 +52,7 @@ class LoginViewModel: StatefulViewModel {
     }
 
     private func silentSignIn() {
+        print("HERE")
         userService.silentSignIn()
     }
 

@@ -12,7 +12,7 @@ import SwiftUI
 class SignUpViewModel: StatefulViewModel {
     @Published var _state: SignUpState = empty
     static let empty: SignUpState = .empty
-    var state: AnyPublisher<SignUpState, Never> {
+    var viewState: AnyPublisher<SignUpState, Never> {
         return $_state.eraseToAnyPublisher()
     }
 
@@ -40,8 +40,9 @@ class SignUpViewModel: StatefulViewModel {
                         errorMessage: error.localizedDescription,
                         shouldShowAlert: true
                     )
+                case .none:
+                    break
                 }
-
             })
     }
 

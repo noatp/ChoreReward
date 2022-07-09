@@ -26,64 +26,65 @@ struct LoginView: View {
     }
 
     var body: some View {
-        NavigationView {
-            VStack(spacing: 0) {
-                Text("Chore Reward")
-                    .font(.system(size: 40, weight: .bold, design: .rounded))
-                    .foregroundColor(.accent)
-
-                Form {
-                    RegularTextField(title: "Email", textInput: $emailInput)
-                        .textContentType(.emailAddress)
-                        .keyboardType(.emailAddress)
-                        .submitLabel(.next)
-                        .focused($focusedField, equals: .email)
-                        .onSubmit {
-                            focusedField = .password
+        UnwrapViewState(viewState: loginViewModel.viewState) { viewState in
+            NavigationView {
+                VStack(spacing: 0) {
+                    Text("Chore Reward")
+                        .font(.system(size: 40, weight: .bold, design: .rounded))
+                        .foregroundColor(.accent)
+                    Form {
+                        RegularTextField(title: "Email", textInput: $emailInput)
+                            .textContentType(.emailAddress)
+                            .keyboardType(.emailAddress)
+                            .submitLabel(.next)
+                            .focused($focusedField, equals: .email)
+                            .onSubmit {
+                                focusedField = .password
+                            }
+                        SecuredTextField(title: "Password", textInput: $passwordInput)
+                            .textContentType(.password)
+                            .submitLabel(.done)
+                            .focused($focusedField, equals: .password)
+                            .onSubmit {
+                                login()
+                            }
+                        HStack {
+                            Spacer()
+                            RegularButton(buttonTitle: "Log in", buttonImage: "arrow.forward.to.line") {
+                                login()
+                            }
+                            Spacer()
                         }
-                    SecuredTextField(title: "Password", textInput: $passwordInput)
-                        .textContentType(.password)
-                        .submitLabel(.done)
-                        .focused($focusedField, equals: .password)
-                        .onSubmit {
-                            login()
-                        }
+                    }
+                    Divider()
                     HStack {
-                        Spacer()
-                        RegularButton(buttonTitle: "Log in", buttonImage: "arrow.forward.to.line") {
-                            login()
+                        Text("Don't have an account?")
+                        NavigationLink(destination: views.signUpView) {
+                            Text("Sign up!")
+                                .foregroundColor(.accent)
                         }
-                        Spacer()
                     }
+                    .smallVerticalPadding()
                 }
-                Divider()
-                HStack {
-                    Text("Don't have an account?")
-                    NavigationLink(destination: views.signUpView) {
-                        Text("Sign up!")
-                            .foregroundColor(.accent)
-                    }
+                .vNavBar(NavigationBar(title: "Log in", leftItem: EmptyView(), rightItem: EmptyView()))
+                .alert(
+                    viewState.errorMessage,
+                    isPresented: Binding<Bool>(
+                        get: {
+                            viewState.shouldShowAlert
+                        },
+                        set: { newState in
+                            loginViewModel.perform(action: .updateShouldShowAlertState(newState: newState))
+                        })
+                ) {
+                    RegularButton(buttonTitle: "OK") {}
                 }
-                .smallVerticalPadding()
-            }
-            .vNavBar(NavigationBar(title: "Log in", leftItem: EmptyView(), rightItem: EmptyView()))
-            .onAppear(perform: {
-                loginViewModel.perform(action: .silentSignIn)
-            })
-            .alert(
-                loginViewModel.state.errorMessage,
-                isPresented: Binding<Bool>(
-                    get: {
-                        loginViewModel.state.shouldShowAlert
-                    },
-                    set: { newState in
-                        loginViewModel.perform(action: .updateShouldShowAlertState(newState: newState))
-                    })
-            ) {
-                RegularButton(buttonTitle: "OK") {}
             }
         }
-
+        .onAppear {
+            print("HEH")
+            loginViewModel.perform(action: .silentSignIn)
+        }
     }
 }
 

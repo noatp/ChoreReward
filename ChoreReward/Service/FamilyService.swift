@@ -53,11 +53,12 @@ class FamilyService: ObservableObject {
                     // case familyId of user got changed, check if same familyId
                     // if not, reset service to listen to new family
                     if let currentFamilyIdInCache = self?.currentFamilyId, receivedFamilyId == currentFamilyIdInCache {
-                        print("\(#fileID) \(#function): received user has same familyId as the cached family -> doing nothing")
+                        print("\(#fileID) \(#function): received user has same familyId as the cached family "
+                              + "-> doing nothing")
                         return
                     } else {
-                        print("\(#fileID) \(#function): received-user has diff familyId from the cached family -> resetting family service & fetch new family data")
-                        self?.reset()
+                        print("\(#fileID) \(#function): received-user has diff familyId from the cached family "
+                              + "-> fetch new family data")
                         self?.readCurrentFamily(currentFamilyId: receivedFamilyId)
                         return
                     }

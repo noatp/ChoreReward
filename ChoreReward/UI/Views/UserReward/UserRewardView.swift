@@ -25,31 +25,32 @@ struct UserRewardView: View {
     }
 
     var body: some View {
-        VStack(alignment: .leading) {
-            Text("Current balance is ")
-            + Text("$\(userRewardViewModel.state.balance)")
-                .font(StylingFont.title)
-            ScrollView(showsIndicators: false) {
-                LazyVStack(spacing: 0) {
-                    ForEach(userRewardViewModel.state.rewards, id: \.name) {reward in
-                        RewardCard(
-                            rewardName: reward.name,
-                            rewardValue: reward.value,
-                            userBalance: userRewardViewModel.state.balance
-                        )
-
+        UnwrapViewState(viewState: userRewardViewModel.viewState) { viewState in
+            VStack(alignment: .leading) {
+                Text("Current balance is ")
+                + Text("$\(viewState.balance)")
+                    .font(StylingFont.title)
+                ScrollView(showsIndicators: false) {
+                    LazyVStack(spacing: 0) {
+                        ForEach(viewState.rewards, id: \.name) {reward in
+                            RewardCard(
+                                rewardName: reward.name,
+                                rewardValue: reward.value,
+                                userBalance: viewState.balance
+                            )
+                        }
                     }
                 }
             }
-        }
-        .padding()
-        .vNavBar(NavigationBar(
-            title: "Reward",
-            leftItem: backButton,
-            rightItem: addRewardButton)
-        )
-        .fullScreenCover(isPresented: $presentSheet) {
-            views.addUserRewardView
+            .padding()
+            .vNavBar(NavigationBar(
+                title: "Reward",
+                leftItem: backButton,
+                rightItem: addRewardButton)
+            )
+            .fullScreenCover(isPresented: $presentSheet) {
+                views.addUserRewardView
+            }
         }
     }
 }

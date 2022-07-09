@@ -11,7 +11,7 @@ import Combine
 class ChoreDetailViewModel: StatefulViewModel {
     @Published var _state: ChoreDetailState = empty
     static let empty: ChoreDetailState = .init(chore: Chore.empty)
-    var state: AnyPublisher<ChoreDetailState, Never> {
+    var viewState: AnyPublisher<ChoreDetailState, Never> {
         return $_state.eraseToAnyPublisher()
     }
 

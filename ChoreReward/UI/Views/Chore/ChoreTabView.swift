@@ -34,29 +34,78 @@ struct ChoreTabView: View {
     }
 
     var body: some View {
-        VStack(spacing: 0) {
-            HStack(alignment: .top, spacing: 0) {
-                choreStatusPicker
-                Spacer()
-                filterMenu
-            }
-            .background {
-                Color.bg
-            }
-            Color.accentGraySecondary.frame(maxHeight: 1)
+        UnwrapViewState(viewState: choreTabViewModel.viewState) { viewState in
+            VStack(spacing: 0) {
+                HStack(alignment: .top, spacing: 0) {
+                    choreStatusPicker
+                    Spacer()
+                    filterMenu
+                }
+                .background {
+                    Color.bg
+                }
+                Color.accentGraySecondary.frame(maxHeight: 1)
 
-            if choreTabViewModel.state.displayingChoreList.isEmpty {
-                emptyChoreList
-            } else {
-                choreList
+                if viewState.displayingChoreList.isEmpty {
+                    emptyChoreList
+                } else {
+                    if viewState.deletableChore {
+                        List {
+                            ForEach(viewState.displayingChoreList) {chore in
+
+                                ZStack(alignment: .leading) {
+                                    NavigationLink {
+                                        views.choreDetailView(chore: chore)
+                                    } label: {
+                                        EmptyView()
+                                    }
+                                    .opacity(0)
+                                    ChoreCard(chore: chore)
+                                }
+
+                            }
+                            .onDelete(perform: { offsets in
+                                choreTabViewModel.perform(action: .deleteChore(offsets))
+                            })
+                            .listRowInsets(.init(top: 5, leading: 0, bottom: 5, trailing: 0))
+                            .listRowSeparator(.hidden)
+                        }
+                        .listStyle(.plain)
+                        .refreshable {
+                            choreTabViewModel.perform(action: .refreshChoreList)
+                        }
+                    } else {
+                        List {
+                            ForEach(viewState.displayingChoreList) {chore in
+
+                                ZStack(alignment: .leading) {
+                                    NavigationLink {
+                                        views.choreDetailView(chore: chore)
+                                    } label: {
+                                        EmptyView()
+                                    }
+                                    .opacity(0)
+                                    ChoreCard(chore: chore)
+                                }
+
+                            }
+                            .listRowInsets(.init(top: 5, leading: 0, bottom: 5, trailing: 0))
+                            .listRowSeparator(.hidden)
+                        }
+                        .listStyle(.plain)
+                        .refreshable {
+                            choreTabViewModel.perform(action: .refreshChoreList)
+                        }
+                    }
+                }
             }
+            .vNavBar(NavigationBar(
+                title: "Chore",
+                leftItem: menuButton,
+                rightItem: EmptyView(),
+                navBarLayout: .leftTitle
+            ))
         }
-        .vNavBar(NavigationBar(
-            title: "Chore",
-            leftItem: menuButton,
-            rightItem: EmptyView(),
-            navBarLayout: .leftTitle
-        ))
     }
 }
 
@@ -103,47 +152,49 @@ extension Dependency.Views {
 
 extension ChoreTabView {
     private var choreStatusPicker: some View {
-        VStack(spacing: 0) {
-            HStack(spacing: 0) {
-                VStack(spacing: 0) {
-                    CustomizableRegularButton {
-                        Text("Unfinished")
-                            .frame(maxWidth: .infinity)
-                    } action: {
-                        choreTabViewModel.perform(action: .updatePickerState(.unfinished))
+        UnwrapViewState(viewState: choreTabViewModel.viewState) { viewState in
+            VStack(spacing: 0) {
+                HStack(spacing: 0) {
+                    VStack(spacing: 0) {
+                        CustomizableRegularButton {
+                            Text("Unfinished")
+                                .frame(maxWidth: .infinity)
+                        } action: {
+                            choreTabViewModel.perform(action: .updatePickerState(.unfinished))
+                        }
+
+                        if viewState.chorePickerState == .unfinished {
+                            Color.accent
+                                .frame(height: 3)
+                                .matchedGeometryEffect(id: "pickerBackground", in: animation)
+                        } else {
+                            Color.clear.frame(height: 3)
+                        }
                     }
 
-                    if choreTabViewModel.state.chorePickerState == .unfinished {
-                        Color.accent
-                            .frame(height: 3)
-                            .matchedGeometryEffect(id: "pickerBackground", in: animation)
-                    } else {
-                        Color.clear.frame(height: 3)
-                    }
-                }
+                    VStack(spacing: 0) {
+                        CustomizableRegularButton {
+                            Text("Finished")
+                                .frame(maxWidth: .infinity)
+                        } action: {
+                            choreTabViewModel.perform(action: .updatePickerState(.finished))
+                        }
 
-                VStack(spacing: 0) {
-                    CustomizableRegularButton {
-                        Text("Finished")
-                            .frame(maxWidth: .infinity)
-                    } action: {
-                        choreTabViewModel.perform(action: .updatePickerState(.finished))
-                    }
-
-                    if choreTabViewModel.state.chorePickerState == .finished {
-                        Color.accent
-                            .frame(height: 3)
-                            .matchedGeometryEffect(id: "pickerBackground", in: animation)
-                    } else {
-                        Color.clear.frame(height: 3)
+                        if viewState.chorePickerState == .finished {
+                            Color.accent
+                                .frame(height: 3)
+                                .matchedGeometryEffect(id: "pickerBackground", in: animation)
+                        } else {
+                            Color.clear.frame(height: 3)
+                        }
                     }
                 }
             }
+            .background {
+                Color.bg
+            }
+            .animation(.spring(), value: viewState.chorePickerState)
         }
-        .background {
-            Color.bg
-        }
-        .animation(.spring(), value: choreTabViewModel.state.chorePickerState)
     }
 
     private var filterMenu: some View {
@@ -171,59 +222,6 @@ extension ChoreTabView {
                 presentedDrawer = true
             }
         })
-    }
-
-    @ViewBuilder
-    private var choreList: some View {
-        if choreTabViewModel.state.deletableChore {
-            List {
-                ForEach(choreTabViewModel.state.displayingChoreList) {chore in
-
-                    ZStack(alignment: .leading) {
-                        NavigationLink {
-                            views.choreDetailView(chore: chore)
-                        } label: {
-                            EmptyView()
-                        }
-                        .opacity(0)
-                        ChoreCard(chore: chore)
-                    }
-
-                }
-                .onDelete(perform: { offsets in
-                    choreTabViewModel.perform(action: .deleteChore(offsets))
-                })
-                .listRowInsets(.init(top: 5, leading: 0, bottom: 5, trailing: 0))
-                .listRowSeparator(.hidden)
-            }
-            .listStyle(.plain)
-            .refreshable {
-                choreTabViewModel.perform(action: .refreshChoreList)
-            }
-        } else {
-            List {
-                ForEach(choreTabViewModel.state.displayingChoreList) {chore in
-
-                    ZStack(alignment: .leading) {
-                        NavigationLink {
-                            views.choreDetailView(chore: chore)
-                        } label: {
-                            EmptyView()
-                        }
-                        .opacity(0)
-                        ChoreCard(chore: chore)
-                    }
-
-                }
-                .listRowInsets(.init(top: 5, leading: 0, bottom: 5, trailing: 0))
-                .listRowSeparator(.hidden)
-            }
-            .listStyle(.plain)
-            .refreshable {
-                choreTabViewModel.perform(action: .refreshChoreList)
-            }
-        }
-
     }
 
     private var emptyChoreList: some View {

@@ -22,24 +22,26 @@ struct NoFamilyView: View {
     }
 
     var body: some View {
-        VStack(spacing: 16) {
-            Spacer()
-            Text("Please ask your family's admin to invite you to the family using the following QR code")
-                .multilineTextAlignment(.center)
-            Image(uiImage: generateQRImage(from: noFamilyViewModel.state.currentUserId))
-                .resizable()
-                .interpolation(.none)
-                .scaledToFit()
-                .frame(width: 200, height: 200)
-            Text(noFamilyViewModel.state.currentUserId)
-            if noFamilyViewModel.state.shouldRenderCreateFamilyButton {
-                Button("Create a new family") {
-                    noFamilyViewModel.perform(action: .createFamily)
+        UnwrapViewState(viewState: noFamilyViewModel.viewState) { viewState in
+            VStack(spacing: 16) {
+                Spacer()
+                Text("Please ask your family's admin to invite you to the family using the following QR code")
+                    .multilineTextAlignment(.center)
+                Image(uiImage: generateQRImage(from: viewState.currentUserId))
+                    .resizable()
+                    .interpolation(.none)
+                    .scaledToFit()
+                    .frame(width: 200, height: 200)
+                Text(viewState.currentUserId)
+                if viewState.shouldRenderCreateFamilyButton {
+                    Button("Create a new family") {
+                        noFamilyViewModel.perform(action: .createFamily)
+                    }
                 }
+                Spacer()
             }
-            Spacer()
+            .padding()
         }
-        .padding()
     }
 
     private func generateQRImage(from userId: String) -> UIImage {
