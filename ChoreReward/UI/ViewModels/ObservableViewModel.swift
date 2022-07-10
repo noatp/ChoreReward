@@ -43,6 +43,4 @@ protocol StatefulViewModel {
 
     var viewState: AnyPublisher<ViewState, Never> {get}
     func performAction(_ viewAction: ViewAction)
-
-    static var empty: ViewState {get}
 }

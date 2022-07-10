@@ -35,8 +35,7 @@ class UserService: ObservableObject {
 
     private func checkCurentAuthSession(afterAuthenticated: (_ currentUserId: String) -> Void) {
         guard let currentUserId = currentUserId else {
-            print("\(#fileID) \(#function): no authorized user session -> resetting user service")
-            self.reset()
+            print("\(#fileID) \(#function): no authorized user session -> doing nothing")
             return
         }
         print("\(#fileID) \(#function): has authorized user session -> fetching new user data")
@@ -94,7 +93,7 @@ class UserService: ObservableObject {
     func signOut() {
         do {
             try self.auth.signOut()
-            checkCurentAuthSession(afterAuthenticated: {_ in})
+            reset()
         } catch let signOutError as NSError {
             print("\(#fileID) \(#function): Error signing out: %@", signOutError)
         }
@@ -156,6 +155,7 @@ class UserService: ObservableObject {
     }
 
     private func reset() {
+        print("\(#fileID) \(#function): reseting user service")
         currentUser = nil
         authState = .signedOut(error: nil)
         userRepository.resetRepository()

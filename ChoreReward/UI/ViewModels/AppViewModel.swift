@@ -26,6 +26,8 @@ class AppViewModel: StatefulViewModel {
     func addSubscription() {
         currentUserSubscription = userService.$currentUser
             .sink(receiveValue: {[weak self] receivedUser in
+                print("\(#fileID) \(#function): \(receivedUser)")
+
                 self?._state = .init(
                     shouldRenderAddChoreButton: receivedUser?.role == .parent || receivedUser?.role == .admin,
                     shouldPresentNoFamilyView: receivedUser?.familyId == nil

@@ -28,12 +28,12 @@ class EditUserProfileViewModel: StatefulViewModel {
 
     func addSubscription() {
         currentUserSubscription = userService.$currentUser
-            .sink(receiveValue: { receivedUser in
+            .sink(receiveValue: { [weak self] receivedUser in
                 guard let currentUser = receivedUser else {
                     print("\(#fileID) \(#function): currentUser is nil")
                     return
                 }
-                self._state = .init(
+                self?._state = .init(
                     currentUserEmail: currentUser.email,
                     currentUserName: currentUser.name,
                     currentUserRole: currentUser.role.rawValue,

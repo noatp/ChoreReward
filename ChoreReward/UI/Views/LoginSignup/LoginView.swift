@@ -34,6 +34,8 @@ struct LoginView: View {
                         .foregroundColor(.accent)
                     Form {
                         RegularTextField(title: "Email", textInput: $emailInput)
+                            .textInputAutocapitalization(.never)
+                            .disableAutocorrection(true)
                             .textContentType(.emailAddress)
                             .keyboardType(.emailAddress)
                             .submitLabel(.next)
@@ -42,6 +44,8 @@ struct LoginView: View {
                                 focusedField = .password
                             }
                         SecuredTextField(title: "Password", textInput: $passwordInput)
+                            .textInputAutocapitalization(.never)
+                            .disableAutocorrection(true)
                             .textContentType(.password)
                             .submitLabel(.done)
                             .focused($focusedField, equals: .password)

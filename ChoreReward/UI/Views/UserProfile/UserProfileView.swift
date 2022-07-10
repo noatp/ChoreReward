@@ -20,6 +20,7 @@ struct UserProfileView: View {
     ) {
         self.userProfileViewModel = userProfileViewModel
         self.views = views
+        print("\(#fileID) \(#function): \(self)")
     }
 
     var body: some View {
