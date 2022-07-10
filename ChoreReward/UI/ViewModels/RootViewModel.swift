@@ -9,9 +9,8 @@ import Foundation
 import Combine
 
 class RootViewModel: StatefulViewModel {
-    @Published var _state = empty
-    static let empty: RootViewState = .empty
-    var viewState: AnyPublisher<RootViewState, Never> {
+    @Published var _state: RootViewState?
+    var viewState: AnyPublisher<RootViewState?, Never> {
         return $_state.eraseToAnyPublisher()
     }
 

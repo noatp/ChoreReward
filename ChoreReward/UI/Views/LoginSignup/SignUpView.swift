@@ -102,7 +102,7 @@ struct SignUpView: View {
 struct SignupView_Previews: PreviewProvider {
     static var previews: some View {
         SignUpView(
-            signUpViewModel: .init(staticState: .empty),
+            signUpViewModel: .init(staticState: .preview),
             views: Dependency.preview.views()
         )
         .previewLayout(.sizeThatFits)

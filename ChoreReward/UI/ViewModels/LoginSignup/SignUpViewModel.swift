@@ -10,9 +10,8 @@ import Combine
 import SwiftUI
 
 class SignUpViewModel: StatefulViewModel {
-    @Published var _state: SignUpState = empty
-    static let empty: SignUpState = .empty
-    var viewState: AnyPublisher<SignUpState, Never> {
+    @Published var _state: SignUpState?
+    var viewState: AnyPublisher<SignUpState?, Never> {
         return $_state.eraseToAnyPublisher()
     }
 
@@ -87,7 +86,6 @@ struct SignUpState {
     let errorMessage: String
     let shouldShowAlert: Bool
 
-    static let empty: SignUpState = .init(errorMessage: "", shouldShowAlert: false)
     static let preview: SignUpState = .init(errorMessage: "preview error", shouldShowAlert: true)
 }
 

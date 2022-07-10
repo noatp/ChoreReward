@@ -10,9 +10,8 @@ import Combine
 import SwiftUI
 
 class EditUserProfileViewModel: StatefulViewModel {
-    @Published var _state: EditUserProfileState = empty
-    static let empty = EditUserProfileState.empty
-    var viewState: AnyPublisher<EditUserProfileState, Never> {
+    @Published var _state: EditUserProfileState?
+    var viewState: AnyPublisher<EditUserProfileState?, Never> {
         return $_state.eraseToAnyPublisher()
     }
 
@@ -80,13 +79,6 @@ struct EditUserProfileState {
     let currentUserName: String
     let currentUserRole: String
     let currentUserProfileImageUrl: String?
-
-    static let empty: EditUserProfileState = .init(
-        currentUserEmail: "",
-        currentUserName: "",
-        currentUserRole: "",
-        currentUserProfileImageUrl: nil
-    )
 
     static let preview: EditUserProfileState = .init(
         currentUserEmail: "toan.chpham@gmail.com",

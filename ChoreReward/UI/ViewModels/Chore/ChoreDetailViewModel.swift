@@ -9,25 +9,22 @@ import Foundation
 import Combine
 
 class ChoreDetailViewModel: StatefulViewModel {
-    @Published var _state: ChoreDetailState = empty
-    static let empty: ChoreDetailState = .init(chore: Chore.empty)
-    var viewState: AnyPublisher<ChoreDetailState, Never> {
+    @Published var _state: ChoreDetailState?
+    var viewState: AnyPublisher<ChoreDetailState?, Never> {
         return $_state.eraseToAnyPublisher()
     }
 
     private let choreSerivce: ChoreService
     private let userService: UserService
-    private let chore: Chore
 
     init(
         chore: Chore,
         choreService: ChoreService,
         userService: UserService
     ) {
-        self._state = .init(chore: chore)
         self.choreSerivce = choreService
         self.userService = userService
-        self.chore = chore
+        self._state = .init(chore: chore)
     }
 
     func performAction(_ action: ChoreDetailAction) {
@@ -41,13 +38,13 @@ class ChoreDetailViewModel: StatefulViewModel {
 
     private func takeChore() {
         choreSerivce.takeChore(
-            choreId: chore.id,
+            choreId: self._state?.chore.id,
             currentUser: userService.currentUser
         )
     }
 
     private func completeChore() {
-        choreSerivce.completeChore(choreId: chore.id)
+        choreSerivce.completeChore(choreId: self._state?.chore.id)
     }
 }
 

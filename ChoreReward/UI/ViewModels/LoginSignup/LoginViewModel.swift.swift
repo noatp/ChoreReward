@@ -11,9 +11,8 @@ import SwiftUI
 import Combine
 
 class LoginViewModel: StatefulViewModel {
-    @Published var _state: LoginViewState = empty
-    static let empty: LoginViewState = .empty
-    var viewState: AnyPublisher<LoginViewState, Never> {
+    @Published var _state: LoginViewState?
+    var viewState: AnyPublisher<LoginViewState?, Never> {
         return $_state.eraseToAnyPublisher()
     }
 
@@ -69,7 +68,6 @@ struct LoginViewState {
     let errorMessage: String
     let shouldShowAlert: Bool
 
-    static let empty: LoginViewState = .init(errorMessage: "", shouldShowAlert: false)
     static let preview: LoginViewState = .init(errorMessage: "preview error", shouldShowAlert: true)
 }
 

@@ -16,7 +16,7 @@ class ObservableViewModel<ViewState, ViewAction>: ObservableObject {
     var cancellable: AnyCancellable?
 
     init(
-        staticState: ViewState
+        staticState: ViewState?
     ) {
         self.viewState = staticState
         self.actionExecutor = {_ in }
@@ -27,8 +27,11 @@ class ObservableViewModel<ViewState, ViewAction>: ObservableObject {
         self.actionExecutor = {action in viewModel.performAction(action)}
         self.cancellable = viewModel.viewState
             .receive(on: DispatchQueue.main)
-            .sink(receiveValue: { [weak self] state in
-                self?.viewState = state
+            .sink(receiveValue: { [weak self] receivedViewState in
+                guard let receivedViewState = receivedViewState else {
+                    return
+                }
+                self?.viewState = receivedViewState
             })
     }
 
@@ -41,6 +44,6 @@ protocol StatefulViewModel {
     associatedtype ViewState
     associatedtype ViewAction
 
-    var viewState: AnyPublisher<ViewState, Never> {get}
+    var viewState: AnyPublisher<ViewState?, Never> {get}
     func performAction(_ viewAction: ViewAction)
 }

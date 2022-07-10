@@ -9,9 +9,8 @@ import Foundation
 import Combine
 
 class AddUserRewardViewModel: StatefulViewModel {
-    @Published var _state: AddUserRewardState = empty
-    static let empty = AddUserRewardState.empty
-    var viewState: AnyPublisher<AddUserRewardState, Never> {
+    @Published var _state: Void?
+    var viewState: AnyPublisher<Void?, Never> {
         return $_state.eraseToAnyPublisher()
     }
 
@@ -37,11 +36,6 @@ class AddUserRewardViewModel: StatefulViewModel {
         }
     }
 
-}
-
-struct AddUserRewardState {
-    static let empty: AddUserRewardState = .init(
-    )
 }
 
 enum AddUserRewardAction {

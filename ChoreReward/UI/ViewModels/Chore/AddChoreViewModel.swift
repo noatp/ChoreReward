@@ -10,9 +10,8 @@ import Combine
 import SwiftUI
 
 class AddChoreViewModel: StatefulViewModel {
-    @Published var _state: AddChoreState = empty
-    static let empty: AddChoreState = .init()
-    var viewState: AnyPublisher<AddChoreState, Never> {
+    @Published var _state: AddChoreState?
+    var viewState: AnyPublisher<AddChoreState?, Never> {
         return $_state.eraseToAnyPublisher()
     }
 

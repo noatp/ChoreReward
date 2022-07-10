@@ -9,12 +9,8 @@ import Foundation
 import Combine
 
 class FamilyTabViewModel: StatefulViewModel {
-    @Published var _state: FamilyTabState
-    static let empty = FamilyTabState(
-        members: [],
-        shouldRenderAddMemberButton: false
-    )
-    var viewState: AnyPublisher<FamilyTabState, Never> {
+    @Published var _state: FamilyTabState?
+    var viewState: AnyPublisher<FamilyTabState?, Never> {
         return $_state.eraseToAnyPublisher()
     }
 
@@ -29,33 +25,43 @@ class FamilyTabViewModel: StatefulViewModel {
     ) {
         self.familyService = familyService
         self.userService = userService
-        self._state = .init(
-            members: [],
-            shouldRenderAddMemberButton: false
-        )
         addSubscription()
     }
 
     func addSubscription() {
         familyMemberSubscription = familyService.$currentFamily
             .sink(receiveValue: { [weak self] receivedFamily in
-                guard let oldState = self?._state, let currentFamily = receivedFamily else {
+                guard let receivedFamily = receivedFamily else {
                     return
                 }
-                self?._state = .init(
-                    members: currentFamily.members,
-                    shouldRenderAddMemberButton: oldState.shouldRenderAddMemberButton
-                )
+                if let oldState = self?._state {
+                    self?._state = .init(
+                        members: receivedFamily.members,
+                        shouldRenderAddMemberButton: oldState.shouldRenderAddMemberButton
+                    )
+                } else {
+                    self?._state = .init(
+                        members: receivedFamily.members,
+                        shouldRenderAddMemberButton: false
+                    )
+                }
             })
         currentUserSubscription = userService.$currentUser
             .sink(receiveValue: { [weak self] receivedUser in
-                guard let oldState = self?._state else {
+                guard let receivedUser = receivedUser else {
                     return
                 }
-                self?._state = .init(
-                    members: oldState.members,
-                    shouldRenderAddMemberButton: receivedUser?.role == .admin
-                )
+                if let oldState = self?._state {
+                    self?._state = .init(
+                        members: oldState.members,
+                        shouldRenderAddMemberButton: receivedUser.role == .admin
+                    )
+                } else {
+                    self?._state = .init(
+                        members: [],
+                        shouldRenderAddMemberButton: receivedUser.role == .admin
+                    )
+                }
             })
     }
 

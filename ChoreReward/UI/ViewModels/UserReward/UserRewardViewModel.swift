@@ -9,9 +9,8 @@ import Foundation
 import Combine
 
 class UserRewardViewModel: StatefulViewModel {
-    @Published var _state: UserRewardViewState = empty
-    static let empty = UserRewardViewState.empty
-    var viewState: AnyPublisher<UserRewardViewState, Never> {
+    @Published var _state: UserRewardViewState?
+    var viewState: AnyPublisher<UserRewardViewState?, Never> {
         return $_state.eraseToAnyPublisher()
     }
 
@@ -32,21 +31,25 @@ class UserRewardViewModel: StatefulViewModel {
     private func addSubscription() {
         userRewardsSubscription = rewardService.$userRewards
             .sink(receiveValue: { [weak self] receivedRewards in
-                guard let oldState = self?._state,
-                      let rewards = receivedRewards
-                else {
+                guard let receivedRewards = receivedRewards else {
                     return
                 }
-                self?._state = .init(rewards: rewards, balance: oldState.balance)
+                if let oldState = self?._state {
+                    self?._state = .init(rewards: receivedRewards, balance: oldState.balance)
+                } else {
+                    self?._state = .init(rewards: receivedRewards, balance: 0)
+                }
             })
         userBalanceSubscription = rewardService.$userBalance
             .sink(receiveValue: { [weak self] receivedBalance in
-                guard let oldState = self?._state,
-                      let balance = receivedBalance
-                else {
+                guard let receivedBalance = receivedBalance else {
                     return
                 }
-                self?._state = .init(rewards: oldState.rewards, balance: balance)
+                if let oldState = self?._state {
+                    self?._state = .init(rewards: oldState.rewards, balance: receivedBalance)
+                } else {
+                    self?._state = .init(rewards: [], balance: receivedBalance)
+                }
             })
     }
 

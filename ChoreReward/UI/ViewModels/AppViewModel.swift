@@ -9,9 +9,8 @@ import Foundation
 import Combine
 
 class AppViewModel: StatefulViewModel {
-    @Published var _state = empty
-    static var empty: AppViewState = .empty
-    var viewState: AnyPublisher<AppViewState, Never> {
+    @Published var _state: AppViewState?
+    var viewState: AnyPublisher<AppViewState?, Never> {
         return $_state.eraseToAnyPublisher()
     }
 
@@ -26,11 +25,12 @@ class AppViewModel: StatefulViewModel {
     func addSubscription() {
         currentUserSubscription = userService.$currentUser
             .sink(receiveValue: {[weak self] receivedUser in
-                print("\(#fileID) \(#function): \(receivedUser)")
-
+                guard let receivedUser = receivedUser else {
+                    return
+                }
                 self?._state = .init(
-                    shouldRenderAddChoreButton: receivedUser?.role == .parent || receivedUser?.role == .admin,
-                    shouldPresentNoFamilyView: receivedUser?.familyId == nil
+                    shouldRenderAddChoreButton: receivedUser.role == .parent || receivedUser.role == .admin,
+                    shouldPresentNoFamilyView: receivedUser.familyId == nil
                 )
             })
     }

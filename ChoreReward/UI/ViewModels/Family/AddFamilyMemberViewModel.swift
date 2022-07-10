@@ -9,12 +9,12 @@ import Foundation
 import Combine
 
 class AddFamilyMemberViewModel: StatefulViewModel {
-    @Published var _state: Void = empty
-    static let empty: Void = ()
-    private let familyService: FamilyService
-    var viewState: AnyPublisher<Void, Never> {
+    @Published var _state: Void?
+    var viewState: AnyPublisher<Void?, Never> {
         return $_state.eraseToAnyPublisher()
     }
+
+    private let familyService: FamilyService
 
     init(
         familyService: FamilyService

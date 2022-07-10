@@ -10,14 +10,8 @@ import SwiftUI
 import Combine
 
 class UserProfileViewModel: StatefulViewModel {
-    @Published var _state: UserProfileState = empty
-    static let empty = UserProfileState(
-        currentUserEmail: "",
-        currentUserName: "",
-        currentUserRole: "",
-        currentUserProfileImageUrl: nil
-    )
-    var viewState: AnyPublisher<UserProfileState, Never> {
+    @Published var _state: UserProfileState?
+    var viewState: AnyPublisher<UserProfileState?, Never> {
         return $_state.eraseToAnyPublisher()
     }
 
@@ -34,11 +28,14 @@ class UserProfileViewModel: StatefulViewModel {
     func addSubscription() {
         currentUserSubscription = userService.$currentUser
             .sink(receiveValue: { [weak self] receivedUser in
+                guard let receivedUser = receivedUser else {
+                    return
+                }
                 self?._state = .init(
-                    currentUserEmail: receivedUser?.email ?? "",
-                    currentUserName: receivedUser?.name ?? "",
-                    currentUserRole: receivedUser?.role.rawValue ?? "",
-                    currentUserProfileImageUrl: receivedUser?.userImageUrl
+                    currentUserEmail: receivedUser.email,
+                    currentUserName: receivedUser.name,
+                    currentUserRole: receivedUser.role.rawValue,
+                    currentUserProfileImageUrl: receivedUser.userImageUrl
                 )
             })
     }

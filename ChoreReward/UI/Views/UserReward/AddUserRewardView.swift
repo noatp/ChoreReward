@@ -11,7 +11,7 @@ import SwiftUI
 
 struct AddUserRewardView: View {
     @Environment(\.dismiss) private var dismiss
-    @ObservedObject var addUserRewardViewModel: ObservableViewModel<AddUserRewardState, AddUserRewardAction>
+    @ObservedObject var addUserRewardViewModel: ObservableViewModel<Void, AddUserRewardAction>
     @State var shouldShowAlert: Bool = false
     @State var rewardName: String = ""
     @State var rewardValue: String = ""
@@ -20,7 +20,7 @@ struct AddUserRewardView: View {
     private var views: Dependency.Views
 
     init(
-        addUserRewardViewModel: ObservableViewModel<AddUserRewardState, AddUserRewardAction>,
+        addUserRewardViewModel: ObservableViewModel<Void, AddUserRewardAction>,
         views: Dependency.Views
     ) {
         self.addUserRewardViewModel = addUserRewardViewModel
@@ -65,7 +65,7 @@ struct AddUserRewardView_Previews: PreviewProvider {
     static var previews: some View {
         AddUserRewardView(
             addUserRewardViewModel: ObservableViewModel(
-                staticState: AddUserRewardState()
+                staticState: nil
             ),
             views: Dependency.preview.views()
         )

@@ -9,10 +9,8 @@ import Foundation
 import Combine
 
 class ChoreTabViewModel: StatefulViewModel {
-    @Published private var _state: ChoreTabState = empty
-    static var empty: ChoreTabState = .empty
-
-    var viewState: AnyPublisher<ChoreTabState, Never> {
+    @Published private var _state: ChoreTabState?
+    var viewState: AnyPublisher<ChoreTabState?, Never> {
         return $_state.eraseToAnyPublisher()
     }
 
@@ -32,19 +30,34 @@ class ChoreTabViewModel: StatefulViewModel {
     func addSubscription() {
         choreListSubscription = choreService.$familyChores
             .sink(receiveValue: { [weak self] receivedFamilyChores in
-                guard let oldState = self?._state, let familyChores = receivedFamilyChores else {
+                guard let receivedFamilyChores = receivedFamilyChores else {
                     return
                 }
-                self?._state = .init(
-                    displayingChoreList: self?.applyFilterAndPicker(
-                        filterState: oldState.choreFilterState,
-                        pickerState: oldState.chorePickerState,
-                        choreList: familyChores
-                    ) ?? [],
-                    choreFilterState: oldState.choreFilterState,
-                    chorePickerState: oldState.chorePickerState,
-                    deletableChore: self?.userService.currentUser?.role != .child
-                )
+
+                if let oldState = self?._state {
+                    self?._state = .init(
+                        displayingChoreList: self?.applyFilterAndPicker(
+                            filterState: oldState.choreFilterState,
+                            pickerState: oldState.chorePickerState,
+                            choreList: receivedFamilyChores
+                        ) ?? [],
+                        choreFilterState: oldState.choreFilterState,
+                        chorePickerState: oldState.chorePickerState,
+                        deletableChore: self?.userService.currentUser?.role != .child
+                    )
+                } else {
+                    self?._state = .init(
+                        displayingChoreList: self?.applyFilterAndPicker(
+                            filterState: .all,
+                            pickerState: .unfinished,
+                            choreList: receivedFamilyChores
+                        ) ?? [],
+                        choreFilterState: .all,
+                        chorePickerState: .unfinished,
+                        deletableChore: self?.userService.currentUser?.role != .child
+                    )
+                }
+
             })
     }
 
@@ -86,8 +99,9 @@ class ChoreTabViewModel: StatefulViewModel {
     }
 
     private func updateFilterState(_ newState: ChoreFilterState) {
-        let oldState = _state
-
+        guard let oldState = _state else {
+            return
+        }
         _state = .init(
             displayingChoreList: applyFilterAndPicker(
                 filterState: newState,
@@ -101,8 +115,9 @@ class ChoreTabViewModel: StatefulViewModel {
     }
 
     private func updatePickerState(_ newState: ChorePickerState) {
-        let oldState = _state
-
+        guard let oldState = _state else {
+            return
+        }
         _state = .init(
             displayingChoreList: applyFilterAndPicker(
                 filterState: oldState.choreFilterState,
@@ -117,12 +132,13 @@ class ChoreTabViewModel: StatefulViewModel {
 
     private func delete(choreAtOffsets offsets: IndexSet) {
         guard let currentUser = userService.currentUser,
+              let viewState = _state,
               currentUser.role != .child
         else {
             return
         }
         for offset in offsets {
-            let choreToDelete = self._state.displayingChoreList[offset]
+            let choreToDelete = viewState.displayingChoreList[offset]
             choreService.delete(choreAtId: choreToDelete.id, byUser: currentUser)
         }
     }

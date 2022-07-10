@@ -9,20 +9,13 @@ import Foundation
 import Combine
 
 class NoFamilyViewModel: StatefulViewModel {
-    @Published var _state: NoFamilyState = empty
-    static let empty = NoFamilyState(
-        shouldRenderCreateFamilyButton: false,
-        currentUserId: ""
-    )
-
+    @Published var _state: NoFamilyState?
+    var viewState: AnyPublisher<NoFamilyState?, Never> {
+        return $_state.eraseToAnyPublisher()
+    }
     private let userService: UserService
     private let familyService: FamilyService
     private var currentUserSubscription: AnyCancellable?
-
-    var viewState: AnyPublisher<NoFamilyState, Never> {
-        return $_state.eraseToAnyPublisher()
-    }
-
     init(
         userService: UserService,
         familyService: FamilyService
@@ -35,9 +28,12 @@ class NoFamilyViewModel: StatefulViewModel {
     func addSubscription() {
         currentUserSubscription = userService.$currentUser
             .sink(receiveValue: { [weak self] receivedUser in
+                guard let receivedUser = receivedUser, let receivedUserId = receivedUser.id else {
+                    return
+                }
                 self?._state = .init(
-                    shouldRenderCreateFamilyButton: receivedUser?.role == .parent,
-                    currentUserId: receivedUser?.id ?? ""
+                    shouldRenderCreateFamilyButton: receivedUser.role == .parent,
+                    currentUserId: receivedUserId
                 )
             })
     }
