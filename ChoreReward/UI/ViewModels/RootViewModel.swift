@@ -16,7 +16,6 @@ class RootViewModel: StatefulViewModel {
 
     private var userService: UserService
     private var choreService: ChoreService
-
     private var authStateSubscription: AnyCancellable?
     private var userServiceBusyStatusSubscription: AnyCancellable?
     private var choreServiceBusyStatusSubscription: AnyCancellable?
@@ -29,12 +28,12 @@ class RootViewModel: StatefulViewModel {
 
     func addSubscription() {
         authStateSubscription = userService.$authState
-            .sink(receiveValue: {[weak self] authState in
+            .sink(receiveValue: {[weak self] receivedAuthState in
                 guard let strongSelf = self else {
                     return
                 }
 
-                switch authState {
+                switch receivedAuthState {
                 case .signedIn:
                     strongSelf._state = .init(
                         shouldRenderLoginView: false
@@ -54,8 +53,7 @@ class RootViewModel: StatefulViewModel {
 
 struct RootViewState {
     let shouldRenderLoginView: Bool
-
-    static let empty: RootViewState = .init(shouldRenderLoginView: true)
+    static let preview: RootViewState = .init(shouldRenderLoginView: true)
 }
 
 extension Dependency.ViewModels {

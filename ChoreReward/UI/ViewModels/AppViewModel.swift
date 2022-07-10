@@ -42,8 +42,7 @@ class AppViewModel: StatefulViewModel {
 struct AppViewState {
     let shouldRenderAddChoreButton: Bool
     let shouldPresentNoFamilyView: Bool
-
-    static let empty: AppViewState = .init(
+    static let preview: AppViewState = .init(
         shouldRenderAddChoreButton: true,
         shouldPresentNoFamilyView: false
     )

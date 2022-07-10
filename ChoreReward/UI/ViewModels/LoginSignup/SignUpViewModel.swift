@@ -27,8 +27,8 @@ class SignUpViewModel: StatefulViewModel {
 
     private func addSubscription() {
         authStateSubscription = userService.$authState
-            .sink(receiveValue: {[weak self] authState in
-                switch authState {
+            .sink(receiveValue: {[weak self] receivedAuthState in
+                switch receivedAuthState {
                 case .signedIn:
                     break
                 case .signedOut(let error):
@@ -85,7 +85,6 @@ class SignUpViewModel: StatefulViewModel {
 struct SignUpState {
     let errorMessage: String
     let shouldShowAlert: Bool
-
     static let preview: SignUpState = .init(errorMessage: "preview error", shouldShowAlert: true)
 }
 

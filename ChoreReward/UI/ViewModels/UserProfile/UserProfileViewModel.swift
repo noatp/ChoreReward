@@ -57,6 +57,13 @@ struct UserProfileState {
     let currentUserName: String
     let currentUserRole: String
     let currentUserProfileImageUrl: String?
+    static let preview: UserProfileState = .init(
+        currentUserEmail: "toan.chpham@gmail.com",
+        currentUserName: "Toan Pham",
+        currentUserRole: "Admin",
+        currentUserProfileImageUrl: "https://www.apple.com/leadership/"
+        + "images/bio/tim-cook_image.png.og.png?1656498323724"
+    )
 }
 
 enum UserProfileAction {

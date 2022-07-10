@@ -55,9 +55,7 @@ struct AddFamilyMemberView: View {
 struct AddFamilyMemberView_Previews: PreviewProvider {
     static var previews: some View {
         AddFamilyMemberView(
-            addFamilyMemberViewModel: ObservableViewModel(
-                staticState: ()
-            ),
+            addFamilyMemberViewModel: ObservableViewModel(staticState: nil),
             views: Dependency.preview.views()
         )
         .previewLayout(.sizeThatFits)

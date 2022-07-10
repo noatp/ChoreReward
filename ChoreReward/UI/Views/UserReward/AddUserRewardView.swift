@@ -64,9 +64,7 @@ struct AddUserRewardView: View {
 struct AddUserRewardView_Previews: PreviewProvider {
     static var previews: some View {
         AddUserRewardView(
-            addUserRewardViewModel: ObservableViewModel(
-                staticState: nil
-            ),
+            addUserRewardViewModel: ObservableViewModel(staticState: nil),
             views: Dependency.preview.views()
         )
         .previewLayout(.sizeThatFits)

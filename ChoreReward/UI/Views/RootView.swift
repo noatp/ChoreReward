@@ -37,9 +37,7 @@ struct RootView: View {
 struct RootView_Previews: PreviewProvider {
     static var previews: some View {
         RootView(
-            rootViewModel: .init(
-                staticState: .empty
-            ),
+            rootViewModel: .init(staticState: .preview),
             views: Dependency.preview.views()
         )
     }

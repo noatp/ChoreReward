@@ -53,15 +53,13 @@ class UserRewardViewModel: StatefulViewModel {
             })
     }
 
-    func performAction(_ action: UserRewardViewAction) {
-    }
+    func performAction(_ action: UserRewardViewAction) {}
 }
 
 struct UserRewardViewState {
     let rewards: [Reward]
     let balance: Int
-
-    static let empty: UserRewardViewState = .init(rewards: [], balance: 0)
+    static let preview: UserRewardViewState = .init(rewards: [], balance: 0)
 }
 
 enum UserRewardViewAction {

@@ -57,7 +57,6 @@ class ChoreTabViewModel: StatefulViewModel {
                         deletableChore: self?.userService.currentUser?.role != .child
                     )
                 }
-
             })
     }
 
@@ -167,8 +166,8 @@ struct ChoreTabState {
     let chorePickerState: ChorePickerState
     let deletableChore: Bool
 
-    static let empty: ChoreTabState = .init(
-        displayingChoreList: [],
+    static let preview: ChoreTabState = .init(
+        displayingChoreList: [.previewChoreFinished, .previewChoreUnfinished, .previewChoreFinished_1],
         choreFilterState: .all,
         chorePickerState: .unfinished,
         deletableChore: false

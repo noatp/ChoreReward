@@ -50,6 +50,7 @@ class ChoreDetailViewModel: StatefulViewModel {
 
 struct ChoreDetailState {
     let chore: Chore
+    static let preview: ChoreDetailState = .init(chore: .previewChoreFinished)
 }
 
 enum ChoreDetailAction {

@@ -71,6 +71,7 @@ class FamilyTabViewModel: StatefulViewModel {
 struct FamilyTabState {
     let members: [DenormUser]
     let shouldRenderAddMemberButton: Bool
+    static let preview: FamilyTabState = .init(members: [.preview], shouldRenderAddMemberButton: true)
 }
 
 extension Dependency.ViewModels {

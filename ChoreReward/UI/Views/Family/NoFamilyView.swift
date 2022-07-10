@@ -63,12 +63,7 @@ struct NoFamilyView: View {
 struct NoFamilyView_Previews: PreviewProvider {
     static var previews: some View {
         NoFamilyView(
-            noFamilyViewModel: .init(
-                staticState: .init(
-                    shouldRenderCreateFamilyButton: true,
-                    currentUserId: "preview userId"
-                )
-            ),
+            noFamilyViewModel: .init(staticState: .preview),
             views: Dependency.preview.views()
         )
         .previewLayout(.sizeThatFits)

@@ -56,12 +56,7 @@ struct FamilyListView_Previews: PreviewProvider {
     static var previews: some View {
         FamilyTabView(
             presentedDrawer: .constant(false),
-            familyTabViewModel: .init(
-                staticState: .init(
-                    members: [DenormUser.preview],
-                    shouldRenderAddMemberButton: true
-                )
-            ),
+            familyTabViewModel: .init(staticState: .preview),
             views: Dependency.preview.views()
         )
         .previewLayout(.sizeThatFits)

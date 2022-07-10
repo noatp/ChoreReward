@@ -60,9 +60,7 @@ struct UserRewardView: View {
 struct UserGoalView_Previews: PreviewProvider {
     static var previews: some View {
         UserRewardView(
-            userGoalViewModel: ObservableViewModel(
-                staticState: UserRewardViewState(rewards: [], balance: 0)
-            ),
+            userGoalViewModel: ObservableViewModel(staticState: .preview),
             views: Dependency.preview.views()
         )
         .font(StylingFont.regular)

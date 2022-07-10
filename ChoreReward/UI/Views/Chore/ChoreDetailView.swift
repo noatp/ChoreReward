@@ -57,9 +57,7 @@ struct ChoreDetailView: View {
 struct ChoreDetailView_Previews: PreviewProvider {
     static var previews: some View {
         ChoreDetailView(
-            choreDetailViewModel: ObservableViewModel(
-                staticState: ChoreDetailState(chore: .previewChoreFinished)
-            ),
+            choreDetailViewModel: ObservableViewModel(staticState: .preview),
             views: Dependency.preview.views()
         )
 //        .previewLayout(.sizeThatFits)

@@ -59,7 +59,7 @@ struct AppView: View {
 struct AppView_Previews: PreviewProvider {
     static var previews: some View {
         AppView(
-            appViewModel: .init(staticState: .empty),
+            appViewModel: .init(staticState: .preview),
             views: Dependency.preview.views()
         )
         .font(StylingFont.regular)

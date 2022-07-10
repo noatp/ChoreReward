@@ -13,9 +13,11 @@ class NoFamilyViewModel: StatefulViewModel {
     var viewState: AnyPublisher<NoFamilyState?, Never> {
         return $_state.eraseToAnyPublisher()
     }
+
     private let userService: UserService
     private let familyService: FamilyService
     private var currentUserSubscription: AnyCancellable?
+
     init(
         userService: UserService,
         familyService: FamilyService
@@ -58,6 +60,7 @@ class NoFamilyViewModel: StatefulViewModel {
 struct NoFamilyState {
     let shouldRenderCreateFamilyButton: Bool
     let currentUserId: String
+    static let preview: NoFamilyState = .init(shouldRenderCreateFamilyButton: true, currentUserId: "previewId")
 }
 
 enum NoFamilyAction {

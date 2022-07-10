@@ -115,18 +115,7 @@ struct ChoreTabView_Previews: PreviewProvider {
     static var previews: some View {
         ChoreTabView(
             presentedDrawer: .constant(false),
-            choreTabViewModel: ObservableViewModel(
-                staticState: .init(
-                    displayingChoreList: [
-                        Chore.previewChoreFinished,
-                        Chore.previewChoreFinished_1,
-                        Chore.previewChoreUnfinished
-                    ],
-                    choreFilterState: .all,
-                    chorePickerState: .unfinished,
-                    deletableChore: true
-                )
-            ),
+            choreTabViewModel: ObservableViewModel(staticState: .preview),
             views: Dependency.preview.views()
         )
         .preferredColorScheme(.dark)

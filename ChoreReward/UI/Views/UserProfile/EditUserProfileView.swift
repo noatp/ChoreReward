@@ -113,9 +113,7 @@ struct EditUserProfileView: View {
 struct EditUserProfileView_Previews: PreviewProvider {
     static var previews: some View {
         EditUserProfileView(
-            editUserProfileViewModel: ObservableViewModel(
-                staticState: .preview
-            ),
+            editUserProfileViewModel: ObservableViewModel(staticState: .preview),
             views: Dependency.preview.views()
         )
         .previewLayout(.sizeThatFits)

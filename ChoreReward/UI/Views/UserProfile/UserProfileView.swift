@@ -77,14 +77,7 @@ struct UserProfileView: View {
 struct UserTabView_Previews: PreviewProvider {
     static var previews: some View {
         UserProfileView(
-            userProfileViewModel: ObservableViewModel(
-                staticState: UserProfileState(
-                    currentUserEmail: "toan.chpham@gmail.com",
-                    currentUserName: "Toan Pham",
-                    currentUserRole: "Child",
-                    currentUserProfileImageUrl: nil
-                )
-            ),
+            userProfileViewModel: ObservableViewModel(staticState: .preview),
             views: Dependency.preview.views()
         )
         .font(StylingFont.regular)

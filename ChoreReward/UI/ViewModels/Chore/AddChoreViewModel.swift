@@ -10,8 +10,8 @@ import Combine
 import SwiftUI
 
 class AddChoreViewModel: StatefulViewModel {
-    @Published var _state: AddChoreState?
-    var viewState: AnyPublisher<AddChoreState?, Never> {
+    @Published var _state: Void?
+    var viewState: AnyPublisher<Void?, Never> {
         return $_state.eraseToAnyPublisher()
     }
 
@@ -22,7 +22,6 @@ class AddChoreViewModel: StatefulViewModel {
         choreService: ChoreService,
         userService: UserService
     ) {
-        self._state = .init()
         self.choreService = choreService
         self.userService = userService
     }
@@ -53,10 +52,6 @@ class AddChoreViewModel: StatefulViewModel {
              )
          }
     }
-}
-
-struct AddChoreState {
-    // let something: SOMETHING
 }
 
 enum AddChoreAction {

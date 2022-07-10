@@ -12,7 +12,7 @@ import Combine
 
 struct AddChoreView: View {
     @Environment(\.dismiss) var dismiss
-    @ObservedObject var addChoreViewModel: ObservableViewModel<AddChoreState, AddChoreAction>
+    @ObservedObject var addChoreViewModel: ObservableViewModel<Void, AddChoreAction>
     @State var choreTitle = ""
     @State var choreRewardValue = ""
     @State var choreDescription = ""
@@ -23,7 +23,7 @@ struct AddChoreView: View {
     private var views: Dependency.Views
 
     init(
-        addChoreViewModel: ObservableViewModel<AddChoreState, AddChoreAction>,
+        addChoreViewModel: ObservableViewModel<Void, AddChoreAction>,
         views: Dependency.Views
     ) {
         self.addChoreViewModel = addChoreViewModel
@@ -95,9 +95,7 @@ struct AddChoreView: View {
 struct AddChoreView_Previews: PreviewProvider {
     static var previews: some View {
         AddChoreView(
-            addChoreViewModel: ObservableViewModel(
-                staticState: AddChoreState()
-            ),
+            addChoreViewModel: ObservableViewModel(staticState: nil),
             views: Dependency.preview.views()
         )
         .font(StylingFont.regular)
