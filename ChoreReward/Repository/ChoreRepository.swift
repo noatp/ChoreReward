@@ -42,8 +42,8 @@ class ChoreRepository: ObservableObject {
                             }
                         }
                     if chores.isEmpty {
-                        print("\(#fileID) \(#function): received empty list, publishing nil...")
-                        self?.familyChoresPublisher.send(nil)
+                        print("\(#fileID) \(#function): received empty list, publishing empty list...")
+                        self?.familyChoresPublisher.send([])
                     } else {
                         print("\(#fileID) \(#function): received chores data, publishing...")
                         self?.familyChoresPublisher.send(chores)

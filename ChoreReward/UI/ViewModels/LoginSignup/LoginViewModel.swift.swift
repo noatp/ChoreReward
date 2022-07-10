@@ -31,13 +31,17 @@ class LoginViewModel: StatefulViewModel {
                 case .signedIn:
                     break
                 case .signedOut(let error):
-                    guard let error = error else {
-                        return
+                    if let error = error {
+                        self?._state = .init(
+                            errorMessage: error.localizedDescription,
+                            shouldShowAlert: true
+                        )
+                    } else {
+                        self?._state = .init(
+                            errorMessage: "",
+                            shouldShowAlert: false
+                        )
                     }
-                    self?._state = .init(
-                        errorMessage: error.localizedDescription,
-                        shouldShowAlert: true
-                    )
                 case .none:
                     break
                 }

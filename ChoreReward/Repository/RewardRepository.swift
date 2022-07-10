@@ -40,8 +40,8 @@ class RewardRepository: ObservableObject {
                         }
                     }
                 if rewards.isEmpty {
-                    print("\(#fileID) \(#function): received empty list, publishing nil...")
-                    self?.userRewardsPublisher.send(nil)
+                    print("\(#fileID) \(#function): received empty list, publishing empty list...")
+                    self?.userRewardsPublisher.send([])
                 } else {
                     print("\(#fileID) \(#function): received rewards data, publishing...")
                     self?.userRewardsPublisher.send(rewards)

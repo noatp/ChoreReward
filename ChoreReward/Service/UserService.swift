@@ -36,6 +36,7 @@ class UserService: ObservableObject {
     private func checkCurentAuthSession(afterAuthenticated: (_ currentUserId: String) -> Void) {
         guard let currentUserId = currentUserId else {
             print("\(#fileID) \(#function): no authorized user session -> doing nothing")
+            authState = .signedOut(error: nil)
             return
         }
         print("\(#fileID) \(#function): has authorized user session -> fetching new user data")
