@@ -36,6 +36,7 @@
 		45429DC427A518CC00FA9670 /* ChoreDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45429DC327A518CC00FA9670 /* ChoreDetailView.swift */; };
 		4544C86528617CC800D7B8AB /* AddUserRewardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4544C86428617CC800D7B8AB /* AddUserRewardView.swift */; };
 		4544C86728617CF300D7B8AB /* AddUserRewardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4544C86628617CF300D7B8AB /* AddUserRewardViewModel.swift */; };
+		455758E3287C7AC2003B9AAE /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 455758E2287C7AC2003B9AAE /* NotificationService.swift */; };
 		455E7106287B5C3100619DB3 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 455E7105287B5C3100619DB3 /* FirebaseAnalytics */; };
 		455E7108287B5C3100619DB3 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 455E7107287B5C3100619DB3 /* FirebaseAuth */; };
 		455E710A287B5C3100619DB3 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 455E7109287B5C3100619DB3 /* FirebaseFirestore */; };
@@ -141,6 +142,7 @@
 		45429DC327A518CC00FA9670 /* ChoreDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoreDetailView.swift; sourceTree = "<group>"; };
 		4544C86428617CC800D7B8AB /* AddUserRewardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddUserRewardView.swift; sourceTree = "<group>"; };
 		4544C86628617CF300D7B8AB /* AddUserRewardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddUserRewardViewModel.swift; sourceTree = "<group>"; };
+		455758E2287C7AC2003B9AAE /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		455E7113287B625500619DB3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		456D46E827EBFFE800B2AC07 /* SideDrawer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideDrawer.swift; sourceTree = "<group>"; };
 		456EA4B5278A127E00ADA2CD /* RegularButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegularButton.swift; sourceTree = "<group>"; };
@@ -235,6 +237,7 @@
 				45C1FA662767ABBB00BF11E3 /* FamilyService.swift */,
 				45A4754B27931F1C00322BCE /* ChoreService.swift */,
 				4583C132285EB7EC00E77427 /* RewardService.swift */,
+				455758E2287C7AC2003B9AAE /* NotificationService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -725,6 +728,7 @@
 				4583C12B285E717300E77427 /* UserRewardView.swift in Sources */,
 				45A31BFB27E2CB340060B8AB /* Color.swift in Sources */,
 				45B6BB39272FC72100F89D74 /* AppView.swift in Sources */,
+				455758E3287C7AC2003B9AAE /* NotificationService.swift in Sources */,
 				4583C12D285E718600E77427 /* UserRewardViewModel.swift in Sources */,
 				4531476B2751FFBD000A85D7 /* UserService.swift in Sources */,
 				45EAF0BA27EE6F8B005655D4 /* CircularButton.swift in Sources */,
