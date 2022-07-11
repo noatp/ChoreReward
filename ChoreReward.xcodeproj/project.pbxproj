@@ -36,23 +36,26 @@
 		45429DC427A518CC00FA9670 /* ChoreDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45429DC327A518CC00FA9670 /* ChoreDetailView.swift */; };
 		4544C86528617CC800D7B8AB /* AddUserRewardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4544C86428617CC800D7B8AB /* AddUserRewardView.swift */; };
 		4544C86728617CF300D7B8AB /* AddUserRewardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4544C86628617CF300D7B8AB /* AddUserRewardViewModel.swift */; };
+		455E7106287B5C3100619DB3 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 455E7105287B5C3100619DB3 /* FirebaseAnalytics */; };
+		455E7108287B5C3100619DB3 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 455E7107287B5C3100619DB3 /* FirebaseAuth */; };
+		455E710A287B5C3100619DB3 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 455E7109287B5C3100619DB3 /* FirebaseFirestore */; };
+		455E710C287B5C3100619DB3 /* FirebaseFirestoreSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = 455E710B287B5C3100619DB3 /* FirebaseFirestoreSwift-Beta */; };
+		455E710E287B5C3100619DB3 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 455E710D287B5C3100619DB3 /* FirebaseMessaging */; };
+		455E7110287B5C3100619DB3 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 455E710F287B5C3100619DB3 /* FirebaseStorage */; };
+		455E7112287B5C3100619DB3 /* FirebaseStorageSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = 455E7111287B5C3100619DB3 /* FirebaseStorageSwift-Beta */; };
 		456D46E927EBFFE800B2AC07 /* SideDrawer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456D46E827EBFFE800B2AC07 /* SideDrawer.swift */; };
 		456EA4B6278A127E00ADA2CD /* RegularButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456EA4B5278A127E00ADA2CD /* RegularButton.swift */; };
 		4583C12B285E717300E77427 /* UserRewardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4583C12A285E717300E77427 /* UserRewardView.swift */; };
 		4583C12D285E718600E77427 /* UserRewardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4583C12C285E718600E77427 /* UserRewardViewModel.swift */; };
 		4583C131285E7A5900E77427 /* RewardRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4583C130285E7A5900E77427 /* RewardRepository.swift */; };
 		4583C133285EB7EC00E77427 /* RewardService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4583C132285EB7EC00E77427 /* RewardService.swift */; };
+		458A1F4B287BB97E00E657DF /* ChoreRewardAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 458A1F4A287BB97E00E657DF /* ChoreRewardAppDelegate.swift */; };
 		458C76BD2851736000119E68 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 458C76BC2851736000119E68 /* Date.swift */; };
 		458C76BF285174AF00119E68 /* Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 458C76BE285174AF00119E68 /* Int.swift */; };
 		458DA88E2879F89C0011FA72 /* UnwrapViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 458DA88D2879F89C0011FA72 /* UnwrapViewState.swift */; };
 		45A31BFB27E2CB340060B8AB /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A31BFA27E2CB340060B8AB /* Color.swift */; };
 		45A4754A279215A100322BCE /* ChoreRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A47549279215A100322BCE /* ChoreRepository.swift */; };
 		45A4754C27931F1C00322BCE /* ChoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A4754B27931F1C00322BCE /* ChoreService.swift */; };
-		45A808532832A4EC00DF7EF6 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 45A808522832A4EC00DF7EF6 /* FirebaseAuth */; };
-		45A808552832A4EC00DF7EF6 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 45A808542832A4EC00DF7EF6 /* FirebaseFirestore */; };
-		45A808572832A4EC00DF7EF6 /* FirebaseFirestoreSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = 45A808562832A4EC00DF7EF6 /* FirebaseFirestoreSwift-Beta */; };
-		45A808592832A4EC00DF7EF6 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 45A808582832A4EC00DF7EF6 /* FirebaseStorage */; };
-		45A8085B2832A4EC00DF7EF6 /* FirebaseStorageSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = 45A8085A2832A4EC00DF7EF6 /* FirebaseStorageSwift-Beta */; };
 		45A808612832A5C700DF7EF6 /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = 45A808602832A5C700DF7EF6 /* CodeScanner */; };
 		45A808E52838A02400DF7EF6 /* UserAuthTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A808E42838A02400DF7EF6 /* UserAuthTest.swift */; };
 		45A808E72838A10600DF7EF6 /* UserDatabaseTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A808E62838A10600DF7EF6 /* UserDatabaseTest.swift */; };
@@ -138,12 +141,14 @@
 		45429DC327A518CC00FA9670 /* ChoreDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoreDetailView.swift; sourceTree = "<group>"; };
 		4544C86428617CC800D7B8AB /* AddUserRewardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddUserRewardView.swift; sourceTree = "<group>"; };
 		4544C86628617CF300D7B8AB /* AddUserRewardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddUserRewardViewModel.swift; sourceTree = "<group>"; };
+		455E7113287B625500619DB3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		456D46E827EBFFE800B2AC07 /* SideDrawer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideDrawer.swift; sourceTree = "<group>"; };
 		456EA4B5278A127E00ADA2CD /* RegularButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegularButton.swift; sourceTree = "<group>"; };
 		4583C12A285E717300E77427 /* UserRewardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRewardView.swift; sourceTree = "<group>"; };
 		4583C12C285E718600E77427 /* UserRewardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRewardViewModel.swift; sourceTree = "<group>"; };
 		4583C130285E7A5900E77427 /* RewardRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RewardRepository.swift; sourceTree = "<group>"; };
 		4583C132285EB7EC00E77427 /* RewardService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RewardService.swift; sourceTree = "<group>"; };
+		458A1F4A287BB97E00E657DF /* ChoreRewardAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoreRewardAppDelegate.swift; sourceTree = "<group>"; };
 		458C76BC2851736000119E68 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		458C76BE285174AF00119E68 /* Int.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Int.swift; sourceTree = "<group>"; };
 		458DA88D2879F89C0011FA72 /* UnwrapViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnwrapViewState.swift; sourceTree = "<group>"; };
@@ -194,13 +199,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				45A8085B2832A4EC00DF7EF6 /* FirebaseStorageSwift-Beta in Frameworks */,
-				45A808572832A4EC00DF7EF6 /* FirebaseFirestoreSwift-Beta in Frameworks */,
-				45A808592832A4EC00DF7EF6 /* FirebaseStorage in Frameworks */,
 				45D58F492843C1BB00E70937 /* SDWebImageSwiftUI in Frameworks */,
-				45A808532832A4EC00DF7EF6 /* FirebaseAuth in Frameworks */,
 				45A808612832A5C700DF7EF6 /* CodeScanner in Frameworks */,
-				45A808552832A4EC00DF7EF6 /* FirebaseFirestore in Frameworks */,
+				455E710E287B5C3100619DB3 /* FirebaseMessaging in Frameworks */,
+				455E7106287B5C3100619DB3 /* FirebaseAnalytics in Frameworks */,
+				455E710C287B5C3100619DB3 /* FirebaseFirestoreSwift-Beta in Frameworks */,
+				455E7112287B5C3100619DB3 /* FirebaseStorageSwift-Beta in Frameworks */,
+				455E7110287B5C3100619DB3 /* FirebaseStorage in Frameworks */,
+				455E710A287B5C3100619DB3 /* FirebaseFirestore in Frameworks */,
+				455E7108287B5C3100619DB3 /* FirebaseAuth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -341,6 +348,7 @@
 		45ACB4AA2724AD1A000E04A0 /* ChoreReward */ = {
 			isa = PBXGroup;
 			children = (
+				455E7113287B625500619DB3 /* Info.plist */,
 				45A31BF927E2CB290060B8AB /* Extention */,
 				45395C59272B20E900F50B70 /* Dependency */,
 				45ACB4DA2724ADC9000E04A0 /* Model */,
@@ -349,6 +357,7 @@
 				45395C53272A252900F50B70 /* UI */,
 				45ACB4B12724AD1D000E04A0 /* Preview Content */,
 				45ACB4AB2724AD1A000E04A0 /* ChoreRewardApp.swift */,
+				458A1F4A287BB97E00E657DF /* ChoreRewardAppDelegate.swift */,
 				45ACB4AD2724AD1A000E04A0 /* ContentView.swift */,
 				45395C5C272B2A6B00F50B70 /* Assets.xcassets */,
 			);
@@ -547,13 +556,15 @@
 			);
 			name = ChoreReward;
 			packageProductDependencies = (
-				45A808522832A4EC00DF7EF6 /* FirebaseAuth */,
-				45A808542832A4EC00DF7EF6 /* FirebaseFirestore */,
-				45A808562832A4EC00DF7EF6 /* FirebaseFirestoreSwift-Beta */,
-				45A808582832A4EC00DF7EF6 /* FirebaseStorage */,
-				45A8085A2832A4EC00DF7EF6 /* FirebaseStorageSwift-Beta */,
 				45A808602832A5C700DF7EF6 /* CodeScanner */,
 				45D58F482843C1BB00E70937 /* SDWebImageSwiftUI */,
+				455E7105287B5C3100619DB3 /* FirebaseAnalytics */,
+				455E7107287B5C3100619DB3 /* FirebaseAuth */,
+				455E7109287B5C3100619DB3 /* FirebaseFirestore */,
+				455E710B287B5C3100619DB3 /* FirebaseFirestoreSwift-Beta */,
+				455E710D287B5C3100619DB3 /* FirebaseMessaging */,
+				455E710F287B5C3100619DB3 /* FirebaseStorage */,
+				455E7111287B5C3100619DB3 /* FirebaseStorageSwift-Beta */,
 			);
 			productName = ChoreReward;
 			productReference = 45ACB4A82724AD1A000E04A0 /* ChoreReward.app */;
@@ -628,9 +639,9 @@
 			);
 			mainGroup = 45ACB49F2724AD1A000E04A0;
 			packageReferences = (
-				45A808512832A4EC00DF7EF6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				45A8085F2832A5C700DF7EF6 /* XCRemoteSwiftPackageReference "CodeScanner" */,
 				45D58F472843C1BB00E70937 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
+				455E7104287B5C3100619DB3 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = 45ACB4A92724AD1A000E04A0 /* Products */;
 			projectDirPath = "";
@@ -704,6 +715,7 @@
 				45ACB4AE2724AD1A000E04A0 /* ContentView.swift in Sources */,
 				45395C5B272B20F600F50B70 /* Dependency.swift in Sources */,
 				4544C86728617CF300D7B8AB /* AddUserRewardViewModel.swift in Sources */,
+				458A1F4B287BB97E00E657DF /* ChoreRewardAppDelegate.swift in Sources */,
 				45C1FA652767163F00BF11E3 /* FamilyRepository.swift in Sources */,
 				45243EFF276E9F9000D2EACB /* UserCard.swift in Sources */,
 				45429DC227A518B600FA9670 /* ChoreDetailViewModel.swift in Sources */,
@@ -868,13 +880,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = ChoreReward/ChoreReward.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "\"ChoreReward/Preview Content\"";
 				DEVELOPMENT_TEAM = ZRF6QZUXP5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ChoreReward/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Scan QR code";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -890,7 +903,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = noat.ChoreReward;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = ChoreReward_Development;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1067,13 +1080,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = ChoreReward/ChoreReward.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "\"ChoreReward/Preview Content\"";
 				DEVELOPMENT_TEAM = ZRF6QZUXP5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ChoreReward/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Scan QR code";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -1089,7 +1103,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = noat.ChoreReward;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = ChoreReward_Development;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1102,13 +1116,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = ChoreReward/ChoreReward.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "\"ChoreReward/Preview Content\"";
 				DEVELOPMENT_TEAM = ZRF6QZUXP5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ChoreReward/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Scan QR code";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -1124,7 +1139,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = noat.ChoreReward;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = ChoreReward_Development;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1273,7 +1288,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		45A808512832A4EC00DF7EF6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+		455E7104287B5C3100619DB3 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
 			requirement = {
@@ -1300,29 +1315,39 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		45A808522832A4EC00DF7EF6 /* FirebaseAuth */ = {
+		455E7105287B5C3100619DB3 /* FirebaseAnalytics */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 45A808512832A4EC00DF7EF6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			package = 455E7104287B5C3100619DB3 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
+		455E7107287B5C3100619DB3 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 455E7104287B5C3100619DB3 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseAuth;
 		};
-		45A808542832A4EC00DF7EF6 /* FirebaseFirestore */ = {
+		455E7109287B5C3100619DB3 /* FirebaseFirestore */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 45A808512832A4EC00DF7EF6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			package = 455E7104287B5C3100619DB3 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseFirestore;
 		};
-		45A808562832A4EC00DF7EF6 /* FirebaseFirestoreSwift-Beta */ = {
+		455E710B287B5C3100619DB3 /* FirebaseFirestoreSwift-Beta */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 45A808512832A4EC00DF7EF6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			package = 455E7104287B5C3100619DB3 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = "FirebaseFirestoreSwift-Beta";
 		};
-		45A808582832A4EC00DF7EF6 /* FirebaseStorage */ = {
+		455E710D287B5C3100619DB3 /* FirebaseMessaging */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 45A808512832A4EC00DF7EF6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			package = 455E7104287B5C3100619DB3 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseMessaging;
+		};
+		455E710F287B5C3100619DB3 /* FirebaseStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 455E7104287B5C3100619DB3 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseStorage;
 		};
-		45A8085A2832A4EC00DF7EF6 /* FirebaseStorageSwift-Beta */ = {
+		455E7111287B5C3100619DB3 /* FirebaseStorageSwift-Beta */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 45A808512832A4EC00DF7EF6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			package = 455E7104287B5C3100619DB3 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = "FirebaseStorageSwift-Beta";
 		};
 		45A808602832A5C700DF7EF6 /* CodeScanner */ = {
