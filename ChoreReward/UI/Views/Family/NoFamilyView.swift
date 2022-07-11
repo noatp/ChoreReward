@@ -38,8 +38,12 @@ struct NoFamilyView: View {
                         noFamilyViewModel.perform(action: .createFamily)
                     }
                 }
+                FilledButton(buttonTitle: "Log out", buttonImage: "arrow.backward.to.line") {
+                    noFamilyViewModel.perform(action: .signOut)
+                }
                 Spacer()
             }
+            .vNavBar(NavigationBar(title: "Let's get started", leftItem: EmptyView(), rightItem: EmptyView()))
             .padding()
         }
     }

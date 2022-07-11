@@ -40,7 +40,7 @@ class NoFamilyViewModel: StatefulViewModel {
             })
     }
 
-    func createFamily() {
+    private func createFamily() {
         guard let currentUserId = userService.currentUserId else {
             return
         }
@@ -49,10 +49,16 @@ class NoFamilyViewModel: StatefulViewModel {
         }
     }
 
+    private func signOut() {
+        userService.signOut()
+    }
+
     func performAction(_ action: NoFamilyAction) {
         switch action {
         case .createFamily:
             createFamily()
+        case .signOut:
+            signOut()
         }
     }
 }
@@ -65,6 +71,7 @@ struct NoFamilyState {
 
 enum NoFamilyAction {
     case createFamily
+    case signOut
 }
 
 extension Dependency.ViewModels {

@@ -69,11 +69,11 @@ class RewardService: ObservableObject {
 
                     if let rewardCollectionInCache = self?.rewardCollection,
                         receivedRewardCollection == rewardCollectionInCache {
-                        print("\(#fileID) \(#function): received-family has same reward collection as in cache "
+                        print("\(#fileID) \(#function): received-user has same reward collection as in cache "
                               + "-> doing nothing")
                         return
                     } else {
-                        print("\(#fileID) \(#function): received-family has diff reward collection from cache "
+                        print("\(#fileID) \(#function): received-user has diff reward collection from cache "
                               + "-> fetch new reward data")
                         self?.rewardCollection = receivedRewardCollection
                         self?.getRewardsOf(rewardCollection: receivedRewardCollection)
