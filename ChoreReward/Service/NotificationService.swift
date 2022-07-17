@@ -86,7 +86,13 @@ class NotificationService: NSObject {
 
 extension NotificationService: MessagingDelegate {
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
-
+        print("\(#fileID) \(#function): received a refreshed fcmToken, updating user record")
+        guard let currentUserId = currentUserId else {
+            return
+        }
+        Task {
+            await userRepository.updateUserFCMToken(for: currentUserId, with: fcmToken)
+        }
     }
 
 }
