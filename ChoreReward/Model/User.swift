@@ -18,6 +18,7 @@ struct User: Identifiable, Codable {
     var userImageUrl: String?
     var balance: Int?
     var userDocRef: DocumentReference?
+    var fcmToken: String?
 
     static let preview = User(
         id: "previewID",

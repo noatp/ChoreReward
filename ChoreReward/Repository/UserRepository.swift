@@ -82,6 +82,16 @@ class UserRepository: ObservableObject {
         }
     }
 
+    func updateUserFCMToken(for userId: String, with token: String?) async {
+        do {
+            try await database.collection("users").document(userId).updateData([
+                "fcmToken": token ?? NSNull()
+            ])
+        } catch {
+            print("\(#fileID) \(#function): \(error)")
+        }
+    }
+
     func resetRepository() {
         self.userPublisher.send(nil)
         self.currentUserListener?.remove()

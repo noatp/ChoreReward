@@ -31,6 +31,10 @@ class UserService: ObservableObject {
         self.userRepository = currentUserRepository
         self.storageRepository = storageRepository
         addSubscription()
+        if UserDefaults.standard.value(forKey: "appFirstRun") == nil {
+            UserDefaults.standard.setValue(true, forKey: "appFirstRun")
+            self.signOut()
+        }
     }
 
     private func checkCurentAuthSession(afterAuthenticated: (_ currentUserId: String) -> Void) {
