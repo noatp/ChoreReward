@@ -68,6 +68,7 @@
 		45ACB4CE2724AD1D000E04A0 /* ChoreRewardUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45ACB4CD2724AD1D000E04A0 /* ChoreRewardUITestsLaunchTests.swift */; };
 		45ACB4DC2724AE00000E04A0 /* Chore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45ACB4DB2724AE00000E04A0 /* Chore.swift */; };
 		45ACB4DE2724AEBE000E04A0 /* Reward.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45ACB4DD2724AEBE000E04A0 /* Reward.swift */; };
+		45AD3F6C2884CECA005C6B28 /* test.apns in Resources */ = {isa = PBXBuildFile; fileRef = 45AD3F6B2884CECA005C6B28 /* test.apns */; };
 		45B012D7275495CF002C7A06 /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B012D6275495CF002C7A06 /* UserRepository.swift */; };
 		45B090332800DE8800CD1597 /* StorageRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B090322800DE8800CD1597 /* StorageRepository.swift */; };
 		45B107F0286BB08800E98F95 /* RegularTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B107EF286BB08800E98F95 /* RegularTextField.swift */; };
@@ -170,6 +171,7 @@
 		45ACB4CD2724AD1D000E04A0 /* ChoreRewardUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoreRewardUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		45ACB4DB2724AE00000E04A0 /* Chore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chore.swift; sourceTree = "<group>"; };
 		45ACB4DD2724AEBE000E04A0 /* Reward.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reward.swift; sourceTree = "<group>"; };
+		45AD3F6B2884CECA005C6B28 /* test.apns */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = test.apns; sourceTree = "<group>"; };
 		45B012D6275495CF002C7A06 /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
 		45B090322800DE8800CD1597 /* StorageRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageRepository.swift; sourceTree = "<group>"; };
 		45B107EF286BB08800E98F95 /* RegularTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegularTextField.swift; sourceTree = "<group>"; };
@@ -363,6 +365,7 @@
 				458A1F4A287BB97E00E657DF /* ChoreRewardAppDelegate.swift */,
 				45ACB4AD2724AD1A000E04A0 /* ContentView.swift */,
 				45395C5C272B2A6B00F50B70 /* Assets.xcassets */,
+				45AD3F6B2884CECA005C6B28 /* test.apns */,
 			);
 			path = ChoreReward;
 			sourceTree = "<group>";
@@ -663,6 +666,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				45395C5D272B2A6B00F50B70 /* Assets.xcassets in Resources */,
+				45AD3F6C2884CECA005C6B28 /* test.apns in Resources */,
 				45ACB4B32724AD1D000E04A0 /* Preview Assets.xcassets in Resources */,
 				45395C5F272B2E2700F50B70 /* GoogleService-Info.plist in Resources */,
 			);

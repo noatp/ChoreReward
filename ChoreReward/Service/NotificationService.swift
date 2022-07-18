@@ -73,12 +73,6 @@ class NotificationService: NSObject {
                             await strongSelf.userRepository.updateUserFCMToken(for: receivedUserId, with: token)
                         }
                     })
-                } else {
-                    guard let currentUserId = strongSelf.currentUserId else {
-                        return
-                    }
-                    print("\(#fileID) \(#function): received reset signal from UserRepository, reset notification service")
-                    strongSelf.deleteFCMToken()
                 }
             })
     }
