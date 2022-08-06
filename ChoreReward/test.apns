@@ -1,11 +1,10 @@
 {
     "title" : "Check Trip Requests",
     "aps": {
-        "alert": "Hey Dude, request reminder!!!"
+        "alert": "Hey Dude, request reminder!!!",
+        "badge": 1,
+        "sound": "default"
     },
-    "content-available": 0,
-    "extra": {
-        "type": "request_reminder"
-    },
+    "choreId": "QrxQvyN5rBRGAYSn6r6vwz5Q8P73",
     "Simulator Target Bundle": "noat.ChoreReward"
 }

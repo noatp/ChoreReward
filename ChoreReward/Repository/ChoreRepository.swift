@@ -52,6 +52,16 @@ class ChoreRepository: ObservableObject {
         }
     }
 
+    func read(choreWithId choreId: String, in choreCollection: CollectionReference) async -> Chore? {
+        do {
+            let chore = try await choreCollection.document(choreId).getDocument(as: Chore.self)
+            return chore
+        } catch {
+            print("\(#fileID) \(#function): \(error)")
+            return nil
+        }
+    }
+
     func update(choreAtId choreId: String, in choreCollection: CollectionReference, withAssignee assignee: DenormUser) {
         choreCollection
             .document(choreId)

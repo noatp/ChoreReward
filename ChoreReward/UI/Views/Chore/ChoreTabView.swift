@@ -52,7 +52,6 @@ struct ChoreTabView: View {
                     if viewState.deletableChore {
                         List {
                             ForEach(viewState.displayingChoreList) {chore in
-
                                 ZStack(alignment: .leading) {
                                     NavigationLink {
                                         views.choreDetailView(chore: chore)

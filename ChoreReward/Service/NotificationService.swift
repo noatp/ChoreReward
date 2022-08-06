@@ -10,8 +10,10 @@ import Combine
 import Firebase
 import FirebaseMessaging
 import UserNotifications
+import SwiftUI
 
-class NotificationService: NSObject {
+class NotificationService: NSObject, ObservableObject {
+    @Published var choreIdFromNotification: String?
     private let userRepository: UserRepository
     private let fcm: Messaging
     private let unc: UNUserNotificationCenter
@@ -92,5 +94,29 @@ extension NotificationService: MessagingDelegate {
 }
 
 extension NotificationService: UNUserNotificationCenterDelegate {
+    func userNotificationCenter(
+        _ center: UNUserNotificationCenter,
+        didReceive response: UNNotificationResponse,
+        withCompletionHandler completionHandler: @escaping () -> Void
+    ) {
+        // handles background notification launching app
+
+        guard let choreId = response.notification.request.content.userInfo["choreId"] as? String else {
+            completionHandler()
+            return
+        }
+
+        print("\(#fileID) \(#function): got choreId: \(choreId) from notification")
+        choreIdFromNotification = choreId
+        completionHandler()
+    }
+
+    func userNotificationCenter(
+        _ center: UNUserNotificationCenter,
+        willPresent notification: UNNotification,
+        withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void
+    ) {
+        // handles foreground notification
+    }
 
 }

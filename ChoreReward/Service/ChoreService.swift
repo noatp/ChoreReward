@@ -9,6 +9,7 @@ import Foundation
 import Combine
 import UIKit
 import FirebaseFirestore
+import SwiftUI
 
 class ChoreService: ObservableObject {
     @Published var familyChores: [Chore]?
@@ -111,6 +112,17 @@ class ChoreService: ObservableObject {
         getChoresOfCurrentFamilyWith(choreCollection: currentChoreCollection)
     }
 
+    func getChore(withId id: String, completion: @escaping (Chore?) -> Void) {
+        if let chore = findInCacheChore(withId: id) {
+            completion(chore)
+        } else {
+            Task {
+                let chore = await getSingleChore(withId: id)
+                completion(chore)
+            }
+        }
+    }
+
     private func getChoresOfCurrentFamilyWith(choreCollection: CollectionReference) {
         choreRepository.read(choreCollection)
     }
@@ -121,6 +133,20 @@ class ChoreService: ObservableObject {
             return
         }
         choreRepository.update(choreAtId: choreId, in: currentChoreCollection, withImageUrl: imageUrl)
+    }
+
+    private func findInCacheChore(withId id: String) -> Chore? {
+        let chore = familyChores?.first(where: { chore in
+            chore.id == id
+        })
+        return chore
+    }
+
+    private func getSingleChore(withId id: String) async -> Chore? {
+        guard let currentChoreCollection = currentChoreCollection else {
+            return nil
+        }
+        return await choreRepository.read(choreWithId: id, in: currentChoreCollection)
     }
 
     private func addSubscription() {

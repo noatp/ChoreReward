@@ -10,7 +10,7 @@ import SwiftUI
 // MARK: Main Implementaion
 
 struct AppView: View {
-    @ObservedObject var appViewModel: ObservableViewModel<AppViewState, Void>
+    @ObservedObject var appViewModel: ObservableViewModel<AppViewState, AppViewAction>
     @State var selectedTab: Tabs = .choreTab
     @State var presentingAddChoreView: Bool = false
     @State var presentedDrawer: Bool = false
@@ -18,7 +18,7 @@ struct AppView: View {
     private var views: Dependency.Views
 
     init(
-        appViewModel: ObservableViewModel<AppViewState, Void>,
+        appViewModel: ObservableViewModel<AppViewState, AppViewAction>,
         views: Dependency.Views
     ) {
         self.appViewModel = appViewModel
@@ -28,21 +28,38 @@ struct AppView: View {
     var body: some View {
         UnwrapViewState(viewState: appViewModel.viewState) { viewState in
             NavigationView {
+
                 if viewState.shouldPresentNoFamilyView {
                     views.noFamilyView
                 } else {
-                    VStack {
-                        // main view
-                        switch selectedTab {
-                        case .choreTab:
-                            views.choreTabView(presentedDrawer: $presentedDrawer)
-                        case .familyTab:
-                            views.familyTabView(presentedDrawer: $presentedDrawer)
+                    ZStack {
+                        VStack {
+                            NavigationLink(isActive: Binding<Bool>(
+                                get: {
+                                    viewState.shouldNavigateToNotificationChore
+                                },
+                                set: { newState in
+                                    appViewModel.perform(action: .updateShouldShouldNavigateToNotificationState(newState: newState))
+                                }
+                            )) {
+                                views.choreDetailView(chore: viewState.notificationChore)
+                            } label: {}
                         }
 
-                        Spacer(minLength: 0)
-                        // tab bar
-                        tabBar
+                        VStack {
+                            // main view
+                            switch selectedTab {
+                            case .choreTab:
+                                views.choreTabView(presentedDrawer: $presentedDrawer)
+                            case .familyTab:
+                                views.familyTabView(presentedDrawer: $presentedDrawer)
+                            }
+
+                            Spacer(minLength: 0)
+                            // tab bar
+                            tabBar
+                        }
+
                     }
                     .sideDrawer(views: views, presentedDrawer: $presentedDrawer)
                     .fullScreenCover(isPresented: $presentingAddChoreView) {
