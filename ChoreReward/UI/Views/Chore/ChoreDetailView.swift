@@ -68,10 +68,10 @@ struct ChoreDetailView_Previews: PreviewProvider {
 // MARK: Add to Dependency
 
 extension Dependency.Views {
-    func choreDetailView(chore: Chore) -> ChoreDetailView {
+    func choreDetailView(choreId: String) -> ChoreDetailView {
         return ChoreDetailView(
             choreDetailViewModel: ObservableViewModel(
-                viewModel: viewModels.choreDetailViewModel(chore: chore)
+                viewModel: viewModels.choreDetailViewModel(choreId: choreId)
             ),
             views: self
         )

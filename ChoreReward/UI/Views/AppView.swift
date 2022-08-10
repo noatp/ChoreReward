@@ -28,7 +28,6 @@ struct AppView: View {
     var body: some View {
         UnwrapViewState(viewState: appViewModel.viewState) { viewState in
             NavigationView {
-
                 if viewState.shouldPresentNoFamilyView {
                     views.noFamilyView
                 } else {
@@ -36,13 +35,18 @@ struct AppView: View {
                         VStack {
                             NavigationLink(isActive: Binding<Bool>(
                                 get: {
-                                    viewState.shouldNavigateToNotificationChore
+                                    viewState.shouldNavigateToDeepLink
                                 },
                                 set: { newState in
                                     appViewModel.perform(action: .updateShouldShouldNavigateToNotificationState(newState: newState))
                                 }
                             )) {
-                                views.choreDetailView(chore: viewState.notificationChore)
+                                switch viewState.deepLinkTarget {
+                                case .home:
+                                    views.appView
+                                case .detail(let choreId):
+                                    views.choreDetailView(choreId: choreId)
+                                }
                             } label: {}
                         }
 
@@ -67,6 +71,9 @@ struct AppView: View {
                     }
                 }
             }
+        }
+        .onOpenURL { url in
+            appViewModel.perform(action: .parseUrlToDeepLinkTarget(url))
         }
     }
 }

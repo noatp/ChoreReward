@@ -16,15 +16,18 @@ class ChoreDetailViewModel: StatefulViewModel {
 
     private let choreSerivce: ChoreService
     private let userService: UserService
+    private let choreId: String
+    private var choreDetailSubscription: AnyCancellable?
 
     init(
-        chore: Chore,
+        choreId: String,
         choreService: ChoreService,
         userService: UserService
     ) {
+        self.choreId = choreId
         self.choreSerivce = choreService
         self.userService = userService
-        self._state = .init(chore: chore)
+        addSubscription()
     }
 
     func performAction(_ action: ChoreDetailAction) {
@@ -46,6 +49,24 @@ class ChoreDetailViewModel: StatefulViewModel {
     private func completeChore() {
         choreSerivce.completeChore(choreId: self._state?.chore.id)
     }
+
+    private func addSubscription() {
+        choreDetailSubscription = choreSerivce.$familyChores
+            .sink(receiveValue: { [weak self] receivedFamilyChores in
+                guard let receivedFamilyChores = receivedFamilyChores else {
+                    print("HERE")
+                    return
+                }
+
+                let choreDetail = receivedFamilyChores.first { chore in
+                    chore.id == self?.choreId
+                }
+
+                if let choreDetail = choreDetail {
+                    self?._state = .init(chore: choreDetail)
+                }
+            })
+    }
 }
 
 struct ChoreDetailState {
@@ -60,9 +81,9 @@ enum ChoreDetailAction {
 }
 
 extension Dependency.ViewModels {
-    func choreDetailViewModel(chore: Chore) -> ChoreDetailViewModel {
+    func choreDetailViewModel(choreId: String) -> ChoreDetailViewModel {
         ChoreDetailViewModel(
-            chore: chore,
+            choreId: choreId,
             choreService: services.choreService,
             userService: services.userService
         )

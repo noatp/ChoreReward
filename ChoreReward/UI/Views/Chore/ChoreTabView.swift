@@ -52,16 +52,17 @@ struct ChoreTabView: View {
                     if viewState.deletableChore {
                         List {
                             ForEach(viewState.displayingChoreList) {chore in
-                                ZStack(alignment: .leading) {
-                                    NavigationLink {
-                                        views.choreDetailView(chore: chore)
-                                    } label: {
-                                        EmptyView()
+                                if let choreId = chore.id {
+                                    ZStack(alignment: .leading) {
+                                        NavigationLink {
+                                            views.choreDetailView(choreId: choreId)
+                                        } label: {
+                                            EmptyView()
+                                        }
+                                        .opacity(0)
+                                        ChoreCard(chore: chore)
                                     }
-                                    .opacity(0)
-                                    ChoreCard(chore: chore)
                                 }
-
                             }
                             .onDelete(perform: { offsets in
                                 choreTabViewModel.perform(action: .deleteChore(offsets))
@@ -77,14 +78,16 @@ struct ChoreTabView: View {
                         List {
                             ForEach(viewState.displayingChoreList) {chore in
 
-                                ZStack(alignment: .leading) {
-                                    NavigationLink {
-                                        views.choreDetailView(chore: chore)
-                                    } label: {
-                                        EmptyView()
+                                if let choreId = chore.id {
+                                    ZStack(alignment: .leading) {
+                                        NavigationLink {
+                                            views.choreDetailView(choreId: choreId)
+                                        } label: {
+                                            EmptyView()
+                                        }
+                                        .opacity(0)
+                                        ChoreCard(chore: chore)
                                     }
-                                    .opacity(0)
-                                    ChoreCard(chore: chore)
                                 }
 
                             }

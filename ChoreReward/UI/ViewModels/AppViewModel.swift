@@ -17,17 +17,20 @@ class AppViewModel: StatefulViewModel {
     private let userService: UserService
     private let notificationService: NotificationService
     private let choreService: ChoreService
+    private let deepLinkService: DeepLinkService
     private var currentUserSubscription: AnyCancellable?
     private var choreIdFromNotificationSubscription: AnyCancellable?
 
     init(
         userService: UserService,
         notificationService: NotificationService,
-        choreService: ChoreService
+        choreService: ChoreService,
+        deepLinkService: DeepLinkService = .init()
     ) {
         self.userService = userService
         self.notificationService = notificationService
         self.choreService = choreService
+        self.deepLinkService = deepLinkService
         addSubscription()
     }
 
@@ -41,43 +44,16 @@ class AppViewModel: StatefulViewModel {
                     self?._state = .init(
                         shouldRenderAddChoreButton: receivedUser.role == .parent || receivedUser.role == .admin,
                         shouldPresentNoFamilyView: receivedUser.familyId == nil,
-                        shouldNavigateToNotificationChore: oldState.shouldNavigateToNotificationChore,
-                        notificationChore: oldState.notificationChore
+                        shouldNavigateToDeepLink: oldState.shouldNavigateToDeepLink,
+                        deepLinkTarget: oldState.deepLinkTarget
                     )
                 } else {
                     self?._state = .init(
                         shouldRenderAddChoreButton: receivedUser.role == .parent || receivedUser.role == .admin,
                         shouldPresentNoFamilyView: receivedUser.familyId == nil,
-                        shouldNavigateToNotificationChore: false,
-                        notificationChore: Chore.empty
+                        shouldNavigateToDeepLink: false,
+                        deepLinkTarget: .home
                     )
-                }
-            })
-
-        choreIdFromNotificationSubscription = notificationService.$choreIdFromNotification
-            .sink(receiveValue: { [weak self] receivedChoreId in
-                guard let receivedChoreId = receivedChoreId else {
-                    return
-                }
-                self?.choreService.getChore(withId: receivedChoreId) { receivedChore in
-                    guard let receivedChore = receivedChore else {
-                        return
-                    }
-                    if let oldState = self?._state {
-                        self?._state = .init(
-                            shouldRenderAddChoreButton: oldState.shouldRenderAddChoreButton,
-                            shouldPresentNoFamilyView: oldState.shouldPresentNoFamilyView,
-                            shouldNavigateToNotificationChore: true,
-                            notificationChore: receivedChore
-                        )
-                    } else {
-                        self?._state = .init(
-                            shouldRenderAddChoreButton: false,
-                            shouldPresentNoFamilyView: false,
-                            shouldNavigateToNotificationChore: true,
-                            notificationChore: receivedChore
-                        )
-                    }
                 }
             })
     }
@@ -89,8 +65,22 @@ class AppViewModel: StatefulViewModel {
         self._state = .init(
             shouldRenderAddChoreButton: oldState.shouldRenderAddChoreButton,
             shouldPresentNoFamilyView: oldState.shouldPresentNoFamilyView,
-            shouldNavigateToNotificationChore: newState,
-            notificationChore: oldState.notificationChore
+            shouldNavigateToDeepLink: newState,
+            deepLinkTarget: oldState.deepLinkTarget
+        )
+    }
+
+    private func parseUrlToDeepLinkTarget(_ url: URL) {
+        guard let oldState = self._state else {
+            return
+        }
+        let deepLinkTarget = deepLinkService.parseUrlToDeepLinkTarget(url)
+        print("\(#fileID) \(#function) \(deepLinkTarget)")
+        self._state = .init(
+            shouldRenderAddChoreButton: oldState.shouldRenderAddChoreButton,
+            shouldPresentNoFamilyView: oldState.shouldPresentNoFamilyView,
+            shouldNavigateToDeepLink: true,
+            deepLinkTarget: deepLinkTarget
         )
     }
 
@@ -98,7 +88,10 @@ class AppViewModel: StatefulViewModel {
         switch action {
         case .updateShouldShouldNavigateToNotificationState(let newState):
             updateShouldShouldNavigateToNotificationState(newState: newState)
+        case .parseUrlToDeepLinkTarget(let url):
+            parseUrlToDeepLinkTarget(url)
         }
+
     }
 
 }
@@ -106,18 +99,19 @@ class AppViewModel: StatefulViewModel {
 struct AppViewState {
     let shouldRenderAddChoreButton: Bool
     let shouldPresentNoFamilyView: Bool
-    let shouldNavigateToNotificationChore: Bool
-    let notificationChore: Chore
+    let shouldNavigateToDeepLink: Bool
+    let deepLinkTarget: DeepLinkTarget
     static let preview: AppViewState = .init(
         shouldRenderAddChoreButton: true,
         shouldPresentNoFamilyView: false,
-        shouldNavigateToNotificationChore: false,
-        notificationChore: Chore.empty
+        shouldNavigateToDeepLink: false,
+        deepLinkTarget: .home
     )
 }
 
 enum AppViewAction {
     case updateShouldShouldNavigateToNotificationState(newState: Bool)
+    case parseUrlToDeepLinkTarget(_ url: URL)
 }
 
 extension Dependency.ViewModels {

@@ -12,8 +12,7 @@ import FirebaseMessaging
 import UserNotifications
 import SwiftUI
 
-class NotificationService: NSObject, ObservableObject {
-    @Published var choreIdFromNotification: String?
+class NotificationService: NSObject {
     private let userRepository: UserRepository
     private let fcm: Messaging
     private let unc: UNUserNotificationCenter
@@ -101,13 +100,31 @@ extension NotificationService: UNUserNotificationCenterDelegate {
     ) {
         // handles background notification launching app
 
-        guard let choreId = response.notification.request.content.userInfo["choreId"] as? String else {
+        var components = URLComponents()
+        components.scheme = "chorereward"
+        components.host = "com.noatp.chorereward"
+
+        if let choreId = response.notification.request.content.userInfo["choreId"] as? String {
+            print("\(#fileID) \(#function): got choreId: \(choreId) from notification")
+
+            components.path = "/detail"
+            components.query = choreId
+        } else {
             completionHandler()
             return
         }
 
-        print("\(#fileID) \(#function): got choreId: \(choreId) from notification")
-        choreIdFromNotification = choreId
+        guard let url = components.url else {
+            return
+        }
+
+        print("\(#fileID) \(#function): opening url \(url)")
+
+        if #available(iOS 10.0, *) {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        } else {
+            UIApplication.shared.openURL(url)
+        }
         completionHandler()
     }
 
