@@ -61,8 +61,11 @@ class ChoreService: ObservableObject {
             rewardValue: rewardValueInt
         )
         choreRepository.create(newChore, with: newChoreId, in: currentChoreCollection)
-        storageRepository.uploadChoreImage(with: choreImageUrl) { [weak self] newChoreImageUrl in
-            self?.updateChoreImage(for: newChoreId, with: newChoreImageUrl)
+        storageRepository.uploadImage(
+            withUrl: choreImageUrl,
+            imageType: StorageRepository.ImageType.chore
+        ) { [weak self] choreImageUrl, choreImagePath in
+            self?.updateChoreImage(for: newChoreId, withImageUrl: choreImageUrl, withImagePath: choreImagePath)
         }
     }
 
@@ -100,6 +103,12 @@ class ChoreService: ObservableObject {
         else {
             return
         }
+        let choreToDelete = familyChores?.first(where: { chore in
+            chore.id == choreId
+        })
+        if let choreImagePathToDelete = choreToDelete?.choreImagePath {
+            storageRepository.deleteImage(withPath: choreImagePathToDelete)
+        }
         choreRepository.delete(choreAtId: choreId, in: currentChoreCollection)
 
     }
@@ -127,12 +136,12 @@ class ChoreService: ObservableObject {
         choreRepository.read(choreCollection)
     }
 
-    private func updateChoreImage(for choreId: String?, with imageUrl: String) {
+    private func updateChoreImage(for choreId: String?, withImageUrl imageUrl: String, withImagePath imagePath: String) {
         guard let choreId = choreId, let currentChoreCollection = currentChoreCollection else {
             print("\(#fileID) \(#function): missing choreId or currentChoreCollection")
             return
         }
-        choreRepository.update(choreAtId: choreId, in: currentChoreCollection, withImageUrl: imageUrl)
+        choreRepository.update(choreAtId: choreId, in: currentChoreCollection, withImageUrl: imageUrl, withImagePath: imagePath)
     }
 
     private func findInCacheChore(withId id: String) -> Chore? {

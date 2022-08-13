@@ -9,6 +9,7 @@ identifier_name:
   min_length: # only min_length
     warning: 1
     error: 2 # only error
+  max_length: 50
   allowed_symbols: ["_"] # these are allowed in type names
   excluded: # excluded via string array
     - id

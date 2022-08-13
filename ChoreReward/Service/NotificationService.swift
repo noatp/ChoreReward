@@ -66,7 +66,9 @@ class NotificationService: NSObject {
                 }
                 if let receivedUser = receivedUser,
                    let receivedUserId = receivedUser.id {
-                    print("\(#fileID) \(#function): received a non-nil user, request authorization and fetching FCMToken")
+                    print(
+                        "\(#fileID) \(#function): received a non-nil user, request authorization and fetching FCMToken"
+                    )
                     strongSelf.currentUserId = receivedUserId
                     strongSelf.requestNotificationAuthorization()
                     strongSelf.fetchFCMToken(afterSuccess: { token in

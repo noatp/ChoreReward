@@ -11,71 +11,62 @@ import FirebaseStorageSwift
 import UIKit
 
 class StorageRepository {
-    let storage = Storage.storage()
-
-    func uploadUserImage(with url: String, _ completion: @escaping ((String) -> Void)) {
-        guard let imageUrl = URL(string: url) else {
-            print("\(#fileID) \(#function): could not convert imageUrl String to URL")
-            return
-        }
-        let imageRef = storage.reference().child("userImage/\(UUID().uuidString)")
-
-        do {
-            let imageData = try Data(contentsOf: imageUrl)
-            guard let image = UIImage(data: imageData)?.jpegData(compressionQuality: 0.5) else {
-                print("\(#fileID) \(#function): fail to compress image")
-                return
-            }
-            imageRef.putData(image, completion: { result in
-                switch result {
-                case .success:
-                    imageRef.downloadURL { (url, error) in
-                        guard let downloadURL = url?.absoluteString, error == nil else {
-                            print("\(#fileID) \(#function): \(error!)")
-                            return
-                        }
-                        completion(downloadURL)
-                    }
-                case .failure(let error):
-                    print("\(#fileID) \(#function): \(error)")
-                }
-            })
-        } catch {
-            print("\(#fileID) \(#function): \(error)")
-        }
-
+    enum ImageType: String {
+        case user = "userImage"
+        case chore = "choreImage"
     }
 
-    func uploadChoreImage(with url: String, _ completion: @escaping ((String) -> Void)) {
+    let storage = Storage.storage()
+
+    func uploadImage(
+        withUrl url: String,
+        imageType: ImageType,
+        _ completion: @escaping ((_ downloadURL: String, _ imagePath: String) -> Void)
+    ) {
         guard let imageUrl = URL(string: url) else {
             print("\(#fileID) \(#function): could not convert imageUrl String to URL")
             return
         }
-        let imageRef = storage.reference().child("choreImage/\(UUID().uuidString)")
+
+        let imageRef: StorageReference = storage.reference().child("\(imageType)/\(UUID().uuidString)")
 
         do {
             let imageData = try Data(contentsOf: imageUrl)
-            guard let image = UIImage(data: imageData)?.jpegData(compressionQuality: 0.5) else {
+            guard let compressedImageData = UIImage(data: imageData)?.jpegData(compressionQuality: 0.5) else {
                 print("\(#fileID) \(#function): fail to compress image")
                 return
             }
-            imageRef.putData(image, completion: { result in
-                switch result {
-                case .success:
+
+            let metadata = StorageMetadata()
+            metadata.contentType = "image/jpeg"
+
+            imageRef.putData(compressedImageData, metadata: metadata) { _, error in
+                if let error = error {
+                    print("\(#fileID) \(#function): \(error)")
+                    return
+                } else {
                     imageRef.downloadURL { (url, error) in
                         guard let downloadURL = url?.absoluteString, error == nil else {
-                            print("\(#fileID) \(#function): \(error!)")
+                            print("\(#fileID) \(#function): \(error?.localizedDescription ?? "gettin absoluteString of URL failed")")
                             return
                         }
-                        completion(downloadURL)
+                        completion(downloadURL, imageRef.fullPath)
                     }
-                case .failure(let error):
-                    print("\(#fileID) \(#function): \(error)")
                 }
-            })
+            }
         } catch {
             print("\(#fileID) \(#function): \(error)")
         }
+    }
 
+    func deleteImage(withPath path: String) {
+        let imageRef = storage.reference(withPath: path)
+        imageRef.delete { error in
+            if let error = error {
+                print("\(#fileID) \(#function): \(error)")
+            } else {
+                print("\(#fileID) \(#function): successfully delete image at \(path)")
+            }
+        }
     }
 }

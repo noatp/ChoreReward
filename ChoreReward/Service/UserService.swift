@@ -81,8 +81,11 @@ class UserService: ObservableObject {
 
                 userRepository.create(newUser)
                 if let userImageUrl = userImageUrl {
-                    storageRepository.uploadUserImage(with: userImageUrl) { [weak self] newUserImageUrl in
-                        self?.updateUserImage(with: newUserImageUrl)
+                    storageRepository.uploadImage(
+                        withUrl: userImageUrl,
+                        imageType: StorageRepository.ImageType.user
+                    ) { [weak self] userImageUrl, userImagePath  in
+                        self?.updateUserImage(withImageUrl: userImageUrl, withImagePath: userImagePath)
                     }
                 }
 
@@ -123,8 +126,11 @@ class UserService: ObservableObject {
             )
 
             if let newUserImageUrl = newUserImageUrl {
-                storageRepository.uploadUserImage(with: newUserImageUrl) { [weak self] uploadedUserImageUrl in
-                    self?.updateUserImage(with: uploadedUserImageUrl)
+                storageRepository.uploadImage(
+                    withUrl: newUserImageUrl,
+                    imageType: StorageRepository.ImageType.user
+                ) { [weak self] userImageUrl, userImagePath in
+                    self?.updateUserImage(withImageUrl: userImageUrl, withImagePath: userImagePath)
                 }
             }
         } else {
@@ -134,13 +140,13 @@ class UserService: ObservableObject {
         userRepository.updateProfileForUser(with: currentUserId, using: newUser)
     }
 
-    private func updateUserImage(with imageUrl: String) {
+    private func updateUserImage(withImageUrl imageUrl: String, withImagePath imagePath: String) {
         guard let currentUserId = currentUserId  else {
             print("\(#fileID) \(#function): missing userId")
             return
         }
         Task {
-            await userRepository.updateUserImage(for: currentUserId, with: imageUrl)
+            await userRepository.updateUserImage(for: currentUserId, withImageUrl: imageUrl, withImagePath: imagePath)
         }
     }
 

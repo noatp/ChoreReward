@@ -22,6 +22,7 @@ struct UnwrapViewState <Content: View, ViewState>: View {
             content(viewState)
         } else {
             ProgressView()
+                .transition(.fade(duration: 0.5))
         }
     }
 }

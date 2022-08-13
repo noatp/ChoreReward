@@ -72,10 +72,11 @@ class UserRepository: ObservableObject {
         }
     }
 
-    func updateUserImage(for userId: String, with imageUrl: String) async {
+    func updateUserImage(for userId: String, withImageUrl imageUrl: String, withImagePath imagePath: String) async {
         do {
             try await database.collection("users").document(userId).updateData([
-                "userImageUrl": imageUrl
+                "userImageUrl": imageUrl,
+                "userImagePath": imagePath
             ])
         } catch {
             print("\(#fileID) \(#function): \(error)")

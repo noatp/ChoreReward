@@ -12,7 +12,10 @@ import UserNotifications
 import UIKit
 
 class ChoreRewardAppDelegate: NSObject, UIApplicationDelegate {
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
+    func application(
+        _ application: UIApplication,
+        didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
+    ) -> Bool {
         print("\(#fileID) \(#function): registering fore remote notification.")
         application.registerForRemoteNotifications()
         return true

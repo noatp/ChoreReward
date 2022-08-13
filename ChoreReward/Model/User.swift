@@ -16,6 +16,7 @@ struct User: Identifiable, Codable {
     var role: Role
     var familyId: String?
     var userImageUrl: String?
+    var userImagePath: String?
     var balance: Int?
     var userDocRef: DocumentReference?
     var fcmToken: String?
@@ -36,9 +37,6 @@ extension User {
     var rewardCollection: CollectionReference? {
         return userDocRef?.collection("rewards")
     }
-//    var roundedBalance: Float? {
-//        return balance == nil ? nil : (round(balance! * 100) / 100.0)
-//    }
 }
 
 enum Role: String, Codable {

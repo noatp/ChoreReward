@@ -32,39 +32,18 @@ struct AppView: View {
                     views.noFamilyView
                         .navigationBarHidden(true)
                 } else {
-                    ZStack {
-//                        VStack {
-//                            NavigationLink(isActive: Binding<Bool>(
-//                                get: {
-//                                    viewState.shouldNavigateToDeepLink
-//                                },
-//                                set: { newState in
-//                                    appViewModel.perform(action: .updateShouldShouldNavigateToNotificationState(newState: newState))
-//                                }
-//                            )) {
-//                                switch viewState.deepLinkTarget {
-//                                case .none:
-//                                    ProgressView()
-//                                case .detail(let choreId):
-//                                    views.choreDetailView(choreId: choreId)
-//                                }
-//                            } label: {}
-//                        }
-
-                        VStack {
-                            // main view
-                            switch selectedTab {
-                            case .choreTab:
-                                views.choreTabView(presentedDrawer: $presentedDrawer)
-                            case .familyTab:
-                                views.familyTabView(presentedDrawer: $presentedDrawer)
-                            }
-
-                            Spacer(minLength: 0)
-                            // tab bar
-                            tabBar
+                    VStack {
+                        // main view
+                        switch selectedTab {
+                        case .choreTab:
+                            views.choreTabView(presentedDrawer: $presentedDrawer)
+                        case .familyTab:
+                            views.familyTabView(presentedDrawer: $presentedDrawer)
                         }
 
+                        Spacer(minLength: 0)
+                        // tab bar
+                        tabBar
                     }
                     .sideDrawer(views: views, presentedDrawer: $presentedDrawer)
                     .fullScreenCover(isPresented: $presentingAddChoreView) {
@@ -76,7 +55,9 @@ struct AppView: View {
                             viewState.shouldNavigateToDeepLink
                         },
                         set: { newState in
-                            appViewModel.perform(action: .updateShouldShouldNavigateToNotificationState(newState: newState))
+                            appViewModel.perform(
+                                action: .updateShouldShouldNavigateToNotificationState(newState: newState)
+                            )
                         }
                     )) {
                         switch viewState.deepLinkTarget {

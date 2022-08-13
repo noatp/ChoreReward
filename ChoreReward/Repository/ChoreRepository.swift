@@ -89,10 +89,18 @@ class ChoreRepository: ObservableObject {
             }
     }
 
-    func update(choreAtId choreId: String, in choreCollection: CollectionReference, withImageUrl imageUrl: String) {
+    func update(
+        choreAtId choreId: String,
+        in choreCollection: CollectionReference,
+        withImageUrl imageUrl: String,
+        withImagePath imagePath: String
+    ) {
         choreCollection
             .document(choreId)
-            .updateData(["choreImageUrl": imageUrl]) { error in
+            .updateData([
+                "choreImageUrl": imageUrl,
+                "choreImagePath": imagePath
+            ]) { error in
                 if let error = error {
                     print("\(#fileID) \(#function): \(error)")
                 }
