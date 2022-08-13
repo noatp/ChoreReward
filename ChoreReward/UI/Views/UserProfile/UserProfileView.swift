@@ -27,7 +27,7 @@ struct UserProfileView: View {
             VStack(spacing: 16) {
                 Group {
                     if let userImageUrl = viewState.currentUserProfileImageUrl {
-                        RemoteImage(imageUrl: userImageUrl, isThumbnail: false)
+                        RemoteImage(imageUrl: userImageUrl)
                     } else {
                         RegularImage(systemImage: "person.fill")
                     }

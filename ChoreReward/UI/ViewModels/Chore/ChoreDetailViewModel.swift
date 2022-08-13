@@ -54,7 +54,6 @@ class ChoreDetailViewModel: StatefulViewModel {
         choreDetailSubscription = choreSerivce.$familyChores
             .sink(receiveValue: { [weak self] receivedFamilyChores in
                 guard let receivedFamilyChores = receivedFamilyChores else {
-                    print("HERE")
                     return
                 }
 

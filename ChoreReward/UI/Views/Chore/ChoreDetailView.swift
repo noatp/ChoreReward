@@ -28,7 +28,7 @@ struct ChoreDetailView: View {
     var body: some View {
         UnwrapViewState(viewState: choreDetailViewModel.viewState) { viewState in
             ScrollView {
-                RemoteImage(imageUrl: viewState.chore.choreImageUrl, isThumbnail: false)
+                RemoteImage(imageUrl: viewState.chore.choreImageUrl)
                     .frame(maxWidth: .infinity, maxHeight: 400, alignment: .center)
                     .clipped()
                     .scrollViewOffset($navBarOpacity)
@@ -95,7 +95,7 @@ extension ChoreDetailView {
                     Text("Requested by: ")
                     Group {
                         if let assignerImageUrl = viewState.chore.assigner.userImageUrl {
-                            RemoteImage(imageUrl: assignerImageUrl, isThumbnail: true)
+                            RemoteImage(imageUrl: assignerImageUrl)
                         } else {
                             RegularImage(systemImage: "person.fill")
                         }
@@ -122,7 +122,7 @@ extension ChoreDetailView {
                     HStack {
                         Group {
                             if let assigneeImageUrl = assignee.userImageUrl {
-                                RemoteImage(imageUrl: assigneeImageUrl, isThumbnail: true)
+                                RemoteImage(imageUrl: assigneeImageUrl)
                             } else {
                                 RegularImage(systemImage: "person.fill")
                             }

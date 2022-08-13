@@ -134,7 +134,7 @@ extension SignUpView {
             shouldShowImagePicker = true
         } label: {
             if let userImageUrl = userImageUrl {
-                RemoteImage(imageUrl: userImageUrl, isThumbnail: false)
+                RemoteImage(imageUrl: userImageUrl)
                     .frame(width: 200, height: 200)
                     .clipShape(Circle())
                     .shadow(radius: 5)

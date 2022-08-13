@@ -35,13 +35,13 @@ struct EditUserProfileView: View {
                 Group {
                     if userImageDidChange {
                         if let userImageUrl = userImageUrl {
-                            RemoteImage(imageUrl: userImageUrl, isThumbnail: false)
+                            RemoteImage(imageUrl: userImageUrl)
                         } else {
                             RegularImage(systemImage: "person.fill")
                         }
                     } else {
                         if let userImageUrl = viewState.currentUserProfileImageUrl {
-                            RemoteImage(imageUrl: userImageUrl, isThumbnail: false)
+                            RemoteImage(imageUrl: userImageUrl)
                         } else {
                             RegularImage(systemImage: "person.fill")
                         }

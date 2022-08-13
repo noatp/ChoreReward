@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4509FB392862907600F84B42 /* NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4509FB382862907600F84B42 /* NavigationBar.swift */; };
+		451A339F28A6C48100CE82F5 /* test2.apns in Resources */ = {isa = PBXBuildFile; fileRef = 451A339E28A6C48100CE82F5 /* test2.apns */; };
 		45243EFF276E9F9000D2EACB /* UserCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45243EFE276E9F9000D2EACB /* UserCard.swift */; };
 		45243F0E276EB5DA00D2EACB /* FamilyTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45243F0D276EB5DA00D2EACB /* FamilyTabView.swift */; };
 		45243F10276EB5F700D2EACB /* FamilyTabViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45243F0F276EB5F700D2EACB /* FamilyTabViewModel.swift */; };
@@ -116,6 +117,7 @@
 
 /* Begin PBXFileReference section */
 		4509FB382862907600F84B42 /* NavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBar.swift; sourceTree = "<group>"; };
+		451A339E28A6C48100CE82F5 /* test2.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = test2.apns; sourceTree = "<group>"; };
 		45243EFE276E9F9000D2EACB /* UserCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCard.swift; sourceTree = "<group>"; };
 		45243F0D276EB5DA00D2EACB /* FamilyTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyTabView.swift; sourceTree = "<group>"; };
 		45243F0F276EB5F700D2EACB /* FamilyTabViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyTabViewModel.swift; sourceTree = "<group>"; };
@@ -369,6 +371,7 @@
 				45ACB4AD2724AD1A000E04A0 /* ContentView.swift */,
 				45395C5C272B2A6B00F50B70 /* Assets.xcassets */,
 				45AD3F6B2884CECA005C6B28 /* test.apns */,
+				451A339E28A6C48100CE82F5 /* test2.apns */,
 			);
 			path = ChoreReward;
 			sourceTree = "<group>";
@@ -671,6 +674,7 @@
 				45395C5D272B2A6B00F50B70 /* Assets.xcassets in Resources */,
 				45AD3F6C2884CECA005C6B28 /* test.apns in Resources */,
 				45ACB4B32724AD1D000E04A0 /* Preview Assets.xcassets in Resources */,
+				451A339F28A6C48100CE82F5 /* test2.apns in Resources */,
 				45395C5F272B2E2700F50B70 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

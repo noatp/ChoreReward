@@ -30,25 +30,26 @@ struct AppView: View {
             NavigationView {
                 if viewState.shouldPresentNoFamilyView {
                     views.noFamilyView
+                        .navigationBarHidden(true)
                 } else {
                     ZStack {
-                        VStack {
-                            NavigationLink(isActive: Binding<Bool>(
-                                get: {
-                                    viewState.shouldNavigateToDeepLink
-                                },
-                                set: { newState in
-                                    appViewModel.perform(action: .updateShouldShouldNavigateToNotificationState(newState: newState))
-                                }
-                            )) {
-                                switch viewState.deepLinkTarget {
-                                case .home:
-                                    views.appView
-                                case .detail(let choreId):
-                                    views.choreDetailView(choreId: choreId)
-                                }
-                            } label: {}
-                        }
+//                        VStack {
+//                            NavigationLink(isActive: Binding<Bool>(
+//                                get: {
+//                                    viewState.shouldNavigateToDeepLink
+//                                },
+//                                set: { newState in
+//                                    appViewModel.perform(action: .updateShouldShouldNavigateToNotificationState(newState: newState))
+//                                }
+//                            )) {
+//                                switch viewState.deepLinkTarget {
+//                                case .none:
+//                                    ProgressView()
+//                                case .detail(let choreId):
+//                                    views.choreDetailView(choreId: choreId)
+//                                }
+//                            } label: {}
+//                        }
 
                         VStack {
                             // main view
@@ -68,6 +69,22 @@ struct AppView: View {
                     .sideDrawer(views: views, presentedDrawer: $presentedDrawer)
                     .fullScreenCover(isPresented: $presentingAddChoreView) {
                         views.addChoreView()
+                    }
+                    .navigationBarHidden(true)
+                    .fullScreenCover(isPresented: Binding<Bool>(
+                        get: {
+                            viewState.shouldNavigateToDeepLink
+                        },
+                        set: { newState in
+                            appViewModel.perform(action: .updateShouldShouldNavigateToNotificationState(newState: newState))
+                        }
+                    )) {
+                        switch viewState.deepLinkTarget {
+                        case .none:
+                            ProgressView()
+                        case .detail(let choreId):
+                            views.choreDetailView(choreId: choreId)
+                        }
                     }
                 }
             }

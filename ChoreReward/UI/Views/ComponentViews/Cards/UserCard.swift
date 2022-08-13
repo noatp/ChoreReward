@@ -22,7 +22,7 @@ struct UserCard: View {
         HStack {
             Group {
                 if let userImageUrl = user.userImageUrl {
-                    RemoteImage(imageUrl: userImageUrl, isThumbnail: true)
+                    RemoteImage(imageUrl: userImageUrl)
                 } else {
                     RegularImage(systemImage: "person.fill")
                 }

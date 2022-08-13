@@ -18,7 +18,7 @@ struct ChoreCard: View {
 
     var body: some View {
         HStack(spacing: 0) {
-            RemoteImage(imageUrl: chore.choreImageUrl, isThumbnail: true)
+            RemoteImage(imageUrl: chore.choreImageUrl)
                 .frame(width: 100, height: 100, alignment: .center)
                 .clipped()
             VStack(alignment: .leading) {

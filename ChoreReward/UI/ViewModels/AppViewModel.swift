@@ -52,7 +52,7 @@ class AppViewModel: StatefulViewModel {
                         shouldRenderAddChoreButton: receivedUser.role == .parent || receivedUser.role == .admin,
                         shouldPresentNoFamilyView: receivedUser.familyId == nil,
                         shouldNavigateToDeepLink: false,
-                        deepLinkTarget: .home
+                        deepLinkTarget: .none
                     )
                 }
             })
@@ -66,7 +66,7 @@ class AppViewModel: StatefulViewModel {
             shouldRenderAddChoreButton: oldState.shouldRenderAddChoreButton,
             shouldPresentNoFamilyView: oldState.shouldPresentNoFamilyView,
             shouldNavigateToDeepLink: newState,
-            deepLinkTarget: oldState.deepLinkTarget
+            deepLinkTarget: .none
         )
     }
 
@@ -105,7 +105,7 @@ struct AppViewState {
         shouldRenderAddChoreButton: true,
         shouldPresentNoFamilyView: false,
         shouldNavigateToDeepLink: false,
-        deepLinkTarget: .home
+        deepLinkTarget: .none
     )
 }
 

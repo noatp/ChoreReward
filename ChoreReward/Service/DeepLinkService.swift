@@ -8,7 +8,6 @@
 import Foundation
 
 class DeepLinkService {
-
     class DeepLinkConstants {
         static let scheme = "chorereward"
         static let host = "com.noatp.chorereward"
@@ -18,21 +17,21 @@ class DeepLinkService {
         guard url.scheme == DeepLinkConstants.scheme,
               url.host == DeepLinkConstants.host
         else {
-            return .home
+            return .none
         }
 
         if url.path == "/detail" {
             guard let choreId = url.query else {
-                return .home
+                return .none
             }
             return .detail(choreId: choreId)
         } else {
-            return .home
+            return .none
         }
     }
 }
 
 enum DeepLinkTarget {
     case detail(choreId: String)
-    case home
+    case none
 }

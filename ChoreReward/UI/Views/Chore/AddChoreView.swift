@@ -34,7 +34,7 @@ struct AddChoreView: View {
 
         Form {
             if let choreImageUrl = choreImageUrl {
-                RemoteImage(imageUrl: choreImageUrl, isThumbnail: false)
+                RemoteImage(imageUrl: choreImageUrl)
                     .frame(maxWidth: .infinity, minHeight: 200, maxHeight: 300)
                     .clipped()
                     .smallVerticalPadding()
