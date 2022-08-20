@@ -126,6 +126,10 @@ class UserService: ObservableObject {
             )
 
             if let newUserImageUrl = newUserImageUrl {
+                if let currentUserImagePath = currentUser?.userImagePath {
+                    storageRepository.deleteImage(withPath: currentUserImagePath)
+                }
+
                 storageRepository.uploadImage(
                     withUrl: newUserImageUrl,
                     imageType: StorageRepository.ImageType.user
