@@ -29,13 +29,15 @@ class Dependency {
         self.rewardRepository = rewardRepository
     }
 
-    static let preview = Dependency(
+    static let mock = Dependency(
         userRepository: MockUserRepository(),
         familyRepository: MockFamilyRepository(),
         choreRepository: MockChoreRepository(),
         storageRepository: MockStorageRepository(),
         rewardRepository: MockRewardRepository()
     )
+
+    static let preview = Dependency()
 
     class Repositories {
         let userRepository: UserRepository

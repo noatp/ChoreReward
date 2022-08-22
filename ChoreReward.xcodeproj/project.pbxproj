@@ -55,16 +55,14 @@
 		458C76BD2851736000119E68 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 458C76BC2851736000119E68 /* Date.swift */; };
 		458C76BF285174AF00119E68 /* Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 458C76BE285174AF00119E68 /* Int.swift */; };
 		458DA88E2879F89C0011FA72 /* UnwrapViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 458DA88D2879F89C0011FA72 /* UnwrapViewState.swift */; };
+		4597DA0A28B1718300F98178 /* UserServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4597DA0928B1718300F98178 /* UserServiceTest.swift */; };
 		45A31BFB27E2CB340060B8AB /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A31BFA27E2CB340060B8AB /* Color.swift */; };
 		45A4754A279215A100322BCE /* ChoreRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A47549279215A100322BCE /* ChoreRepository.swift */; };
 		45A4754C27931F1C00322BCE /* ChoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A4754B27931F1C00322BCE /* ChoreService.swift */; };
 		45A808612832A5C700DF7EF6 /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = 45A808602832A5C700DF7EF6 /* CodeScanner */; };
-		45A808E52838A02400DF7EF6 /* UserAuthTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A808E42838A02400DF7EF6 /* UserAuthTest.swift */; };
-		45A808E72838A10600DF7EF6 /* UserDatabaseTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A808E62838A10600DF7EF6 /* UserDatabaseTest.swift */; };
 		45ACB4AC2724AD1A000E04A0 /* ChoreRewardApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45ACB4AB2724AD1A000E04A0 /* ChoreRewardApp.swift */; };
 		45ACB4AE2724AD1A000E04A0 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45ACB4AD2724AD1A000E04A0 /* ContentView.swift */; };
 		45ACB4B32724AD1D000E04A0 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 45ACB4B22724AD1D000E04A0 /* Preview Assets.xcassets */; };
-		45ACB4C22724AD1D000E04A0 /* ChoreRewardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45ACB4C12724AD1D000E04A0 /* ChoreRewardTests.swift */; };
 		45ACB4CC2724AD1D000E04A0 /* ChoreRewardUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45ACB4CB2724AD1D000E04A0 /* ChoreRewardUITests.swift */; };
 		45ACB4CE2724AD1D000E04A0 /* ChoreRewardUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45ACB4CD2724AD1D000E04A0 /* ChoreRewardUITestsLaunchTests.swift */; };
 		45ACB4DC2724AE00000E04A0 /* Chore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45ACB4DB2724AE00000E04A0 /* Chore.swift */; };
@@ -158,17 +156,15 @@
 		458C76BC2851736000119E68 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		458C76BE285174AF00119E68 /* Int.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Int.swift; sourceTree = "<group>"; };
 		458DA88D2879F89C0011FA72 /* UnwrapViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnwrapViewState.swift; sourceTree = "<group>"; };
+		4597DA0928B1718300F98178 /* UserServiceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserServiceTest.swift; sourceTree = "<group>"; };
 		45A31BFA27E2CB340060B8AB /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		45A47549279215A100322BCE /* ChoreRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoreRepository.swift; sourceTree = "<group>"; };
 		45A4754B27931F1C00322BCE /* ChoreService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoreService.swift; sourceTree = "<group>"; };
-		45A808E42838A02400DF7EF6 /* UserAuthTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAuthTest.swift; sourceTree = "<group>"; };
-		45A808E62838A10600DF7EF6 /* UserDatabaseTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDatabaseTest.swift; sourceTree = "<group>"; };
 		45ACB4A82724AD1A000E04A0 /* ChoreReward.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChoreReward.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		45ACB4AB2724AD1A000E04A0 /* ChoreRewardApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoreRewardApp.swift; sourceTree = "<group>"; };
 		45ACB4AD2724AD1A000E04A0 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		45ACB4B22724AD1D000E04A0 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		45ACB4BD2724AD1D000E04A0 /* ChoreRewardTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ChoreRewardTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		45ACB4C12724AD1D000E04A0 /* ChoreRewardTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoreRewardTests.swift; sourceTree = "<group>"; };
 		45ACB4C72724AD1D000E04A0 /* ChoreRewardUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ChoreRewardUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		45ACB4CB2724AD1D000E04A0 /* ChoreRewardUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoreRewardUITests.swift; sourceTree = "<group>"; };
 		45ACB4CD2724AD1D000E04A0 /* ChoreRewardUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoreRewardUITestsLaunchTests.swift; sourceTree = "<group>"; };
@@ -387,9 +383,7 @@
 		45ACB4C02724AD1D000E04A0 /* ChoreRewardTests */ = {
 			isa = PBXGroup;
 			children = (
-				45ACB4C12724AD1D000E04A0 /* ChoreRewardTests.swift */,
-				45A808E42838A02400DF7EF6 /* UserAuthTest.swift */,
-				45A808E62838A10600DF7EF6 /* UserDatabaseTest.swift */,
+				4597DA0928B1718300F98178 /* UserServiceTest.swift */,
 			);
 			path = ChoreRewardTests;
 			sourceTree = "<group>";
@@ -633,6 +627,7 @@
 					};
 					45ACB4BC2724AD1D000E04A0 = {
 						CreatedOnToolsVersion = 13.0;
+						LastSwiftMigration = 1340;
 						TestTargetID = 45ACB4A72724AD1A000E04A0;
 					};
 					45ACB4C62724AD1D000E04A0 = {
@@ -798,9 +793,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				45A808E52838A02400DF7EF6 /* UserAuthTest.swift in Sources */,
-				45ACB4C22724AD1D000E04A0 /* ChoreRewardTests.swift in Sources */,
-				45A808E72838A10600DF7EF6 /* UserDatabaseTest.swift in Sources */,
+				4597DA0A28B1718300F98178 /* UserServiceTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -935,6 +928,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = ZRF6QZUXP5;
@@ -949,6 +943,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = noat.ChoreRewardTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ChoreReward.app/ChoreReward";
@@ -1177,6 +1172,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = ZRF6QZUXP5;
@@ -1191,6 +1187,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = noat.ChoreRewardTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ChoreReward.app/ChoreReward";
@@ -1202,6 +1199,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = ZRF6QZUXP5;
