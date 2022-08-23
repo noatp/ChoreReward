@@ -30,7 +30,6 @@ struct LoginView: View {
             NavigationView {
                 VStack(spacing: 0) {
                     Text("Chore Reward")
-                        .font(.system(size: 40, weight: .bold, design: .rounded))
                         .foregroundColor(.accent)
                     Form {
                         RegularTextField(title: "Email", textInput: $emailInput)
@@ -96,7 +95,6 @@ struct LoginView_Previews: PreviewProvider {
             loginViewModel: .init(staticState: .preview),
             views: Dependency.preview.views()
         )
-        .font(StylingFont.regular)
         .previewLayout(.sizeThatFits)
     }
 }

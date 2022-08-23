@@ -34,7 +34,10 @@ struct FilledButton: View {
                     Text(buttonTitle)
                 }
             }
+            .font(StylingFont.headline)
         }
+        .smallHorizontalPadding()
+        .tappableFrame()
         .buttonStyle(FilledButtonStyle())
     }
 }
@@ -42,15 +45,9 @@ struct FilledButton: View {
 struct FilledButton_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            FilledButton(buttonTitle: "Preview", buttonImage: "person") {
-
-            }
-            FilledButton(buttonImage: "person") {
-
-            }
-            FilledButton(buttonTitle: "Log in") {
-
-            }
+            FilledButton(buttonTitle: "Preview", buttonImage: "person") {}
+            FilledButton(buttonImage: "person") {}
+            FilledButton(buttonTitle: "Log in") {}
         }
         .previewLayout(.sizeThatFits)
     }

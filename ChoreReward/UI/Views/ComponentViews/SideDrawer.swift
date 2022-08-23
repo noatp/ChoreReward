@@ -54,7 +54,7 @@ struct SideDrawer<MainContent: View, DrawerContent: View>: View {
                             .foregroundColor(.fg)
                             .padding(.horizontal)
 
-                            Color.accentGraySecondary
+                            Color.gray7
                                 .ignoresSafeArea()
                                 .frame(maxWidth: 2)
                         }

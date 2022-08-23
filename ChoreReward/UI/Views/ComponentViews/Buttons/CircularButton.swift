@@ -21,6 +21,7 @@ struct CircularButton: View {
     var body: some View {
         CustomizableRegularButton {
             Image(systemName: icon)
+                .font(StylingFont.icon)
                 .tappableFrame()
                 .background {
                     Color.bg.clipShape(Circle())

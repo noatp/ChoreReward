@@ -68,7 +68,6 @@ struct AddUserRewardView_Previews: PreviewProvider {
             views: Dependency.preview.views()
         )
         .previewLayout(.sizeThatFits)
-        .font(StylingFont.regular)
     }
 }
 

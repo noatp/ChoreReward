@@ -34,6 +34,7 @@ struct RegularButton: View {
                     Text(buttonTitle)
                 }
             }
+            .font(StylingFont.headline)
         }
         .smallHorizontalPadding()
         .tappableFrame()
@@ -45,15 +46,9 @@ struct RegularButton: View {
 struct RegularButton_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            RegularButton(buttonTitle: "Preview", buttonImage: "person") {
-
-            }
-            RegularButton(buttonImage: "person") {
-
-            }
-            RegularButton(buttonTitle: "Log in") {
-
-            }
+            RegularButton(buttonTitle: "Preview", buttonImage: "person") {}
+            RegularButton(buttonImage: "person") {}
+            RegularButton(buttonTitle: "Log in") {}
         }
         .background(Color.bg)
         .previewLayout(.sizeThatFits)

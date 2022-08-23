@@ -12,7 +12,8 @@ extension Color {
     static let bg = Color("background")
     static let fg = Color("foreground")
     static let accent = Color("accent")
-    static let accentSecondary = Color("accentSecondary")
-    static let accentGray = Color("accentGray")
-    static let accentGraySecondary = Color("accentGraySecondary")
+    static let gray3 = Color("gray3")
+    static let gray7 = Color("gray7")
+    static let pickerAccent = Color("pickerAccent")
+    static let pickerBackground = Color("pickerBackground")
 }

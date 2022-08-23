@@ -29,7 +29,6 @@ struct UserRewardView: View {
             VStack(alignment: .leading) {
                 Text("Current balance is ")
                 + Text("$\(viewState.balance)")
-                    .font(StylingFont.title)
                 ScrollView(showsIndicators: false) {
                     LazyVStack(spacing: 0) {
                         ForEach(viewState.rewards, id: \.name) {reward in
@@ -63,7 +62,6 @@ struct UserGoalView_Previews: PreviewProvider {
             userGoalViewModel: ObservableViewModel(staticState: .preview),
             views: Dependency.preview.views()
         )
-        .font(StylingFont.regular)
         .previewLayout(.sizeThatFits)
     }
 }

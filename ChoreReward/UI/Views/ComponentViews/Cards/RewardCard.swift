@@ -24,21 +24,19 @@ struct RewardCard: View {
                 Spacer()
                 Text("$\(rewardValue)")
             }
-            .font(StylingFont.large)
-            .smallVerticalPadding()
+            .font(StylingFont.headline)
 
             HStack {
                 Text("Earned: $\(userBalance) of $\(rewardValue)")
                 Spacer()
                 Text("\(progress)%")
             }
-            .font(StylingFont.small)
             .smallVerticalPadding()
             CustomProgressBar(progress: progress)
         }
         .padding()
         .background {
-            Color.bg.shadow(color: .accentGraySecondary, radius: 3, x: 0, y: 0)
+            Color.bg.shadow(color: .gray7, radius: 3, x: 0, y: 0)
         }
         .padding([.bottom], 10)
     }
@@ -49,7 +47,6 @@ struct RewardCard: View {
 struct RewardCardView_Previews: PreviewProvider {
     static var previews: some View {
         RewardCard(rewardName: "Chipotle Meal", rewardValue: 10, userBalance: 5)
-            .font(StylingFont.regular)
             .previewLayout(.sizeThatFits)
     }
 }

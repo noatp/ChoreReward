@@ -36,15 +36,15 @@ struct ChoreTabView: View {
     var body: some View {
         UnwrapViewState(viewState: choreTabViewModel.viewState) { viewState in
             VStack(spacing: 0) {
-                HStack(alignment: .top, spacing: 0) {
+                HStack {
                     choreStatusPicker
                     Spacer()
                     filterMenu
                 }
-                .background {
-                    Color.bg
-                }
-                Color.accentGraySecondary.frame(maxHeight: 1)
+                .padding(.horizontal)
+                .background(Color.bg)
+
+                Color.gray7.frame(maxHeight: 1)
 
                 if viewState.displayingChoreList.isEmpty {
                     emptyChoreList
@@ -144,47 +144,42 @@ extension Dependency.Views {
 extension ChoreTabView {
     private var choreStatusPicker: some View {
         UnwrapViewState(viewState: choreTabViewModel.viewState) { viewState in
-            VStack(spacing: 0) {
-                HStack(spacing: 0) {
-                    VStack(spacing: 0) {
-                        CustomizableRegularButton {
-                            Text("Unfinished")
-                                .frame(maxWidth: .infinity)
-                        } action: {
-                            choreTabViewModel.perform(action: .updatePickerState(.unfinished))
-                        }
-
-                        if viewState.chorePickerState == .unfinished {
-                            Color.accent
-                                .frame(height: 3)
-                                .matchedGeometryEffect(id: "pickerBackground", in: animation)
-                        } else {
-                            Color.clear.frame(height: 3)
-                        }
+            HStack(spacing: 0) {
+                CustomizableRegularButton {
+                    Text("Unfinished")
+                } action: {
+                    choreTabViewModel.perform(action: .updatePickerState(.unfinished))
+                }
+                .smallHorizontalPadding()
+                .smallVerticalPadding()
+                .background {
+                    if viewState.chorePickerState == .unfinished {
+                        RoundedRectangle(cornerRadius: .infinity)
+                            .foregroundColor(.pickerAccent)
+                            .matchedGeometryEffect(id: "pickerBackground", in: animation)
                     }
+                }
 
-                    VStack(spacing: 0) {
-                        CustomizableRegularButton {
-                            Text("Finished")
-                                .frame(maxWidth: .infinity)
-                        } action: {
-                            choreTabViewModel.perform(action: .updatePickerState(.finished))
-                        }
-
-                        if viewState.chorePickerState == .finished {
-                            Color.accent
-                                .frame(height: 3)
-                                .matchedGeometryEffect(id: "pickerBackground", in: animation)
-                        } else {
-                            Color.clear.frame(height: 3)
-                        }
+                CustomizableRegularButton {
+                    Text("Finished")
+                } action: {
+                    choreTabViewModel.perform(action: .updatePickerState(.finished))
+                }
+                .smallHorizontalPadding()
+                .smallVerticalPadding()
+                .background {
+                    if viewState.chorePickerState == .finished {
+                        RoundedRectangle(cornerRadius: .infinity)
+                            .foregroundColor(.pickerAccent)
+                            .matchedGeometryEffect(id: "pickerBackground", in: animation)
                     }
                 }
             }
             .background {
-                Color.bg
+                RoundedRectangle(cornerRadius: .infinity)
+                    .foregroundColor(.pickerBackground)
             }
-            .animation(.spring(), value: viewState.chorePickerState)
+            .animation(.easeInOut, value: viewState.chorePickerState)
         }
     }
 
@@ -202,7 +197,7 @@ extension ChoreTabView {
             Text(filterState.rawValue)
                 .fixedSize()
         }
-        .foregroundColor(.accent)
+        .foregroundColor(.fg)
         .tappableFrame()
         .smallHorizontalPadding()
     }

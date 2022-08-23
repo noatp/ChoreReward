@@ -32,8 +32,7 @@ struct UserCard: View {
             .padding(.trailing)
 
             Text(user.name ?? "")
-                .font(StylingFont.large)
-
+                .font(StylingFont.headline)
             Spacer()
         }
     }
@@ -44,7 +43,6 @@ struct UserCard: View {
 struct UserCardView_Previews: PreviewProvider {
     static var previews: some View {
         UserCard(user: DenormUser.preview)
-            .font(StylingFont.regular)
             .previewLayout(.sizeThatFits)
     }
 }

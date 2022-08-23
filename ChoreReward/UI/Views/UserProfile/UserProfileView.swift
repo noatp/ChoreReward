@@ -35,7 +35,6 @@ struct UserProfileView: View {
                 .frame(width: 200, height: 200, alignment: .center)
                 .clipShape(Circle())
                 Text(viewState.currentUserName)
-                    .font(StylingFont.large)
 
                 HStack {
                     Text("Email:")
@@ -78,7 +77,6 @@ struct UserTabView_Previews: PreviewProvider {
             userProfileViewModel: ObservableViewModel(staticState: .preview),
             views: Dependency.preview.views()
         )
-        .font(StylingFont.regular)
         .previewLayout(.sizeThatFits)
     }
 }

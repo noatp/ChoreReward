@@ -49,7 +49,6 @@ struct AppView: View {
                     .fullScreenCover(isPresented: $presentingAddChoreView) {
                         views.addChoreView()
                     }
-                    .navigationBarHidden(true)
                     .fullScreenCover(isPresented: Binding<Bool>(
                         get: {
                             viewState.shouldNavigateToDeepLink
@@ -84,7 +83,6 @@ struct AppView_Previews: PreviewProvider {
             appViewModel: .init(staticState: .preview),
             views: Dependency.preview.views()
         )
-        .font(StylingFont.regular)
         .preferredColorScheme(.dark)
     }
 }
@@ -106,50 +104,61 @@ extension AppView {
 
     var tabBar: some View {
         UnwrapViewState(viewState: appViewModel.viewState) { viewState in
-            HStack {
-                Spacer()
-                Button {
-                    selectedTab = .choreTab
-                } label: {
-                    VStack {
-                        Image(systemName: (selectedTab == .choreTab ? "checkmark.seal.fill" : "checkmark.seal"))
-                        Text("Chores")
-                            .font(StylingFont.medium)
+            ZStack(alignment: .bottom) {
+                HStack(alignment: .bottom, spacing: .zero) {
+                    Spacer()
+                    Button {
+                        selectedTab = .choreTab
+                    } label: {
+                        VStack(spacing: .zero) {
+                            Image(systemName: (selectedTab == .choreTab ? "checkmark.seal.fill" : "checkmark.seal"))
+                                .font(StylingFont.icon)
+                                .smallVerticalPadding()
+                            Text("Chores")
+                                .font(StylingFont.caption)
+                        }
                     }
+                    .foregroundColor(selectedTab == .choreTab ? Color.accent : Color.gray3)
+                    Spacer()
+                    Spacer()
+                    Spacer()
+                    Button {
+                        selectedTab = .familyTab
+                    } label: {
+                        VStack(spacing: .zero) {
+                            Image(systemName: (selectedTab == .familyTab ? "house.fill" : "house"))
+                                .font(StylingFont.icon)
+                                .smallVerticalPadding()
+                            Text("Family")
+                                .font(StylingFont.caption)
+                        }
+                    }
+                    .foregroundColor(selectedTab == .familyTab ? Color.accent : Color.gray3)
+                    Spacer()
                 }
-                .foregroundColor(selectedTab == .choreTab ? Color.accent : Color.accentGray)
-                Spacer()
+                .padding(.zero)
+                .background {
+                    Color.bg.ignoresSafeArea()
+                }
 
                 if viewState.shouldRenderAddChoreButton {
                     Button {
                         presentingAddChoreView = true
                     } label: {
-                        VStack {
+                        VStack(spacing: .zero) {
                             Image(systemName: "plus.app.fill")
-                                .font(.system(size: 40, weight: .bold))
+                                .font(StylingFont.extraLargeIcon)
+                                .smallVerticalPadding()
                             Text("New Chore")
-                                .font(StylingFont.medium)
+                                .font(StylingFont.caption)
+
                         }
                     }
                     .foregroundColor(.accent)
                 }
 
-                Spacer()
-                Button {
-                    selectedTab = .familyTab
-                } label: {
-                    VStack {
-                        Image(systemName: (selectedTab == .familyTab ? "house.fill" : "house"))
-                        Text("Family")
-                            .font(StylingFont.medium)
-                    }
-                }
-                .foregroundColor(selectedTab == .familyTab ? Color.accent : Color.accentGray)
-                Spacer()
             }
-            .background {
-                Color.bg.ignoresSafeArea()
-            }
+
         }
     }
 }

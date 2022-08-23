@@ -98,7 +98,6 @@ struct AddChoreView_Previews: PreviewProvider {
             addChoreViewModel: ObservableViewModel(staticState: nil),
             views: Dependency.preview.views()
         )
-        .font(StylingFont.regular)
     }
 }
 

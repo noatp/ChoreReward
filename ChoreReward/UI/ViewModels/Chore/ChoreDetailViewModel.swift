@@ -70,7 +70,9 @@ class ChoreDetailViewModel: StatefulViewModel {
 
 struct ChoreDetailState {
     let chore: Chore
-    static let preview: ChoreDetailState = .init(chore: .previewChoreFinished)
+    static let previewFinished: ChoreDetailState = .init(chore: .previewChoreFinished)
+    static let previewUnfinished: ChoreDetailState = .init(chore: .previewChoreUnfinished)
+    static let previewUnassigned: ChoreDetailState = .init(chore: .previewUnassignedChore)
 }
 
 enum ChoreDetailAction {

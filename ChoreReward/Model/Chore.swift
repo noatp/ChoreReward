@@ -37,8 +37,8 @@ struct Chore: Identifiable, Codable {
         title: "Wash the dishes",
         assigner: .preview,
         assignee: .preview,
-        finished: Date.now.intTimestamp,
-        created: Date.now.intTimestamp,
+        finished: 1661206155,
+        created: 1661058434,
         description: """
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, \
                 sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Interdum \
@@ -54,8 +54,8 @@ struct Chore: Identifiable, Codable {
         title: "Wash the dishes",
         assigner: .preview,
         assignee: .preview,
-        finished: Date.now.intTimestamp,
-        created: Date.now.intTimestamp,
+        finished: 1661206183,
+        created: 1661058434,
         description: """
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, \
                 sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Interdum \
@@ -66,18 +66,21 @@ struct Chore: Identifiable, Codable {
         rewardValue: 12
     )
 
+    static let previewUnassignedChore = Chore(
+        title: "Wash the dishes",
+        assigner: .preview,
+        created: 1661208868,
+        description: "A short description of the chore. This should be a relatively easy chore.",
+        choreImageUrl: "https://nolisoli.ph/wp-content/uploads/2020/10/pexels-cottonbro-4108715.jpg",
+        rewardValue: 12)
+
     static let previewChoreUnfinished = Chore(
         id: "id_2",
         title: "Wash the dishes",
         assigner: .preview,
         assignee: .preview,
-        created: Date.now.intTimestamp,
-        description: """
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, \
-                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Interdum \
-                posuere lorem ipsum dolor sit amet consectetur. Amet consectetur adipiscing \
-                elit pellentesque. Id venenatis a con
-            """,
+        created: 1661058434,
+        description: "A short description of the chore. This should be a relatively easy chore.",
         choreImageUrl: "https://nolisoli.ph/wp-content/uploads/2020/10/pexels-cottonbro-4108715.jpg",
         rewardValue: 12
     )

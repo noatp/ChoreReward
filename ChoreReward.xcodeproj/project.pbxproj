@@ -71,6 +71,7 @@
 		45B012D7275495CF002C7A06 /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B012D6275495CF002C7A06 /* UserRepository.swift */; };
 		45B090332800DE8800CD1597 /* StorageRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B090322800DE8800CD1597 /* StorageRepository.swift */; };
 		45B107F0286BB08800E98F95 /* RegularTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B107EF286BB08800E98F95 /* RegularTextField.swift */; };
+		45B1888028B48D3A0083A05D /* TEst.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B1887F28B48D3A0083A05D /* TEst.swift */; };
 		45B2FF4328106A9800120921 /* EditUserProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B2FF4228106A9800120921 /* EditUserProfileViewModel.swift */; };
 		45B2FF4528106AAB00120921 /* EditUserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B2FF4428106AAB00120921 /* EditUserProfileView.swift */; };
 		45B6BB39272FC72100F89D74 /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B6BB38272FC72100F89D74 /* AppView.swift */; };
@@ -174,6 +175,7 @@
 		45B012D6275495CF002C7A06 /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
 		45B090322800DE8800CD1597 /* StorageRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageRepository.swift; sourceTree = "<group>"; };
 		45B107EF286BB08800E98F95 /* RegularTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegularTextField.swift; sourceTree = "<group>"; };
+		45B1887F28B48D3A0083A05D /* TEst.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TEst.swift; sourceTree = "<group>"; };
 		45B2FF4228106A9800120921 /* EditUserProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditUserProfileViewModel.swift; sourceTree = "<group>"; };
 		45B2FF4428106AAB00120921 /* EditUserProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditUserProfileView.swift; sourceTree = "<group>"; };
 		45B6BB38272FC72100F89D74 /* AppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
@@ -368,6 +370,7 @@
 				45395C5C272B2A6B00F50B70 /* Assets.xcassets */,
 				45AD3F6B2884CECA005C6B28 /* test.apns */,
 				451A339E28A6C48100CE82F5 /* test2.apns */,
+				45B1887F28B48D3A0083A05D /* TEst.swift */,
 			);
 			path = ChoreReward;
 			sourceTree = "<group>";
@@ -746,6 +749,7 @@
 				4531476E2752FBFC000A85D7 /* AppViewModel.swift in Sources */,
 				45B012D7275495CF002C7A06 /* UserRepository.swift in Sources */,
 				458C76BD2851736000119E68 /* Date.swift in Sources */,
+				45B1888028B48D3A0083A05D /* TEst.swift in Sources */,
 				45D7AE9327347D2900A53812 /* User.swift in Sources */,
 				4583C133285EB7EC00E77427 /* RewardService.swift in Sources */,
 				45E86060286AA3C1007E4B80 /* CustomizableRegularButton.swift in Sources */,

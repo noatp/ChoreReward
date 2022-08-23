@@ -25,9 +25,10 @@ struct CustomizableRegularButton<LabelContent: View>: View {
         } label: {
             label
         }
+        .font(StylingFont.headline)
         .foregroundColor(.fg)
         .smallHorizontalPadding()
-        .tappableFrame()
+//        .tappableFrame()
     }
 }
 
@@ -36,10 +37,7 @@ struct CustomizableRegularButton_Previews: PreviewProvider {
         Group {
             CustomizableRegularButton {
                 Text("Click me!")
-            } action: {
-
-            }
-
+            } action: {}
         }
         .background(Color.bg)
         .previewLayout(.sizeThatFits)

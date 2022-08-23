@@ -57,11 +57,25 @@ struct ChoreDetailView: View {
 struct ChoreDetailView_Previews: PreviewProvider {
     static var previews: some View {
         ChoreDetailView(
-            choreDetailViewModel: ObservableViewModel(staticState: .preview),
+            choreDetailViewModel: ObservableViewModel(staticState: .previewFinished),
             views: Dependency.preview.views()
         )
-//        .previewLayout(.sizeThatFits)
-        .font(StylingFont.regular)
+        .preferredColorScheme(.dark)
+        .previewDisplayName("Finished chore")
+
+        ChoreDetailView(
+            choreDetailViewModel: ObservableViewModel(staticState: .previewUnfinished),
+            views: Dependency.preview.views()
+        )
+        .preferredColorScheme(.dark)
+        .previewDisplayName("Unfinished chore")
+
+        ChoreDetailView(
+            choreDetailViewModel: ObservableViewModel(staticState: .previewUnassigned),
+            views: Dependency.preview.views()
+        )
+        .preferredColorScheme(.dark)
+        .previewDisplayName("Unassigned chore")
     }
 }
 
@@ -82,70 +96,11 @@ extension Dependency.Views {
 
 extension ChoreDetailView {
     private var choreDetailText: some View {
-        UnwrapViewState(viewState: choreDetailViewModel.viewState) { viewState in
+        UnwrapViewState(viewState: choreDetailViewModel.viewState) { _ in
             VStack(alignment: .leading, spacing: 0) {
-                Text("\(viewState.chore.title)")
-                    .font(StylingFont.title)
-                    .lineLimit(nil)
-                    .multilineTextAlignment(.leading)
-                Text("Reward: $\(viewState.chore.rewardValue)")
-                    .font(StylingFont.large)
-                    .padding(.bottom)
-                HStack(spacing: 0) {
-                    Text("Requested by: ")
-                    Group {
-                        if let assignerImageUrl = viewState.chore.assigner.userImageUrl {
-                            RemoteImage(imageUrl: assignerImageUrl)
-                        } else {
-                            RegularImage(systemImage: "person.fill")
-                        }
-                    }
-                    .frame(width: 20, height: 20, alignment: .center)
-                    .clipShape(Circle())
-                    Text(" \(viewState.chore.assigner.name ?? "")")
-                    Spacer(minLength: 0)
-                }
-                .font(StylingFont.medium)
-
-                Text("on \(viewState.chore.created.dateTimestamp.formatted(date: .abbreviated, time: .omitted))")
-                    .font(StylingFont.medium)
-                    .padding(.bottom)
-
-                Text("Description")
-                    .font(StylingFont.large)
-                Text(viewState.chore.description)
-                    .lineLimit(nil)
-                    .multilineTextAlignment(.leading)
-                    .padding(.bottom)
-
-                if let assignee = viewState.chore.assignee {
-                    HStack {
-                        Group {
-                            if let assigneeImageUrl = assignee.userImageUrl {
-                                RemoteImage(imageUrl: assigneeImageUrl)
-                            } else {
-                                RegularImage(systemImage: "person.fill")
-                            }
-                        }
-                        .frame(width: 20, height: 20, alignment: .center)
-                        .clipShape(Circle())
-                        Text(" \(assignee.name ?? "") is working on this chore")
-                            .lineLimit(nil)
-                            .multilineTextAlignment(.leading)
-                        Spacer(minLength: 0)
-                    }
-                    .font(StylingFont.medium)
-                    .padding(.bottom)
-
-                    if let finished = viewState.chore.finished {
-                        Text("Chore is finished on "
-                             + "\(finished.dateTimestamp.formatted(date: .abbreviated, time: .omitted))")
-                            .font(StylingFont.medium)
-                    } else {
-                        Text("Chore is not finished")
-                            .font(StylingFont.medium)
-                    }
-                }
+                titleSection
+                statusSection
+                detailSection
             }
             .padding(.horizontal)
         }
@@ -167,5 +122,99 @@ extension ChoreDetailView {
         CircularButton(action: {
             dismiss()
         }, icon: "xmark")
+    }
+
+    private var titleSection: some View {
+        UnwrapViewState(viewState: choreDetailViewModel.viewState) { viewState in
+            VStack(alignment: .leading, spacing: .zero) {
+                Text("\(viewState.chore.title)")
+                    .font(StylingFont.largeTitle)
+                    .lineLimit(nil)
+                    .multilineTextAlignment(.leading)
+                Text("Reward: $\(viewState.chore.rewardValue)")
+                    .font(StylingFont.smallTitle)
+                    .padding(.bottom)
+            }
+        }
+    }
+
+    private var statusSection: some View {
+        UnwrapViewState(viewState: choreDetailViewModel.viewState) { viewState in
+            VStack(alignment: .leading, spacing: .zero) {
+                Divider()
+                Text("Posted by")
+                    .font(StylingFont.caption)
+                    .padding(.top)
+                HStack(spacing: 0) {
+                    Group {
+                        if let assignerImageUrl = viewState.chore.assigner.userImageUrl {
+                            RemoteImage(imageUrl: assignerImageUrl)
+                        } else {
+                            RegularImage(systemImage: "person.fill")
+                        }
+                    }
+                    .frame(width: 30, height: 30, alignment: .center)
+                    .clipShape(Circle())
+                    Text(" \(viewState.chore.assigner.name ?? "")")
+                        .font(StylingFont.headline)
+                    + Text(" • \(viewState.chore.created.stringDateDistanceFromNow) ago")
+                        .font(StylingFont.subhead)
+                    Spacer(minLength: 0)
+                }
+                .padding(.bottom)
+
+                Text("Status")
+                    .font(StylingFont.caption)
+                Group {
+                    if viewState.chore.assignee != nil {
+                        if viewState.chore.finished != nil {
+                            Text("Finished")
+                                .font(StylingFont.headline)
+                            + Text(" • \(viewState.chore.finished!.stringDateDistanceFromNow) ago")
+                                .font(StylingFont.subhead)
+                        } else {
+                            Text("In progress")
+                        }
+                    } else {
+                        Text("Available")
+                    }
+                }
+                .padding(.bottom)
+
+                if let assignee = viewState.chore.assignee {
+                    Text("Picked up by")
+                        .font(StylingFont.caption)
+                    HStack(spacing: 0) {
+                        Group {
+                            if let assigneeImageUrl = assignee.userImageUrl {
+                                RemoteImage(imageUrl: assigneeImageUrl)
+                            } else {
+                                RegularImage(systemImage: "person.fill")
+                            }
+                        }
+                        .frame(width: 30, height: 30, alignment: .center)
+                        .clipShape(Circle())
+                        Text(" \(assignee.name ?? "")")
+                            .font(StylingFont.headline)
+                    }
+                    .padding(.bottom)
+                }
+            }
+        }
+    }
+
+    private var detailSection: some View {
+        UnwrapViewState(viewState: choreDetailViewModel.viewState) { viewState in
+            VStack(alignment: .leading, spacing: .zero) {
+                Divider()
+                Text("Details")
+                    .font(StylingFont.smallTitle)
+                    .padding(.top)
+                Text(viewState.chore.description)
+                    .lineLimit(nil)
+                    .multilineTextAlignment(.leading)
+                    .padding(.bottom)
+            }
+        }
     }
 }

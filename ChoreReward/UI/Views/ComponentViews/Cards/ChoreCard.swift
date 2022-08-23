@@ -29,24 +29,29 @@ struct ChoreCard: View {
                     Spacer()
                     Text("$\(chore.rewardValue)")
                 }
-                .font(StylingFont.large)
+                .font(StylingFont.headline)
+
                 Spacer()
                 HStack {
-                    Text(chore.created.dateTimestamp.formatted(date: .numeric, time: .omitted))
-                        .font(StylingFont.small)
+                    Text("\(chore.created.stringDateDistanceFromNow) ago")
                     Spacer()
-                    if chore.finished == nil {
-                        Text(chore.assignee == nil ? "Available" : "In progress")
-                            .font(StylingFont.small)
-                            .foregroundColor(chore.assignee == nil ? .green : .accent)
+                    Group {
+                        if chore.finished == nil {
+                            Text(chore.assignee == nil ? "Available" : "In progress")
+                                .foregroundColor(chore.assignee == nil ? .green : .accent)
+                        } else {
+                            Text("Finished")
+                                .foregroundColor(.green)
+                        }
                     }
                 }
+                .font(StylingFont.subhead)
                 .smallVerticalPadding()
             }
             .smallHorizontalPadding()
         }
         .background {
-            Color.bg.shadow(color: .accentGraySecondary, radius: 3, x: 0, y: 0)
+            Color.bg.shadow(color: .gray7, radius: 3, x: 0, y: 0)
         }
         .foregroundColor(.fg)
         .frame(maxHeight: 100)
@@ -59,7 +64,13 @@ struct ChoreCardView_Previews: PreviewProvider {
 
     static var previews: some View {
         ChoreCard(chore: .previewChoreUnfinished)
-        .font(StylingFont.regular)
-        .previewLayout(.sizeThatFits)
+            .previewDisplayName("Unfinished Chore")
+            .previewLayout(.sizeThatFits)
+        ChoreCard(chore: .previewUnassignedChore)
+            .previewDisplayName("Unassigned Chore")
+            .previewLayout(.sizeThatFits)
+        ChoreCard(chore: .previewChoreFinished)
+            .previewDisplayName("Finished Chore")
+            .previewLayout(.sizeThatFits)
     }
 }

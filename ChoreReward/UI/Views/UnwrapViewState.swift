@@ -18,11 +18,15 @@ struct UnwrapViewState <Content: View, ViewState>: View {
         self.content = content
     }
     var body: some View {
-        if let viewState = viewState {
-            content(viewState)
-        } else {
-            ProgressView()
-                .transition(.fade(duration: 0.5))
+        VStack(alignment: .center, spacing: 0) {
+            if let viewState = viewState {
+                content(viewState)
+            } else {
+                Spacer()
+                ProgressView()
+                    .transition(.fade(duration: 0.5))
+                Spacer()
+            }
         }
     }
 }

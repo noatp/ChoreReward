@@ -38,9 +38,9 @@ struct NavigationBar<LeftItem: View, RightItem: View>: View {
                     HStack(spacing: 0) {
                         leftItem
                         Text(title)
+                            .font(StylingFont.mediumTitle)
                             .lineLimit(1)
                             .truncationMode(.tail)
-                            .font(StylingFont.title)
                             .foregroundColor(.accent)
                         Spacer()
                         rightItem
@@ -59,8 +59,8 @@ struct NavigationBar<LeftItem: View, RightItem: View>: View {
                             Text(title)
                                 .lineLimit(1)
                                 .truncationMode(.tail)
-                                .font(StylingFont.title)
                                 .foregroundColor(.accent)
+                                .font(StylingFont.largeTitle)
                                 .opacity(opacity)
 
                             Spacer(minLength: 50)
@@ -68,7 +68,6 @@ struct NavigationBar<LeftItem: View, RightItem: View>: View {
                     }
                 }
             }
-            .padding([.bottom])
             .background(
                 Color.bg.ignoresSafeArea(edges: .top)
                     .opacity(opacity)
@@ -109,7 +108,6 @@ struct NavigationBar_Previews: PreviewProvider {
             .zNavBar(NavigationBar(title: "Navigation Bar", leftItem: leftItem, rightItem: rightItem))
 
         }
-        .font(StylingFont.regular)
         .preferredColorScheme(.dark)
     }
 }
