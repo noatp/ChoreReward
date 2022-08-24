@@ -36,7 +36,7 @@ struct FamilyTabView: View {
                 .listRowSeparator(.hidden)
             }
             .listStyle(.plain)
-            .padding()
+            .padding(StylingSize.largePadding)
             .vNavBar(NavigationBar(
                 title: "Family",
                 leftItem: menuButton,
@@ -59,7 +59,13 @@ struct FamilyListView_Previews: PreviewProvider {
             familyTabViewModel: .init(staticState: .preview),
             views: Dependency.preview.views()
         )
-        .previewLayout(.sizeThatFits)
+
+        FamilyTabView(
+            presentedDrawer: .constant(false),
+            familyTabViewModel: .init(staticState: .preview),
+            views: Dependency.preview.views()
+        )
+        .preferredColorScheme(.dark)
     }
 }
 
@@ -79,16 +85,16 @@ extension Dependency.Views {
 
 extension FamilyTabView {
     private var menuButton: some View {
-        RegularButton(buttonImage: "line.3.horizontal", action: {
+        CircularButton(action: {
             withAnimation {
                 presentedDrawer = true
             }
-        })
+        }, icon: "line.3.horizontal")
     }
 
     private var addFamilyMemberButton: some View {
-        RegularButton(buttonImage: "plus") {
+        CircularButton(action: {
             presentedAddMemberSheet = true
-        }
+        }, icon: "plus")
     }
 }

@@ -50,7 +50,7 @@ struct SideDrawer<MainContent: View, DrawerContent: View>: View {
                                 basicDrawerContent
                                 Spacer()
                             }
-                            .padding(.horizontal)
+                            .padding(.horizontal, StylingSize.largePadding)
 
                             Spacer()
 
@@ -73,7 +73,7 @@ struct SideDrawer<MainContent: View, DrawerContent: View>: View {
 
 struct SideDrawerView_Previews: PreviewProvider {
     static let leftItem = Button {} label: {
-        RegularButton(buttonImage: "line.3.horizontal", action: {})
+        CircularButton(action: {}, icon: "line.3.horizontal")
     }
 
     static let rightItem = Button {} label: {
@@ -83,7 +83,7 @@ struct SideDrawerView_Previews: PreviewProvider {
         VStack {
             Text("This is a Preview of NavDrawerView")
         }
-        .padding()
+        .padding(StylingSize.largePadding)
         .vNavBar(
             NavigationBar(
                 title: "Navigation Bar",
@@ -98,7 +98,7 @@ struct SideDrawerView_Previews: PreviewProvider {
         VStack {
             Text("This is a Preview of NavDrawerView")
         }
-        .padding()
+        .padding(StylingSize.largePadding)
         .vNavBar(
             NavigationBar(
                 title: "Navigation Bar",

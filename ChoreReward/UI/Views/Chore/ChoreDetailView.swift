@@ -102,7 +102,7 @@ extension ChoreDetailView {
                 statusSection
                 detailSection
             }
-            .padding(.horizontal)
+            .padding(.horizontal, StylingSize.largePadding)
         }
     }
 
@@ -133,7 +133,6 @@ extension ChoreDetailView {
                     .multilineTextAlignment(.leading)
                 Text("Reward: $\(viewState.chore.rewardValue)")
                     .font(StylingFont.smallTitle)
-                    .padding(.bottom)
             }
         }
     }
@@ -142,9 +141,9 @@ extension ChoreDetailView {
         UnwrapViewState(viewState: choreDetailViewModel.viewState) { viewState in
             VStack(alignment: .leading, spacing: .zero) {
                 Divider()
+                    .padding(StylingSize.largePadding)
                 Text("Posted by")
                     .font(StylingFont.caption)
-                    .padding(.top)
                 HStack(spacing: 0) {
                     Group {
                         if let assignerImageUrl = viewState.chore.assigner.userImageUrl {
@@ -161,7 +160,7 @@ extension ChoreDetailView {
                         .font(StylingFont.subhead)
                     Spacer(minLength: 0)
                 }
-                .padding(.bottom)
+                .padding(.bottom, StylingSize.largePadding)
 
                 Text("Status")
                     .font(StylingFont.caption)
@@ -179,7 +178,7 @@ extension ChoreDetailView {
                         Text("Available")
                     }
                 }
-                .padding(.bottom)
+                .padding(.bottom, StylingSize.largePadding)
 
                 if let assignee = viewState.chore.assignee {
                     Text("Picked up by")
@@ -197,7 +196,6 @@ extension ChoreDetailView {
                         Text(" \(assignee.name ?? "")")
                             .font(StylingFont.headline)
                     }
-                    .padding(.bottom)
                 }
             }
         }
@@ -207,13 +205,12 @@ extension ChoreDetailView {
         UnwrapViewState(viewState: choreDetailViewModel.viewState) { viewState in
             VStack(alignment: .leading, spacing: .zero) {
                 Divider()
+                    .padding(StylingSize.largePadding)
                 Text("Details")
                     .font(StylingFont.smallTitle)
-                    .padding(.top)
                 Text(viewState.chore.description)
                     .lineLimit(nil)
                     .multilineTextAlignment(.leading)
-                    .padding(.bottom)
             }
         }
     }

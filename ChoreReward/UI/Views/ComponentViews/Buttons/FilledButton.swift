@@ -56,7 +56,7 @@ struct FilledButton_Previews: PreviewProvider {
 struct FilledButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
-            .padding()
+            .padding(StylingSize.largePadding)
             .frame(
                 minWidth: StylingSize.tappableWidth,
                 maxWidth: .infinity,

@@ -136,7 +136,6 @@ extension AppView {
                     .foregroundColor(selectedTab == .familyTab ? Color.accent : Color.gray3)
                     Spacer()
                 }
-                .padding(.zero)
                 .background {
                     Color.bg.ignoresSafeArea()
                 }

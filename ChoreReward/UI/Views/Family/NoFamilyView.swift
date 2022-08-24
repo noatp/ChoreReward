@@ -34,7 +34,7 @@ struct NoFamilyView: View {
                     .frame(width: 200, height: 200)
                 Text(viewState.currentUserId)
                 if viewState.shouldRenderCreateFamilyButton {
-                    Button("Create a new family") {
+                    FilledButton(buttonTitle: "Create a new family", buttonImage: "plus") {
                         noFamilyViewModel.perform(action: .createFamily)
                     }
                 }
@@ -43,8 +43,8 @@ struct NoFamilyView: View {
                 }
                 Spacer()
             }
+            .padding(StylingSize.largePadding)
             .vNavBar(NavigationBar(title: "Let's get started", leftItem: EmptyView(), rightItem: EmptyView()))
-            .padding()
         }
     }
 
@@ -70,7 +70,12 @@ struct NoFamilyView_Previews: PreviewProvider {
             noFamilyViewModel: .init(staticState: .preview),
             views: Dependency.preview.views()
         )
-        .previewLayout(.sizeThatFits)
+
+        NoFamilyView(
+            noFamilyViewModel: .init(staticState: .preview),
+            views: Dependency.preview.views()
+        )
+        .preferredColorScheme(.dark)
     }
 }
 

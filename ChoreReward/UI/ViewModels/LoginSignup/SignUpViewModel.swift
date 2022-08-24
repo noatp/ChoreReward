@@ -89,7 +89,8 @@ class SignUpViewModel: StatefulViewModel {
 struct SignUpState {
     let errorMessage: String
     let shouldShowAlert: Bool
-    static let preview: SignUpState = .init(errorMessage: "preview error", shouldShowAlert: true)
+    static let previewWithError: SignUpState = .init(errorMessage: "preview error", shouldShowAlert: true)
+    static let previewWithoutError: SignUpState = .init(errorMessage: "", shouldShowAlert: false)
 }
 
 enum SignUpAction {

@@ -43,7 +43,7 @@ struct UserRewardView: View {
                     }
                 }
             }
-            .padding()
+            .padding(StylingSize.largePadding)
             .vNavBar(NavigationBar(
                 title: "Reward",
                 leftItem: backButton,
@@ -64,7 +64,12 @@ struct UserGoalView_Previews: PreviewProvider {
             userGoalViewModel: ObservableViewModel(staticState: .preview),
             views: Dependency.preview.views()
         )
-        .previewLayout(.sizeThatFits)
+
+        UserRewardView(
+            userGoalViewModel: ObservableViewModel(staticState: .preview),
+            views: Dependency.preview.views()
+        )
+        .preferredColorScheme(.dark)
     }
 }
 
@@ -83,15 +88,14 @@ extension Dependency.Views {
 
 extension UserRewardView {
     private var backButton: some View {
-        RegularButton(buttonImage: "chevron.left") {
+        CircularButton(action: {
             dismiss()
-        }
+        }, icon: "chevron.left")
     }
 
     private var addRewardButton: some View {
-        RegularButton(buttonImage: "plus") {
+        CircularButton(action: {
             presentSheet = true
-        }
-
+        }, icon: "plus")
     }
 }

@@ -124,13 +124,9 @@ extension AddChoreView {
     }
 
     private var addButton: some View {
-        RegularButton(buttonTitle: "Done") {
-            if missingInfo() {
-                shouldShowAlert = true
-                return
-            }
+        CircularButton(action: {
             addChoreAndDismiss()
-        }
+        }, icon: "checkmark")
     }
 }
 
@@ -138,6 +134,10 @@ extension AddChoreView {
 
 extension AddChoreView {
     private func addChoreAndDismiss() {
+        if missingInfo() {
+            shouldShowAlert = true
+            return
+        }
         dismiss()
         addChoreViewModel.perform(
             action: .createChore(

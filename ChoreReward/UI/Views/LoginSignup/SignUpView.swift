@@ -102,10 +102,26 @@ struct SignUpView: View {
 struct SignupView_Previews: PreviewProvider {
     static var previews: some View {
         SignUpView(
-            signUpViewModel: .init(staticState: .preview),
+            signUpViewModel: .init(staticState: .previewWithoutError),
             views: Dependency.preview.views()
         )
-        .previewLayout(.sizeThatFits)
+
+        SignUpView(
+            signUpViewModel: .init(staticState: .previewWithoutError),
+            views: Dependency.preview.views()
+        )
+        .preferredColorScheme(.dark)
+
+        SignUpView(
+            signUpViewModel: .init(staticState: .previewWithError),
+            views: Dependency.preview.views()
+        )
+
+        SignUpView(
+            signUpViewModel: .init(staticState: .previewWithError),
+            views: Dependency.preview.views()
+        )
+        .preferredColorScheme(.dark)
     }
 }
 
@@ -124,9 +140,9 @@ extension Dependency.Views {
 
 extension SignUpView {
     private var backButton: some View {
-        RegularButton(buttonImage: "chevron.left") {
+        CircularButton(action: {
             dismiss()
-        }
+        }, icon: "chevron.left")
     }
 
     private var pickUserImageButton: some View {
@@ -161,7 +177,7 @@ extension SignUpView {
             }
             .pickerStyle(SegmentedPickerStyle())
         }
-        .padding()
+        .padding(StylingSize.smallPadding)
     }
 }
 

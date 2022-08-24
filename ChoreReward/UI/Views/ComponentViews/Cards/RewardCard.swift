@@ -34,11 +34,11 @@ struct RewardCard: View {
             .smallVerticalPadding()
             CustomProgressBar(progress: progress)
         }
-        .padding()
+        .padding(StylingSize.largePadding)
         .background {
             Color.bg.shadow(color: .gray7, radius: 3, x: 0, y: 0)
         }
-        .padding([.bottom], 10)
+        .padding([.bottom], StylingSize.mediumPadding)
     }
 }
 

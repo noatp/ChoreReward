@@ -95,7 +95,12 @@ struct LoginView_Previews: PreviewProvider {
             loginViewModel: .init(staticState: .preview),
             views: Dependency.preview.views()
         )
-        .previewLayout(.sizeThatFits)
+
+        LoginView(
+            loginViewModel: .init(staticState: .preview),
+            views: Dependency.preview.views()
+        )
+        .preferredColorScheme(.dark)
     }
 }
 

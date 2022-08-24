@@ -36,8 +36,8 @@ struct RegularButton: View {
             }
             .font(StylingFont.headline)
         }
-        .smallHorizontalPadding()
         .tappableFrame()
+        .smallHorizontalPadding()
         .buttonStyle(RegularButtonStyle())
 
     }

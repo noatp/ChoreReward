@@ -35,7 +35,8 @@ struct ChoreTabView: View {
                     Spacer()
                     filterMenu
                 }
-                .padding(10)
+                .padding([.horizontal], StylingSize.largePadding)
+                .padding([.bottom], StylingSize.mediumPadding)
                 .background(Color.bg)
 
                 Color.gray7.frame(maxHeight: 1)
@@ -200,11 +201,11 @@ extension ChoreTabView {
     }
 
     private var menuButton: some View {
-        RegularButton(buttonImage: "line.3.horizontal", action: {
+        CircularButton(action: {
             withAnimation {
                 presentedDrawer = true
             }
-        })
+        }, icon: "line.3.horizontal")
     }
 
     private var emptyChoreList: some View {

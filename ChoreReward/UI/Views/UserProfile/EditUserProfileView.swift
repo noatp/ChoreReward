@@ -135,15 +135,15 @@ extension Dependency.Views {
 
 extension EditUserProfileView {
     var backButton: some View {
-        RegularButton(buttonImage: "chevron.left") {
+        CircularButton(action: {
             dismiss()
-        }
+        }, icon: "chevron.left")
     }
 
     var doneButton: some View {
-        RegularButton(buttonTitle: "Done") {
+        CircularButton(action: {
             submitChanges()
-        }
+        }, icon: "checkmark")
     }
 }
 

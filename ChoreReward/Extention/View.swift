@@ -58,11 +58,11 @@ extension View {
     }
 
     func smallVerticalPadding() -> some View {
-        return self.padding([.vertical], 5)
+        return self.padding([.vertical], StylingSize.smallPadding)
     }
 
     func smallHorizontalPadding() -> some View {
-        return self.padding([.horizontal], 5)
+        return self.padding([.horizontal], StylingSize.smallPadding)
     }
 
     func tappableFrame() -> some View {

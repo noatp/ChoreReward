@@ -65,7 +65,7 @@ struct UserProfileView: View {
                     userProfileViewModel.perform(action: .signOut)
                 }
             }
-            .padding()
+            .padding(StylingSize.largePadding)
             .vNavBar(NavigationBar(
                 title: viewState.currentUserName,
                 leftItem: backButton,
@@ -82,7 +82,12 @@ struct UserTabView_Previews: PreviewProvider {
             userProfileViewModel: ObservableViewModel(staticState: .preview),
             views: Dependency.preview.views()
         )
-        .previewLayout(.sizeThatFits)
+
+        UserProfileView(
+            userProfileViewModel: ObservableViewModel(staticState: .preview),
+            views: Dependency.preview.views()
+        )
+        .preferredColorScheme(.dark)
     }
 }
 
@@ -101,8 +106,8 @@ extension Dependency.Views {
 
 extension UserProfileView {
     var backButton: some View {
-        RegularButton(buttonImage: "chevron.left") {
+        CircularButton(action: {
             dismiss()
-        }
+        }, icon: "chevron.left")
     }
 }

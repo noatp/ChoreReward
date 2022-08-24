@@ -46,6 +46,9 @@ struct StylingFont {
 struct StylingSize {
     static let tappableWidth: CGFloat = 44
     static let tappableHeight: CGFloat = 44
+    static let smallPadding: CGFloat = 5
+    static let mediumPadding: CGFloat = 10
+    static let largePadding: CGFloat = 15
 }
 
 struct TestFontSizeView: View {

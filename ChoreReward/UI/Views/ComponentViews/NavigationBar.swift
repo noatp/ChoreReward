@@ -35,7 +35,7 @@ struct NavigationBar<LeftItem: View, RightItem: View>: View {
             HStack {
                 switch navBarLayout {
                 case .leftTitle:
-                    HStack(spacing: 0) {
+                    HStack(alignment: .center, spacing: .zero) {
                         leftItem
                         Text(title)
                             .font(StylingFont.mediumTitle)
@@ -45,16 +45,19 @@ struct NavigationBar<LeftItem: View, RightItem: View>: View {
                         Spacer()
                         rightItem
                     }
+                    .tappableFrame()
+
                 case .middleTitle:
-                    ZStack {
-                        HStack {
+                    ZStack(alignment: .center) {
+                        HStack(alignment: .center, spacing: .zero) {
                             leftItem
                             Spacer()
                             rightItem
                         }
+                        .tappableFrame()
 
-                        HStack {
-                            Spacer(minLength: 50)
+                        HStack(alignment: .center, spacing: .zero) {
+                            Spacer(minLength: StylingSize.tappableWidth)
 
                             Text(title)
                                 .lineLimit(1)
@@ -63,11 +66,13 @@ struct NavigationBar<LeftItem: View, RightItem: View>: View {
                                 .font(StylingFont.largeTitle)
                                 .opacity(opacity)
 
-                            Spacer(minLength: 50)
+                            Spacer(minLength: StylingSize.tappableWidth)
                         }
+                        .tappableFrame()
                     }
                 }
             }
+            .padding(.bottom, StylingSize.smallPadding)
             .background(
                 Color.bg.ignoresSafeArea(edges: .top)
                     .opacity(opacity)
@@ -81,11 +86,11 @@ struct NavigationBar<LeftItem: View, RightItem: View>: View {
 
 struct NavigationBar_Previews: PreviewProvider {
     static let leftItem = Button {} label: {
-        RegularButton(buttonImage: "chevron.left", action: {})
+        CircularButton(action: {}, icon: "line.3.horizontal")
     }
 
     static let rightItem = Button {} label: {
-        RegularButton(buttonTitle: "Next", action: {})
+        CircularButton(action: {}, icon: "checkmark")
     }
     static var previews: some View {
 
@@ -95,9 +100,20 @@ struct NavigationBar_Previews: PreviewProvider {
             }
             .vNavBar(
                 NavigationBar(
-                    title: "Navigation Bar",
+                    title: "Navigation Bar Extra Long",
                     leftItem: leftItem,
-                    rightItem: rightItem,
+                    rightItem: rightItem
+                )
+            )
+
+            VStack {
+                Text("Preview")
+            }
+            .vNavBar(
+                NavigationBar(
+                    title: "Navigation Bar Extra Long",
+                    leftItem: leftItem,
+                    rightItem: EmptyView(),
                     navBarLayout: .leftTitle
                 )
             )
@@ -105,7 +121,13 @@ struct NavigationBar_Previews: PreviewProvider {
             VStack {
                 Text("Preview")
             }
-            .zNavBar(NavigationBar(title: "Navigation Bar", leftItem: leftItem, rightItem: rightItem))
+            .zNavBar(
+                NavigationBar(
+                    title: "Navigation Bar",
+                    leftItem: leftItem,
+                    rightItem: rightItem
+                )
+            )
 
         }
         .preferredColorScheme(.dark)
