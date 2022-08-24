@@ -38,25 +38,22 @@ struct SideDrawer<MainContent: View, DrawerContent: View>: View {
                         transparentBackground
 
                         // side menu
-                        HStack(spacing: 0) {
-                            VStack {
+                        HStack(alignment: .top, spacing: .zero) {
+                            VStack(alignment: .leading, spacing: .zero) {
                                 drawerDismissButton
                                 Spacer()
                             }
 
                             Divider()
-                                .ignoresSafeArea()
 
-                            VStack(alignment: .leading) {
+                            VStack(alignment: .leading, spacing: .zero) {
                                 basicDrawerContent
                                 Spacer()
                             }
-                            .font(StylingFont.headline)
-                            .foregroundColor(.fg)
                             .padding(.horizontal)
-                            
+
                             Spacer()
-                            
+
                             Color.gray7
                                 .ignoresSafeArea()
                                 .frame(maxWidth: 2)
@@ -97,7 +94,7 @@ struct SideDrawerView_Previews: PreviewProvider {
         )
         .sideDrawer(views: Dependency.preview.views(), presentedDrawer: .constant(true))
         .preferredColorScheme(.dark)
-        
+
         VStack {
             Text("This is a Preview of NavDrawerView")
         }
@@ -136,7 +133,7 @@ extension SideDrawer {
     }
 
     private var basicDrawerContent: some View {
-        VStack(alignment: .leading) {
+        VStack(alignment: .leading, spacing: .zero) {
             NavigationLink {
                 views.userGoalView
             } label: {
@@ -145,7 +142,7 @@ extension SideDrawer {
                     Text("Your Reward")
                 }
             }
-            .padding([.horizontal, .top])
+            .tappableFrame()
 
             NavigationLink {
                 views.userProfileView
@@ -155,9 +152,11 @@ extension SideDrawer {
                     Text("Your Profile")
                 }
             }
-            .padding([.horizontal, .top])
+            .tappableFrame()
 
         }
+        .font(StylingFont.headline)
+        .foregroundColor(.fg)
     }
 
 }

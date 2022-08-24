@@ -29,6 +29,7 @@ struct CircularButton: View {
         } action: {
             action()
         }
+        .tappableFrame()
 
     }
 }
