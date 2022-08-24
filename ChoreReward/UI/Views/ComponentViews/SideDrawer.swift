@@ -54,14 +54,16 @@ struct SideDrawer<MainContent: View, DrawerContent: View>: View {
                             .font(StylingFont.headline)
                             .foregroundColor(.fg)
                             .padding(.horizontal)
-
+                            
+                            Spacer()
+                            
                             Color.gray7
                                 .ignoresSafeArea()
                                 .frame(maxWidth: 2)
                         }
                         .frame(width: geoProxy.size.width * 0.75)
                         .background(
-                            Color.bg.ignoresSafeArea()
+                            Color.bg
                         )
                         .transition(.move(edge: .leading))
                     }
@@ -74,7 +76,7 @@ struct SideDrawer<MainContent: View, DrawerContent: View>: View {
 
 struct SideDrawerView_Previews: PreviewProvider {
     static let leftItem = Button {} label: {
-        RegularButton(buttonImage: "chevron.left", action: {})
+        RegularButton(buttonImage: "line.3.horizontal", action: {})
     }
 
     static let rightItem = Button {} label: {
@@ -82,8 +84,24 @@ struct SideDrawerView_Previews: PreviewProvider {
     }
     static var previews: some View {
         VStack {
-            Text("This is a Preview of NavDrawerVie")
+            Text("This is a Preview of NavDrawerView")
         }
+        .padding()
+        .vNavBar(
+            NavigationBar(
+                title: "Navigation Bar",
+                leftItem: leftItem,
+                rightItem: rightItem,
+                navBarLayout: .leftTitle
+            )
+        )
+        .sideDrawer(views: Dependency.preview.views(), presentedDrawer: .constant(true))
+        .preferredColorScheme(.dark)
+        
+        VStack {
+            Text("This is a Preview of NavDrawerView")
+        }
+        .padding()
         .vNavBar(
             NavigationBar(
                 title: "Navigation Bar",
