@@ -71,7 +71,8 @@ class LoginViewModel: StatefulViewModel {
 struct LoginViewState {
     let errorMessage: String
     let shouldShowAlert: Bool
-    static let preview: LoginViewState = .init(errorMessage: "preview error", shouldShowAlert: true)
+    static let previewWithError: LoginViewState = .init(errorMessage: "preview error", shouldShowAlert: true)
+    static let previewWithoutError: LoginViewState = .init(errorMessage: "", shouldShowAlert: false)
 }
 
 enum LoginViewAction {
