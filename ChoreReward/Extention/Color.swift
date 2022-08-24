@@ -15,5 +15,5 @@ extension Color {
     static let gray3 = Color("gray3")
     static let gray7 = Color("gray7")
     static let pickerAccent = Color("pickerAccent")
-    static let pickerBackground = Color("pickerBackground")
+    static let gray9 = Color("gray9")
 }

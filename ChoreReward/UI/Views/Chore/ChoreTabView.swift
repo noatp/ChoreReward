@@ -151,6 +151,7 @@ extension ChoreTabView {
                     if viewState.chorePickerState == .unfinished {
                         RoundedRectangle(cornerRadius: .infinity)
                             .foregroundColor(.pickerAccent)
+                            .shadow(color: .pickerAccent, radius: 1, x: 0, y: 0)
                             .matchedGeometryEffect(id: "pickerBackground", in: animation)
                     }
                 }
@@ -166,13 +167,15 @@ extension ChoreTabView {
                     if viewState.chorePickerState == .finished {
                         RoundedRectangle(cornerRadius: .infinity)
                             .foregroundColor(.pickerAccent)
+                            .shadow(color: .pickerAccent, radius: 1, x: 0, y: 0)
                             .matchedGeometryEffect(id: "pickerBackground", in: animation)
                     }
                 }
             }
             .background {
                 RoundedRectangle(cornerRadius: .infinity)
-                    .foregroundColor(.pickerBackground)
+                    .foregroundColor(.bg)
+                    .shadow(color: .gray9, radius: 2, x: 0, y: 0)
             }
             .animation(.easeInOut(duration: 0.35), value: viewState.chorePickerState)
         }
@@ -195,7 +198,8 @@ extension ChoreTabView {
             .font(StylingFont.headline)
             .foregroundColor(.fg)
             .smallHorizontalPadding()
-            .capsuleFrame(background: .gray7)
+            .capsuleFrame(background: .bg)
+            .shadow(color: .gray9, radius: 2, x: 0, y: 0)
             .animation(nil, value: viewState.choreFilterState)
         }
     }
