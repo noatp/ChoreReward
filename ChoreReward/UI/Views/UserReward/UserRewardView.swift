@@ -27,8 +27,10 @@ struct UserRewardView: View {
     var body: some View {
         UnwrapViewState(viewState: userRewardViewModel.viewState) { viewState in
             VStack(alignment: .leading) {
-                Text("Current balance is ")
+                Text("Your current balance is ")
+                    .font(StylingFont.headline)
                 + Text("$\(viewState.balance)")
+                    .font(StylingFont.smallTitle)
                 ScrollView(showsIndicators: false) {
                     LazyVStack(spacing: 0) {
                         ForEach(viewState.rewards, id: \.name) {reward in

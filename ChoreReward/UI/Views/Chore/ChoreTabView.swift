@@ -9,17 +9,11 @@ import SwiftUI
 
 // MARK: Main Implementaion
 
-enum FilterOptions: String {
-    case all = "All chores"
-    case yours = "Your chores"
-}
-
 struct ChoreTabView: View {
     @Namespace private var animation
     @ObservedObject var choreTabViewModel: ObservableViewModel<ChoreTabState, ChoreTabAction>
     @State private var presentedFilterDropdown = false
     @Binding private var presentedDrawer: Bool
-    @State private var filterState: FilterOptions = .all
 
     private var views: Dependency.Views
 
@@ -41,7 +35,7 @@ struct ChoreTabView: View {
                     Spacer()
                     filterMenu
                 }
-                .padding(.horizontal)
+                .padding(10)
                 .background(Color.bg)
 
                 Color.gray7.frame(maxHeight: 1)
@@ -179,27 +173,30 @@ extension ChoreTabView {
                 RoundedRectangle(cornerRadius: .infinity)
                     .foregroundColor(.pickerBackground)
             }
-            .animation(.easeInOut, value: viewState.chorePickerState)
+            .animation(.easeInOut(duration: 0.35), value: viewState.chorePickerState)
         }
     }
 
     private var filterMenu: some View {
-        Menu {
-            RegularButton(buttonTitle: "All chores", action: {
-                filterState = .all
-                choreTabViewModel.perform(action: .updateFilterState(.all))
+        UnwrapViewState(viewState: choreTabViewModel.viewState) { viewState in
+            Menu(content: {
+                ForEach(ChoreFilterState.allCases, id: \.label) { filterStateCase in
+                    RegularButton(
+                        buttonTitle: filterStateCase.label,
+                        buttonImage: filterStateCase.icon
+                    ) {
+                        choreTabViewModel.perform(action: .updateFilterState(filterStateCase))
+                    }
+                }
+            }, label: {
+                Label(viewState.choreFilterState.label, systemImage: viewState.choreFilterState.icon)
             })
-            RegularButton(buttonTitle: "Your chores", action: {
-                filterState = .yours
-                choreTabViewModel.perform(action: .updateFilterState(.takenByCurrentUser))
-            })
-        } label: {
-            Text(filterState.rawValue)
-                .fixedSize()
+            .font(StylingFont.headline)
+            .foregroundColor(.fg)
+            .smallHorizontalPadding()
+            .capsuleFrame(background: .gray7)
+            .animation(nil, value: viewState.choreFilterState)
         }
-        .foregroundColor(.fg)
-        .tappableFrame()
-        .smallHorizontalPadding()
     }
 
     private var menuButton: some View {
@@ -213,7 +210,8 @@ extension ChoreTabView {
     private var emptyChoreList: some View {
         VStack {
             Spacer()
-            Text("No chores")
+            Text("Tap the \"+\" button below to add new chore!")
+                .font(StylingFont.headline)
             Spacer()
         }
     }

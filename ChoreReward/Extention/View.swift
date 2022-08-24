@@ -72,4 +72,14 @@ extension View {
             maxHeight: StylingSize.tappableHeight
         )
     }
+
+    func capsuleFrame(background: Color) -> some View {
+        return self
+            .smallHorizontalPadding()
+            .smallVerticalPadding()
+            .background {
+                RoundedRectangle(cornerRadius: .infinity)
+                    .foregroundColor(background)
+            }
+    }
 }

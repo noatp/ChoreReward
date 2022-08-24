@@ -64,9 +64,13 @@ class ChoreTabViewModel: StatefulViewModel {
         switch filterState {
         case .all:
             return choreList
-        case .takenByCurrentUser:
+        case .youPicked:
             return choreList.filter { chore in
                 chore.assignee?.id == userService.currentUserId
+            }
+        case .youPosted:
+            return choreList.filter { chore in
+                chore.assigner.id == userService.currentUserId
             }
         }
     }
@@ -93,7 +97,9 @@ class ChoreTabViewModel: StatefulViewModel {
             choreList: applyPickerToChoreList(
                 pickerState: pickerState,
                 choreList: choreList
-            )
+            ).sorted(by: { firstChore, secondChore in
+                firstChore.created > secondChore.created
+            })
         )
     }
 
@@ -181,8 +187,28 @@ enum ChoreTabAction {
     case refreshChoreList
 }
 
-enum ChoreFilterState {
-    case all, takenByCurrentUser
+enum ChoreFilterState: CaseIterable {
+    case all, youPicked, youPosted
+    var label: String {
+        switch self {
+        case .all:
+            return "All"
+        case .youPicked:
+            return "You Picked"
+        case .youPosted:
+            return "You Posted"
+        }
+    }
+    var icon: String {
+        switch self {
+        case .all:
+            return "list.bullet"
+        case .youPosted:
+            return "plus.bubble"
+        case .youPicked:
+            return "star.bubble"
+        }
+    }
 }
 
 enum ChorePickerState {

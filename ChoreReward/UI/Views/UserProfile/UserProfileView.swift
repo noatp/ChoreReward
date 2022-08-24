@@ -35,13 +35,16 @@ struct UserProfileView: View {
                 .frame(width: 200, height: 200, alignment: .center)
                 .clipShape(Circle())
                 Text(viewState.currentUserName)
+                    .font(StylingFont.mediumTitle)
 
                 HStack {
                     Text("Email:")
+                        .font(StylingFont.headline)
                     Text(viewState.currentUserEmail)
                 }
                 HStack {
                     Text("Role:")
+                        .font(StylingFont.headline)
                     Text(viewState.currentUserRole)
                 }
 
@@ -55,6 +58,8 @@ struct UserProfileView: View {
                         Text("Edit profile")
                     }
                 }
+                .font(StylingFont.headline)
+                .foregroundColor(.fg)
 
                 FilledButton(buttonTitle: "Log out", buttonImage: "arrow.backward.to.line") {
                     userProfileViewModel.perform(action: .signOut)

@@ -48,9 +48,10 @@ struct SideDrawer<MainContent: View, DrawerContent: View>: View {
                                 .ignoresSafeArea()
 
                             VStack(alignment: .leading) {
-                                Spacer().frame(maxWidth: .infinity)
                                 basicDrawerContent
+                                Spacer()
                             }
+                            .font(StylingFont.headline)
                             .foregroundColor(.fg)
                             .padding(.horizontal)
 
