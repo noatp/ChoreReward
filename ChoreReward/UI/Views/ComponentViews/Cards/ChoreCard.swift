@@ -51,7 +51,7 @@ struct ChoreCard: View {
             .smallHorizontalPadding()
         }
         .background {
-            Color.bg.shadow(color: .gray7, radius: 3, x: 0, y: 0)
+            Color.bg
         }
         .foregroundColor(.fg)
         .frame(maxHeight: 100)

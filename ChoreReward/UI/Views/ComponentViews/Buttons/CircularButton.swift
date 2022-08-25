@@ -12,10 +12,12 @@ import SwiftUI
 struct CircularButton: View {
     let action: () -> Void
     let icon: String
+    let bgColor: Color?
 
-    init(action: @escaping () -> Void, icon: String) {
+    init(action: @escaping () -> Void, icon: String, bgColor: Color? = .matchingBtnBg) {
         self.action = action
         self.icon = icon
+        self.bgColor = bgColor
     }
 
     var body: some View {
@@ -24,13 +26,12 @@ struct CircularButton: View {
                 .font(StylingFont.icon)
                 .tappableFrame()
                 .background {
-                    Color.bg.clipShape(Circle())
+                    bgColor.clipShape(Circle())
                 }
         } action: {
             action()
         }
         .tappableFrame()
-
     }
 }
 

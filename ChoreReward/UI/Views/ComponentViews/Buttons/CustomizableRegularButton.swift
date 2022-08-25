@@ -26,7 +26,6 @@ struct CustomizableRegularButton<LabelContent: View>: View {
             label
         }
         .font(StylingFont.headline)
-        .foregroundColor(.fg)
         .smallHorizontalPadding()
 //        .tappableFrame()
     }

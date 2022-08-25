@@ -32,7 +32,7 @@ struct AppView: View {
                     views.noFamilyView
                         .navigationBarHidden(true)
                 } else {
-                    VStack {
+                    ZStack {
                         // main view
                         switch selectedTab {
                         case .choreTab:
@@ -40,11 +40,12 @@ struct AppView: View {
                         case .familyTab:
                             views.familyTabView(presentedDrawer: $presentedDrawer)
                         }
-
-                        Spacer(minLength: 0)
-                        // tab bar
-                        tabBar
+                        VStack {
+                            Spacer()
+                            tabBar
+                        }
                     }
+
                     .sideDrawer(views: views, presentedDrawer: $presentedDrawer)
                     .fullScreenCover(isPresented: $presentingAddChoreView) {
                         views.addChoreView()
@@ -84,6 +85,11 @@ struct AppView_Previews: PreviewProvider {
             views: Dependency.preview.views()
         )
         .preferredColorScheme(.dark)
+
+        AppView(
+            appViewModel: .init(staticState: .preview),
+            views: Dependency.preview.views()
+        )
     }
 }
 
@@ -107,9 +113,7 @@ extension AppView {
             ZStack(alignment: .bottom) {
                 HStack(alignment: .bottom, spacing: .zero) {
                     Spacer()
-                    Button {
-                        selectedTab = .choreTab
-                    } label: {
+                    CustomizableRegularButton {
                         VStack(spacing: .zero) {
                             Image(systemName: (selectedTab == .choreTab ? "checkmark.seal.fill" : "checkmark.seal"))
                                 .font(StylingFont.icon)
@@ -117,14 +121,14 @@ extension AppView {
                             Text("Chores")
                                 .font(StylingFont.caption)
                         }
+                    } action: {
+                        selectedTab = .choreTab
                     }
-                    .foregroundColor(selectedTab == .choreTab ? Color.accent : Color.gray3)
+                    .foregroundColor(selectedTab == .choreTab ? Color.accent : Color.fgGray)
                     Spacer()
                     Spacer()
                     Spacer()
-                    Button {
-                        selectedTab = .familyTab
-                    } label: {
+                    CustomizableRegularButton {
                         VStack(spacing: .zero) {
                             Image(systemName: (selectedTab == .familyTab ? "house.fill" : "house"))
                                 .font(StylingFont.icon)
@@ -132,32 +136,39 @@ extension AppView {
                             Text("Family")
                                 .font(StylingFont.caption)
                         }
+                    } action: {
+                        selectedTab = .familyTab
+
                     }
-                    .foregroundColor(selectedTab == .familyTab ? Color.accent : Color.gray3)
+                    .foregroundColor(selectedTab == .familyTab ? Color.accent : Color.fgGray)
                     Spacer()
                 }
-                .background {
-                    Color.bg.ignoresSafeArea()
-                }
+                .background(.thickMaterial)
 
                 if viewState.shouldRenderAddChoreButton {
-                    Button {
-                        presentingAddChoreView = true
-                    } label: {
+                    CustomizableRegularButton {
                         VStack(spacing: .zero) {
-                            Image(systemName: "plus.app.fill")
-                                .font(StylingFont.extraLargeIcon)
+                            Image(systemName: "plus")
+                                .font(StylingFont.icon)
+                                .tappableFrame()
+                                .smallVerticalPadding()
+                                .background {
+                                    Color.accent.clipShape(Circle())
+                                }
+                                .foregroundColor(.tabBarBg)
                                 .smallVerticalPadding()
                             Text("New Chore")
                                 .font(StylingFont.caption)
 
                         }
+                    } action: {
+                        presentingAddChoreView = true
                     }
                     .foregroundColor(.accent)
+
                 }
 
             }
-
         }
     }
 }

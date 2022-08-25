@@ -37,9 +37,9 @@ struct ChoreTabView: View {
                 }
                 .padding([.horizontal], StylingSize.largePadding)
                 .padding([.bottom], StylingSize.mediumPadding)
-                .background(Color.bg)
+                .background(Color.toolbarBg)
 
-                Color.gray7.frame(maxHeight: 1)
+                Color.border.frame(maxHeight: 1)
 
                 if viewState.displayingChoreList.isEmpty {
                     emptyChoreList
@@ -57,12 +57,14 @@ struct ChoreTabView: View {
                                         .opacity(0)
                                         ChoreCard(chore: chore)
                                     }
+                                    .padding([.bottom], StylingSize.largePadding)
+                                    .listRowBackground(Color.bg)
                                 }
                             }
                             .onDelete(perform: { offsets in
                                 choreTabViewModel.perform(action: .deleteChore(offsets))
                             })
-                            .listRowInsets(.init(top: 5, leading: 0, bottom: 5, trailing: 0))
+                            .listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
                             .listRowSeparator(.hidden)
                         }
                         .listStyle(.plain)
@@ -117,6 +119,11 @@ struct ChoreTabView_Previews: PreviewProvider {
         )
         .preferredColorScheme(.dark)
 
+        ChoreTabView(
+            presentedDrawer: .constant(false),
+            choreTabViewModel: ObservableViewModel(staticState: .preview),
+            views: Dependency.preview.views()
+        )
     }
 }
 
@@ -147,11 +154,11 @@ extension ChoreTabView {
                 }
                 .smallHorizontalPadding()
                 .smallVerticalPadding()
+                .foregroundColor(viewState.chorePickerState == .unfinished ? Color.pickerFgActive : Color.altFg)
                 .background {
                     if viewState.chorePickerState == .unfinished {
                         RoundedRectangle(cornerRadius: .infinity)
                             .foregroundColor(.pickerAccent)
-                            .shadow(color: .pickerAccent, radius: 1, x: 0, y: 0)
                             .matchedGeometryEffect(id: "pickerBackground", in: animation)
                     }
                 }
@@ -163,19 +170,18 @@ extension ChoreTabView {
                 }
                 .smallHorizontalPadding()
                 .smallVerticalPadding()
+                .foregroundColor(viewState.chorePickerState == .finished ? Color.pickerFgActive : Color.altFg)
                 .background {
                     if viewState.chorePickerState == .finished {
                         RoundedRectangle(cornerRadius: .infinity)
                             .foregroundColor(.pickerAccent)
-                            .shadow(color: .pickerAccent, radius: 1, x: 0, y: 0)
                             .matchedGeometryEffect(id: "pickerBackground", in: animation)
                     }
                 }
             }
             .background {
                 RoundedRectangle(cornerRadius: .infinity)
-                    .foregroundColor(.bg)
-                    .shadow(color: .gray9, radius: 2, x: 0, y: 0)
+                    .foregroundColor(.pickerBg)
             }
             .animation(.easeInOut(duration: 0.35), value: viewState.chorePickerState)
         }
@@ -196,10 +202,9 @@ extension ChoreTabView {
                 Label(viewState.choreFilterState.label, systemImage: viewState.choreFilterState.icon)
             })
             .font(StylingFont.headline)
-            .foregroundColor(.fg)
+            .foregroundColor(.accent)
             .smallHorizontalPadding()
-            .capsuleFrame(background: .bg)
-            .shadow(color: .gray9, radius: 2, x: 0, y: 0)
+            .capsuleFrame(background: .contrastBtnBg)
             .animation(nil, value: viewState.choreFilterState)
         }
     }

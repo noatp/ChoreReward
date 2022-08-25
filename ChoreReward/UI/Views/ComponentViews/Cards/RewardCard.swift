@@ -36,7 +36,7 @@ struct RewardCard: View {
         }
         .padding(StylingSize.largePadding)
         .background {
-            Color.bg.shadow(color: .gray7, radius: 3, x: 0, y: 0)
+            Color.bg
         }
         .padding([.bottom], StylingSize.mediumPadding)
     }

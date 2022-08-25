@@ -37,13 +37,15 @@ struct NavigationBar<LeftItem: View, RightItem: View>: View {
                 case .leftTitle:
                     HStack(alignment: .center, spacing: .zero) {
                         leftItem
+                            .foregroundColor(.altFg)
                         Text(title)
                             .font(StylingFont.mediumTitle)
                             .lineLimit(1)
                             .truncationMode(.tail)
-                            .foregroundColor(.accent)
+                            .foregroundColor(.navBarFg)
                         Spacer()
                         rightItem
+                            .foregroundColor(.altFg)
                     }
                     .tappableFrame()
 
@@ -51,8 +53,10 @@ struct NavigationBar<LeftItem: View, RightItem: View>: View {
                     ZStack(alignment: .center) {
                         HStack(alignment: .center, spacing: .zero) {
                             leftItem
+                                .foregroundColor(.altFg)
                             Spacer()
                             rightItem
+                                .foregroundColor(.altFg)
                         }
                         .tappableFrame()
 
@@ -62,7 +66,7 @@ struct NavigationBar<LeftItem: View, RightItem: View>: View {
                             Text(title)
                                 .lineLimit(1)
                                 .truncationMode(.tail)
-                                .foregroundColor(.accent)
+                                .foregroundColor(.navBarFg)
                                 .font(StylingFont.largeTitle)
                                 .opacity(opacity)
 
@@ -74,10 +78,9 @@ struct NavigationBar<LeftItem: View, RightItem: View>: View {
             }
             .padding(.bottom, StylingSize.smallPadding)
             .background(
-                Color.bg.ignoresSafeArea(edges: .top)
+                Color.navBarBg.ignoresSafeArea(edges: .top)
                     .opacity(opacity)
             )
-            .foregroundColor(Color.fg)
         }
     }
 }
@@ -128,9 +131,9 @@ struct NavigationBar_Previews: PreviewProvider {
                     rightItem: rightItem
                 )
             )
+            .preferredColorScheme(.dark)
 
         }
-        .preferredColorScheme(.dark)
     }
 }
 

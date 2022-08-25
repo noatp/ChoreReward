@@ -54,13 +54,13 @@ struct SideDrawer<MainContent: View, DrawerContent: View>: View {
 
                             Spacer()
 
-                            Color.gray7
+                            Color.border
                                 .ignoresSafeArea()
                                 .frame(maxWidth: 2)
                         }
                         .frame(width: geoProxy.size.width * 0.75)
                         .background(
-                            Color.bg
+                            Color.sideDrawerBg
                         )
                         .transition(.move(edge: .leading))
                     }
@@ -114,7 +114,7 @@ struct SideDrawerView_Previews: PreviewProvider {
 
 extension SideDrawer {
     private var transparentBackground: some View {
-        Color.bg.opacity(0.4)
+        Color.fgGray.opacity(0.4)
             .ignoresSafeArea()
             .onTapGesture {
                 withAnimation(.spring()) {
@@ -129,7 +129,8 @@ extension SideDrawer {
             withAnimation {
                 presentedDrawer = false
             }
-        }, icon: "xmark")
+        }, icon: "xmark", bgColor: .sideDrawerDismissBtn)
+        .foregroundColor(.fg)
     }
 
     private var basicDrawerContent: some View {
