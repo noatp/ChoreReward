@@ -33,17 +33,38 @@ class RootViewModel: StatefulViewModel {
                     return
                 }
 
-                switch receivedAuthState {
-                case .signedIn:
-                    strongSelf._state = .init(
-                        shouldRenderLoginView: false
-                    )
-                case .signedOut:
-                    strongSelf._state = .init(
-                        shouldRenderLoginView: true
-                    )
-                case .none:
-                    strongSelf.userService.silentSignIn()
+                if let oldState = strongSelf._state {
+                    switch receivedAuthState {
+                    case .signedIn:
+                        if oldState.shouldRenderLoginView != false {
+                            strongSelf._state = .init(
+                                shouldRenderLoginView: false
+                            )
+                        }
+
+                    case .signedOut:
+                        if oldState.shouldRenderLoginView != true {
+                            strongSelf._state = .init(
+                                shouldRenderLoginView: true
+                            )
+                        }
+
+                    case .none:
+                        strongSelf.userService.silentSignIn()
+                    }
+                } else {
+                    switch receivedAuthState {
+                    case .signedIn:
+                        strongSelf._state = .init(
+                            shouldRenderLoginView: false
+                        )
+                    case .signedOut:
+                        strongSelf._state = .init(
+                            shouldRenderLoginView: true
+                        )
+                    case .none:
+                        strongSelf.userService.silentSignIn()
+                    }
                 }
             })
     }
