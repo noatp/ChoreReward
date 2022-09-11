@@ -32,7 +32,7 @@ struct NoFamilyView: View {
                     .interpolation(.none)
                     .scaledToFit()
                     .frame(width: 200, height: 200)
-                HStack (alignment: .center, spacing: .zero) {
+                HStack(alignment: .center, spacing: .zero) {
                     VStack(alignment: .center, spacing: .zero) {
                         Divider()
                     }

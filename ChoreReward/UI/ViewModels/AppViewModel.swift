@@ -45,6 +45,7 @@ class AppViewModel: StatefulViewModel {
                         shouldRenderAddChoreButton: receivedUser.role == .parent || receivedUser.role == .admin,
                         shouldPresentNoFamilyView: receivedUser.familyId == nil,
                         shouldNavigateToDeepLink: oldState.shouldNavigateToDeepLink,
+                        shouldShowAddMemberOnFirstLaunch: receivedUser.role == .admin,
                         deepLinkTarget: oldState.deepLinkTarget
                     )
                 } else {
@@ -52,6 +53,7 @@ class AppViewModel: StatefulViewModel {
                         shouldRenderAddChoreButton: receivedUser.role == .parent || receivedUser.role == .admin,
                         shouldPresentNoFamilyView: receivedUser.familyId == nil,
                         shouldNavigateToDeepLink: false,
+                        shouldShowAddMemberOnFirstLaunch: receivedUser.role == .admin,
                         deepLinkTarget: .none
                     )
                 }
@@ -66,6 +68,7 @@ class AppViewModel: StatefulViewModel {
             shouldRenderAddChoreButton: oldState.shouldRenderAddChoreButton,
             shouldPresentNoFamilyView: oldState.shouldPresentNoFamilyView,
             shouldNavigateToDeepLink: newState,
+            shouldShowAddMemberOnFirstLaunch: oldState.shouldShowAddMemberOnFirstLaunch,
             deepLinkTarget: .none
         )
     }
@@ -80,6 +83,7 @@ class AppViewModel: StatefulViewModel {
             shouldRenderAddChoreButton: oldState.shouldRenderAddChoreButton,
             shouldPresentNoFamilyView: oldState.shouldPresentNoFamilyView,
             shouldNavigateToDeepLink: true,
+            shouldShowAddMemberOnFirstLaunch: oldState.shouldShowAddMemberOnFirstLaunch,
             deepLinkTarget: deepLinkTarget
         )
     }
@@ -100,11 +104,13 @@ struct AppViewState {
     let shouldRenderAddChoreButton: Bool
     let shouldPresentNoFamilyView: Bool
     let shouldNavigateToDeepLink: Bool
+    let shouldShowAddMemberOnFirstLaunch: Bool
     let deepLinkTarget: DeepLinkTarget
     static let preview: AppViewState = .init(
         shouldRenderAddChoreButton: true,
         shouldPresentNoFamilyView: false,
         shouldNavigateToDeepLink: false,
+        shouldShowAddMemberOnFirstLaunch: false,
         deepLinkTarget: .none
     )
 }

@@ -72,21 +72,23 @@ struct AppView: View {
                     .onAppear {
                         if isFirstLaunch {
                             isFirstLaunch = false
-                            selectedTab = .familyTab
-                            var components = URLComponents()
-                            components.scheme = "chorereward"
-                            components.host = "com.noatp.chorereward"
-                            components.path = "/addMember"
-                            guard let url = components.url else {
-                                return
-                            }
+                            if viewState.shouldShowAddMemberOnFirstLaunch {
+                                selectedTab = .familyTab
+                                var components = URLComponents()
+                                components.scheme = "chorereward"
+                                components.host = "com.noatp.chorereward"
+                                components.path = "/addMember"
+                                guard let url = components.url else {
+                                    return
+                                }
 
-                            print("\(#fileID) \(#function): opening url \(url)")
+                                print("\(#fileID) \(#function): opening url \(url)")
 
-                            if #available(iOS 10.0, *) {
-                                UIApplication.shared.open(url, options: [:], completionHandler: nil)
-                            } else {
-                                UIApplication.shared.openURL(url)
+                                if #available(iOS 10.0, *) {
+                                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                                } else {
+                                    UIApplication.shared.openURL(url)
+                                }
                             }
                         }
                     }
