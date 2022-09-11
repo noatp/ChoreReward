@@ -35,12 +35,14 @@ class SignUpViewModel: StatefulViewModel {
                     if let error = error {
                         self?._state = .init(
                             errorMessage: error.localizedDescription,
-                            shouldShowAlert: true
+                            shouldShowAlert: true,
+                            shouldShowProgressView: false
                         )
                     } else {
                         self?._state = .init(
                             errorMessage: "",
-                            shouldShowAlert: false
+                            shouldShowAlert: false,
+                            shouldShowProgressView: false
                         )
                     }
                 case .none:
@@ -56,6 +58,11 @@ class SignUpViewModel: StatefulViewModel {
         roleSelection: Role,
         userImageUrl: String?
     ) {
+        self._state = .init(
+            errorMessage: "",
+            shouldShowAlert: false,
+            shouldShowProgressView: true
+        )
         let newUser = User(
             email: emailInput,
             name: nameInput,
@@ -67,7 +74,11 @@ class SignUpViewModel: StatefulViewModel {
     }
 
     private func updateShouldShowAlertState(newState: Bool) {
-        self._state = .init(errorMessage: "", shouldShowAlert: newState)
+        self._state = .init(
+            errorMessage: "",
+            shouldShowAlert: newState,
+            shouldShowProgressView: false
+        )
     }
 
     func performAction(_ action: SignUpAction) {
@@ -89,8 +100,22 @@ class SignUpViewModel: StatefulViewModel {
 struct SignUpState {
     let errorMessage: String
     let shouldShowAlert: Bool
-    static let previewWithError: SignUpState = .init(errorMessage: "preview error", shouldShowAlert: true)
-    static let previewWithoutError: SignUpState = .init(errorMessage: "", shouldShowAlert: false)
+    let shouldShowProgressView: Bool
+    static let previewWithError: SignUpState = .init(
+        errorMessage: "preview error",
+        shouldShowAlert: true,
+        shouldShowProgressView: false
+    )
+    static let previewWithoutError: SignUpState = .init(
+        errorMessage: "",
+        shouldShowAlert: false,
+        shouldShowProgressView: false
+    )
+    static let previewWithProgressView: SignUpState = .init(
+        errorMessage: "",
+        shouldShowAlert: false,
+        shouldShowProgressView: true
+    )
 }
 
 enum SignUpAction {

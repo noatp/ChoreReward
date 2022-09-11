@@ -41,6 +41,8 @@ struct SignUpView: View {
                     }
                     rolePicker
                     RegularTextField(title: "Name", textInput: $nameInput)
+                        .textInputAutocapitalization(.never)
+                        .disableAutocorrection(true)
                         .textContentType(.name)
                         .keyboardType(.namePhonePad)
                         .submitLabel(.next)
@@ -49,15 +51,18 @@ struct SignUpView: View {
                             focusedField = .email
                         }
                     RegularTextField(title: "Email", textInput: $emailInput)
+                        .textInputAutocapitalization(.never)
+                        .disableAutocorrection(true)
                         .textContentType(.emailAddress)
                         .keyboardType(.emailAddress)
                         .submitLabel(.next)
-                        .focused($focusedField, equals: .email
-                        )
+                        .focused($focusedField, equals: .email)
                         .onSubmit {
                             focusedField = .password
                         }
                     SecuredTextField(title: "Password", textInput: $passwordInput)
+                        .textInputAutocapitalization(.never)
+                        .disableAutocorrection(true)
                         .textContentType(.password)
                         .submitLabel(.done)
                         .focused($focusedField, equals: .password)
@@ -80,6 +85,7 @@ struct SignUpView: View {
                 })
                 .ignoresSafeArea()
             }
+            .progressViewContainer(shouldShowProgessView: viewState.shouldShowProgressView)
             .alert(
                 viewState.errorMessage,
                 isPresented: Binding<Bool>(

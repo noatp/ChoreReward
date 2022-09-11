@@ -34,12 +34,14 @@ class LoginViewModel: StatefulViewModel {
                     if let error = error {
                         self?._state = .init(
                             errorMessage: error.localizedDescription,
-                            shouldShowAlert: true
+                            shouldShowAlert: true,
+                            shouldShowProgressView: false
                         )
                     } else {
                         self?._state = .init(
                             errorMessage: "",
-                            shouldShowAlert: false
+                            shouldShowAlert: false,
+                            shouldShowProgressView: false
                         )
                     }
                 case .none:
@@ -49,13 +51,22 @@ class LoginViewModel: StatefulViewModel {
     }
 
     private func signIn(emailInput: String, passwordInput: String) {
+        self._state  = .init(
+            errorMessage: "",
+            shouldShowAlert: false,
+            shouldShowProgressView: true
+        )
         Task {
             await userService.signIn(email: emailInput, password: passwordInput)
         }
     }
 
     private func updateShouldShowAlertState(newState: Bool) {
-        self._state = .init(errorMessage: "", shouldShowAlert: newState)
+        self._state = .init(
+            errorMessage: "",
+            shouldShowAlert: newState,
+            shouldShowProgressView: false
+        )
     }
 
     func performAction(_ action: LoginViewAction) {
@@ -71,8 +82,22 @@ class LoginViewModel: StatefulViewModel {
 struct LoginViewState {
     let errorMessage: String
     let shouldShowAlert: Bool
-    static let previewWithError: LoginViewState = .init(errorMessage: "preview error", shouldShowAlert: true)
-    static let previewWithoutError: LoginViewState = .init(errorMessage: "", shouldShowAlert: false)
+    let shouldShowProgressView: Bool
+    static let previewWithError: LoginViewState = .init(
+        errorMessage: "preview error",
+        shouldShowAlert: true,
+        shouldShowProgressView: false
+    )
+    static let previewWithoutError: LoginViewState = .init(
+        errorMessage: "",
+        shouldShowAlert: false,
+        shouldShowProgressView: false
+    )
+    static let previewWithProgressView: LoginViewState = .init(
+        errorMessage: "",
+        shouldShowAlert: false,
+        shouldShowProgressView: true
+    )
 }
 
 enum LoginViewAction {

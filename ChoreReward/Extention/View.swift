@@ -9,6 +9,21 @@ import Foundation
 import SwiftUI
 
 extension View {
+    func progressViewContainer(shouldShowProgessView: Bool) -> some View {
+        return ZStack(alignment: .center) {
+            self
+            if shouldShowProgessView {
+                VStack(alignment: .center, spacing: .zero) {
+                    Spacer()
+                    ProgressView()
+                        .frame(maxWidth: .infinity)
+                    Spacer()
+                }
+                .background(Color.fgGray.opacity(0.4))
+            }
+        }
+    }
+
     func scrollViewOffset(_ offset: Binding<Double>) -> some View {
         background(GeometryReader { geoProxy -> Color in
             let scrollViewOffset = geoProxy.frame(in: .global).minY / -100
