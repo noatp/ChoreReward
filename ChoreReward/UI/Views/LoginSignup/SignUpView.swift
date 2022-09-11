@@ -74,15 +74,20 @@ struct SignUpView: View {
                     signUp()
                 }
             }
-            .vNavBar(NavigationBar(
-                title: "Sign up",
-                leftItem: backButton,
-                rightItem: EmptyView())
+            .vNavBar(
+                NavigationBar(
+                    title: "Sign up",
+                    leftItem: backButton,
+                    rightItem: EmptyView()
+                )
             )
             .fullScreenCover(isPresented: $shouldShowImagePicker, onDismiss: nil) {
-                ImagePicker(sourceType: .photoLibrary, didFinishPickingMediaHandler: { newUserImageUrl in
-                    userImageUrl = newUserImageUrl
-                })
+                ImagePicker(
+                    sourceType: .photoLibrary,
+                    didFinishPickingMediaHandler: { newUserImageUrl in
+                        userImageUrl = newUserImageUrl
+                    }
+                )
                 .ignoresSafeArea()
             }
             .progressViewContainer(shouldShowProgessView: viewState.shouldShowProgressView)

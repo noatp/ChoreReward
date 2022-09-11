@@ -70,7 +70,13 @@ struct LoginView: View {
                     }
                     .smallVerticalPadding()
                 }
-                .vNavBar(NavigationBar(title: "Log in", leftItem: EmptyView(), rightItem: EmptyView()))
+                .vNavBar(
+                    NavigationBar(
+                        title: "Log in",
+                        leftItem: EmptyView(),
+                        rightItem: EmptyView()
+                    )
+                )
                 .progressViewContainer(shouldShowProgessView: viewState.shouldShowProgressView)
                 .alert(
                     viewState.errorMessage,
