@@ -25,23 +25,33 @@ struct NoFamilyView: View {
         UnwrapViewState(viewState: noFamilyViewModel.viewState) { viewState in
             VStack(spacing: 16) {
                 Spacer()
-                Text("Please ask your family's admin to invite you to the family using the following QR code")
+                Text("Please ask your family's admin to invite you to the family by scanning QR code below")
                     .multilineTextAlignment(.center)
                 Image(uiImage: generateQRImage(from: viewState.currentUserId))
                     .resizable()
                     .interpolation(.none)
                     .scaledToFit()
                     .frame(width: 200, height: 200)
-                Text(viewState.currentUserId)
+                HStack (alignment: .center, spacing: .zero) {
+                    VStack(alignment: .center, spacing: .zero) {
+                        Divider()
+                    }
+                    Spacer()
+                    Text("or")
+                    Spacer()
+                    VStack(alignment: .center, spacing: .zero) {
+                        Divider()
+                    }
+                }
                 if viewState.shouldRenderCreateFamilyButton {
                     FilledButton(buttonTitle: "Create a new family", buttonImage: "plus") {
                         noFamilyViewModel.perform(action: .createFamily)
                     }
                 }
+                Spacer()
                 FilledButton(buttonTitle: "Log out", buttonImage: "arrow.backward.to.line") {
                     noFamilyViewModel.perform(action: .signOut)
                 }
-                Spacer()
             }
             .padding(StylingSize.largePadding)
             .vNavBar(NavigationBar(title: "Let's get started", leftItem: EmptyView(), rightItem: EmptyView()))

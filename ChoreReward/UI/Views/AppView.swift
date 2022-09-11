@@ -46,7 +46,6 @@ struct AppView: View {
                             tabBar
                         }
                     }
-
                     .sideDrawer(views: views, presentedDrawer: $presentedDrawer)
                     .fullScreenCover(isPresented: $presentingAddChoreView) {
                         views.addChoreView()
@@ -70,32 +69,32 @@ struct AppView: View {
                             views.addFamilyMemberView()
                         }
                     }
+                    .onAppear {
+                        if isFirstLaunch {
+                            isFirstLaunch = false
+                            selectedTab = .familyTab
+                            var components = URLComponents()
+                            components.scheme = "chorereward"
+                            components.host = "com.noatp.chorereward"
+                            components.path = "/addMember"
+                            guard let url = components.url else {
+                                return
+                            }
+
+                            print("\(#fileID) \(#function): opening url \(url)")
+
+                            if #available(iOS 10.0, *) {
+                                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                            } else {
+                                UIApplication.shared.openURL(url)
+                            }
+                        }
+                    }
                 }
             }
         }
         .onOpenURL { url in
             appViewModel.perform(action: .parseUrlToDeepLinkTarget(url))
-        }
-        .onAppear {
-            if isFirstLaunch {
-                isFirstLaunch = false
-                selectedTab = .familyTab
-                var components = URLComponents()
-                components.scheme = "chorereward"
-                components.host = "com.noatp.chorereward"
-                components.path = "/addMember"
-                guard let url = components.url else {
-                    return
-                }
-
-                print("\(#fileID) \(#function): opening url \(url)")
-
-                if #available(iOS 10.0, *) {
-                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
-                } else {
-                    UIApplication.shared.openURL(url)
-                }
-            }
         }
     }
 }
