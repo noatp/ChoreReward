@@ -35,12 +35,21 @@ class NoFamilyViewModel: StatefulViewModel {
                 }
                 self?._state = .init(
                     shouldRenderCreateFamilyButton: receivedUser.role == .parent,
-                    currentUserId: receivedUserId
+                    currentUserId: receivedUserId,
+                    shouldShowProgressView: false
                 )
             })
     }
 
     private func createFamily() {
+        guard let oldState = self._state else {
+            return
+        }
+        self._state = .init(
+            shouldRenderCreateFamilyButton: oldState.shouldRenderCreateFamilyButton,
+            currentUserId: oldState.currentUserId,
+            shouldShowProgressView: true
+        )
         guard let currentUserId = userService.currentUserId else {
             return
         }
@@ -66,7 +75,17 @@ class NoFamilyViewModel: StatefulViewModel {
 struct NoFamilyState {
     let shouldRenderCreateFamilyButton: Bool
     let currentUserId: String
-    static let preview: NoFamilyState = .init(shouldRenderCreateFamilyButton: true, currentUserId: "previewId")
+    let shouldShowProgressView: Bool
+    static let preview: NoFamilyState = .init(
+        shouldRenderCreateFamilyButton: true,
+        currentUserId: "previewId",
+        shouldShowProgressView: false
+    )
+    static let previewWithProgressView: NoFamilyState = .init(
+        shouldRenderCreateFamilyButton: true,
+        currentUserId: "previewId",
+        shouldShowProgressView: true
+    )
 }
 
 enum NoFamilyAction {

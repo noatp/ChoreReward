@@ -11,6 +11,7 @@ import SwiftUI
 
 struct AppView: View {
     @ObservedObject var appViewModel: ObservableViewModel<AppViewState, AppViewAction>
+    @AppStorage("isFirstLaunch") private var isFirstLaunch = true
     @State var selectedTab: Tabs = .choreTab
     @State var presentingAddChoreView: Bool = false
     @State var presentedDrawer: Bool = false
@@ -65,6 +66,8 @@ struct AppView: View {
                             ProgressView()
                         case .detail(let choreId):
                             views.choreDetailView(choreId: choreId)
+                        case .addMember:
+                            views.addFamilyMemberView()
                         }
                     }
                 }
@@ -72,6 +75,27 @@ struct AppView: View {
         }
         .onOpenURL { url in
             appViewModel.perform(action: .parseUrlToDeepLinkTarget(url))
+        }
+        .onAppear {
+            if isFirstLaunch {
+                isFirstLaunch = false
+                selectedTab = .familyTab
+                var components = URLComponents()
+                components.scheme = "chorereward"
+                components.host = "com.noatp.chorereward"
+                components.path = "/addMember"
+                guard let url = components.url else {
+                    return
+                }
+
+                print("\(#fileID) \(#function): opening url \(url)")
+
+                if #available(iOS 10.0, *) {
+                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                } else {
+                    UIApplication.shared.openURL(url)
+                }
+            }
         }
     }
 }

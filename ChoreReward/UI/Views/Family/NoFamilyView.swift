@@ -45,6 +45,7 @@ struct NoFamilyView: View {
             }
             .padding(StylingSize.largePadding)
             .vNavBar(NavigationBar(title: "Let's get started", leftItem: EmptyView(), rightItem: EmptyView()))
+            .progressViewContainer(shouldShowProgessView: viewState.shouldShowProgressView)
         }
     }
 

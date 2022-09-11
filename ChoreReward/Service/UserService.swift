@@ -89,6 +89,7 @@ class UserService: ObservableObject {
                     }
                 }
 
+                UserDefaults.standard.set(true, forKey: "isFirstLaunch")
                 self.authState = .signedIn
                 readCurrentUser(currentUserId: currentUserId)
             }

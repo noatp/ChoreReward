@@ -20,12 +20,15 @@ class DeepLinkService {
             return .none
         }
 
-        if url.path == "/detail" {
+        switch url.path {
+        case "/detail":
             guard let choreId = url.query else {
                 return .none
             }
             return .detail(choreId: choreId)
-        } else {
+        case "/addMember":
+            return .addMember
+        default:
             return .none
         }
     }
@@ -33,5 +36,6 @@ class DeepLinkService {
 
 enum DeepLinkTarget {
     case detail(choreId: String)
+    case addMember
     case none
 }
