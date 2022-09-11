@@ -37,12 +37,14 @@ struct FamilyTabView: View {
             }
             .listStyle(.plain)
             .padding(StylingSize.largePadding)
-            .vNavBar(NavigationBar(
-                title: "Family",
-                leftItem: menuButton,
-                rightItem: addFamilyMemberButton,
-                navBarLayout: .leftTitle
-            ))
+            .vNavBar(
+                NavigationBar(
+                    title: "Family",
+                    leftItem: menuButton,
+                    rightItem: addFamilyMemberButton,
+                    navBarLayout: .leftTitle
+                )
+            )
             .fullScreenCover(isPresented: $presentedAddMemberSheet) {
                 views.addFamilyMemberView()
             }
@@ -93,8 +95,18 @@ extension FamilyTabView {
     }
 
     private var addFamilyMemberButton: some View {
-        CircularButton(action: {
-            presentedAddMemberSheet = true
-        }, icon: "plus")
+        UnwrapViewState(viewState: familyTabViewModel.viewState) { viewState in
+            Group {
+                if viewState.shouldRenderAddMemberButton {
+                    CircularButton(
+                        action: {presentedAddMemberSheet = true},
+                        icon: "plus"
+                    )
+                } else {
+                    EmptyView()
+                }
+            }
+
+        }
     }
 }
