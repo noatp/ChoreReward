@@ -218,11 +218,17 @@ extension ChoreTabView {
     }
 
     private var emptyChoreList: some View {
-        VStack {
-            Spacer()
-            Text("Tap the \"+\" button below to add new chore!")
-                .font(StylingFont.headline)
-            Spacer()
+        UnwrapViewState(viewState: choreTabViewModel.viewState) { viewState in
+
+            VStack {
+                Spacer()
+                Text(viewState.shouldShowAddChorePrompt
+                     ? "Tap the \"+\" button below to add new chore!"
+                     : "There is no new chore."
+                )
+                    .font(StylingFont.headline)
+                Spacer()
+            }
         }
     }
 

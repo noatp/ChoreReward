@@ -43,7 +43,8 @@ class ChoreTabViewModel: StatefulViewModel {
                         ) ?? [],
                         choreFilterState: oldState.choreFilterState,
                         chorePickerState: oldState.chorePickerState,
-                        deletableChore: self?.userService.currentUser?.role != .child
+                        deletableChore: self?.userService.currentUser?.role != .child,
+                        shouldShowAddChorePrompt: self?.userService.currentUser?.role != .child
                     )
                 } else {
                     self?._state = .init(
@@ -54,7 +55,8 @@ class ChoreTabViewModel: StatefulViewModel {
                         ) ?? [],
                         choreFilterState: .all,
                         chorePickerState: .unfinished,
-                        deletableChore: self?.userService.currentUser?.role != .child
+                        deletableChore: self?.userService.currentUser?.role != .child,
+                        shouldShowAddChorePrompt: self?.userService.currentUser?.role != .child
                     )
                 }
             })
@@ -115,7 +117,8 @@ class ChoreTabViewModel: StatefulViewModel {
             ),
             choreFilterState: newState,
             chorePickerState: oldState.chorePickerState,
-            deletableChore: oldState.deletableChore
+            deletableChore: oldState.deletableChore,
+            shouldShowAddChorePrompt: oldState.shouldShowAddChorePrompt
         )
     }
 
@@ -131,7 +134,8 @@ class ChoreTabViewModel: StatefulViewModel {
             ),
             choreFilterState: oldState.choreFilterState,
             chorePickerState: newState,
-            deletableChore: oldState.deletableChore
+            deletableChore: oldState.deletableChore,
+            shouldShowAddChorePrompt: oldState.shouldShowAddChorePrompt
         )
     }
 
@@ -171,12 +175,14 @@ struct ChoreTabState {
     let choreFilterState: ChoreFilterState
     let chorePickerState: ChorePickerState
     let deletableChore: Bool
+    let shouldShowAddChorePrompt: Bool
 
     static let preview: ChoreTabState = .init(
         displayingChoreList: [.previewChoreFinished, .previewChoreUnfinished, .previewChoreFinished_1],
         choreFilterState: .all,
         chorePickerState: .unfinished,
-        deletableChore: false
+        deletableChore: false,
+        shouldShowAddChorePrompt: false
     )
 }
 
